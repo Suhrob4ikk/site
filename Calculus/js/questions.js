@@ -1,4 +1,92 @@
-// Легкие вопросы
+  // Вопросы для раздела "Ряды и последовательности"
+    
+    // Легкие вопросы
+    const easySeriesQuestions = [
+      {
+        question: "Чему равен предел последовательности $a_n = \\frac{1}{n}$ при $n \\to \\infty$?",
+        options: ["$0$", "$1$", "$\\infty$", "$-\\infty$"],
+        correct: 0
+      },
+      {
+        question: "Какой из следующих рядов является гармоническим?",
+        options: ["$\\sum_{n=1}^{\\infty} \\frac{1}{n}$", "$\\sum_{n=1}^{\\infty} \\frac{1}{n^2}$", "$\\sum_{n=1}^{\\infty} \\frac{1}{2^n}$", "$\\sum_{n=1}^{\\infty} n$"],
+        correct: 0
+      },
+      {
+        question: "Что означает сходимость ряда?",
+        options: ["Сумма ряда конечна", "Последовательность частичных сумм имеет предел", "Члены ряда стремятся к нулю", "Все члены ряда положительны"],
+        correct: 1
+      },
+      {
+        question: "Какая из этих последовательностей сходится?",
+        options: ["$a_n = (-1)^n$", "$a_n = \\frac{n}{n+1}$", "$a_n = n^2$", "$a_n = 2^n$"],
+        correct: 1
+      },
+      {
+        question: "Чему равна сумма геометрической прогрессии $1 + \\frac{1}{2} + \\frac{1}{4} + \\frac{1}{8} + \\ldots$?",
+        options: ["$2$", "$1$", "$\\infty$", "$\\frac{1}{2}$"],
+        correct: 0
+      }
+    ];
+
+    // Средние вопросы
+    const mediumSeriesQuestions = [
+      {
+        question: "Сходится ли ряд $\\sum_{n=1}^{\\infty} \\frac{1}{n^2}$?",
+        options: ["Да, сходится", "Нет, расходится", "Сходится только для четных n", "Сходится только для нечетных n"],
+        correct: 0
+      },
+      {
+        question: "Что показывает признак Даламбера?",
+        options: ["Сходимость ряда через отношение соседних членов", "Сходимость ряда через интеграл", "Сходимость ряда через корень n-ой степени", "Сходимость знакопеременного ряда"],
+        correct: 0
+      },
+      {
+        question: "Какой из этих рядов сходится по признаку Лейбница?",
+        options: ["$\\sum_{n=1}^{\\infty} (-1)^n \\frac{1}{n}$", "$\\sum_{n=1}^{\\infty} \\frac{1}{n}$", "$\\sum_{n=1}^{\\infty} (-1)^n n$", "$\\sum_{n=1}^{\\infty} (-1)^n \\frac{1}{n^2}$"],
+        correct: 0
+      },
+      {
+        question: "Чему равен радиус сходимости степенного ряда $\\sum_{n=0}^{\\infty} \\frac{x^n}{n!}$?",
+        options: ["$\\infty$", "$1$", "$0$", "$e$"],
+        correct: 0
+      },
+      {
+        question: "Что такое частичная сумма ряда?",
+        options: ["Сумма первых n членов ряда", "Сумма всех членов ряда", "Сумма четных членов ряда", "Сумма нечетных членов ряда"],
+        correct: 0
+      }
+    ];
+
+    // Сложные вопросы
+    const hardSeriesQuestions = [
+      {
+        question: "Сходится ли ряд $\\sum_{n=1}^{\\infty} \\frac{\\sin(n)}{n^2}$?",
+        options: ["Да, абсолютно сходится", "Сходится условно", "Расходится", "Сходится только для некоторых n"],
+        correct: 0
+      },
+      {
+        question: "Какой из следующих рядов сходится равномерно на всей числовой прямой?",
+        options: ["$\\sum_{n=0}^{\\infty} \\frac{x^n}{n!}$", "$\\sum_{n=1}^{\\infty} \\frac{x^n}{n}$", "$\\sum_{n=1}^{\\infty} n x^n$", "$\\sum_{n=1}^{\\infty} \\frac{x^n}{n^2}$"],
+        correct: 0
+      },
+      {
+        question: "Что такое ряд Тейлора для функции $e^x$?",
+        options: ["$\\sum_{n=0}^{\\infty} \\frac{x^n}{n!}$", "$\\sum_{n=0}^{\\infty} \\frac{x^n}{n}$", "$\\sum_{n=0}^{\\infty} (-1)^n \\frac{x^n}{n!}$", "$\\sum_{n=0}^{\\infty} \\frac{x^{2n}}{(2n)!}$"],
+        correct: 0
+      },
+      {
+        question: "Какой признак сходимости используется для рядов с положительными членами?",
+        options: ["Признак сравнения", "Признак Лейбница", "Признак Абеля", "Признак Дирихле"],
+        correct: 0
+      },
+      {
+        question: "Что такое условная сходимость ряда?",
+        options: ["Ряд сходится, но не абсолютно", "Ряд сходится абсолютно", "Ряд сходится только при определенных условиях", "Ряд сходится медленно"],
+        correct: 0
+      }
+    ];
+          // Легкие вопросы
 const easyDerivativesQuestions = [
     {
         question: "Найдите производную функции $f(x) = x^2$",
@@ -67,8 +155,8 @@ const easyDerivativesQuestions = [
     },
     {
         question: "Найдите производную функции $f(x) = \\ln(x^2)$",
-        options: ["$f'(x) = \\frac{2}{x}$", "$f'(x) = \\frac{1}{x^2}$", "$f'(x) = \\frac{2x}{x^2}$", "$f'(x) = 2\\ln(x)$"],
-        correct: 0
+        options: [ "$f'(x) = \\frac{2}{x^2}$","$f'(x) = \\frac{1}{x^2}$", "$f'(x) = \\frac{2}{x}$", "$f'(x) = 2\\ln(x)$"],
+        correct: 2
     },
     {
         question: "Найдите производную функции $f(x) = (2x + 1)^5$",
@@ -80,63 +168,63 @@ const easyDerivativesQuestions = [
 const mediumDerivativesQuestions = [
     { 
         question: "f(x) = \\(x^2 \\cdot \\sin(x)\\). Найдите f'(x)", 
-        options: ["\\(2x\\sin(x) + x^2\\cos(x)\\)", "\\(x^2\\cos(x)\\)", "\\(2x\\sin(x)\\)", "\\(\\cos(x)\\)"], 
-        correct: 0 
+        options: [ "\\(x^2\\cos(x)\\)", "\\(2x\\sin(x)\\)", "\\(2x\\sin(x) + x^2\\cos(x)\\)","\\(\\cos(x)\\)"], 
+        correct: 2 
     },
     { 
         question: "f(x) = \\(e^x \\cdot \\ln(x)\\). Найдите f'(x)", 
-        options: ["\\(\\frac{e^x}{x} + e^x\\ln(x)\\)", "\\(e^x\\ln(x)\\)", "\\(\\frac{e^x}{x}\\)", "\\(\\ln(x)\\)"], 
-        correct: 0 
+        options: [ "\\(e^x\\ln(x)\\)", "\\(\\frac{e^x}{x}\\)", "\\(\\ln(x)\\)","\\(\\frac{e^x}{x} + e^x\\ln(x)\\)"], 
+        correct: 3 
     },
     { 
         question: "f(x) = \\((x^3 + 2x)^4\\). Найдите f'(x)", 
-        options: ["\\(4(x^3 + 2x)^3(3x^2 + 2)\\)", "\\(4(x^3 + 2x)^3\\)", "\\(12x^2(x^3 + 2x)^3\\)", "\\((3x^2 + 2)^4\\)"], 
-        correct: 0 
+        options: ["\\(4(x^3 + 2x)^3\\)", "\\(12x^2(x^3 + 2x)^3\\)","\\(4(x^3 + 2x)^3(3x^2 + 2)\\)",  "\\((3x^2 + 2)^4\\)"], 
+        correct: 2 
     },
     { 
         question: "f(x) = \\(\\sqrt{x^2 + 1}\\). Найдите f'(x)", 
-        options: ["\\(\\frac{x}{\\sqrt{x^2 + 1}}\\)", "\\(\\frac{1}{2\\sqrt{x^2 + 1}}\\)", "\\(\\frac{2x}{\\sqrt{x^2 + 1}}\\)", "\\(\\sqrt{2x}\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{1}{2\\sqrt{x^2 + 1}}\\)", "\\(\\frac{2x}{\\sqrt{x^2 + 1}}\\)","\\(\\frac{x}{\\sqrt{x^2 + 1}}\\)", "\\(\\sqrt{2x}\\)"], 
+        correct: 2
     },
     { 
         question: "f(x) = \\(\\sin(2x) \\cdot \\cos(3x)\\). Найдите f'(x)", 
-        options: ["\\(2\\cos(2x)\\cos(3x) - 3\\sin(2x)\\sin(3x)\\)", "\\(\\cos(2x)\\cos(3x) - \\sin(2x)\\sin(3x)\\)", "\\(2\\cos(2x) + 3\\cos(3x)\\)", "\\(5\\cos(5x)\\)"], 
-        correct: 0 
+        options: ["\\(\\cos(2x)\\cos(3x) - \\sin(2x)\\sin(3x)\\)", "\\(2\\cos(2x) + 3\\cos(3x)\\)", "\\(5\\cos(5x)\\)","\\(2\\cos(2x)\\cos(3x) - 3\\sin(2x)\\sin(3x)\\)"], 
+        correct: 3 
     },
     { 
         question: "f(x) = \\(\\ln(x^2 + 4)\\). Найдите f'(x)", 
-        options: ["\\(\\frac{2x}{x^2 + 4}\\)", "\\(\\frac{1}{x^2 + 4}\\)", "\\(\\frac{2}{x}\\)", "\\(\\frac{x}{x^2 + 4}\\)"], 
-        correct: 0 
+        options: ["\\(\\frac{x}{x^2 + 4}\\)", "\\(\\frac{1}{x^2 + 4}\\)", "\\(\\frac{2}{x}\\)", "\\(\\frac{2x}{x^2 + 4}\\)"], 
+        correct: 3 
     },
     { 
         question: "f(x) = \\(e^{2x} \\cdot \\sin(x)\\). Найдите f'(x)", 
-        options: ["\\(2e^{2x}\\sin(x) + e^{2x}\\cos(x)\\)", "\\(e^{2x}\\cos(x)\\)", "\\(2e^{2x}\\sin(x)\\)", "\\(e^{2x}(\\sin(x) + \\cos(x))\\)"], 
+        options: ["\\(e^{2x}(\\sin(x) + \\cos(x))\\)", "\\(e^{2x}\\cos(x)\\)", "\\(2e^{2x}\\sin(x)\\)","\\(e^{2x}(\\2\\sin(x) + \\cos(x))\\)"], 
         correct: 0 
     },
     { 
         question: "f(x) = \\(\\frac{2x + 1}{x - 3}\\). Найдите f'(x)", 
-        options: ["\\(-\\frac{7}{(x - 3)^2}\\)", "\\(\\frac{2}{x - 3}\\)", "\\(\\frac{2(x-3) - (2x+1)}{(x-3)^2}\\)", "\\(\\frac{1}{(x-3)^2}\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{2}{x - 3}\\)", "\\(\\frac{5}{(x-3)^2}\\)", "\\(-\\frac{7}{(x - 3)^2}\\)","\\(\\frac{1}{(x-3)^2}\\)"], 
+        correct: 2 
     },
     { 
         question: "f(x) = \\(x \\cdot \\arctan(x)\\). Найдите f'(x)", 
-        options: ["\\(\\arctan(x) + \\frac{x}{1 + x^2}\\)", "\\(\\frac{1}{1 + x^2}\\)", "\\(\\frac{x}{1 + x^2}\\)", "\\(\\arctan(x) + \\frac{1}{1 + x^2}\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{1}{1 + x^2}\\)","\\(\\arctan(x) + \\frac{x}{1 + x^2}\\)", "\\(\\frac{x}{1 + x^2}\\)", "\\(\\arctan(x) + \\frac{1}{1 + x^2}\\)"], 
+        correct: 1 
     },
     { 
         question: "f(x) = \\(\\cos^2(x)\\). Найдите f'(x)", 
-        options: ["\\(-2\\cos(x)\\sin(x)\\)", "\\(-\\sin^2(x)\\)", "\\(2\\cos(x)\\)", "\\(-2\\sin(x)\\)"], 
-        correct: 0 
+        options: ["\\(2\\cos(x)\\sin(x)\\)", "\\(-\\sin^2(x)\\)", "\\(2\\cos(x)\\)", "\\(-2\\cos(x)\\sin(x)\\)"], 
+        correct: 3 
     },
     { 
         question: "f(x) = \\(\\sqrt{x} \\cdot \\ln(x)\\). Найдите f'(x)", 
-        options: ["\\(\\frac{\\ln(x)}{2\\sqrt{x}} + \\frac{\\sqrt{x}}{x}\\)", "\\(\\frac{1}{2\\sqrt{x}}\\)", "\\(\\frac{\\sqrt{x}}{x}\\)", "\\(\\frac{\\ln(x)}{2\\sqrt{x}}\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{1}{2\\sqrt{x}}\\)","\\(\\frac{\\ln(x)}{2\\sqrt{x}} + \\frac{1}{\\sqrt{x}}\\)", "\\(\\frac{\\ln(x)}{2\\sqrt{x}} + \\frac{1}{x}\\)", "\\(\\frac{\\ln(x)}{2\\sqrt{x}}\\)"], 
+        correct: 1 
     },
     { 
         question: "f(x) = \\(e^{x^2}\\). Найдите f'(x)", 
-        options: ["\\(2x \\cdot e^{x^2}\\)", "\\(e^{x^2}\\)", "\\(2x \\cdot e^x\\)", "\\(x^2 \\cdot e^{x^2}\\)"], 
-        correct: 0 
+        options: ["\\(e^{x^2}\\)", "\\(2x \\cdot e^x\\)", "\\(x^2 \\cdot e^{x^2}\\)","\\(2x \\cdot e^{x^2}\\)" ], 
+        correct: 3 
     },
     { 
         question: "f(x) = \\(\\frac{\\sin(x)}{x}\\). Найдите f'(x)", 
@@ -150,23 +238,23 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\(\\tan(3x)\\). Найдите f'(x)", 
-        options: ["\\(3\\sec^2(3x)\\)", "\\(\\sec^2(3x)\\)", "\\(3\\tan^2(3x)\\)", "\\(\\frac{3}{\\cos^2(3x)}\\)"], 
-        correct: 0 
+        options: [ "\\(\\sec^2(3x)\\)", "\\(3\\tan^2(3x)\\)", "\\(3\\sec^2(x)\\)","\\(3\\sec^2(3x)\\)"], 
+        correct: 3 
     },
     { 
         question: "f(x) = \\(x \\cdot e^{-x}\\). Найдите f'(x)", 
-        options: ["\\(e^{-x} - x e^{-x}\\)", "\\(e^{-x}\\)", "\\(-x e^{-x}\\)", "\\(e^{-x}(1 - x)\\)"], 
+        options: ["\\(e^{-x}(1 + x)\\)", "\\(e^{-x}\\)", "\\(-x e^{-x}\\)", "\\(e^{-x}(1 - x)\\)"], 
         correct: 3 
     },
     { 
         question: "f(x) = \\(\\ln(\\cos(x))\\). Найдите f'(x)", 
-        options: ["\\(-\\tan(x)\\)", "\\(-\\frac{\\sin(x)}{\\cos(x)}\\)", "\\(\\frac{1}{\\cos(x)}\\)", "\\(-\\frac{1}{\\sin(x)}\\)"], 
-        correct: 0 
+        options: ["\\(-\\frac{\\sin(x)}{\\cos(x)}\\)", "\\(\\frac{1}{\\cos(x)}\\)", "\\(-\\frac{1}{\\sin(x)}\\)","\\(-\\tan(x)\\)"], 
+        correct: 3 
     },
     { 
         question: "f(x) = \\((\\sin(x) + \\cos(x))^2\\). Найдите f'(x)", 
-        options: ["\\(2(\\sin(x)+\\cos(x))(\\cos(x)-\\sin(x))\\)", "\\(2(\\sin(x)+\\cos(x))\\)", "\\(2(\\cos(x)-\\sin(x))\\)", "\\(4\\sin(x)\\cos(x)\\)"], 
-        correct: 0 
+        options: [ "\\(2(\\sin(x)+\\cos(x))\\)", "\\(2(\\cos(x)-\\sin(x))\\)","\\(2(\\cos^2(x)-\\sin^2(x))\\)", "\\(4\\sin(x)\\cos(x)\\)"], 
+        correct: 2 
     },
     { 
         question: "f(x) = \\(\\frac{x^2}{x + 1}\\). Найдите f'(x)", 
@@ -185,8 +273,8 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\(\\frac{x^3 - 1}{x^2 + 1}\\). Найдите f'(x)", 
-        options: ["\\(\\frac{3x^2(x^2+1) - 2x(x^3-1)}{(x^2+1)^2}\\)", "\\(\\frac{3x^2}{2x}\\)", "\\(\\frac{x^4+3x^2+2x}{(x^2+1)^2}\\)", "\\(\\frac{3x^2}{x^2+1}\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{3x^2}{2x}\\)", "\\(\\frac{x^4+3x^2-2x}{(x^2+1)^2}\\)","\\(\\frac{x^4+3x^2+2x}{(x^2+1)^2}\\)", "\\(\\frac{3x^2}{x^2+1}\\)"], 
+        correct: 2 
     },
     { 
         question: "f(x) = \\(\\sqrt{\\sin(x)}\\). Найдите f'(x)", 
@@ -200,8 +288,8 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\(\\cos(\\ln(x))\\). Найдите f'(x)", 
-        options: ["\\(-\\frac{\\sin(\\ln(x))}{x}\\)", "\\(-\\sin(\\ln(x))\\)", "\\(-\\frac{\\cos(\\ln(x))}{x}\\)", "\\(\\frac{\\sin(\\ln(x))}{x}\\)"], 
-        correct: 0 
+        options: [ "\\(-\\frac{\\cos(\\ln(x))}{x}\\)","\\(-\\sin(\\ln(x))\\)", "\\(-\\frac{\\sin(\\ln(x))}{x}\\)", "\\(\\frac{\\sin(\\ln(x))}{x}\\)"], 
+        correct: 2 
     },
     { 
         question: "f(x) = \\(\\sqrt{1 + x^2}\\). Найдите f'(x)", 
@@ -215,8 +303,8 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\(\\ln(x^2 + x)\\). Найдите f'(x)", 
-        options: ["\\(\\frac{2x + 1}{x^2 + x}\\)", "\\(\\frac{1}{x^2 + x}\\)", "\\(\\frac{2x}{x^2 + x}\\)", "\\(\\frac{2x + 1}{x}\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{1}{x^2 + x}\\)","\\(\\frac{2x + 1}{x^2 + x}\\)", "\\(\\frac{2x}{x^2 + x}\\)", "\\(\\frac{2x + 1}{x}\\)"], 
+        correct: 1 
     },
     { 
         question: "f(x) = \\(e^{-x^2}\\). Найдите f'(x)", 
@@ -225,8 +313,8 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\(\\left(x + \\frac{1}{x}\\right)^2\\). Найдите f'(x)", 
-        options: ["\\(2\\left(x + \\frac{1}{x}\\right)\\left(1 - \\frac{1}{x^2}\\right)\\)", "\\(2\\left(x + \\frac{1}{x}\\right)\\)", "\\(2\\left(1 - \\frac{1}{x^2}\\right)\\)", "\\(4x - \\frac{2}{x^3}\\)"], 
-        correct: 0 
+        options: [ "\\(2\\left(x + \\frac{1}{x}\\right)\\)","\\(2\\left(x - \\frac{1}{x^3}\\right)\\)", "\\(2\\left(1 - \\frac{1}{x^2}\\right)\\)", "\\(4x - \\frac{2}{x^3}\\)"], 
+        correct: 1 
     },
     { 
         question: "f(x) = \\(\\arctan(\\sqrt{x})\\). Найдите f'(x)", 
@@ -235,8 +323,8 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\(x \\cdot \\sin\\left(\\frac{1}{x}\\right)\\). Найдите f'(x)", 
-        options: ["\\(\\sin\\left(\\frac{1}{x}\\right) - \\frac{\\cos\\left(\\frac{1}{x}\\right)}{x}\\)", "\\(\\sin\\left(\\frac{1}{x}\\right) + \\cos\\left(\\frac{1}{x}\\right)\\)", "\\(\\cos\\left(\\frac{1}{x}\\right)\\)", "\\(\\sin\\left(\\frac{1}{x}\\right) - \\cos\\left(\\frac{1}{x}\\right)\\)"], 
-        correct: 0 
+        options: ["\\(\\sin\\left(\\frac{1}{x}\\right) + \\frac{\\cos\\left(\\frac{1}{x}\\right)}{x}\\)", "\\(\\sin\\left(\\frac{1}{x}\\right) + \\cos\\left(\\frac{1}{x}\\right)\\)", "\\(\\sin\\left(\\frac{1}{x}\\right) - \\frac{\\cos\\left(\\frac{1}{x}\\right)}{x}\\)", "\\(\\sin\\left(\\frac{1}{x}\\right) - \\cos\\left(\\frac{1}{x}\\right)\\)"], 
+        correct: 2 
     },
     { 
         question: "f(x) = \\(\\frac{e^x - e^{-x}}{2}\\). Найдите f'(x)", 
@@ -250,8 +338,8 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\(x^2 \\cdot e^{3x}\\). Найдите f'(x)", 
-        options: ["\\(2x e^{3x} + 3x^2 e^{3x}\\)", "\\(2x e^{3x}\\)", "\\(3x^2 e^{3x}\\)", "\\(e^{3x}(2x + 3x^2)\\)"], 
-        correct: 0 
+        options: ["\\(e^{3x}(2x - 3x^2)\\)", "\\(2x e^{3x}\\)", "\\(3x^2 e^{3x}\\)", "\\(e^{3x}(2x + 3x^2)\\)"], 
+        correct: 3 
     },
     { 
         question: "f(x) = \\(\\sin(x^2)\\). Найдите f'(x)", 
@@ -265,13 +353,13 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\(\\frac{x}{\\sqrt{1 - x^2}}\\). Найдите f'(x)", 
-        options: ["\\(\\frac{1}{(1 - x^2)^{3/2}}\\)", "\\(\\sqrt{1 - x^2} + \\frac{x^2}{(1-x^2)^{3/2}}\\)", "\\(\\frac{1}{\\sqrt{1-x^2}}\\)", "\\(\\frac{x}{1-x^2}\\)"], 
-        correct: 1 
+        options: ["\\(\\frac{x}{1-x^2}\\)", "\\(\\frac{-1}{(1 - x^2)^{3/2}}\\)", "\\(\\frac{1}{\\sqrt{1-x^2}}\\)", "\\(\\frac{1}{(1 - x^2)^{3/2}}\\)"], 
+        correct: 3 
     },
     { 
         question: "f(x) = \\(e^{2x} \\cdot \\cos(3x)\\). Найдите f'(x)", 
-        options: ["\\(2e^{2x}\\cos(3x) - 3e^{2x}\\sin(3x)\\)", "\\(e^{2x}\\cos(3x) - e^{2x}\\sin(3x)\\)", "\\(2e^{2x}\\cos(3x)\\)", "\\(e^{2x}(2\\cos(3x) - 3\\sin(3x))\\)"], 
-        correct: 0 
+        options: ["\\(e^{2x}(cos(3x) - 3\\sin(3x))\\)", "\\(e^{2x}\\cos(3x) - e^{2x}\\sin(3x)\\)", "\\(2e^{2x}\\cos(3x)\\)", "\\(e^{2x}(2\\cos(3x) - 3\\sin(3x))\\)"], 
+        correct: 3 
     },
     { 
         question: "f(x) = \\(\\ln\\left(\\frac{x+1}{x-1}\\right)\\). Найдите f'(x)", 
@@ -285,8 +373,8 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\((\\sin(x) + x)^2\\). Найдите f'(x)", 
-        options: ["\\(2(\\sin(x)+x)(\\cos(x)+1)\\)", "\\(2(\\sin(x)+x)\\)", "\\(2(\\cos(x)+1)\\)", "\\(2\\sin(x)\\cos(x) + 2x\\)"], 
-        correct: 0 
+        options: [ "\\(2(\\sin(x)+x)\\)", "\\(2(\\cos(x)+1)\\)","\\(2(\\sin(x)+x)(\\cos(x)+1)\\)", "\\(2\\sin(x)\\cos(x) + 2x\\)"], 
+        correct: 2 
     },
     { 
         question: "f(x) = \\(e^{\\ln(x^2)}\\). Найдите f'(x)", 
@@ -315,7 +403,7 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\(e^{x} \\cdot \\sin(x) \\cdot \\cos(x)\\). Найдите f'(x)", 
-        options: ["\\(e^x(\\sin(x)\\cos(x) + \\cos^2(x) - \\sin^2(x))\\)", "\\(e^x(\\cos^2(x) - \\sin^2(x))\\)", "\\(e^x(\\sin(x)\\cos(x))\\)", "\\(e^x(2\\cos(2x))\\)"], 
+        options: ["\\(e^x(\\sin(x)\\cos(x) + \\cos^2(x) - \\sin^2(x))\\)", "\\(e^x(\\cos^2(x) - \\sin^2(x))\\)", "\\(e^x(\\sin(x)\\cos(x))\\)", "\\(2e^x\\cos(2x))\\)"], 
         correct: 0 
     },
     { 
@@ -325,13 +413,13 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\(\\frac{1 - \\cos(2x)}{2}\\). Найдите f'(x)", 
-        options: ["\\(\\sin(2x)\\)", "\\(\\sin(x)\\cos(x)\\)", "\\(\\cos(2x)\\)", "\\(2\\sin(2x)\\)"], 
-        correct: 0 
+        options: [ "\\(\\sin(x)\\cos(x)\\)","\\(\\sin(2x)\\)", "\\(\\cos(2x)\\)", "\\(2\\sin(2x)\\)"], 
+        correct: 1 
     },
     { 
         question: "f(x) = \\(x^2 \\cdot \\ln(2x)\\). Найдите f'(x)", 
-        options: ["\\(2x\\ln(2x) + x\\)", "\\(2x\\ln(2x)\\)", "\\(\\frac{x^2}{2x} + 2x\\ln(2x)\\)", "\\(x + 2x\\ln(2x)\\)"], 
-        correct: 0 
+        options: ["\\(\\frac{x}{2} + 2x\\ln(2x)\\)", "\\(2x\\ln(2x)\\)", "\\(2x\\ln(2x) + x\\)", "\\(x + x\\ln(2x)\\)"], 
+        correct: 2 
     },
     { 
         question: "f(x) = \\(\\sin\\left(\\frac{1}{x}\\right)\\). Найдите f'(x)", 
@@ -340,8 +428,8 @@ const mediumDerivativesQuestions = [
     },
     { 
         question: "f(x) = \\((e^x + e^{-x})^2\\). Найдите f'(x)", 
-        options: ["\\(2(e^x+e^{-x})(e^x - e^{-x})\\)", "\\(2(e^x+e^{-x})\\)", "\\(4(e^{2x} - e^{-2x})\\)", "\\(2(e^{2x} - e^{-2x})\\)"], 
-        correct: 0 
+        options: ["\\(2(e^{2x} + e^{-2x})\\)", "\\(2(e^x+e^{-x})\\)", "\\(4(e^{2x} - e^{-2x})\\)", "\\(2(e^{2x} - e^{-2x})\\)"], 
+        correct: 3 
     }
 ];
 
@@ -824,12 +912,13 @@ const easyIntegralsQuestions = [
     {
         question: "Вычислите интеграл $\\int x dx$",
         options: [
-            "$\\frac{x^2}{2} + C$",
+            
             "$x^2 + C$",
             "$\\ln(x) + C$",
-            "$x + C$"
+            "$x + C$",
+            "$\\frac{x^2}{2} + C$"
         ],
-        correct: 0
+        correct: 3
     },
     {
         question: "Вычислите интеграл $\\int 2x dx$",
@@ -844,22 +933,22 @@ const easyIntegralsQuestions = [
     {
         question: "Вычислите интеграл $\\int 3 dx$",
         options: [
-            "$3x + C$",
             "$x^3 + C$",
             "$\\frac{3}{2}x^2 + C$",
+            "$3x + C$",
             "$x + C$"
         ],
-        correct: 0
+        correct: 2
     },
     {
         question: "Вычислите интеграл $\\int x^2 dx$",
         options: [
-            "$\\frac{x^3}{3} + C$",
             "$x^3 + C$",
             "$2x + C$",
-            "$x^2 + C$"
+            "$x^2 + C$",
+            "$\\frac{x^3}{3} + C$",
         ],
-        correct: 0
+        correct: 3
     },
     {
         question: "Вычислите интеграл $\\int 5x^4 dx$",
@@ -874,62 +963,63 @@ const easyIntegralsQuestions = [
     {
         question: "Вычислите интеграл $\\int \\frac{1}{x} dx$",
         options: [
-            "$\\ln|x| + C$",
             "$x + C$",
             "$\\frac{1}{x^2} + C$",
+            "$\\ln|x| + C$",
             "$x^2 + C$"
         ],
-        correct: 0
+        correct: 2
     },
     {
         question: "Вычислите интеграл $\\int 4x^3 dx$",
         options: [
-            "$x^4 + C$",
+            "$\\frac{4x^4}{3} + C$",
             "$4x^4 + C$",
-            "$\\frac{4x^4}{4} + C$",
+            "$x^4 + C$",
             "$x^3 + C$"
         ],
-        correct: 0
+        correct: 2
     },
     {
         question: "Вычислите интеграл $\\int (2x + 1) dx$",
         options: [
-            "$x^2 + x + C$",
             "$2x^2 + x + C$",
+            "$x^2 + x + C$",
             "$x^2 + 1 + C$",
             "$2x + C$"
         ],
-        correct: 0
+        correct: 1
     },
     {
         question: "Вычислите интеграл $\\int (3x^2 + 2x) dx$",
         options: [
-            "$x^3 + x^2 + C$",
+            "$\\frac{3x^3}{2} + \\frac{2x^2}{3} + C$",
             "$3x^3 + 2x^2 + C$",
             "$x^2 + x + C$",
-            "$\\frac{3x^3}{3} + \\frac{2x^2}{2} + C$"
+            "$x^3 + x^2 + C$"
         ],
         correct: 3
     },
     {
         question: "Вычислите интеграл $\\int 6 dx$",
         options: [
-            "$6x + C$",
+            
             "$x^6 + C$",
             "$3x + C$",
-            "$x + C$"
+            "$x + C$",
+            "$6x + C$"
         ],
-        correct: 0
+        correct: 3
     },
     {
         question: "Вычислите интеграл $\\int x^3 dx$",
         options: [
-            "$\\frac{x^4}{4} + C$",
             "$x^4 + C$",
             "$3x + C$",
-            "$x^3 + C$"
+            "$x^3 + C$",
+            "$\\frac{x^4}{4} + C$"
         ],
-        correct: 0
+        correct: 3
     },
     {
         question: "Вычислите интеграл $\\int 7x^2 dx$",
@@ -944,22 +1034,22 @@ const easyIntegralsQuestions = [
     {
         question: "Вычислите интеграл $\\int 5 dx$",
         options: [
-            "$5x + C$",
             "$x^5 + C$",
             "$x + C$",
+            "$5x + C$",
             "$25x + C$"
         ],
-        correct: 0
+        correct: 2
     },
     {
         question: "Вычислите интеграл $\\int (x^2 + 2) dx$",
         options: [
-            "$\\frac{x^3}{3} + 2x + C$",
-            "$x^2 + 2x + C$",
             "$\\frac{x^2}{2} + 2 + C$",
+            "$x^2 + 2x + C$",
+            "$\\frac{x^3}{3} + 2x + C$",
             "$x^3 + 2 + C$"
         ],
-        correct: 0
+        correct: 2
     },
     {
         question: "Вычислите интеграл $\\int (3 + x^2) dx$",
@@ -1476,10 +1566,6 @@ const hardIntegralsQuestions = [
         question: "Вычислите \\(\\int \\frac{x^2}{\\sqrt{1 + x^3}}  dx\\)", 
         options: ["\\(\\frac{2}{3}\\sqrt{1 + x^3} + C\\)", "\\(x\\sqrt{1 + x^3} + C\\)", "\\(\\frac{x^3}{3\\sqrt{1 + x^3}} + C\\)", "\\(\\frac{2}{9}(1 + x^3)^{3/2} + C\\)"], 
         correct: 0 
-    },
-    { 
-        question: "Вычислите \\(\\int \\frac{dx}{x^2\\sqrt{x^2 - 9}}\\)", 
-        options: ["\\(\\frac{\\sqrt{x^2 - 9}}{9x} + C\\)", "\\(\\frac{1}{3}\\arcsec\\left(\\frac{x}{3}\\right) + C\\)", "\\(\\frac{1}{x\\sqrt{x^2 - 9}} + C\\)", "\\(\\ln|x + \\sqrt{x^2 - 9}| + C\\)"], 
-        correct: 0 
     }
 ];
+
