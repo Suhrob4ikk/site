@@ -1089,12 +1089,12 @@ const mediumDerivativesQuestions = [
     {
         question: "Найдите производную функции $f(x) = \\sin(2^x)$",
         options: [
-            "$f'(x) = 2^x \\ln 2 \\cdot \\cos(2^x)$",
             "$f'(x) = \\cos(2^x)$",
             "$f'(x) = x2^{x-1} \\cos(2^x)$",
+            "$f'(x) = 2^x \\ln 2 \\cdot \\cos(2^x)$",
             "$f'(x) = 2^x \\cos(2^x)$"
         ],
-        correct: 0
+        correct: 2
     },
     {
         question: "Найдите производную функции $f(x) = \\sqrt{\\tan(3x)}$",
@@ -1109,12 +1109,12 @@ const mediumDerivativesQuestions = [
     {
         question: "Найдите производную функции $f(x) = x^{\\sin x}$ (используйте логарифмическое дифференцирование)",
         options: [
-            "$f'(x) = x^{\\sin x}(\\frac{\\sin x}{x} + \\cos x \\cdot \\ln x)$",
             "$f'(x) = \\sin x \\cdot x^{\\sin x - 1}$",
             "$f'(x) = x^{\\sin x} \\cos x$",
-            "$f'(x) = x^{\\sin x} \\ln x$"
+            "$f'(x) = x^{\\sin x} \\ln x$",
+            "$f'(x) = x^{\\sin x}(\\frac{\\sin x}{x} + \\cos x \\cdot \\ln x)$",
         ],
-        correct: 0
+        correct: 3
     },
     {
         question: "Найдите производную функции $f(x) = \\arcsin(\\sqrt{x})$",
@@ -1701,8 +1701,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{1}{x}  dx\\)", 
-        options: ["\\(\\ln|x| + C\\)", "\\(x + C\\)", "\\(\\frac{1}{x^2} + C\\)", "\\(-\\frac{1}{x^2} + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\ln(x) + C\\)",, "\\(\\frac{1}{x^2} + C\\)", "\\(-\\frac{1}{x^2} + C\\)","\\(\\ln|x| + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\cos(x)  dx\\)", 
@@ -1711,8 +1711,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int (3x^2 + 2x + 1)  dx\\)", 
-        options: ["\\(x^3 + x^2 + x + C\\)", "\\(6x + 2 + C\\)", "\\(3x^3 + 2x^2 + x + C\\)", "\\(x^3 + x^2 + C\\)"], 
-        correct: 0 
+        options: [ "\\(6x + 2 + C\\)", "\\(3x^3 + 2x^2 + x + C\\)", "\\(x^3 + x^2 + C\\)","\\(x^3 + x^2 + x + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\frac{1}{x^2}  dx\\)", 
@@ -1721,43 +1721,43 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\sqrt{x}  dx\\)", 
-        options: ["\\(\\frac{2}{3}x^{3/2} + C\\)", "\\(\\frac{1}{2\\sqrt{x}} + C\\)", "\\(\\sqrt{x} + C\\)", "\\(\\frac{3}{2}x^{3/2} + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{1}{2\\sqrt{x}} + C\\)","\\(\\frac{2}{3}x^{3/2} + C\\)", "\\(\\sqrt{x} + C\\)", "\\(\\frac{3}{2}x^{3/2} + C\\)"], 
+        correct: 1 
     },
     { 
         question: "Вычислите \\(\\int (x^3 - 2x + 5)  dx\\)", 
-        options: ["\\(\\frac{x^4}{4} - x^2 + 5x + C\\)", "\\(3x^2 - 2 + C\\)", "\\(x^4 - x^2 + 5x + C\\)", "\\(\\frac{x^3}{3} - x^2 + 5x + C\\)"], 
-        correct: 0 
+        options: [ "\\(3x^2 - 2 + C\\)", "\\(x^4 - x^2 + 5x + C\\)", "\\(\\frac{x^3}{3} - x^2 + 5x + C\\)","\\(\\frac{x^4}{4} - x^2 + 5x + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\frac{1}{\\sqrt{x}}  dx\\)", 
-        options: ["\\(2\\sqrt{x} + C\\)", "\\(\\frac{1}{2\\sqrt{x}} + C\\)", "\\(\\sqrt{x} + C\\)", "\\(-\\frac{1}{2x^{3/2}} + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{1}{2\\sqrt{x}} + C\\)", "\\(\\sqrt{x} + C\\)","\\(2\\sqrt{x} + C\\)", "\\(-\\frac{1}{2x^{3/2}} + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\sec^2(x)  dx\\)", 
-        options: ["\\(\\tan(x) + C\\)", "\\(\\sec(x) + C\\)", "\\(\\sec(x)\\tan(x) + C\\)", "\\(\\cot(x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\sec(x) + C\\)", "\\(\\sec(x)\\tan(x) + C\\)", "\\(\\cot(x) + C\\)","\\(\\tan(x) + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int (e^x + \\sin(x))  dx\\)", 
-        options: ["\\(e^x - \\cos(x) + C\\)", "\\(e^x + \\cos(x) + C\\)", "\\(e^x - \\sin(x) + C\\)", "\\(e^x + \\sin(x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(e^x + \\cos(x) + C\\)", "\\(e^x - \\sin(x) + C\\)","\\(e^x - \\cos(x) + C\\)", "\\(e^x + \\sin(x) + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\frac{2x}{x^2 + 1}  dx\\)", 
-        options: ["\\(\\ln|x^2 + 1| + C\\)", "\\(\\frac{1}{x^2 + 1} + C\\)", "\\(2\\ln|x^2 + 1| + C\\)", "\\(\\arctan(x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{1}{x^2 + 1} + C\\)", "\\(2\\ln|x^2 + 1| + C\\)","\\(\\ln|x^2 + 1| + C\\)", "\\(\\arctan(x) + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int x\\cdot e^{x^2}  dx\\)", 
-        options: ["\\(\\frac{1}{2}e^{x^2} + C\\)", "\\(e^{x^2} + C\\)", "\\(2x e^{x^2} + C\\)", "\\(\\frac{1}{x}e^{x^2} + C\\)"], 
-        correct: 0 
+        options: [ "\\(e^{x^2} + C\\)", "\\(2x e^{x^2} + C\\)","\\(\\frac{1}{2}e^{x^2} + C\\)", "\\(\\frac{1}{x}e^{x^2} + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\frac{1}{1 + x^2}  dx\\)", 
-        options: ["\\(\\arctan(x) + C\\)", "\\(\\ln|1 + x^2| + C\\)", "\\(\\frac{1}{2}\\ln|1 + x^2| + C\\)", "\\(\\arcsin(x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\ln|1 + x^2| + C\\)", "\\(\\frac{1}{2}\\ln|1 + x^2| + C\\)", "\\(\\arcsin(x) + C\\)","\\(\\arctan(x) + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\sin(2x)  dx\\)", 
@@ -1771,8 +1771,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\ln(x)  dx\\)", 
-        options: ["\\(x\\ln(x) - x + C\\)", "\\(\\frac{1}{x} + C\\)", "\\(\\ln(x) + C\\)", "\\(x\\ln(x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{1}{x} + C\\)","\\(x\\ln(x) - x + C\\)", "\\(\\ln(x) + C\\)", "\\(x\\ln(x) + C\\)"], 
+        correct: 1 
     },
     { 
         question: "Вычислите \\(\\int \\cos(3x)  dx\\)", 
@@ -1786,8 +1786,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int x\\cdot\\cos(x^2)  dx\\)", 
-        options: ["\\(\\frac{1}{2}\\sin(x^2) + C\\)", "\\(\\sin(x^2) + C\\)", "\\(2x\\sin(x^2) + C\\)", "\\(\\cos(x^2) + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\sin(x^2) + C\\)","\\(\\frac{1}{2}\\sin(x^2) + C\\)", "\\(2x\\sin(x^2) + C\\)", "\\(\\cos(x^2) + C\\)"], 
+        correct: 1 
     },
     { 
         question: "Вычислите \\(\\int \\frac{1}{x\\ln(x)}  dx\\)", 
@@ -1796,13 +1796,13 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\tan(x)  dx\\)", 
-        options: ["\\(-\\ln|\\cos(x)| + C\\)", "\\(\\ln|\\cos(x)| + C\\)", "\\(\\sec^2(x) + C\\)", "\\(\\ln|\\sin(x)| + C\\)"], 
-        correct: 0 
+        options: ["\\(\\ln|\\cos(x)| + C\\)", "\\(\\sec^2(x) + C\\)", "\\(\\ln|\\sin(x)| + C\\)","\\(-\\ln|\\cos(x)| + C\\)" ], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\frac{2x + 1}{x^2 + x}  dx\\)", 
-        options: ["\\(\\ln|x^2 + x| + C\\)", "\\(\\frac{1}{x^2 + x} + C\\)", "\\(2\\ln|x^2 + x| + C\\)", "\\(\\arctan(x^2 + x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{1}{x^2 + x} + C\\)", "\\(2\\ln|x^2 + x| + C\\)","\\(\\ln|x^2 + x| + C\\)", "\\(\\arctan(x^2 + x) + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int e^{3x}  dx\\)", 
@@ -1821,8 +1821,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{\\cos(x)}{\\sin(x)}  dx\\)", 
-        options: ["\\(\\ln|\\sin(x)| + C\\)", "\\(-\\ln|\\sin(x)| + C\\)", "\\(\\tan(x) + C\\)", "\\(\\cot(x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(-\\ln|\\sin(x)| + C\\)","\\(\\ln|\\sin(x)| + C\\)", "\\(\\tan(x) + C\\)", "\\(\\cot(x) + C\\)"], 
+        correct: 1 
     },
     { 
         question: "Вычислите \\(\\int (x^2 + 2)^2  dx\\)", 
@@ -1831,8 +1831,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{1}{x^2 + 4}  dx\\)", 
-        options: ["\\(\\frac{1}{2}\\arctan(\\frac{x}{2}) + C\\)", "\\(\\arctan(\\frac{x}{2}) + C\\)", "\\(\\frac{1}{4}\\arctan(x) + C\\)", "\\(\\ln|x^2 + 4| + C\\)"], 
-        correct: 0 
+        options: ["\\(\\arctan(\\frac{x}{2}) + C\\)", "\\(\\frac{1}{4}\\arctan(x) + C\\)", "\\(\\ln|x^2 + 4| + C\\)","\\(\\frac{1}{2}\\arctan(\\frac{x}{2}) + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int x\\cdot\\ln(x)  dx\\)", 
@@ -1846,8 +1846,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{e^{\\sqrt{x}}}{\\sqrt{x}}  dx\\)", 
-        options: ["\\(2e^{\\sqrt{x}} + C\\)", "\\(e^{\\sqrt{x}} + C\\)", "\\(\\frac{1}{2}e^{\\sqrt{x}} + C\\)", "\\(\\sqrt{x}e^{\\sqrt{x}} + C\\)"], 
-        correct: 0 
+        options: [ "\\(e^{\\sqrt{x}} + C\\)", "\\(\\frac{1}{2}e^{\\sqrt{x}} + C\\)", "\\(\\sqrt{x}e^{\\sqrt{x}} + C\\)","\\(2e^{\\sqrt{x}} + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\frac{1}{x\\sqrt{\\ln(x)}}  dx\\)", 
@@ -1861,8 +1861,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\sec(x)\\cdot\\tan(x)  dx\\)", 
-        options: ["\\(\\sec(x) + C\\)", "\\(\\tan(x) + C\\)", "\\(\\sec^2(x) + C\\)", "\\(\\ln|\\sec(x) + \\tan(x)| + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\tan(x) + C\\)", "\\(\\sec^2(x) + C\\)", "\\(\\sec(x) + C\\)","\\(\\ln|\\sec(x) + \\tan(x)| + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\frac{1}{\\sqrt{4 - x^2}}  dx\\)", 
@@ -1891,8 +1891,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int x\\cdot\\sin(x)  dx\\)", 
-        options: ["\\(-x\\cdot\\cos(x) + \\sin(x) + C\\)", "\\(x\\cdot\\cos(x) - \\sin(x) + C\\)", "\\(-\\cos(x) + C\\)", "\\(\\sin(x) - x\\cdot\\cos(x) + C\\)"], 
-        correct: 0 
+        options: ["\\(\\sin(x) - x\\cdot\\cos(x) + C\\)","\\(x\\cdot\\cos(x) - \\sin(x) + C\\)", "\\(-\\cos(x) + C\\)", "\\(-x\\cdot\\cos(x) + \\sin(x) + C\\)", ], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\frac{1}{x^2 - 1}  dx\\)", 
@@ -1911,8 +1911,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int x^2\\cdot e^{x^3}  dx\\)", 
-        options: ["\\(\\frac{1}{3}e^{x^3} + C\\)", "\\(e^{x^3} + C\\)", "\\(3x e^{x^3} + C\\)", "\\(\\frac{1}{x}e^{x^3} + C\\)"], 
-        correct: 0 
+        options: [ "\\(e^{x^3} + C\\)", "\\(3x e^{x^3} + C\\)", "\\(\\frac{1}{3}e^{x^3} + C\\)","\\(\\frac{1}{x}e^{x^3} + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\frac{1}{x\\ln^2(x)}  dx\\)", 
@@ -1926,8 +1926,8 @@ const mediumIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{x + 1}{x^2 + 2x}  dx\\)", 
-        options: ["\\(\\frac{1}{2}\\ln|x^2 + 2x| + C\\)", "\\(\\ln|x^2 + 2x| + C\\)", "\\(\\frac{1}{x^2 + 2x} + C\\)", "\\(\\arctan(x^2 + 2x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\ln|x^2 + 2x| + C\\)","\\(\\frac{1}{2}\\ln|x^2 + 2x| + C\\)", "\\(\\frac{1}{x^2 + 2x} + C\\)", "\\(\\arctan(x^2 + 2x) + C\\)"], 
+        correct: 1 
     },
     { 
         question: "Вычислите \\(\\int e^{2x}\\cdot\\sin(x)  dx\\)", 
@@ -1944,8 +1944,8 @@ const mediumIntegralsQuestions = [
 const hardIntegralsQuestions = [
     { 
         question: "Вычислите \\(\\int x e^x  dx\\)", 
-        options: ["\\(e^x(x-1) + C\\)", "\\(e^x(x+1) + C\\)", "\\(xe^x + C\\)", "\\(\\frac{x^2 e^x}{2} + C\\)"], 
-        correct: 0 
+        options: [ "\\(e^x(x+1) + C\\)", "\\(xe^x + C\\)", "\\(\\frac{x^2 e^x}{2} + C\\)","\\(e^x(x-1) + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\ln(x)  dx\\)", 
@@ -1954,13 +1954,13 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\sin^2(x)  dx\\)", 
-        options: ["\\(\\frac{x}{2} - \\frac{\\sin(2x)}{4} + C\\)", "\\(-\\frac{\\cos^2(x)}{2} + C\\)", "\\(\\frac{\\sin(x)}{2} + C\\)", "\\(-\\frac{\\cos(2x)}{2} + C\\)"], 
-        correct: 0 
+        options: [ "\\(-\\frac{\\cos^2(x)}{2} + C\\)","\\(\\frac{x}{2} - \\frac{\\sin(2x)}{4} + C\\)", "\\(\\frac{\\sin(x)}{2} + C\\)", "\\(-\\frac{\\cos(2x)}{2} + C\\)"], 
+        correct: 1 
     },
     { 
         question: "Вычислите \\(\\int \\frac{x^2}{\\sqrt{1 - x^2}}  dx\\)", 
-        options: ["\\(\\frac{1}{2}\\arcsin(x) - \\frac{x}{2}\\sqrt{1 - x^2} + C\\)", "\\(\\arcsin(x) + C\\)", "\\(x\\sqrt{1 - x^2} + C\\)", "\\(-\\sqrt{1 - x^2} + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\arcsin(x) + C\\)", "\\(x\\sqrt{1 - x^2} + C\\)","\\(\\frac{1}{2}\\arcsin(x) - \\frac{x}{2}\\sqrt{1 - x^2} + C\\)", "\\(-\\sqrt{1 - x^2} + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int e^x \\sin(x)  dx\\)", 
@@ -1969,8 +1969,8 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{x^2\\sqrt{x^2 - 1}}\\)", 
-        options: ["\\(\\frac{\\sqrt{x^2 - 1}}{x} + C\\)", "\\(\\arcsec(x) + C\\)", "\\(\\frac{1}{\\sqrt{x^2 - 1}} + C\\)", "\\(\\ln|x + \\sqrt{x^2 - 1}| + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\arcsec(x) + C\\)", "\\(\\frac{1}{\\sqrt{x^2 - 1}} + C\\)","\\(\\frac{\\sqrt{x^2 - 1}}{x} + C\\)", "\\(\\ln|x + \\sqrt{x^2 - 1}| + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\arctan(x)  dx\\)", 
@@ -1979,13 +1979,13 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{\\sin(x)\\cos(x)}\\)", 
-        options: ["\\(\\ln|\\tan(x)| + C\\)", "\\(\\ln|\\sin(x)\\cos(x)| + C\\)", "\\(\\tan(x) + C\\)", "\\(\\frac{1}{2}\\ln|\\sin(2x)| + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\ln|\\sin(x)\\cos(x)| + C\\)","\\(\\frac{1}{2}\\ln|\\sin(2x)| + C\\)", "\\(\\tan(x) + C\\)", "\\(\\ln|\\tan(x)| + C\\)"], 
+        correct: 3
     },
     { 
         question: "Вычислите \\(\\int x^2 \\ln(x)  dx\\)", 
-        options: ["\\(\\frac{x^3}{3}\\ln(x) - \\frac{x^3}{9} + C\\)", "\\(\\frac{x^3}{2}\\ln(x) + C\\)", "\\(x^2\\ln(x) - x^2 + C\\)", "\\(\\frac{x^3}{3}\\ln(x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{x^3}{2}\\ln(x) + C\\)", "\\(x^2\\ln(x) - x^2 + C\\)", "\\(\\frac{x^3}{3}\\ln(x) - \\frac{x^3}{9} + C\\)","\\(\\frac{x^3}{3}\\ln(x) + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{x^3\\sqrt{x^2 + 1}}\\)", 
@@ -1999,8 +1999,8 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{x^2 + 1}{x^4 + 1}  dx\\)", 
-        options: ["\\(\\frac{1}{\\sqrt{2}}\\arctan\\left(\\frac{x^2 - 1}{x\\sqrt{2}}\\right) + C\\)", "\\(\\arctan(x^2) + C\\)", "\\(\\frac{1}{2}\\ln\\left|\\frac{x^2 + 1}{x^2 - 1}\\right| + C\\)", "\\(\\frac{x}{x^4 + 1} + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\arctan(x^2) + C\\)", "\\(\\frac{1}{2}\\ln\\left|\\frac{x^2 + 1}{x^2 - 1}\\right| + C\\)","\\(\\frac{1}{\\sqrt{2}}\\arctan\\left(\\frac{x^2 - 1}{x\\sqrt{2}}\\right) + C\\)", "\\(\\frac{x}{x^4 + 1} + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\sqrt{x^2 + a^2}  dx\\)", 
@@ -2009,28 +2009,28 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{x\\sqrt{x^2 - 4}}\\)", 
-        options: ["\\(\\frac{1}{2}\\arcsec\\left(\\frac{x}{2}\\right) + C\\)", "\\(\\frac{1}{\\sqrt{x^2 - 4}} + C\\)", "\\(\\ln|x + \\sqrt{x^2 - 4}| + C\\)", "\\(\\frac{1}{2}\\ln\\left|\\frac{x - 2}{x + 2}\\right| + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{1}{\\sqrt{x^2 - 4}} + C\\)", "\\(\\ln|x + \\sqrt{x^2 - 4}| + C\\)", "\\(\\frac{1}{2}\\ln\\left|\\frac{x - 2}{x + 2}\\right| + C\\)","\\(\\frac{1}{2}\\arcsec\\left(\\frac{x}{2}\\right) + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int x^2 e^{-x}  dx\\)", 
-        options: ["\\(-e^{-x}(x^2 + 2x + 2) + C\\)", "\\(e^{-x}(x^2 - 2x + 2) + C\\)", "\\(-e^{-x}x^2 + C\\)", "\\(\\frac{x^3}{3}e^{-x} + C\\)"], 
-        correct: 0 
+        options: [ "\\(e^{-x}(x^2 - 2x + 2) + C\\)", "\\(-e^{-x}x^2 + C\\)", "\\(\\frac{x^3}{3}e^{-x} + C\\)","\\(-e^{-x}(x^2 + 2x + 2) + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{\\sqrt{x^2 + 2x + 5}}\\)", 
-        options: ["\\(\\ln|x + 1 + \\sqrt{x^2 + 2x + 5}| + C\\)", "\\(\\arcsin\\left(\\frac{x + 1}{2}\\right) + C\\)", "\\(\\sqrt{x^2 + 2x + 5} + C\\)", "\\(\\frac{x + 1}{\\sqrt{x^2 + 2x + 5}} + C\\)"], 
-        correct: 0 
+        options: ["\\(\\arcsin\\left(\\frac{x + 1}{2}\\right) + C\\)","\\(\\ln|x + 1 + \\sqrt{x^2 + 2x + 5}| + C\\)",  "\\(\\sqrt{x^2 + 2x + 5} + C\\)", "\\(\\frac{x + 1}{\\sqrt{x^2 + 2x + 5}} + C\\)"], 
+        correct: 1 
     },
     { 
         question: "Вычислите \\(\\int \\cos^3(x)  dx\\)", 
-        options: ["\\(\\sin(x) - \\frac{\\sin^3(x)}{3} + C\\)", "\\(\\frac{\\cos^4(x)}{4} + C\\)", "\\(\\sin(x)\\cos^2(x) + C\\)", "\\(\\frac{3\\sin(x)}{4} + \\frac{\\sin(3x)}{12} + C\\)"], 
-        correct: 0 
+        options: ["\\(\\frac{3\\sin(x)}{4} + \\frac{\\sin(3x)}{12} + C\\)","\\(\\sin(x) - \\frac{\\sin^3(x)}{3} + C\\)", "\\(\\frac{\\cos^4(x)}{4} + C\\)", "\\(\\sin(x)\\cos^2(x) + C\\)"], 
+        correct: 1 
     },
     { 
         question: "Вычислите \\(\\int \\frac{x^3}{\\sqrt{1 - x^2}}  dx\\)", 
-        options: ["\\(-\\frac{1}{3}(1 - x^2)^{3/2} - \\sqrt{1 - x^2} + C\\)", "\\(-\\sqrt{1 - x^2} + C\\)", "\\(\\frac{x^4}{4\\sqrt{1 - x^2}} + C\\)", "\\(-\\frac{1}{2}x^2\\sqrt{1 - x^2} + C\\)"], 
-        correct: 0 
+        options: [ "\\(-\\sqrt{1 - x^2} + C\\)", "\\(\\frac{x^4}{4\\sqrt{1 - x^2}} + C\\)", "\\(-\\frac{1}{2}x^2\\sqrt{1 - x^2} + C\\)","\\(-\\frac{1}{3}(1 - x^2)^{3/2} - \\sqrt{1 - x^2} + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{x^2 + 4x + 13}\\)", 
@@ -2039,8 +2039,8 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int x\\arcsin(x)  dx\\)", 
-        options: ["\\(\\frac{x^2}{2}\\arcsin(x) + \\frac{x}{4}\\sqrt{1 - x^2} - \\frac{1}{4}\\arcsin(x) + C\\)", "\\(x\\arcsin(x) + \\sqrt{1 - x^2} + C\\)", "\\(\\frac{x^2}{2}\\arcsin(x) + C\\)", "\\(\\arcsin(x) - x\\sqrt{1 - x^2} + C\\)"], 
-        correct: 0 
+        options: ["\\(\\arcsin(x) - x\\sqrt{1 - x^2} + C\\)","\\(\\frac{x^2}{2}\\arcsin(x) + \\frac{x}{4}\\sqrt{1 - x^2} - \\frac{1}{4}\\arcsin(x) + C\\)", "\\(x\\arcsin(x) + \\sqrt{1 - x^2} + C\\)", "\\(\\frac{x^2}{2}\\arcsin(x) + C\\)", "\\(\\frac{x^2}{2}\\arcsin(x) + \\frac{x}{4}\\sqrt{1 - x^2} - \\frac{1}{4}\\arcsin(x) + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{e^x + e^{-x}}\\)", 
@@ -2049,8 +2049,8 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\sqrt{\\frac{1 + x}{1 - x}}  dx\\)", 
-        options: ["\\(\\arcsin(x) - \\sqrt{1 - x^2} + C\\)", "\\(\\sqrt{1 - x^2} + C\\)", "\\(\\frac{1}{2}\\ln\\left|\\frac{1 + x}{1 - x}\\right| + C\\)", "\\(x\\sqrt{\\frac{1 + x}{1 - x}} + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\sqrt{1 - x^2} + C\\)", "\\(\\frac{1}{2}\\ln\\left|\\frac{1 + x}{1 - x}\\right| + C\\)","\\(\\arcsin(x) - \\sqrt{1 - x^2} + C\\)", "\\(x\\sqrt{\\frac{1 + x}{1 - x}} + C\\)"], 
+        correct: 1
     },
     { 
         question: "Вычислите \\(\\int \\frac{x^2}{x^4 + 1}  dx\\)", 
@@ -2059,8 +2059,8 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int e^{\\sqrt{x}}  dx\\)", 
-        options: ["\\(2e^{\\sqrt{x}}(\\sqrt{x} - 1) + C\\)", "\\(e^{\\sqrt{x}} + C\\)", "\\(2\\sqrt{x}e^{\\sqrt{x}} + C\\)", "\\(\\frac{e^{\\sqrt{x}}}{2\\sqrt{x}} + C\\)"], 
-        correct: 0 
+        options: [, "\\(e^{\\sqrt{x}} + C\\)", "\\(2\\sqrt{x}e^{\\sqrt{x}} + C\\)", "\\(2e^{\\sqrt{x}}(\\sqrt{x} - 1) + C\\)","\\(\\frac{e^{\\sqrt{x}}}{2\\sqrt{x}} + C\\)"], 
+        correct: 2
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{x\\sqrt{1 - x^3}}\\)", 
@@ -2084,8 +2084,8 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int x^2\\sqrt{1 - x^2}  dx\\)", 
-        options: ["\\(\\frac{x}{8}(2x^2 - 1)\\sqrt{1 - x^2} + \\frac{1}{8}\\arcsin(x) + C\\)", "\\(\\frac{x^3}{3}\\sqrt{1 - x^2} + C\\)", "\\(-\\frac{1}{3}(1 - x^2)^{3/2} + C\\)", "\\(\\frac{x}{2}\\sqrt{1 - x^2} + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{x^3}{3}\\sqrt{1 - x^2} + C\\)", "\\(-\\frac{1}{3}(1 - x^2)^{3/2} + C\\)","\\(\\frac{x}{8}(2x^2 - 1)\\sqrt{1 - x^2} + \\frac{1}{8}\\arcsin(x) + C\\)", "\\(\\frac{x}{2}\\sqrt{1 - x^2} + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{x^2\\sqrt{x^2 + 9}}\\)", 
@@ -2099,8 +2099,8 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{x^5}{x^2 + 1}  dx\\)", 
-        options: ["\\(\\frac{x^4}{4} - \\frac{x^2}{2} + \\frac{1}{2}\\ln(x^2 + 1) + C\\)", "\\(\\frac{x^4}{4} + \\frac{x^2}{2} + C\\)", "\\(\\frac{x^6}{6(x^2 + 1)} + C\\)", "\\(x^3 - x + \\arctan(x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\frac{x^4}{4} + \\frac{x^2}{2} + C\\)", "\\(\\frac{x^4}{4} - \\frac{x^2}{2} + \\frac{1}{2}\\ln(x^2 + 1) + C\\)","\\(\\frac{x^6}{6(x^2 + 1)} + C\\)", "\\(x^3 - x + \\arctan(x) + C\\)"], 
+        correct: 1 
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{\\sin^4(x)}\\)", 
@@ -2109,8 +2109,8 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\sqrt{x}\\ln(x)  dx\\)", 
-        options: ["\\(\\frac{2}{3}x^{3/2}\\ln(x) - \\frac{4}{9}x^{3/2} + C\\)", "\\(\\sqrt{x}\\ln(x) - 2\\sqrt{x} + C\\)", "\\(\\frac{2}{3}x^{3/2}\\ln(x) + C\\)", "\\(\\frac{1}{2\\sqrt{x}}\\ln(x) + C\\)"], 
-        correct: 0 
+        options: [ "\\(\\sqrt{x}\\ln(x) - 2\\sqrt{x} + C\\)", "\\(\\frac{2}{3}x^{3/2}\\ln(x) + C\\)","\\(\\frac{2}{3}x^{3/2}\\ln(x) - \\frac{4}{9}x^{3/2} + C\\)", "\\(\\frac{1}{2\\sqrt{x}}\\ln(x) + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\frac{x^2}{\\sqrt{4x - x^2}}  dx\\)", 
@@ -2119,8 +2119,8 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int e^{2x}\\cos(3x)  dx\\)", 
-        options: ["\\(\\frac{e^{2x}}{13}(2\\cos(3x) + 3\\sin(3x)) + C\\)", "\\(e^{2x}\\cos(3x) + C\\)", "\\(\\frac{e^{2x}}{2}\\cos(3x) + C\\)", "\\(\\frac{e^{2x}}{5}(\\cos(3x) + \\sin(3x)) + C\\)"], 
-        correct: 0 
+        options: ["\\(\\frac{e^{2x}}{5}(\\cos(3x) + \\sin(3x)) + C\\)", "\\(e^{2x}\\cos(3x) + C\\)", "\\(\\frac{e^{2x}}{2}\\cos(3x) + C\\)", "\\(\\frac{e^{2x}}{13}(2\\cos(3x) + 3\\sin(3x)) + C\\)"], 
+        correct: 3 
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{x^4 + 4}\\)", 
@@ -2134,8 +2134,8 @@ const hardIntegralsQuestions = [
     },
     { 
         question: "Вычислите \\(\\int \\frac{x^3}{\\sqrt{x^2 + 4}}  dx\\)", 
-        options: ["\\(\\frac{1}{3}(x^2 - 8)\\sqrt{x^2 + 4} + C\\)", "\\(x^2\\sqrt{x^2 + 4} + C\\)", "\\(\\frac{x^4}{4\\sqrt{x^2 + 4}} + C\\)", "\\(\\frac{1}{2}x^2\\sqrt{x^2 + 4} + C\\)"], 
-        correct: 0 
+        options: [ "\\(x^2\\sqrt{x^2 + 4} + C\\)", "\\(\\frac{x^4}{4\\sqrt{x^2 + 4}} + C\\)","\\(\\frac{1}{3}(x^2 - 8)\\sqrt{x^2 + 4} + C\\)", "\\(\\frac{1}{2}x^2\\sqrt{x^2 + 4} + C\\)"], 
+        correct: 2 
     },
     { 
         question: "Вычислите \\(\\int \\frac{dx}{\\sin^3(x)}\\)", 
