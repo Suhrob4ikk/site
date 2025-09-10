@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тестирование по математическому анализу</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+    .fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .card-hover {
+        transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Стили для Рядов и последовательностей */
+    .bg-green-50 { background-color: #d9f99d; }
+    .bg-green-600 { background-color: #22c55e; }
+    .bg-green-600:hover { background-color: #16a34a; }
+
+    #sequencesSection h2 {
+        text-align: center; 
+        font-size: 2.5rem; 
+        font-weight: bold; 
+        color: #065f46; 
+        margin-bottom: 1.5rem;
+    }
+    #sequencesSection p {
+        color: #065f46; 
+        margin-bottom: 1rem;
+    }
+    #sequencesTheory {
+        background-color: #ecfdf5; 
+        padding: 1.5rem; 
+        border-radius: 1rem; 
+        margin-bottom: 1.5rem; 
+        color: #065f46;
+    }
+    #sequencesSection .max-w-2xl {
+    max-width: 432px; /* как у других разделов */
+    margin: 0 auto;   /* центрируем */
+    padding: 1.5rem;  /* внутренние отступы */
+}
+
+</style>
+
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Главная страница -->
+    <div id="homePage" class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12 fade-in">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+                Математический анализ
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Проверьте свои знания в области интегралов и производных
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Карточка Интегралы -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover cursor-pointer" onclick="showSection('integrals')">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">∫</div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Интегралы</h2>
+                    <p class="text-gray-600 mb-6">
+                        Тестирование знаний по интегральному исчислению
+                    </p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Начать тест
+                    </button>
+                </div>
+            </div>
+
+            <!-- Карточка Производные -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover cursor-pointer" onclick="showSection('derivatives')">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">f'(x)</div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Производные</h2>
+                    <p class="text-gray-600 mb-6">
+                        Тестирование знаний по дифференциальному исчислению
+                    </p>
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Начать тест
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Раздел Ряды и последовательности -->
+<<div class="bg-green-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="showSection('sequences')">
+    <div class="text-6xl mb-4">Σ</div>
+    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Ряды и последовательности</h3>
+    <p class="text-gray-600 mb-4">Основы числовых рядов и прогрессий</p>
+    <button class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+      Начать тест
+    </button>
+</div>
+
+
+    </div>
+
+    <!-- Раздел Интегралы -->
+    <div id="integralsSection" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto text-center fade-in">
+            <button onclick="showHome()" class="mb-6 text-blue-600 hover:text-blue-800 flex items-center">
+                ← Назад к выбору раздела
+            </button>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Интегралы</h2>
+                <div class="text-6xl mb-6">∫</div>
+                <p class="text-gray-600 mb-8">
+                    Раздел находится в разработке. Вопросы будут добавлены позже.
+                </p>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+                    Начать тест
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Раздел Производные -->
+    <div id="derivativesSection" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto fade-in">
+            <button onclick="showHome()" class="mb-6 text-green-600 hover:text-green-800 flex items-center">
+                ← Назад к выбору раздела
+            </button>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Производные</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-blue-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startDerivativesTest('easy')">
+                        <div class="text-4xl mb-4">📘</div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Легкий уровень</h3>
+                        <p class="text-gray-600 mb-4">Базовые производные для начинающих</p>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                            Начать тест
+                        </button>
+                    </div>
+                    
+                    <div class="bg-purple-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startDerivativesTest('hard')">
+                        <div class="text-4xl mb-4">📚</div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Сложный уровень</h3>
+                        <p class="text-gray-600 mb-4">Сложные производные для продвинутых</p>
+                        <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                            Начать тест
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница теста производных -->
+    <div id="derivativesTest" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex justify-between items-center flex-wrap gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Тест: Производные</h3>
+                        <p id="difficultyLabel" class="text-sm text-gray-600 mt-1"></p>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div id="timerDisplay" class="text-lg font-semibold text-orange-600 bg-orange-50 px-4 py-2 rounded-lg">
+                            ⏱️ 25:00
+                        </div>
+                        <div class="text-sm text-gray-600">
+                            Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">20</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+                    <div id="progressBar" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 5%"></div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <div id="questionContainer">
+                    <!-- Вопросы будут загружаться здесь -->
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <button id="prevBtn" onclick="previousQuestion()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Предыдущий
+                    </button>
+                    <button id="nextBtn" onclick="nextQuestion()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Следующий
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Раздел Ряды и последовательности -->
+<div id="sequencesSection" class="hidden container mx-auto px-4 py-8">
+  <div class="max-w-2xl mx-auto fade-in">
+    <button onclick="showHome()" class="mb-6 text-blue-600 hover:text-blue-800 flex items-center">
+      ← Назад к выбору раздела
+    </button>
+    
+    <div class="bg-white rounded-2xl shadow-lg p-8">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Ряды и последовательности</h2>
+      
+      <div class="grid gap-6">
+        <!-- Теория -->
+        <div class="bg-green-50 rounded-xl p-6 mb-6">
+          <p class="text-gray-700 mb-2">
+            Последовательность — это упорядоченный набор чисел. Ряд — сумма членов последовательности.
+          </p>
+          <p>Примеры:</p>
+          <ul>
+            <li>Арифметическая последовательность: \(a_n = a_1 + (n-1)d\)</li>
+            <li>Геометрическая последовательность: \(a_n = a_1 \cdot r^{n-1}\)</li>
+            <li>Сумма первых n членов арифметической прогрессии: \(S_n = \frac{n}{2}(a_1 + a_n)\)</li>
+            <li>Сумма первых n членов геометрической прогрессии: \(S_n = a_1 \frac{1-r^n}{1-r}, r\neq 1\)</li>
+          </ul>
+        </div>
+
+        <!-- Выбор времени теста -->
+        <div class="mb-6">
+          <label for="sequencesTime" class="text-gray-700 font-semibold">Выберите время теста:</label>
+          <select id="sequencesTime" class="ml-2 border rounded-lg px-2 py-1">
+            <option value="15">15 минут</option>
+            <option value="20">20 минут</option>
+            <option value="25" selected>25 минут</option>
+            <option value="30">30 минут</option>
+          </select>
+        </div>
+
+        <!-- Уровни теста -->
+        <div class="bg-green-100 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startSequencesTest('easy')">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-2">Легкий уровень</h3>
+          <p class="text-gray-600 mb-4">Базовые последовательности и суммы</p>
+          <button class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+            Начать тест
+          </button>
+        </div>
+
+        <div class="bg-green-200 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startSequencesTest('medium')">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-2">Средний уровень</h3>
+          <p class="text-gray-600 mb-4">Сложнее арифметические и геометрические ряды</p>
+          <button class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+            Начать тест
+          </button>
+        </div>
+
+        <div class="bg-green-300 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startSequencesTest('hard')">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-2">Сложный уровень</h3>
+          <p class="text-gray-600 mb-4">Сложные ряды и комбинации прогрессий</p>
+          <button class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+            Начать тест
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <!-- Страница результатов -->
+    <div id="resultsPage" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto text-center fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Результаты теста</h2>
+                
+                <div id="scoreDisplay" class="text-6xl font-bold mb-4"></div>
+                <div id="scoreText" class="text-xl text-gray-600 mb-8"></div>
+                
+                <div id="detailedResults" class="text-left mb-8">
+                    <!-- Детальные результаты будут здесь -->
+                </div>
+                
+                <div class="flex gap-4 justify-center">
+                    <button onclick="restartTest()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Пройти снова
+                    </button>
+                    <button onclick="showHome()" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        На главную
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Легкие вопросы
+        const easyDerivativesQuestions = [
+            {
+                question: "Найдите производную функции $f(x) = x^2$",
+                options: ["$f'(x) = 2x$", "$f'(x) = x$", "$f'(x) = 2x^2$", "$f'(x) = x^3$"],
+                correct: 0
+            },
+            {
+                question: "Найдите производную функции $f(x) = \\sin(x)$",
+                options: ["$f'(x) = -\\cos(x)$", "$f'(x) = \\cos(x)$", "$f'(x) = \\sin(x)$", "$f'(x) = -\\sin(x)$"],
+                correct: 1
+            },
+            {
+                question: "Найдите производную функции $f(x) = e^x$",
+                options: ["$f'(x) = xe^{x-1}$", "$f'(x) = e^x$", "$f'(x) = \\ln(x)$", "$f'(x) = x$"],
+                correct: 1
+            },
+            {
+                question: "Найдите производную функции $f(x) = \\cos(x)$",
+                options: ["$f'(x) = \\sin(x)$", "$f'(x) = -\\cos(x)$", "$f'(x) = -\\sin(x)$", "$f'(x) = \\cos(x)$"],
+                correct: 2
+            },
+            {
+                question: "Найдите производную функции $f(x) = \\ln(x)$",
+                options: ["$f'(x) = \\frac{1}{x}$", "$f'(x) = e^x$", "$f'(x) = x$", "$f'(x) = -\\frac{1}{x^2}$"],
+                correct: 0
+            },
+            {
+                question: "Найдите производную функции $f(x) = a$, где $a = const$",
+                options: ["$f'(x) = 0$", "$f'(x) = a$", "$f'(x) = ax$", "$f'(x) = 1$"],
+                correct: 0
+            },
+            {
+                question: "Найдите производную функции $f(x) = x^7$",
+                options: ["$f'(x) = 7x^6$", "$f'(x) = 6x^7$", "$f'(x) = 7x^8$", "$f'(x) = x^6$"],
+                correct: 0
+            },
+            {
+                question: "Найдите производную функции $f(x) = \\sqrt{x}$",
+                options: ["$f'(x) = \\frac{1}{\\sqrt{x}}$", "$f'(x) = \\frac{1}{2\\sqrt{x}}$", "$f'(x) = 2\\sqrt{x}$", "$f'(x) = \\sqrt{x}$"],
+                correct: 1
+            },
+            {
+                question: "Найдите производную функции $f(x) = \\frac{1}{x}$",
+                options: ["$f'(x) = -\\frac{1}{x}$", "$f'(x) = \\ln|x|$", "$f'(x) = -\\frac{1}{x^2}$", "$f'(x) = \\frac{1}{x^2}$"],
+                correct: 2
+            },
+            {
+                question: "Найдите производную функции $f(x) = 3x^4 - 2x^3 + 5x - 7$",
+                options: ["$f'(x) = 12x^3 - 6x^2 + 5$", "$f'(x) = 12x^3 - 2x^2 + 5$", "$f'(x) = 3x^3 - 2x^2 + 5$", "$f'(x) = 4x^3 - 3x^2 + 5$"],
+                correct: 0
+            },
+            {
+                question: "Найдите производную функции $f(x) = x \\cdot \\sin(x)$",
+                options: ["$f'(x) = \\sin(x) + x\\cos(x)$", "$f'(x) = \\cos(x)$", "$f'(x) = x\\cos(x)$", "$f'(x) = \\sin(x) \\cdot \\cos(x)$"],
+                correct: 0
+            },
+            {
+                question: "Найдите производную функции $f(x) = e^{2x}$",
+                options: ["$f'(x) = 2e^{2x}$", "$f'(x) = e^{2x}$", "$f'(x) = 2e^{x}$", "$f'(x) = e^{2}$"],
+                correct: 0
+            },
+            {
+                question: "Найдите производную функции $f(x) = \\sin(3x)$",
+                options: ["$f'(x) = 3\\cos(3x)$", "$f'(x) = \\cos(3x)$", "$f'(x) = -3\\cos(3x)$", "$f'(x) = 3\\sin(3x)$"],
+                correct: 0
+            },
+            {
+                question: "Найдите производную функции $f(x) = \\ln(x^2)$",
+                options: ["$f'(x) = \\frac{2}{x}$", "$f'(x) = \\frac{1}{x^2}$", "$f'(x) = \\frac{2x}{x^2}$", "$f'(x) = 2\\ln(x)$"],
+                correct: 0
+            },
+            {
+                question: "Найдите производную функции $f(x) = (2x + 1)^5$",
+                options: ["$f'(x) = 10(2x + 1)^4$", "$f'(x) = 5(2x + 1)^4$", "$f'(x) = 2(2x + 1)^4$", "$f'(x) = (2x + 1)^4$"],
+                correct: 0
+            }
+        ];
+
+        // Сложные вопросы (уже добавленные ранее)
+        const hardDerivativesQuestions = [
+           {
+        question: "Найдите производную функции $f(x) = e^{\\sin(x^2)}$",
+        options: [
+            "$f'(x) = 2x \\cos(x^2) e^{\\sin(x^2)}$",
+            "$f'(x) = \\cos(x^2) e^{\\sin(x^2)}$", 
+            "$f'(x) = e^{\\cos(x^2)}$",
+            "$f'(x) = 2x e^{\\sin(x^2)}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln(\\sqrt[3]{x^2 + 1})$",
+        options: [
+            "$f'(x) = \\frac{2x}{3(x^2 + 1)}$",
+            "$f'(x) = \\frac{1}{3\\sqrt[3]{(x^2 + 1)^2}}$",
+            "$f'(x) = \\frac{2x}{x^2 + 1}$",
+            "$f'(x) = \\frac{3}{2x}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arctan(\\ln x)$",
+        options: [
+            "$f'(x) = \\frac{1}{x(1 + (\\ln x)^2)}$",
+            "$f'(x) = \\frac{1}{1 + x^2}$",
+            "$f'(x) = \\frac{\\ln x}{1 + x^2}$",
+            "$f'(x) = \\frac{1}{x\\sqrt{1 - (\\ln x)^2}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sin(2^x)$",
+        options: [
+            "$f'(x) = 2^x \\ln 2 \\cdot \\cos(2^x)$",
+            "$f'(x) = \\cos(2^x)$",
+            "$f'(x) = x2^{x-1} \\cos(2^x)$",
+            "$f'(x) = 2^x \\cos(2^x)$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sqrt{\\tan(3x)}$",
+        options: [
+            "$f'(x) = \\frac{3\\sec^2(3x)}{2\\sqrt{\\tan(3x)}}$",
+            "$f'(x) = \\frac{\\sec^2(3x)}{\\sqrt{\\tan(3x)}}$",
+            "$f'(x) = \\frac{3}{2\\sqrt{\\tan(3x)}}$",
+            "$f'(x) = \\sqrt{\\sec^2(3x)}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = x^{\\sin x}$ (используйте логарифмическое дифференцирование)",
+        options: [
+            "$f'(x) = x^{\\sin x}(\\frac{\\sin x}{x} + \\cos x \\cdot \\ln x)$",
+            "$f'(x) = \\sin x \\cdot x^{\\sin x - 1}$",
+            "$f'(x) = x^{\\sin x} \\cos x$",
+            "$f'(x) = x^{\\sin x} \\ln x$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arcsin(\\sqrt{x})$",
+        options: [
+            "$f'(x) = \\frac{1}{2\\sqrt{x(1 - x)}}$",
+            "$f'(x) = \\frac{1}{\\sqrt{1 - x}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{1 - x}}$",
+            "$f'(x) = \\frac{\\sqrt{x}}{1 - x}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\cos(e^{x^2})$",
+        options: [
+            "$f'(x) = -2x e^{x^2} \\sin(e^{x^2})$",
+            "$f'(x) = -e^{x^2} \\sin(e^{x^2})$",
+            "$f'(x) = 2x \\sin(e^{x^2})$",
+            "$f'(x) = -\\sin(e^{x^2})$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln(\\cosh x)$",
+        options: [
+            "$f'(x) = \\tanh x$",
+            "$f'(x) = \\frac{1}{\\cosh x}$",
+            "$f'(x) = \\sinh x$",
+            "$f'(x) = \\frac{\\sinh x}{\\cosh x}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{e^{-x}}{x^2 + 1}$",
+        options: [
+            "$f'(x) = -\\frac{e^{-x}(x^2 + 2x + 1)}{(x^2 + 1)^2}$",
+            "$f'(x) = \\frac{e^{-x}(x^2 - 1)}{(x^2 + 1)^2}$",
+            "$f'(x) = -\\frac{e^{-x}}{x^2 + 1}$",
+            "$f'(x) = \\frac{e^{-x}(2x - 1)}{(x^2 + 1)^2}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sqrt[4]{\\ln(1 + x^2)}$",
+        options: [
+            "$f'(x) = \\frac{x}{2(1 + x^2)(\\ln(1 + x^2))^{3/4}}$",
+            "$f'(x) = \\frac{1}{4(\\ln(1 + x^2))^{3/4}}$",
+            "$f'(x) = \\frac{x}{(1 + x^2)\\sqrt[4]{\\ln(1 + x^2)}}$",
+            "$f'(x) = \\frac{2x}{\\sqrt[4]{(1 + x^2)^3}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arctan(\\sinh x)$",
+        options: [
+            "$f'(x) = \\frac{\\cosh x}{1 + \\sinh^2 x}$",
+            "$f'(x) = \\frac{1}{\\cosh x}$",
+            "$f'(x) = \\frac{\\sinh x}{1 + \\cosh^2 x}$",
+            "$f'(x) = \\frac{1}{1 + \\sinh^2 x}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = (1 + x^2)^{\\cos x}$",
+        options: [
+            "$f'(x) = (1 + x^2)^{\\cos x}(\\frac{2x \\cos x}{1 + x^2} - \\sin x \\cdot \\ln(1 + x^2))$",
+            "$f'(x) = \\cos x (1 + x^2)^{\\cos x - 1} \\cdot 2x$",
+            "$f'(x) = (1 + x^2)^{\\cos x} \\ln(1 + x^2)$",
+            "$f'(x) = -\\sin x (1 + x^2)^{\\cos x}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sin(\\sqrt{x})}{e^x}$",
+        options: [
+            "$f'(x) = \\frac{e^{-x}(\\cos(\\sqrt{x}) - 2\\sqrt{x} \\sin(\\sqrt{x}))}{2\\sqrt{x}}$",
+            "$f'(x) = \\frac{\\cos(\\sqrt{x})}{2\\sqrt{x} e^x}$",
+            "$f'(x) = \\frac{\\sin(\\sqrt{x}) - \\cos(\\sqrt{x})}{e^x}$",
+            "$f'(x) = \\frac{e^{-x}}{2\\sqrt{x}}(\\cos(\\sqrt{x}) - \\sin(\\sqrt{x}))$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln|\\sec(x^2) + \\tan(x^2)|$",
+        options: [
+            "$f'(x) = 2x \\sec(x^2)$",
+            "$f'(x) = \\sec(x^2)$",
+            "$f'(x) = \\frac{2x}{\\cos(x^2)}$",
+            "$f'(x) = x \\sec(x^2) \\tan(x^2)$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sqrt{x + \\sqrt{x + \\sqrt{x}}}$",
+        options: [
+            "$f'(x) = \\frac{1 + \\frac{1 + \\frac{1}{2\\sqrt{x}}}{2\\sqrt{x + \\sqrt{x}}}}{2\\sqrt{x + \\sqrt{x + \\sqrt{x}}}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{x + \\sqrt{x + \\sqrt{x}}}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{x}} \\cdot \\frac{1}{2\\sqrt{x + \\sqrt{x}}} \\cdot \\frac{1}{2\\sqrt{x + \\sqrt{x + \\sqrt{x}}}}$",
+            "$f'(x) = \\frac{1}{4\\sqrt{x + \\sqrt{x + \\sqrt{x}}}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arcsin(\\cos x)$",
+        options: [
+            "$f'(x) = -\\frac{\\sin x}{\\sqrt{1 - \\cos^2 x}}$",
+            "$f'(x) = \\frac{\\sin x}{\\sqrt{1 - \\cos^2 x}}$",
+            "$f'(x) = -\\frac{1}{\\sqrt{1 - \\cos^2 x}}$",
+            "$f'(x) = \\frac{\\cos x}{\\sqrt{1 - \\sin^2 x}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = x \\arctan(x) - \\frac{1}{2}\\ln(1 + x^2)$",
+        options: [
+            "$f'(x) = \\arctan(x)$",
+            "$f'(x) = x \\arctan(x)$",
+            "$f'(x) = \\frac{x}{1 + x^2}$",
+            "$f'(x) = \\arctan(x) + \\frac{x}{1 + x^2}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sqrt[3]{\\sin x}}{e^{2x}}$",
+        options: [
+            "$f'(x) = \\frac{e^{-2x}(\\cos x - 6\\sqrt[3]{\\sin^2 x})}{3\\sqrt[3]{\\sin^2 x}}$",
+            "$f'(x) = \\frac{\\cos x}{3e^{2x}\\sqrt[3]{\\sin^2 x}}$",
+            "$f'(x) = \\frac{\\sqrt[3]{\\sin x}(\\cos x - 6\\sin x)}{3e^{2x}\\sqrt[3]{\\sin^2 x}}$",
+            "$f'(x) = -\\frac{2\\sqrt[3]{\\sin x}}{e^{2x}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln\\left(\\frac{\\sqrt{x + 1} - \\sqrt{x - 1}}{\\sqrt{x + 1} + \\sqrt{x - 1}}\\right)$",
+        options: [
+            "$f'(x) = -\\frac{1}{\\sqrt{x^2 - 1}}$",
+            "$f'(x) = \\frac{1}{\\sqrt{x + 1} - \\sqrt{x - 1}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{x^2 - 1}}$",
+            "$f'(x) = -\\frac{1}{x\\sqrt{x^2 - 1}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sin(x \\ln x)$",
+        options: [
+            "$f'(x) = (\\ln x + 1) \\cos(x \\ln x)$",
+            "$f'(x) = \\cos(x \\ln x)$",
+            "$f'(x) = \\frac{\\cos(x \\ln x)}{x}$",
+            "$f'(x) = \\ln x \\cdot \\cos(x \\ln x)$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\arctan(2x)}{\\sqrt{1 + 4x^2}}$",
+        options: [
+            "$f'(x) = \\frac{2}{(1 + 4x^2)^{3/2}} - \\frac{4x \\arctan(2x)}{(1 + 4x^2)^{3/2}}$",
+            "$f'(x) = \\frac{2}{(1 + 4x^2)^{3/2}}$",
+            "$f'(x) = \\frac{1}{(1 + 4x^2)\\sqrt{1 + 4x^2}}$",
+            "$f'(x) = \\frac{\\arctan(2x)}{2(1 + 4x^2)^{3/2}}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\cos(\\sqrt[3]{x^2 + 1})$",
+        options: [
+            "$f'(x) = -\\frac{2x \\sin(\\sqrt[3]{x^2 + 1})}{3\\sqrt[3]{(x^2 + 1)^2}}$",
+            "$f'(x) = -\\sin(\\sqrt[3]{x^2 + 1})$",
+            "$f'(x) = \\frac{2x}{3\\sqrt[3]{(x^2 + 1)^2}}$",
+            "$f'(x) = -\\frac{2x}{3}\\sin(\\sqrt[3]{x^2 + 1})$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{e^{\\sin x} - e^{-\\sin x}}{e^{\\sin x} + e^{-\\sin x}}$",
+        options: [
+            "$f'(x) = \\frac{2\\cos x}{(e^{\\sin x} + e^{-\\sin x})^2}$",
+            "$f'(x) = \\frac{\\cos x}{e^{\\sin x} + e^{-\\sin x}}$",
+            "$f'(x) = \\frac{e^{\\sin x} - e^{-\\sin x}}{(e^{\\sin x} + e^{-\\sin x})^2}$",
+            "$f'(x) = \\cos x \\cdot \\tanh(\\sin x)$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln\\left(\\frac{x}{\\sqrt{x^2 + 1}}\\right)$",
+        options: [
+            "$f'(x) = \\frac{1}{x} - \\frac{x}{x^2 + 1}$",
+            "$f'(x) = \\frac{1}{x\\sqrt{x^2 + 1}}$",
+            "$f'(x) = \\frac{1}{x^2 + 1}$",
+            "$f'(x) = \\frac{\\sqrt{x^2 + 1} - x}{x(x^2 + 1)}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = x^{\\arcsin x}$",
+        options: [
+            "$f'(x) = x^{\\arcsin x}\\left(\\frac{\\arcsin x}{x} + \\frac{\\ln x}{\\sqrt{1 - x^2}}\\right)$",
+            "$f'(x) = \\arcsin x \\cdot x^{\\arcsin x - 1}$",
+            "$f'(x) = x^{\\arcsin x} \\ln x$",
+            "$f'(x) = \\frac{x^{\\arcsin x}}{\\sqrt{1 - x^2}}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sqrt{\\frac{1 - \\cos x}{1 + \\cos x}}$",
+        options: [
+            "$f'(x) = \\frac{\\sin x}{\\sqrt{(1 - \\cos x)(1 + \\cos x)^3}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{\\frac{1 - \\cos x}{1 + \\cos x}}}$",
+            "$f'(x) = \\frac{\\sin x}{(1 + \\cos x)^2}$",
+            "$f'(x) = \\frac{1}{\\sin x}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sin(ax)}{\\cos(bx)}$",
+        options: [
+            "$f'(x) = \\frac{a \\cos(ax) \\cos(bx) + b \\sin(ax) \\sin(bx)}{\\cos^2(bx)}$",
+            "$f'(x) = \\frac{a \\cos(ax)}{\\cos(bx)}$",
+            "$f'(x) = \\frac{a \\cos(ax) \\cos(bx) - b \\sin(ax) \\sin(bx)}{\\cos^2(bx)}$",
+            "$f'(x) = \\frac{\\cos(ax)}{\\cos(bx)} + \\frac{\\sin(ax) \\sin(bx)}{\\cos^2(bx)}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln(\\sinh(\\sqrt{x}))$",
+        options: [
+            "$f'(x) = \\frac{\\cosh(\\sqrt{x})}{2\\sqrt{x} \\sinh(\\sqrt{x})}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{x} \\tanh(\\sqrt{x})}$",
+            "$f'(x) = \\frac{1}{\\sinh(\\sqrt{x})}$",
+            "$f'(x) = \\frac{\\cosh(\\sqrt{x})}{\\sqrt{x}}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arctan(\\sqrt{\\frac{1 - x}{1 + x}})$",
+        options: [
+            "$f'(x) = -\\frac{1}{2\\sqrt{1 - x^2}}$",
+            "$f'(x) = \\frac{1}{2(1 + x)\\sqrt{1 - x}}$",
+            "$f'(x) = -\\frac{1}{\\sqrt{1 - x^2}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{1 - x^2}}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = e^{x \\sin x} \\cos(x \\cos x)$",
+        options: [
+            "$f'(x) = e^{x \\sin x}[(\\sin x + x \\cos x) \\cos(x \\cos x) - (\\cos x - x \\sin x) \\sin(x \\cos x)]$",
+            "$f'(x) = e^{x \\sin x}[\\sin x \\cos(x \\cos x) - \\cos x \\sin(x \\cos x)]$",
+            "$f'(x) = e^{x \\sin x}(\\sin x + x \\cos x) \\cos(x \\cos x)$",
+            "$f'(x) = e^{x \\sin x}(\\cos x - x \\sin x) \\sin(x \\cos x)$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sqrt{x^2 + a^2} - \\sqrt{x^2 - a^2}}{\\sqrt{x^2 + a^2} + \\sqrt{x^2 - a^2}}$",
+        options: [
+            "$f'(x) = \\frac{2a^2x}{\\sqrt{x^2 + a^2}\\sqrt{x^2 - a^2}(\\sqrt{x^2 + a^2} + \\sqrt{x^2 - a^2})^2}$",
+            "$f'(x) = \\frac{x}{\\sqrt{x^2 + a^2}} - \\frac{x}{\\sqrt{x^2 - a^2}}$",
+            "$f'(x) = \\frac{1}{(\\sqrt{x^2 + a^2} + \\sqrt{x^2 - a^2})^2}$",
+            "$f'(x) = \\frac{2x}{\\sqrt{x^2 + a^2}\\sqrt{x^2 - a^2}}$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln\\left(\\frac{\\sqrt{1 + e^x} - \\sqrt{1 - e^x}}{\\sqrt{1 + e^x} + \\sqrt{1 - e^x}}\\right)$",
+        options: [
+            "$f'(x) = \\frac{e^x}{\\sqrt{1 - e^{2x}}}$",
+            "$f'(x) = \\frac{1}{\\sqrt{1 - e^{2x}}}$",
+            "$f'(x) = \\frac{e^x}{2\\sqrt{1 - e^{2x}}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{1 - e^{2x}}}$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sin(\\arctan(\\sqrt{x}))$",
+        options: [
+            "$f'(x) = \\frac{1}{2\\sqrt{x}(1 + x)}$",
+            "$f'(x) = \\frac{\\cos(\\arctan(\\sqrt{x}))}{1 + x}$",
+            "$f'(x) = \\frac{1}{2(1 + x)\\sqrt{x}}$",
+            "$f'(x) = \\frac{\\sqrt{x}}{2(1 + x)^{3/2}}$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\arcsin(3x)}{\\sqrt{1 - 9x^2}}$",
+        options: [
+            "$f'(x) = \\frac{3}{(1 - 9x^2)} + \\frac{9x \\arcsin(3x)}{(1 - 9x^2)^{3/2}}$",
+            "$f'(x) = \\frac{3}{1 - 9x^2}$",
+            "$f'(x) = \\frac{3\\sqrt{1 - 9x^2} + 9x \\arcsin(3x)}{(1 - 9x^2)^{3/2}}$",
+            "$f'(x) = \\frac{1}{(1 - 9x^2)^{3/2}}$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = x^{x^x}$",
+        options: [
+            "$f'(x) = x^{x^x} \\cdot x^x \\left(\\frac{1}{x} + \\ln x + (\\ln x)^2\\right)$",
+            "$f'(x) = x^{x^x} \\cdot x^x (\\ln x + 1)$",
+            "$f'(x) = x^{x^x} \\cdot x^{x-1} \\cdot x$",
+            "$f'(x) = x^{x^x} \\ln x$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\tan(\\sqrt[3]{x})}{\\ln(1 + x^2)}$",
+        options: [
+            "$f'(x) = \\frac{\\frac{\\sec^2(\\sqrt[3]{x})}{3\\sqrt[3]{x^2}} \\ln(1 + x^2) - \\tan(\\sqrt[3]{x}) \\cdot \\frac{2x}{1 + x^2}}{\\ln^2(1 + x^2)}$",
+            "$f'(x) = \\frac{\\sec^2(\\sqrt[3]{x})}{3\\sqrt[3]{x^2} \\ln(1 + x^2)}$",
+            "$f'(x) = \\frac{\\tan(\\sqrt[3]{x})}{\\ln(1 + x^2)} \\left(\\frac{\\sec^2(\\sqrt[3]{x})}{3\\sqrt[3]{x^2} \\tan(\\sqrt[3]{x})} - \\frac{2x}{(1 + x^2)\\ln(1 + x^2)}\\right)$",
+            "$f'(x) = \\frac{1}{3\\sqrt[3]{x^2}\\ln(1 + x^2)}$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\cos(\\ln(\\sin(e^x)))$",
+        options: [
+            "$f'(x) = -\\sin(\\ln(\\sin(e^x))) \\cdot \\frac{e^x \\cos(e^x)}{\\sin(e^x)}$",
+            "$f'(x) = -\\frac{e^x \\cos(e^x)}{\\sin(e^x)}$",
+            "$f'(x) = -\\sin(\\ln(\\sin(e^x))) \\cdot \\frac{\\cos(e^x)}{\\sin(e^x)}$",
+            "$f'(x) = \\sin(\\ln(\\sin(e^x))) \\cdot e^x \\cot(e^x)$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sqrt{1 + x^2} - 1}{x}$",
+        options: [
+            "$f'(x) = \\frac{1}{x\\sqrt{1 + x^2}} - \\frac{\\sqrt{1 + x^2} - 1}{x^2}$",
+            "$f'(x) = \\frac{1}{\\sqrt{1 + x^2}}$",
+            "$f'(x) = \\frac{x}{\\sqrt{1 + x^2}} - \\frac{1}{x^2}$",
+            "$f'(x) = \\frac{1}{x^2\\sqrt{1 + x^2}}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arctan(\\frac{\\sqrt{1 + x} - \\sqrt{1 - x}}{\\sqrt{1 + x} + \\sqrt{1 - x}})$",
+        options: [
+            "$f'(x) = \\frac{1}{\\sqrt{1 - x^2}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{1 - x^2}}$",
+            "$f'(x) = \\frac{x}{\\sqrt{1 - x^2}}$",
+            "$f'(x) = \\frac{1}{\\sqrt{1 + x} \\sqrt{1 - x}}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln\\left(\\frac{\\sqrt{1 + \\sin x} + \\sqrt{1 - \\sin x}}{\\sqrt{1 + \\sin x} - \\sqrt{1 - \\sin x}}\\right)$",
+        options: [
+            "$f'(x) = \\frac{1}{\\sqrt{1 - \\sin^2 x}}$",
+            "$f'(x) = \\frac{\\cos x}{\\sin x}$",
+            "$f'(x) = \\frac{1}{\\cos x}$",
+            "$f'(x) = \\frac{\\cos x}{\\sqrt{1 - \\sin^2 x}}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sin(\\arctan x) - \\cos(\\arctan x)}{\\sin(\\arctan x) + \\cos(\\arctan x)}$",
+        options: [
+            "$f'(x) = \\frac{2}{(1 + x^2)(\\sin(\\arctan x) + \\cos(\\arctan x))^2}$",
+            "$f'(x) = \\frac{1}{1 + x^2}$",
+            "$f'(x) = \\frac{2}{1 + x^2}$",
+            "$f'(x) = \\frac{2x}{(1 + x^2)^2}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = x \\cdot \\arcsin(\\frac{x}{a}) + \\sqrt{a^2 - x^2}$",
+        options: [
+            "$f'(x) = \\arcsin(\\frac{x}{a})$",
+            "$f'(x) = \\frac{x}{\\sqrt{a^2 - x^2}} + \\arcsin(\\frac{x}{a})$",
+            "$f'(x) = \\frac{a}{\\sqrt{a^2 - x^2}}$",
+            "$f'(x) = \\arcsin(\\frac{x}{a}) + \\frac{x}{\\sqrt{a^2 - x^2}} - \\frac{x}{\\sqrt{a^2 - x^2}}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\tan(\\ln x) - \\cot(\\ln x)}{\\tan(\\ln x) + \\cot(\\ln x)}$",
+        options: [
+            "$f'(x) = \\frac{2}{x(\\tan(\\ln x) + \\cot(\\ln x))^2}$",
+            "$f'(x) = \\frac{4}{x\\sin^2(2\\ln x)}$",
+            "$f'(x) = \\frac{1}{x}\\sin(2\\ln x)$",
+            "$f'(x) = \\frac{2}{x}\\cos(2\\ln x)$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arctan(\\frac{2x}{1 - x^2})$",
+        options: [
+            "$f'(x) = \\frac{2}{1 + x^2}$",
+            "$f'(x) = \\frac{4x}{(1 - x^2)^2}$",
+            "$f'(x) = \\frac{2(1 + x^2)}{(1 - x^2)^2 + 4x^2}$",
+            "$f'(x) = \\frac{2}{1 - x^2}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln\\left(\\sqrt{\\frac{1 - \\cos x}{1 + \\cos x}}\\right)$",
+        options: [
+            "$f'(x) = \\csc x$",
+            "$f'(x) = \\frac{1}{\\sin x}$",
+            "$f'(x) = \\frac{\\cos x}{\\sin x}$",
+            "$f'(x) = \\frac{1}{\\sin x \\cos x}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sqrt{1 + x^2} (x - \\sqrt{1 + x^2})}{x}$",
+        options: [
+            "$f'(x) = -\\frac{1}{x^2}$",
+            "$f'(x) = \\frac{1}{\\sqrt{1 + x^2}}$",
+            "$f'(x) = \\frac{x}{\\sqrt{1 + x^2}} - 1$",
+            "$f'(x) = \\frac{1}{x^2\\sqrt{1 + x^2}}$"
+        ],
+        correct: 3
+    }
+        ];
+
+        // Переменные для теста
+        let currentTest = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let testStartTime;
+        let testTimer;
+        let timeRemaining = 25 * 60; // 25 минут в секундах
+        let currentDifficulty = '';
+
+        // Функции навигации
+        function showHome() {
+            // Останавливаем таймер при выходе из теста
+            stopTimer();
+            
+            document.getElementById('homePage').classList.remove('hidden');
+            document.getElementById('integralsSection').classList.add('hidden');
+            document.getElementById('derivativesSection').classList.add('hidden');
+            document.getElementById('derivativesTest').classList.add('hidden');
+            document.getElementById('resultsPage').classList.add('hidden');
+        }
+
+        function showSection(section) {
+    // Скрываем главную страницу
+    document.getElementById('homePage').classList.add('hidden');
+    
+    // Скрываем все разделы
+    document.getElementById('integralsSection').classList.add('hidden');
+    document.getElementById('derivativesSection').classList.add('hidden');
+    document.getElementById('sequencesSection').classList.add('hidden'); // новый раздел
+    
+    // Показываем выбранный раздел
+    if (section === 'integrals') {
+        document.getElementById('integralsSection').classList.remove('hidden');
+    } else if (section === 'derivatives') {
+        document.getElementById('derivativesSection').classList.remove('hidden');
+    } else if (section === 'sequences') { // новый раздел
+        document.getElementById('sequencesSection').classList.remove('hidden');
+    }
+}
+
+    
+
+        // Функции таймера
+        function startTimer() {
+            timeRemaining = 25 * 60; // Сброс таймера на 25 минут
+            updateTimerDisplay();
+            
+            testTimer = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                if (timeRemaining <= 0) {
+                    clearInterval(testTimer);
+                    alert('Время вышло! Тест будет завершён автоматически.');
+                    finishTest();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const display = `⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            const timerElement = document.getElementById('timerDisplay');
+            if (timerElement) {
+                timerElement.textContent = display;
+                
+                // Меняем цвет при малом времени
+                if (timeRemaining <= 300) { // Последние 5 минут
+                    timerElement.className = 'text-lg font-semibold text-red-600 bg-red-50 px-4 py-2 rounded-lg animate-pulse';
+                } else if (timeRemaining <= 600) { // Последние 10 минут
+                    timerElement.className = 'text-lg font-semibold text-orange-600 bg-orange-50 px-4 py-2 rounded-lg';
+                } else {
+                    timerElement.className = 'text-lg font-semibold text-green-600 bg-green-50 px-4 py-2 rounded-lg';
+                }
+            }
+        }
+
+        function stopTimer() {
+            if (testTimer) {
+                clearInterval(testTimer);
+                testTimer = null;
+            }
+        }
+
+        // Функции теста производных
+        function startDerivativesTest(difficulty) {
+            currentDifficulty = difficulty;
+            
+            // Выбираем вопросы в зависимости от уровня сложности
+            const questionPool = difficulty === 'easy' ? easyDerivativesQuestions : hardDerivativesQuestions;
+            
+            // Выбираем 20 случайных вопросов из массива
+            const shuffled = [...questionPool].sort(() => 0.5 - Math.random());
+            currentTest = shuffled.slice(0, Math.min(20, questionPool.length));
+            
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentTest.length).fill(null);
+            testStartTime = Date.now();
+            
+            document.getElementById('derivativesSection').classList.add('hidden');
+            document.getElementById('derivativesTest').classList.remove('hidden');
+            document.getElementById('resultsPage').classList.add('hidden');
+            
+            document.getElementById('totalQuestions').textContent = currentTest.length;
+            document.getElementById('difficultyLabel').textContent = `Уровень: ${difficulty === 'easy' ? 'Легкий' : 'Сложный'}`;
+            
+            // Запускаем таймер
+            startTimer();
+            
+            displayQuestion();
+        }
+
+        function restartTest() {
+            startDerivativesTest(currentDifficulty);
+        }
+
+        function displayQuestion() {
+            const question = currentTest[currentQuestionIndex];
+            const container = document.getElementById('questionContainer');
+            
+            container.innerHTML = `
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                        ${question.question}
+                    </h3>
+                </div>
+                
+                <div class="space-y-3">
+                    ${question.options.map((option, index) => `
+                        <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors ${userAnswers[currentQuestionIndex] === index ? 'border-green-500 bg-green-50' : 'border-gray-200'}">
+                            <input type="radio" name="answer" value="${index}" class="mr-3" ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''} onchange="selectAnswer(${index})">
+                            <span class="text-gray-700">${option}</span>
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Обновляем прогресс
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            const progress = ((currentQuestionIndex + 1) / currentTest.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            // Обновляем кнопки
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').textContent = currentQuestionIndex === currentTest.length - 1 ? 'Завершить тест' : 'Следующий';
+            
+            // Перерендерим MathJax
+            if (window.MathJax) {
+                MathJax.typesetPromise([container]).catch((err) => console.log(err.message));
+            }
+        }
+
+        function selectAnswer(answerIndex) {
+            userAnswers[currentQuestionIndex] = answerIndex;
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < currentTest.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            } else {
+                finishTest();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        function finishTest() {
+            // Останавливаем таймер
+            stopTimer();
+            
+            // Подсчитываем результаты
+            let correctAnswers = 0;
+            const results = [];
+            
+            for (let i = 0; i < currentTest.length; i++) {
+                const isCorrect = userAnswers[i] === currentTest[i].correct;
+                if (isCorrect) correctAnswers++;
+                
+                results.push({
+                    question: currentTest[i].question,
+                    userAnswer: userAnswers[i] !== null ? currentTest[i].options[userAnswers[i]] : 'Не отвечено',
+                    correctAnswer: currentTest[i].options[currentTest[i].correct],
+                    isCorrect: isCorrect
+                });
+            }
+            
+            const percentage = Math.round((correctAnswers / currentTest.length) * 100);
+            
+            // Показываем результаты
+            document.getElementById('derivativesTest').classList.add('hidden');
+            document.getElementById('resultsPage').classList.remove('hidden');
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreText = document.getElementById('scoreText');
+            
+            scoreDisplay.textContent = `${correctAnswers}/${currentTest.length}`;
+            scoreDisplay.className = percentage >= 70 ? 'text-6xl font-bold mb-4 text-green-600' : 'text-6xl font-bold mb-4 text-red-600';
+            
+            scoreText.textContent = `Правильных ответов: ${percentage}%`;
+            
+            // Детальные результаты
+            const detailedResults = document.getElementById('detailedResults');
+            detailedResults.innerHTML = `
+                <h3 class="text-lg font-semibold mb-4">Детальные результаты:</h3>
+                <div class="max-h-64 overflow-y-auto space-y-2">
+                    ${results.map((result, index) => `
+                        <div class="p-3 rounded-lg ${result.isCorrect ? 'bg-green-50 border-l-4 border-green-500' : 'bg-red-50 border-l-4 border-red-500'}">
+                            <div class="text-sm font-medium">Вопрос ${index + 1}</div>
+                            <div class="text-xs text-gray-600 mt-1">
+                                ${result.isCorrect ? '✓ Правильно' : '✗ Неправильно'}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            showHome();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2677 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8">
+  <title>Тестирование по математическому анализу</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Мобильная адаптация */
+    @media (max-width: 640px) {
+      .flex.justify-between {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .flex.justify-between > button {
+        width: 100%;
+        margin: 0.25rem 0;
+      }
+      
+      .flex.gap-4.justify-center {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .flex.gap-4.justify-center > button {
+        width: 100%;
+        max-width: 250px;
+        margin: 0.25rem 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      .text-4xl {
+        font-size: 1.875rem !important;
+      }
+      
+      .text-6xl {
+        font-size: 2.25rem !important;
+      }
+    }
+
+    /* Стили для математических формул */
+    .math-container {
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    .math-content {
+      display: inline-block;
+      min-width: min-content;
+    }
+
+    /* Стили для вариантов ответов */
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      min-width: 0;
+      padding: 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      break-inside: avoid;
+    }
+
+    .option-label:hover {
+      background-color: #f9fafb;
+    }
+
+    .option-label.selected {
+      border-color: #10b981;
+      background-color: #ecfdf5;
+    }
+
+    .option-text {
+      flex: 1;
+      min-width: 0;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      font-size: 0.875rem;
+    }
+
+    @media (min-width: 640px) {
+      .option-text {
+        font-size: 1rem;
+      }
+    }
+
+    /* Предотвращаем горизонтальный скролл */
+    body {
+      overflow-x: hidden;
+    }
+
+    /* Стили для статистики */
+    .stat-card {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #1e40af;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+      color: #64748b;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      border-radius: 4px;
+      background-color: #e5e7eb;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+      transition: width 0.5s ease;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+  <!-- Стартовая страница с именем -->
+  <div id="namePage" class="container mx-auto px-4 py-8">
+      <div class="max-w-xl mx-auto text-center fade-in">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Математический анализ</h1>
+      <p class="text-xl text-gray-600 mb-6">Проверьте свои знания в области интегралов и производных</p>
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">Введите ваше имя</h2>
+      <input id="userNameInput" type="text" placeholder="Ваше имя" 
+             class="border rounded-lg px-4 py-2 w-full max-w-md mb-6 text-center">
+      <button onclick="startHome()" 
+              class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+        Продолжить
+      </button>
+    </div>
+  </div>
+
+  <!-- Главная страница -->
+  <div id="homePage" class="container mx-auto px-4 py-8 hidden">
+    <div class="text-center mb-12 fade-in">
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+        Математический анализ
+      </h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Проверьте свои знания в области интегралов, производных, рядов и последовательностей
+      </p>
+      
+      <button onclick="showStatistics()" class="mt-6 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+        Посмотреть статистику
+      </button>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <!-- Карточка Интегралы -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 card-hover cursor-pointer" onclick="showSection('integrals')">
+        <div class="text-center">
+          <div class="text-6xl mb-4">∫</div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-4">Интегралы</h2>
+          <p class="text-gray-600 mb-6">
+            Тестирование знаний по интегральному исчислению
+          </p>
+          <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            Начать тест
+          </button>
+        </div>
+      </div>
+
+      <!-- Карточка Производные -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 card-hover cursor-pointer" onclick="showSection('derivatives')">
+        <div class="text-center">
+          <div class="text-6xl mb-4">f'(x)</div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-4">Производные</h2>
+          <p class="text-gray-600 mb-6">
+            Тестирование знаний по дифференциальному исчислению
+          </p>
+          <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            Начать тест
+          </button>
+        </div>
+      </div>
+
+      <!-- НОВАЯ КАРТОЧКА: Ряды и последовательности -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 card-hover cursor-pointer" onclick="showSection('series')">
+        <div class="text-center">
+          <div class="text-6xl mb-4">∑</div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-4">Ряды и последовательности</h2>
+          <p class="text-gray-600 mb-6">
+            Тестирование знаний по рядам и последовательностям
+          </p>
+          <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            Начать тест
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Раздел Интегралы -->
+  <div id="integralsSection" class="hidden container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto fade-in">
+      <button onclick="showHome()" class="mb-6 text-blue-600 hover:text-blue-800 flex items-center">
+        ← Назад к выбору раздела
+      </button>
+
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Интегралы</h2>
+
+        <!-- Кнопка показать/скрыть теорию -->
+        <button onclick="toggleTheory('integralsTheory')" 
+                class="mb-4 bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg">
+          Показать/Скрыть теорию
+        </button>
+
+        <!-- Теория по интегралам -->
+        <div id="integralsTheory" class="bg-blue-50 rounded-xl p-6 mb-6 hidden">
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Теория по интегралам</h3>
+          
+          <p class="text-gray-700 mb-2">
+            Интеграл функции f(x) обозначается как ∫ f(x) dx и показывает площадь под графиком функции.
+          </p>
+          
+          <p>Формулы интегралов:</p>
+          <ul class="list-disc list-inside text-gray-700 mb-4">
+            <li>\(\int x^n \, dx = \frac{x^{n+1}}{n+1} + C, \; n \neq -1\)</li>
+            <li>\(\int e^x \, dx = e^x + C\)</li>
+            <li>\(\int \sin(x) \, dx = -\cos(x) + C\)</li>
+            <li>\(\int \cos(x) \, dx = \sin(x) + C\)</li>
+          </ul>
+          
+          <p class="text-gray-700 mb-4">Пример: \(\int 3x^2 \, dx = x^3 + C\)</p>
+        </div>
+
+        <!-- Выбор времени -->
+        <div class="mb-6">
+          <label for="integralsTime" class="text-gray-700 font-semibold">Выберите время теста:</label>
+          <select id="integralsTime" class="ml-2 border rounded-lg px-2 py-1">
+            <option value="15">15 минут</option>
+            <option value="20">20 минут</option>
+            <option value="25" selected>25 минут</option>
+            <option value="30">30 минут</option>
+          </select>
+        </div>
+
+        <!-- Уровни теста -->
+        <div class="grid gap-6">
+          <div class="bg-blue-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startIntegralsTest('easy')">
+            <div class="text-6xl mb-4">∫</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Легкий уровень</h3>
+            <p class="text-gray-600 mb-4">Базовые интегралы для начинающих</p>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              Начать тест
+            </button>
+          </div>
+          <div class="bg-yellow-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startIntegralsTest('medium')">
+            <div class="text-6xl mb-4">∫</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Средний уровень</h3>
+            <p class="text-gray-600 mb-4">Интегралы средней сложности</p>
+            <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              Начать тест
+            </button>
+          </div>
+          <div class="bg-red-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startIntegralsTest('hard')">
+            <div class="text-6xl mb-4">∫</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Сложный уровень</h3>
+            <p class="text-gray-600 mb-4">Сложные интегралы для продвинутых</p>
+            <button class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              Начать тест
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Раздел Производные -->
+  <div id="derivativesSection" class="hidden container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto fade-in">
+      <button onclick="showHome()" class="mb-6 text-blue-600 hover:text-blue-800 flex items-center">
+        ← Назад к выбору раздела
+      </button>
+      
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Производные</h2>
+
+        <!-- Кнопка показать/скрыть теорию -->
+        <button onclick="toggleTheory('derivativesTheory')" 
+                class="mb-4 bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg">
+          Показать/Скрыть теорию
+        </button>
+
+        <!-- Теория по производным -->
+        <div id="derivativesTheory" class="bg-yellow-50 rounded-xl p-6 mb-6 hidden">
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Теория по производным</h3>
+          
+          <p class="text-gray-700 mb-2">
+            Производная функции f(x) обозначается как f'(x) и показывает скорость изменения функции.
+          </p>
+          
+          <p>Примеры производных:</p>
+          <ul class="list-disc list-inside text-gray-700 mb-4">
+            <li>\((x^n)' = n x^{n-1}\)</li>
+            <li>\((e^x)' = e^x\)</li>
+            <li>\((\sin x)' = \cos x\)</li>
+            <li>\((\cos x)' = -\sin x\)</li>
+          </ul>
+          
+          <p class="text-gray-700 mb-4">Пример: \((3x^2)' = 6x\)</p>
+        </div>
+
+        <!-- Выбор времени -->
+        <div class="mb-6">
+          <label for="derivativesTime" class="text-gray-700 font-semibold">Выберите время теста:</label>
+          <select id="derivativesTime" class="ml-2 border rounded-lg px-2 py-1">
+            <option value="15">15 минут</option>
+            <option value="20">20 минут</option>
+            <option value="25" selected>25 минут</option>
+            <option value="30">30 минут</option>
+          </select>
+        </div>
+
+        <!-- Уровни теста -->
+        <div class="grid gap-6">
+          <div class="bg-blue-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startDerivativesTest('easy')">
+            <div class="text-6xl mb-4">f'(x)</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Легкий уровень</h3>
+            <p class="text-gray-600 mb-4">Базовые производные для начинающих</p>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              Начать тест
+            </button>
+          </div>
+          <div class="bg-yellow-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startDerivativesTest('medium')">
+            <div class="text-6xl mb-4">f'(x)</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Средний уровень</h3>
+            <p class="text-gray-600 mb-4">Производные средней сложности</p>
+            <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              Начать тест
+            </button>
+          </div>
+          <div class="bg-red-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startDerivativesTest('hard')">
+            <div class="text-6xl mb-4">f'(x)</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Сложный уровень</h3>
+            <p class="text-gray-600 mb-4">Сложные производные для продвинутых</p>
+            <button class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              Начать тест
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- НОВЫЙ РАЗДЕЛ: Ряды и последовательности -->
+  <div id="seriesSection" class="hidden container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto fade-in">
+      <button onclick="showHome()" class="mb-6 text-blue-600 hover:text-blue-800 flex items-center">
+        ← Назад к выбору раздела
+      </button>
+
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Ряды и последовательности</h2>
+
+        <!-- Кнопка показать/скрыть теорию -->
+        <button onclick="toggleTheory('seriesTheory')" 
+                class="mb-4 bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg">
+          Показать/Скрыть теорию
+        </button>
+
+        <!-- Теория по рядам и последовательностям -->
+        <div id="seriesTheory" class="bg-red-50 rounded-xl p-6 mb-6 hidden">
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Теория по рядам и последовательностям</h3>
+          
+          <p class="text-gray-700 mb-2">
+            Числовая последовательность — это упорядоченный набор чисел. Числовой ряд — это сумма членов последовательности.
+          </p>
+          
+          <p>Основные понятия:</p>
+          <ul class="list-disc list-inside text-gray-700 mb-4">
+            <li>Предел последовательности: $\lim_{n \to \infty} a_n = A$</li>
+            <li>Сумма ряда: $S = \sum_{n=1}^{\infty} a_n$</li>
+            <li>Сходящийся ряд: $\lim_{n \to \infty} S_n = S$, где $S_n$ — частичная сумма</li>
+            <li>Расходящийся ряд: не имеющий конечной суммы</li>
+          </ul>
+          
+          <p class="text-gray-700 mb-4">Признаки сходимости:</p>
+          <ul class="list-disc list-inside text-gray-700">
+            <li>Признак Даламбера: $\lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| = D$</li>
+            <li>Признак Коши: $\lim_{n \to \infty} \sqrt[n]{|a_n|} = C$</li>
+            <li>Интегральный признак: сравнение с несобственным интегралом</li>
+          </ul>
+        </div>
+
+        <!-- Выбор времени -->
+        <div class="mb-6">
+          <label for="seriesTime" class="text-gray-700 font-semibold">Выберите время теста:</label>
+          <select id="seriesTime" class="ml-2 border rounded-lg px-2 py-1">
+            <option value="15">15 минут</option>
+            <option value="20">20 минут</option>
+            <option value="25" selected>25 минут</option>
+            <option value="30">30 минут</option>
+          </select>
+        </div>
+
+        <!-- Уровни теста -->
+        <div class="grid gap-6">
+          <div class="bg-blue-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startSeriesTest('easy')">
+            <div class="text-6xl mb-4">∑</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Легкий уровень</h3>
+            <p class="text-gray-600 mb-4">Базовые ряды и последовательности для начинающих</p>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              Начать тест
+            </button>
+          </div>
+          <div class="bg-yellow-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startSeriesTest('medium')">
+            <div class="text-6xl mb-4">∑</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Средний уровень</h3>
+            <p class="text-gray-600 mb-4">Ряды и последовательности средней сложности</p>
+            <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              Начать тест
+            </button>
+          </div>
+          <div class="bg-red-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startSeriesTest('hard')">
+            <div class="text-6xl mb-4">∑</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Сложный уровень</h3>
+            <p class="text-gray-600 mb-4">Сложные ряды и последовательности для продвинутых</p>
+            <button class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              Начать тест
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Страница теста (общая для всех разделов) -->
+  <div id="testPage" class="hidden container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+        <div class="flex justify-between items-center flex-wrap gap-4">
+          <div>
+            <h3 id="testTitle" class="text-xl font-bold text-gray-800">Тест</h3>
+            <p id="difficultyLabel" class="text-sm text-gray-600 mt-1"></p>
+          </div>
+          <div class="flex items-center gap-6">
+            <div id="timerDisplay" class="text-lg font-semibold text-orange-600 bg-orange-50 px-4 py-2 rounded-lg">
+              ⏱️ 25:00
+            </div>
+            <div class="text-sm text-gray-600">
+              Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">20</span>
+            </div>
+          </div>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+          <div id="progressBar" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 5%"></div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <div id="questionContainer">
+          <!-- Вопросы будут загружаться здесь -->
+        </div>
+        
+        <div class="mt-6 flex justify-between">
+          <button id="prevBtn" onclick="previousQuestion()" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">Назад</button>
+          <button id="nextBtn" onclick="nextQuestion()" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Следующий</button>
+          <button id="finishBtn" onclick="finishTest()" class="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700" style="display:none;">Завершить тест</button>
+          <button onclick="exitTest()" class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700">Выйти</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Страница результатов -->
+  <div id="resultsPage" class="hidden container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto text-center fade-in">
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Результаты теста</h2>
+        
+        <div id="scoreDisplay" class="text-6xl font-bold mb-4"></div>
+        <div id="scoreText" class="text-xl text-gray-600 mb-8"></div>
+        
+        <div id="detailedResults" class="text-left mb-8">
+          <!-- Детальные результаты будут здесь -->
+        </div>
+        
+        <div class="flex gap-4 justify-center flex-wrap">
+          <button onclick="restartTest()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            Пройти снова
+          </button>
+          <button onclick="showHome()" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            На главную
+          </button>
+          <button onclick="showStatistics()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            Статистика
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Страница статистики -->
+  <div id="statisticsPage" class="hidden container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto fade-in">
+      <button onclick="showHome()" class="mb-6 text-blue-600 hover:text-blue-800 flex items-center">
+        ← Назад на главную
+      </button>
+
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Статистика пользователя: <span id="statsUserName"></span></h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="stat-card text-center">
+            <div class="stat-value" id="totalTests">0</div>
+            <div class="stat-label">Всего тестов пройдено</div>
+          </div>
+          <div class="stat-card text-center">
+            <div class="stat-value" id="bestScore">0%</div>
+            <div class="stat-label">Лучший результат</div>
+          </div>
+          <div class="stat-card text-center">
+            <div class="stat-value" id="averageScore">0%</div>
+            <div class="stat-label">Средний балл</div>
+          </div>
+        </div>
+        
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Прогресс по разделам</h3>
+        
+        <div class="space-y-4 mb-6">
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="font-medium">Интегралы</span>
+              <span id="integralsProgress">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div id="integralsProgressBar" class="progress-fill" style="width: 0%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="font-medium">Производные</span>
+              <span id="derivativesProgress">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div id="derivativesProgressBar" class="progress-fill" style="width: 0%"></div>
+            </div>
+          </div>
+          <div>
+    <div class="flex justify-between mb-1">
+      <span class="font-medium">Ряды и последовательности</span>
+      <span id="seriesProgress">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div id="seriesProgressBar" class="progress-fill" style="width: 0%"></div>
+    </div>
+  </div>
+        </div>
+
+        
+        <h3 class="text-xl font-bold text-gray-800 mb-4">История тестов</h3>
+        <div id="testsHistory" class="space-y-3 max-h-96 overflow-y-auto">
+          <!-- История тестов будет здесь -->
+        </div>
+        
+        <div class="mt-6 flex justify-center">
+          <button onclick="resetStatistics()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            Сбросить статистику
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Вопросы для раздела "Ряды и последовательности"
+    
+    // Легкие вопросы
+    const easySeriesQuestions = [
+      {
+        question: "Чему равен предел последовательности $a_n = \\frac{1}{n}$ при $n \\to \\infty$?",
+        options: ["$0$", "$1$", "$\\infty$", "$-\\infty$"],
+        correct: 0
+      },
+      {
+        question: "Какой из следующих рядов является гармоническим?",
+        options: ["$\\sum_{n=1}^{\\infty} \\frac{1}{n}$", "$\\sum_{n=1}^{\\infty} \\frac{1}{n^2}$", "$\\sum_{n=1}^{\\infty} \\frac{1}{2^n}$", "$\\sum_{n=1}^{\\infty} n$"],
+        correct: 0
+      },
+      {
+        question: "Что означает сходимость ряда?",
+        options: ["Сумма ряда конечна", "Последовательность частичных сумм имеет предел", "Члены ряда стремятся к нулю", "Все члены ряда положительны"],
+        correct: 1
+      },
+      {
+        question: "Какая из этих последовательностей сходится?",
+        options: ["$a_n = (-1)^n$", "$a_n = \\frac{n}{n+1}$", "$a_n = n^2$", "$a_n = 2^n$"],
+        correct: 1
+      },
+      {
+        question: "Чему равна сумма геометрической прогрессии $1 + \\frac{1}{2} + \\frac{1}{4} + \\frac{1}{8} + \\ldots$?",
+        options: ["$2$", "$1$", "$\\infty$", "$\\frac{1}{2}$"],
+        correct: 0
+      }
+    ];
+
+    // Средние вопросы
+    const mediumSeriesQuestions = [
+      {
+        question: "Сходится ли ряд $\\sum_{n=1}^{\\infty} \\frac{1}{n^2}$?",
+        options: ["Да, сходится", "Нет, расходится", "Сходится только для четных n", "Сходится только для нечетных n"],
+        correct: 0
+      },
+      {
+        question: "Что показывает признак Даламбера?",
+        options: ["Сходимость ряда через отношение соседних членов", "Сходимость ряда через интеграл", "Сходимость ряда через корень n-ой степени", "Сходимость знакопеременного ряда"],
+        correct: 0
+      },
+      {
+        question: "Какой из этих рядов сходится по признаку Лейбница?",
+        options: ["$\\sum_{n=1}^{\\infty} (-1)^n \\frac{1}{n}$", "$\\sum_{n=1}^{\\infty} \\frac{1}{n}$", "$\\sum_{n=1}^{\\infty} (-1)^n n$", "$\\sum_{n=1}^{\\infty} (-1)^n \\frac{1}{n^2}$"],
+        correct: 0
+      },
+      {
+        question: "Чему равен радиус сходимости степенного ряда $\\sum_{n=0}^{\\infty} \\frac{x^n}{n!}$?",
+        options: ["$\\infty$", "$1$", "$0$", "$e$"],
+        correct: 0
+      },
+      {
+        question: "Что такое частичная сумма ряда?",
+        options: ["Сумма первых n членов ряда", "Сумма всех членов ряда", "Сумма четных членов ряда", "Сумма нечетных членов ряда"],
+        correct: 0
+      }
+    ];
+
+    // Сложные вопросы
+    const hardSeriesQuestions = [
+      {
+        question: "Сходится ли ряд $\\sum_{n=1}^{\\infty} \\frac{\\sin(n)}{n^2}$?",
+        options: ["Да, абсолютно сходится", "Сходится условно", "Расходится", "Сходится только для некоторых n"],
+        correct: 0
+      },
+      {
+        question: "Какой из следующих рядов сходится равномерно на всей числовой прямой?",
+        options: ["$\\sum_{n=0}^{\\infty} \\frac{x^n}{n!}$", "$\\sum_{n=1}^{\\infty} \\frac{x^n}{n}$", "$\\sum_{n=1}^{\\infty} n x^n$", "$\\sum_{n=1}^{\\infty} \\frac{x^n}{n^2}$"],
+        correct: 0
+      },
+      {
+        question: "Что такое ряд Тейлора для функции $e^x$?",
+        options: ["$\\sum_{n=0}^{\\infty} \\frac{x^n}{n!}$", "$\\sum_{n=0}^{\\infty} \\frac{x^n}{n}$", "$\\sum_{n=0}^{\\infty} (-1)^n \\frac{x^n}{n!}$", "$\\sum_{n=0}^{\\infty} \\frac{x^{2n}}{(2n)!}$"],
+        correct: 0
+      },
+      {
+        question: "Какой признак сходимости используется для рядов с положительными членами?",
+        options: ["Признак сравнения", "Признак Лейбница", "Признак Абеля", "Признак Дирихле"],
+        correct: 0
+      },
+      {
+        question: "Что такое условная сходимость ряда?",
+        options: ["Ряд сходится, но не абсолютно", "Ряд сходится абсолютно", "Ряд сходится только при определенных условиях", "Ряд сходится медленно"],
+        correct: 0
+      }
+    ];
+          // Легкие вопросы
+const easyDerivativesQuestions = [
+    {
+        question: "Найдите производную функции $f(x) = x^2$",
+        options: ["$f'(x) = 2x$", "$f'(x) = x$", "$f'(x) = 2x^2$", "$f'(x) = x^3$"],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sin(x)$",
+        options: ["$f'(x) = -\\cos(x)$", "$f'(x) = \\cos(x)$", "$f'(x) = \\sin(x)$", "$f'(x) = -\\sin(x)$"],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = e^x$",
+        options: ["$f'(x) = xe^{x-1}$", "$f'(x) = e^x$", "$f'(x) = \\ln(x)$", "$f'(x) = x$"],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\cos(x)$",
+        options: ["$f'(x) = \\sin(x)$", "$f'(x) = -\\cos(x)$", "$f'(x) = -\\sin(x)$", "$f'(x) = \\cos(x)$"],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln(x)$",
+        options: ["$f'(x) = \\frac{1}{x}$", "$f'(x) = e^x$", "$f'(x) = x$", "$f'(x) = -\\frac{1}{x^2}$"],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = a$, где $a = const$",
+        options: ["$f'(x) = 0$", "$f'(x) = a$", "$f'(x) = ax$", "$f'(x) = 1$"],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = x^7$",
+        options: ["$f'(x) = 7x^6$", "$f'(x) = 6x^7$", "$f'(x) = 7x^8$", "$f'(x) = x^6$"],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sqrt{x}$",
+        options: ["$f'(x) = \\frac{1}{\\sqrt{x}}$", "$f'(x) = \\frac{1}{2\\sqrt{x}}$", "$f'(x) = 2\\sqrt{x}$", "$f'(x) = \\sqrt{x}$"],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{1}{x}$",
+        options: ["$f'(x) = -\\frac{1}{x}$", "$f'(x) = \\ln|x|$", "$f'(x) = -\\frac{1}{x^2}$", "$f'(x) = \\frac{1}{x^2}$"],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = 3x^4 - 2x^3 + 5x - 7$",
+        options: ["$f'(x) = 12x^3 - 6x^2 + 5$", "$f'(x) = 12x^3 - 2x^2 + 5$", "$f'(x) = 3x^3 - 2x^2 + 5$", "$f'(x) = 4x^3 - 3x^2 + 5$"],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = x \\cdot \\sin(x)$",
+        options: ["$f'(x) = \\sin(x) + x\\cos(x)$", "$f'(x) = \\cos(x)$", "$f'(x) = x\\cos(x)$", "$f'(x) = \\sin(x) \\cdot \\cos(x)$"],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = e^{2x}$",
+        options: ["$f'(x) = 2e^{2x}$", "$f'(x) = e^{2x}$", "$f'(x) = 2e^{x}$", "$f'(x) = e^{2}$"],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sin(3x)$",
+        options: ["$f'(x) = 3\\cos(3x)$", "$f'(x) = \\cos(3x)$", "$f'(x) = -3\\cos(3x)$", "$f'(x) = 3\\sin(3x)$"],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln(x^2)$",
+        options: [ "$f'(x) = \\frac{2}{x^2}$","$f'(x) = \\frac{1}{x^2}$", "$f'(x) = \\frac{2}{x}$", "$f'(x) = 2\\ln(x)$"],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = (2x + 1)^5$",
+        options: ["$f'(x) = 10(2x + 1)^4$", "$f'(x) = 5(2x + 1)^4$", "$f'(x) = 2(2x + 1)^4$", "$f'(x) = (2x + 1)^4$"],
+        correct: 0
+    }
+];
+// Средние вопросы
+const mediumDerivativesQuestions = [
+    { 
+        question: "f(x) = \\(x^2 \\cdot \\sin(x)\\). Найдите f'(x)", 
+        options: [ "\\(x^2\\cos(x)\\)", "\\(2x\\sin(x)\\)", "\\(2x\\sin(x) + x^2\\cos(x)\\)","\\(\\cos(x)\\)"], 
+        correct: 2 
+    },
+    { 
+        question: "f(x) = \\(e^x \\cdot \\ln(x)\\). Найдите f'(x)", 
+        options: [ "\\(e^x\\ln(x)\\)", "\\(\\frac{e^x}{x}\\)", "\\(\\ln(x)\\)","\\(\\frac{e^x}{x} + e^x\\ln(x)\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\((x^3 + 2x)^4\\). Найдите f'(x)", 
+        options: ["\\(4(x^3 + 2x)^3\\)", "\\(12x^2(x^3 + 2x)^3\\)","\\(4(x^3 + 2x)^3(3x^2 + 2)\\)",  "\\((3x^2 + 2)^4\\)"], 
+        correct: 2 
+    },
+    { 
+        question: "f(x) = \\(\\sqrt{x^2 + 1}\\). Найдите f'(x)", 
+        options: [ "\\(\\frac{1}{2\\sqrt{x^2 + 1}}\\)", "\\(\\frac{2x}{\\sqrt{x^2 + 1}}\\)","\\(\\frac{x}{\\sqrt{x^2 + 1}}\\)", "\\(\\sqrt{2x}\\)"], 
+        correct: 2
+    },
+    { 
+        question: "f(x) = \\(\\sin(2x) \\cdot \\cos(3x)\\). Найдите f'(x)", 
+        options: ["\\(\\cos(2x)\\cos(3x) - \\sin(2x)\\sin(3x)\\)", "\\(2\\cos(2x) + 3\\cos(3x)\\)", "\\(5\\cos(5x)\\)","\\(2\\cos(2x)\\cos(3x) - 3\\sin(2x)\\sin(3x)\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\(\\ln(x^2 + 4)\\). Найдите f'(x)", 
+        options: ["\\(\\frac{x}{x^2 + 4}\\)", "\\(\\frac{1}{x^2 + 4}\\)", "\\(\\frac{2}{x}\\)", "\\(\\frac{2x}{x^2 + 4}\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\(e^{2x} \\cdot \\sin(x)\\). Найдите f'(x)", 
+        options: ["\\(e^{2x}(\\sin(x) + \\cos(x))\\)", "\\(e^{2x}\\cos(x)\\)", "\\(2e^{2x}\\sin(x)\\)","\\(e^{2x}(\\2\\sin(x) + \\cos(x))\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\frac{2x + 1}{x - 3}\\). Найдите f'(x)", 
+        options: [ "\\(\\frac{2}{x - 3}\\)", "\\(\\frac{5}{(x-3)^2}\\)", "\\(-\\frac{7}{(x - 3)^2}\\)","\\(\\frac{1}{(x-3)^2}\\)"], 
+        correct: 2 
+    },
+    { 
+        question: "f(x) = \\(x \\cdot \\arctan(x)\\). Найдите f'(x)", 
+        options: [ "\\(\\frac{1}{1 + x^2}\\)","\\(\\arctan(x) + \\frac{x}{1 + x^2}\\)", "\\(\\frac{x}{1 + x^2}\\)", "\\(\\arctan(x) + \\frac{1}{1 + x^2}\\)"], 
+        correct: 1 
+    },
+    { 
+        question: "f(x) = \\(\\cos^2(x)\\). Найдите f'(x)", 
+        options: ["\\(2\\cos(x)\\sin(x)\\)", "\\(-\\sin^2(x)\\)", "\\(2\\cos(x)\\)", "\\(-2\\cos(x)\\sin(x)\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\(\\sqrt{x} \\cdot \\ln(x)\\). Найдите f'(x)", 
+        options: [ "\\(\\frac{1}{2\\sqrt{x}}\\)","\\(\\frac{\\ln(x)}{2\\sqrt{x}} + \\frac{1}{\\sqrt{x}}\\)", "\\(\\frac{\\ln(x)}{2\\sqrt{x}} + \\frac{1}{x}\\)", "\\(\\frac{\\ln(x)}{2\\sqrt{x}}\\)"], 
+        correct: 1 
+    },
+    { 
+        question: "f(x) = \\(e^{x^2}\\). Найдите f'(x)", 
+        options: ["\\(e^{x^2}\\)", "\\(2x \\cdot e^x\\)", "\\(x^2 \\cdot e^{x^2}\\)","\\(2x \\cdot e^{x^2}\\)" ], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\(\\frac{\\sin(x)}{x}\\). Найдите f'(x)", 
+        options: ["\\(\\frac{x\\cos(x) - \\sin(x)}{x^2}\\)", "\\(\\frac{\\cos(x)}{x}\\)", "\\(\\frac{\\cos(x) - \\sin(x)}{x^2}\\)", "\\(x\\cos(x) - \\sin(x)\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\((x^2 + 1)^5\\). Найдите f'(x)", 
+        options: ["\\(10x(x^2 + 1)^4\\)", "\\(5(x^2 + 1)^4\\)", "\\(10x^2(x^2 + 1)^4\\)", "\\(5x(x^2 + 1)^4\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\tan(3x)\\). Найдите f'(x)", 
+        options: [ "\\(\\sec^2(3x)\\)", "\\(3\\tan^2(3x)\\)", "\\(3\\sec^2(x)\\)","\\(3\\sec^2(3x)\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\(x \\cdot e^{-x}\\). Найдите f'(x)", 
+        options: ["\\(e^{-x}(1 + x)\\)", "\\(e^{-x}\\)", "\\(-x e^{-x}\\)", "\\(e^{-x}(1 - x)\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\(\\ln(\\cos(x))\\). Найдите f'(x)", 
+        options: ["\\(-\\frac{\\sin(x)}{\\cos(x)}\\)", "\\(\\frac{1}{\\cos(x)}\\)", "\\(-\\frac{1}{\\sin(x)}\\)","\\(-\\tan(x)\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\((\\sin(x) + \\cos(x))^2\\). Найдите f'(x)", 
+        options: [ "\\(2(\\sin(x)+\\cos(x))\\)", "\\(2(\\cos(x)-\\sin(x))\\)","\\(2(\\cos^2(x)-\\sin^2(x))\\)", "\\(4\\sin(x)\\cos(x)\\)"], 
+        correct: 2 
+    },
+    { 
+        question: "f(x) = \\(\\frac{x^2}{x + 1}\\). Найдите f'(x)", 
+        options: ["\\(\\frac{2x(x+1) - x^2}{(x+1)^2}\\)", "\\(\\frac{2x}{x+1}\\)", "\\(\\frac{x^2 + 2x}{(x+1)^2}\\)", "\\(\\frac{x(2x + 1)}{(x+1)^2}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\arcsin(2x)\\). Найдите f'(x)", 
+        options: ["\\(\\frac{2}{\\sqrt{1 - 4x^2}}\\)", "\\(\\frac{1}{\\sqrt{1 - 4x^2}}\\)", "\\(\\frac{2}{\\sqrt{1 - x^2}}\\)", "\\(\\frac{1}{\\sqrt{1 - 2x^2}}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(e^{\\sin(x)}\\). Найдите f'(x)", 
+        options: ["\\(\\cos(x) \\cdot e^{\\sin(x)}\\)", "\\(e^{\\sin(x)}\\)", "\\(\\cos(x) \\cdot e^{\\cos(x)}\\)", "\\(\\sin(x) \\cdot e^{\\sin(x)}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\frac{x^3 - 1}{x^2 + 1}\\). Найдите f'(x)", 
+        options: [ "\\(\\frac{3x^2}{2x}\\)", "\\(\\frac{x^4+3x^2-2x}{(x^2+1)^2}\\)","\\(\\frac{x^4+3x^2+2x}{(x^2+1)^2}\\)", "\\(\\frac{3x^2}{x^2+1}\\)"], 
+        correct: 2 
+    },
+    { 
+        question: "f(x) = \\(\\sqrt{\\sin(x)}\\). Найдите f'(x)", 
+        options: ["\\(\\frac{\\cos(x)}{2\\sqrt{\\sin(x)}}\\)", "\\(\\frac{\\cos(x)}{\\sqrt{\\sin(x)}}\\)", "\\(\\frac{1}{2\\sqrt{\\sin(x)}}\\)", "\\(\\sqrt{\\cos(x)}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(x \\cdot 2^x\\). Найдите f'(x)", 
+        options: ["\\(2^x + x \\cdot 2^x \\cdot \\ln(2)\\)", "\\(2^x\\)", "\\(x \\cdot 2^x\\)", "\\(2^x \\cdot \\ln(2)\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\cos(\\ln(x))\\). Найдите f'(x)", 
+        options: [ "\\(-\\frac{\\cos(\\ln(x))}{x}\\)","\\(-\\sin(\\ln(x))\\)", "\\(-\\frac{\\sin(\\ln(x))}{x}\\)", "\\(\\frac{\\sin(\\ln(x))}{x}\\)"], 
+        correct: 2 
+    },
+    { 
+        question: "f(x) = \\(\\sqrt{1 + x^2}\\). Найдите f'(x)", 
+        options: ["\\(\\frac{x}{\\sqrt{1 + x^2}}\\)", "\\(\\frac{1}{2\\sqrt{1+x^2}}\\)", "\\(\\sqrt{1+x^2}\\)", "\\(x\\sqrt{1+x^2}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\sin(x) \\cdot \\cos(2x)\\). Найдите f'(x)", 
+        options: ["\\(\\cos(x)\\cos(2x) - 2\\sin(x)\\sin(2x)\\)", "\\(\\cos(x)\\cos(2x)\\)", "\\(-2\\sin(x)\\sin(2x)\\)", "\\(\\cos(3x)\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\ln(x^2 + x)\\). Найдите f'(x)", 
+        options: [ "\\(\\frac{1}{x^2 + x}\\)","\\(\\frac{2x + 1}{x^2 + x}\\)", "\\(\\frac{2x}{x^2 + x}\\)", "\\(\\frac{2x + 1}{x}\\)"], 
+        correct: 1 
+    },
+    { 
+        question: "f(x) = \\(e^{-x^2}\\). Найдите f'(x)", 
+        options: ["\\(-2x \\cdot e^{-x^2}\\)", "\\(-e^{-x^2}\\)", "\\(2x \\cdot e^{-x^2}\\)", "\\(-2x \\cdot e^{-2x}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\left(x + \\frac{1}{x}\\right)^2\\). Найдите f'(x)", 
+        options: [ "\\(2\\left(x + \\frac{1}{x}\\right)\\)","\\(2\\left(x - \\frac{1}{x^3}\\right)\\)", "\\(2\\left(1 - \\frac{1}{x^2}\\right)\\)", "\\(4x - \\frac{2}{x^3}\\)"], 
+        correct: 1 
+    },
+    { 
+        question: "f(x) = \\(\\arctan(\\sqrt{x})\\). Найдите f'(x)", 
+        options: ["\\(\\frac{1}{2\\sqrt{x}(1 + x)}\\)", "\\(\\frac{1}{1 + x}\\)", "\\(\\frac{1}{2\\sqrt{x}}\\)", "\\(\\frac{\\sqrt{x}}{1 + x}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(x \\cdot \\sin\\left(\\frac{1}{x}\\right)\\). Найдите f'(x)", 
+        options: ["\\(\\sin\\left(\\frac{1}{x}\\right) + \\frac{\\cos\\left(\\frac{1}{x}\\right)}{x}\\)", "\\(\\sin\\left(\\frac{1}{x}\\right) + \\cos\\left(\\frac{1}{x}\\right)\\)", "\\(\\sin\\left(\\frac{1}{x}\\right) - \\frac{\\cos\\left(\\frac{1}{x}\\right)}{x}\\)", "\\(\\sin\\left(\\frac{1}{x}\\right) - \\cos\\left(\\frac{1}{x}\\right)\\)"], 
+        correct: 2 
+    },
+    { 
+        question: "f(x) = \\(\\frac{e^x - e^{-x}}{2}\\). Найдите f'(x)", 
+        options: ["\\(\\frac{e^x + e^{-x}}{2}\\)", "\\(\\frac{e^x}{2}\\)", "\\(\\frac{e^x - e^{-x}}{2}\\)", "\\(\\cosh(x)\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\ln|\\sec(x)|\\). Найдите f'(x)", 
+        options: ["\\(\\tan(x)\\)", "\\(\\sec(x)\\tan(x)\\)", "\\(\\frac{1}{\\sec(x)}\\)", "\\(\\cos(x)\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(x^2 \\cdot e^{3x}\\). Найдите f'(x)", 
+        options: ["\\(e^{3x}(2x - 3x^2)\\)", "\\(2x e^{3x}\\)", "\\(3x^2 e^{3x}\\)", "\\(e^{3x}(2x + 3x^2)\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\(\\sin(x^2)\\). Найдите f'(x)", 
+        options: ["\\(2x\\cos(x^2)\\)", "\\(\\cos(x^2)\\)", "\\(2x\\sin(x^2)\\)", "\\(x\\cos(x^2)\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\((2x - 1)^3\\). Найдите f'(x)", 
+        options: ["\\(6(2x - 1)^2\\)", "\\(3(2x - 1)^2\\)", "\\(2(2x - 1)^2\\)", "\\(6x(2x - 1)^2\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\frac{x}{\\sqrt{1 - x^2}}\\). Найдите f'(x)", 
+        options: ["\\(\\frac{x}{1-x^2}\\)", "\\(\\frac{-1}{(1 - x^2)^{3/2}}\\)", "\\(\\frac{1}{\\sqrt{1-x^2}}\\)", "\\(\\frac{1}{(1 - x^2)^{3/2}}\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\(e^{2x} \\cdot \\cos(3x)\\). Найдите f'(x)", 
+        options: ["\\(e^{2x}(cos(3x) - 3\\sin(3x))\\)", "\\(e^{2x}\\cos(3x) - e^{2x}\\sin(3x)\\)", "\\(2e^{2x}\\cos(3x)\\)", "\\(e^{2x}(2\\cos(3x) - 3\\sin(3x))\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "f(x) = \\(\\ln\\left(\\frac{x+1}{x-1}\\right)\\). Найдите f'(x)", 
+        options: ["\\(-\\frac{2}{x^2 - 1}\\)", "\\(\\frac{1}{x+1} - \\frac{1}{x-1}\\)", "\\(\\frac{2}{1-x^2}\\)", "\\(\\frac{x-1 - x-1}{x^2-1}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(x \\cdot \\arcsin(x)\\). Найдите f'(x)", 
+        options: ["\\(\\arcsin(x) + \\frac{x}{\\sqrt{1-x^2}}\\)", "\\(\\frac{1}{\\sqrt{1-x^2}}\\)", "\\(\\arcsin(x) + \\frac{1}{\\sqrt{1-x^2}}\\)", "\\(\\frac{x}{\\sqrt{1-x^2}}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\((\\sin(x) + x)^2\\). Найдите f'(x)", 
+        options: [ "\\(2(\\sin(x)+x)\\)", "\\(2(\\cos(x)+1)\\)","\\(2(\\sin(x)+x)(\\cos(x)+1)\\)", "\\(2\\sin(x)\\cos(x) + 2x\\)"], 
+        correct: 2 
+    },
+    { 
+        question: "f(x) = \\(e^{\\ln(x^2)}\\). Найдите f'(x)", 
+        options: ["\\(2x\\)", "\\(e^{2\\ln(x)}\\)", "\\(2x e^{\\ln(x^2)}\\)", "\\(x^2\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\sqrt{x^2 + 4x}\\). Найдите f'(x)", 
+        options: ["\\(\\frac{x + 2}{\\sqrt{x^2 + 4x}}\\)", "\\(\\frac{1}{2\\sqrt{x^2+4x}}\\)", "\\(\\frac{2x+4}{\\sqrt{x^2+4x}}\\)", "\\(\\sqrt{2x+4}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\cos(2x) \\cdot \\sin(3x)\\). Найдите f'(x)", 
+        options: ["\\(-2\\sin(2x)\\sin(3x) + 3\\cos(2x)\\cos(3x)\\)", "\\(-\\sin(2x)\\sin(3x) + \\cos(2x)\\cos(3x)\\)", "\\(-2\\sin(2x) + 3\\cos(3x)\\)", "\\(\\cos(5x)\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\frac{x^2 + 1}{x}\\). Найдите f'(x)", 
+        options: ["\\(1 - \\frac{1}{x^2}\\)", "\\(2x - \\frac{1}{x^2}\\)", "\\(\\frac{2x}{x}\\)", "\\(\\frac{2x \\cdot x - (x^2+1)}{x^2}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\tan(x^2)\\). Найдите f'(x)", 
+        options: ["\\(2x \\cdot \\sec^2(x^2)\\)", "\\(\\sec^2(x^2)\\)", "\\(2x \\cdot \\tan(x^2)\\)", "\\(x \\cdot \\sec^2(x^2)\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(e^{x} \\cdot \\sin(x) \\cdot \\cos(x)\\). Найдите f'(x)", 
+        options: ["\\(e^x(\\sin(x)\\cos(x) + \\cos^2(x) - \\sin^2(x))\\)", "\\(e^x(\\cos^2(x) - \\sin^2(x))\\)", "\\(e^x(\\sin(x)\\cos(x))\\)", "\\(2e^x\\cos(2x))\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\ln(x + \\sqrt{x^2+1})\\). Найдите f'(x)", 
+        options: ["\\(\\frac{1}{\\sqrt{x^2+1}}\\)", "\\(\\frac{1 + \\frac{x}{\\sqrt{x^2+1}}}{x+\\sqrt{x^2+1}}\\)", "\\(\\frac{x}{\\sqrt{x^2+1}}\\)", "\\(\\sqrt{x^2+1}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\(\\frac{1 - \\cos(2x)}{2}\\). Найдите f'(x)", 
+        options: [ "\\(\\sin(x)\\cos(x)\\)","\\(\\sin(2x)\\)", "\\(\\cos(2x)\\)", "\\(2\\sin(2x)\\)"], 
+        correct: 1 
+    },
+    { 
+        question: "f(x) = \\(x^2 \\cdot \\ln(2x)\\). Найдите f'(x)", 
+        options: ["\\(\\frac{x}{2} + 2x\\ln(2x)\\)", "\\(2x\\ln(2x)\\)", "\\(2x\\ln(2x) + x\\)", "\\(x + x\\ln(2x)\\)"], 
+        correct: 2 
+    },
+    { 
+        question: "f(x) = \\(\\sin\\left(\\frac{1}{x}\\right)\\). Найдите f'(x)", 
+        options: ["\\(-\\frac{\\cos\\left(\\frac{1}{x}\\right)}{x^2}\\)", "\\(\\cos\\left(\\frac{1}{x}\\right)\\)", "\\(-\\cos\\left(\\frac{1}{x}\\right)\\)", "\\(\\frac{\\cos\\left(\\frac{1}{x}\\right)}{x^2}\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "f(x) = \\((e^x + e^{-x})^2\\). Найдите f'(x)", 
+        options: ["\\(2(e^{2x} + e^{-2x})\\)", "\\(2(e^x+e^{-x})\\)", "\\(4(e^{2x} - e^{-2x})\\)", "\\(2(e^{2x} - e^{-2x})\\)"], 
+        correct: 3 
+    }
+];
+
+
+// Сложные вопросы
+   const hardDerivativesQuestions = [
+           {
+        question: "Найдите производную функции $f(x) = e^{\\sin(x^2)}$",
+        options: [
+            "$f'(x) = 2x \\cos(x^2) e^{\\sin(x^2)}$",
+            "$f'(x) = \\cos(x^2) e^{\\sin(x^2)}$", 
+            "$f'(x) = e^{\\cos(x^2)}$",
+            "$f'(x) = 2x e^{\\sin(x^2)}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln(\\sqrt[3]{x^2 + 1})$",
+        options: [
+            "$f'(x) = \\frac{2x}{3(x^2 + 1)}$",
+            "$f'(x) = \\frac{1}{3\\sqrt[3]{(x^2 + 1)^2}}$",
+            "$f'(x) = \\frac{2x}{x^2 + 1}$",
+            "$f'(x) = \\frac{3}{2x}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arctan(\\ln x)$",
+        options: [
+            "$f'(x) = \\frac{1}{x(1 + (\\ln x)^2)}$",
+            "$f'(x) = \\frac{1}{1 + x^2}$",
+            "$f'(x) = \\frac{\\ln x}{1 + x^2}$",
+            "$f'(x) = \\frac{1}{x\\sqrt{1 - (\\ln x)^2}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sin(2^x)$",
+        options: [
+            "$f'(x) = 2^x \\ln 2 \\cdot \\cos(2^x)$",
+            "$f'(x) = \\cos(2^x)$",
+            "$f'(x) = x2^{x-1} \\cos(2^x)$",
+            "$f'(x) = 2^x \\cos(2^x)$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sqrt{\\tan(3x)}$",
+        options: [
+            "$f'(x) = \\frac{3\\sec^2(3x)}{2\\sqrt{\\tan(3x)}}$",
+            "$f'(x) = \\frac{\\sec^2(3x)}{\\sqrt{\\tan(3x)}}$",
+            "$f'(x) = \\frac{3}{2\\sqrt{\\tan(3x)}}$",
+            "$f'(x) = \\sqrt{\\sec^2(3x)}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = x^{\\sin x}$ (используйте логарифмическое дифференцирование)",
+        options: [
+            "$f'(x) = x^{\\sin x}(\\frac{\\sin x}{x} + \\cos x \\cdot \\ln x)$",
+            "$f'(x) = \\sin x \\cdot x^{\\sin x - 1}$",
+            "$f'(x) = x^{\\sin x} \\cos x$",
+            "$f'(x) = x^{\\sin x} \\ln x$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arcsin(\\sqrt{x})$",
+        options: [
+            "$f'(x) = \\frac{1}{2\\sqrt{x(1 - x)}}$",
+            "$f'(x) = \\frac{1}{\\sqrt{1 - x}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{1 - x}}$",
+            "$f'(x) = \\frac{\\sqrt{x}}{1 - x}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\cos(e^{x^2})$",
+        options: [
+            "$f'(x) = -2x e^{x^2} \\sin(e^{x^2})$",
+            "$f'(x) = -e^{x^2} \\sin(e^{x^2})$",
+            "$f'(x) = 2x \\sin(e^{x^2})$",
+            "$f'(x) = -\\sin(e^{x^2})$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln(\\cosh x)$",
+        options: [
+            "$f'(x) = \\tanh x$",
+            "$f'(x) = \\frac{1}{\\cosh x}$",
+            "$f'(x) = \\sinh x$",
+            "$f'(x) = \\frac{\\sinh x}{\\cosh x}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{e^{-x}}{x^2 + 1}$",
+        options: [
+            "$f'(x) = -\\frac{e^{-x}(x^2 + 2x + 1)}{(x^2 + 1)^2}$",
+            "$f'(x) = \\frac{e^{-x}(x^2 - 1)}{(x^2 + 1)^2}$",
+            "$f'(x) = -\\frac{e^{-x}}{x^2 + 1}$",
+            "$f'(x) = \\frac{e^{-x}(2x - 1)}{(x^2 + 1)^2}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sqrt[4]{\\ln(1 + x^2)}$",
+        options: [
+            "$f'(x) = \\frac{x}{2(1 + x^2)(\\ln(1 + x^2))^{3/4}}$",
+            "$f'(x) = \\frac{1}{4(\\ln(1 + x^2))^{3/4}}$",
+            "$f'(x) = \\frac{x}{(1 + x^2)\\sqrt[4]{\\ln(1 + x^2)}}$",
+            "$f'(x) = \\frac{2x}{\\sqrt[4]{(1 + x^2)^3}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arctan(\\sinh x)$",
+        options: [
+            "$f'(x) = \\frac{\\cosh x}{1 + \\sinh^2 x}$",
+            "$f'(x) = \\frac{1}{\\cosh x}$",
+            "$f'(x) = \\frac{\\sinh x}{1 + \\cosh^2 x}$",
+            "$f'(x) = \\frac{1}{1 + \\sinh^2 x}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = (1 + x^2)^{\\cos x}$",
+        options: [
+            "$f'(x) = (1 + x^2)^{\\cos x}(\\frac{2x \\cos x}{1 + x^2} - \\sin x \\cdot \\ln(1 + x^2))$",
+            "$f'(x) = \\cos x (1 + x^2)^{\\cos x - 1} \\cdot 2x$",
+            "$f'(x) = (1 + x^2)^{\\cos x} \\ln(1 + x^2)$",
+            "$f'(x) = -\\sin x (1 + x^2)^{\\cos x}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sin(\\sqrt{x})}{e^x}$",
+        options: [
+            "$f'(x) = \\frac{e^{-x}(\\cos(\\sqrt{x}) - 2\\sqrt{x} \\sin(\\sqrt{x}))}{2\\sqrt{x}}$",
+            "$f'(x) = \\frac{\\cos(\\sqrt{x})}{2\\sqrt{x} e^x}$",
+            "$f'(x) = \\frac{\\sin(\\sqrt{x}) - \\cos(\\sqrt{x})}{e^x}$",
+            "$f'(x) = \\frac{e^{-x}}{2\\sqrt{x}}(\\cos(\\sqrt{x}) - \\sin(\\sqrt{x}))$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln|\\sec(x^2) + \\tan(x^2)|$",
+        options: [
+            "$f'(x) = 2x \\sec(x^2)$",
+            "$f'(x) = \\sec(x^2)$",
+            "$f'(x) = \\frac{2x}{\\cos(x^2)}$",
+            "$f'(x) = x \\sec(x^2) \\tan(x^2)$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sqrt{x + \\sqrt{x + \\sqrt{x}}}$",
+        options: [
+            "$f'(x) = \\frac{1 + \\frac{1 + \\frac{1}{2\\sqrt{x}}}{2\\sqrt{x + \\sqrt{x}}}}{2\\sqrt{x + \\sqrt{x + \\sqrt{x}}}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{x + \\sqrt{x + \\sqrt{x}}}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{x}} \\cdot \\frac{1}{2\\sqrt{x + \\sqrt{x}}} \\cdot \\frac{1}{2\\sqrt{x + \\sqrt{x + \\sqrt{x}}}}$",
+            "$f'(x) = \\frac{1}{4\\sqrt{x + \\sqrt{x + \\sqrt{x}}}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arcsin(\\cos x)$",
+        options: [
+            "$f'(x) = -\\frac{\\sin x}{\\sqrt{1 - \\cos^2 x}}$",
+            "$f'(x) = \\frac{\\sin x}{\\sqrt{1 - \\cos^2 x}}$",
+            "$f'(x) = -\\frac{1}{\\sqrt{1 - \\cos^2 x}}$",
+            "$f'(x) = \\frac{\\cos x}{\\sqrt{1 - \\sin^2 x}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = x \\arctan(x) - \\frac{1}{2}\\ln(1 + x^2)$",
+        options: [
+            "$f'(x) = \\arctan(x)$",
+            "$f'(x) = x \\arctan(x)$",
+            "$f'(x) = \\frac{x}{1 + x^2}$",
+            "$f'(x) = \\arctan(x) + \\frac{x}{1 + x^2}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sqrt[3]{\\sin x}}{e^{2x}}$",
+        options: [
+            "$f'(x) = \\frac{e^{-2x}(\\cos x - 6\\sqrt[3]{\\sin^2 x})}{3\\sqrt[3]{\\sin^2 x}}$",
+            "$f'(x) = \\frac{\\cos x}{3e^{2x}\\sqrt[3]{\\sin^2 x}}$",
+            "$f'(x) = \\frac{\\sqrt[3]{\\sin x}(\\cos x - 6\\sin x)}{3e^{2x}\\sqrt[3]{\\sin^2 x}}$",
+            "$f'(x) = -\\frac{2\\sqrt[3]{\\sin x}}{e^{2x}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln\\left(\\frac{\\sqrt{x + 1} - \\sqrt{x - 1}}{\\sqrt{x + 1} + \\sqrt{x - 1}}\\right)$",
+        options: [
+            "$f'(x) = -\\frac{1}{\\sqrt{x^2 - 1}}$",
+            "$f'(x) = \\frac{1}{\\sqrt{x + 1} - \\sqrt{x - 1}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{x^2 - 1}}$",
+            "$f'(x) = -\\frac{1}{x\\sqrt{x^2 - 1}}$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sin(x \\ln x)$",
+        options: [
+            "$f'(x) = (\\ln x + 1) \\cos(x \\ln x)$",
+            "$f'(x) = \\cos(x \\ln x)$",
+            "$f'(x) = \\frac{\\cos(x \\ln x)}{x}$",
+            "$f'(x) = \\ln x \\cdot \\cos(x \\ln x)$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\arctan(2x)}{\\sqrt{1 + 4x^2}}$",
+        options: [
+            "$f'(x) = \\frac{2}{(1 + 4x^2)^{3/2}} - \\frac{4x \\arctan(2x)}{(1 + 4x^2)^{3/2}}$",
+            "$f'(x) = \\frac{2}{(1 + 4x^2)^{3/2}}$",
+            "$f'(x) = \\frac{1}{(1 + 4x^2)\\sqrt{1 + 4x^2}}$",
+            "$f'(x) = \\frac{\\arctan(2x)}{2(1 + 4x^2)^{3/2}}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\cos(\\sqrt[3]{x^2 + 1})$",
+        options: [
+            "$f'(x) = -\\frac{2x \\sin(\\sqrt[3]{x^2 + 1})}{3\\sqrt[3]{(x^2 + 1)^2}}$",
+            "$f'(x) = -\\sin(\\sqrt[3]{x^2 + 1})$",
+            "$f'(x) = \\frac{2x}{3\\sqrt[3]{(x^2 + 1)^2}}$",
+            "$f'(x) = -\\frac{2x}{3}\\sin(\\sqrt[3]{x^2 + 1})$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{e^{\\sin x} - e^{-\\sin x}}{e^{\\sin x} + e^{-\\sin x}}$",
+        options: [
+            "$f'(x) = \\frac{2\\cos x}{(e^{\\sin x} + e^{-\\sin x})^2}$",
+            "$f'(x) = \\frac{\\cos x}{e^{\\sin x} + e^{-\\sin x}}$",
+            "$f'(x) = \\frac{e^{\\sin x} - e^{-\\sin x}}{(e^{\\sin x} + e^{-\\sin x})^2}$",
+            "$f'(x) = \\cos x \\cdot \\tanh(\\sin x)$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln\\left(\\frac{x}{\\sqrt{x^2 + 1}}\\right)$",
+        options: [
+            "$f'(x) = \\frac{1}{x} - \\frac{x}{x^2 + 1}$",
+            "$f'(x) = \\frac{1}{x\\sqrt{x^2 + 1}}$",
+            "$f'(x) = \\frac{1}{x^2 + 1}$",
+            "$f'(x) = \\frac{\\sqrt{x^2 + 1} - x}{x(x^2 + 1)}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = x^{\\arcsin x}$",
+        options: [
+            "$f'(x) = x^{\\arcsin x}\\left(\\frac{\\arcsin x}{x} + \\frac{\\ln x}{\\sqrt{1 - x^2}}\\right)$",
+            "$f'(x) = \\arcsin x \\cdot x^{\\arcsin x - 1}$",
+            "$f'(x) = x^{\\arcsin x} \\ln x$",
+            "$f'(x) = \\frac{x^{\\arcsin x}}{\\sqrt{1 - x^2}}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sqrt{\\frac{1 - \\cos x}{1 + \\cos x}}$",
+        options: [
+            "$f'(x) = \\frac{\\sin x}{\\sqrt{(1 - \\cos x)(1 + \\cos x)^3}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{\\frac{1 - \\cos x}{1 + \\cos x}}}$",
+            "$f'(x) = \\frac{\\sin x}{(1 + \\cos x)^2}$",
+            "$f'(x) = \\frac{1}{\\sin x}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sin(ax)}{\\cos(bx)}$",
+        options: [
+            "$f'(x) = \\frac{a \\cos(ax) \\cos(bx) + b \\sin(ax) \\sin(bx)}{\\cos^2(bx)}$",
+            "$f'(x) = \\frac{a \\cos(ax)}{\\cos(bx)}$",
+            "$f'(x) = \\frac{a \\cos(ax) \\cos(bx) - b \\sin(ax) \\sin(bx)}{\\cos^2(bx)}$",
+            "$f'(x) = \\frac{\\cos(ax)}{\\cos(bx)} + \\frac{\\sin(ax) \\sin(bx)}{\\cos^2(bx)}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln(\\sinh(\\sqrt{x}))$",
+        options: [
+            "$f'(x) = \\frac{\\cosh(\\sqrt{x})}{2\\sqrt{x} \\sinh(\\sqrt{x})}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{x} \\tanh(\\sqrt{x})}$",
+            "$f'(x) = \\frac{1}{\\sinh(\\sqrt{x})}$",
+            "$f'(x) = \\frac{\\cosh(\\sqrt{x})}{\\sqrt{x}}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arctan(\\sqrt{\\frac{1 - x}{1 + x}})$",
+        options: [
+            "$f'(x) = -\\frac{1}{2\\sqrt{1 - x^2}}$",
+            "$f'(x) = \\frac{1}{2(1 + x)\\sqrt{1 - x}}$",
+            "$f'(x) = -\\frac{1}{\\sqrt{1 - x^2}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{1 - x^2}}$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Найдите производную функции $f(x) = e^{x \\sin x} \\cos(x \\cos x)$",
+        options: [
+            "$f'(x) = e^{x \\sin x}[(\\sin x + x \\cos x) \\cos(x \\cos x) - (\\cos x - x \\sin x) \\sin(x \\cos x)]$",
+            "$f'(x) = e^{x \\sin x}[\\sin x \\cos(x \\cos x) - \\cos x \\sin(x \\cos x)]$",
+            "$f'(x) = e^{x \\sin x}(\\sin x + x \\cos x) \\cos(x \\cos x)$",
+            "$f'(x) = e^{x \\sin x}(\\cos x - x \\sin x) \\sin(x \\cos x)$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sqrt{x^2 + a^2} - \\sqrt{x^2 - a^2}}{\\sqrt{x^2 + a^2} + \\sqrt{x^2 - a^2}}$",
+        options: [
+            "$f'(x) = \\frac{2a^2x}{\\sqrt{x^2 + a^2}\\sqrt{x^2 - a^2}(\\sqrt{x^2 + a^2} + \\sqrt{x^2 - a^2})^2}$",
+            "$f'(x) = \\frac{x}{\\sqrt{x^2 + a^2}} - \\frac{x}{\\sqrt{x^2 - a^2}}$",
+            "$f'(x) = \\frac{1}{(\\sqrt{x^2 + a^2} + \\sqrt{x^2 - a^2})^2}$",
+            "$f'(x) = \\frac{2x}{\\sqrt{x^2 + a^2}\\sqrt{x^2 - a^2}}$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln\\left(\\frac{\\sqrt{1 + e^x} - \\sqrt{1 - e^x}}{\\sqrt{1 + e^x} + \\sqrt{1 - e^x}}\\right)$",
+        options: [
+            "$f'(x) = \\frac{e^x}{\\sqrt{1 - e^{2x}}}$",
+            "$f'(x) = \\frac{1}{\\sqrt{1 - e^{2x}}}$",
+            "$f'(x) = \\frac{e^x}{2\\sqrt{1 - e^{2x}}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{1 - e^{2x}}}$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\sin(\\arctan(\\sqrt{x}))$",
+        options: [
+            "$f'(x) = \\frac{1}{2\\sqrt{x}(1 + x)}$",
+            "$f'(x) = \\frac{\\cos(\\arctan(\\sqrt{x}))}{1 + x}$",
+            "$f'(x) = \\frac{1}{2(1 + x)\\sqrt{x}}$",
+            "$f'(x) = \\frac{\\sqrt{x}}{2(1 + x)^{3/2}}$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\arcsin(3x)}{\\sqrt{1 - 9x^2}}$",
+        options: [
+            "$f'(x) = \\frac{3}{(1 - 9x^2)} + \\frac{9x \\arcsin(3x)}{(1 - 9x^2)^{3/2}}$",
+            "$f'(x) = \\frac{3}{1 - 9x^2}$",
+            "$f'(x) = \\frac{3\\sqrt{1 - 9x^2} + 9x \\arcsin(3x)}{(1 - 9x^2)^{3/2}}$",
+            "$f'(x) = \\frac{1}{(1 - 9x^2)^{3/2}}$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = x^{x^x}$",
+        options: [
+            "$f'(x) = x^{x^x} \\cdot x^x \\left(\\frac{1}{x} + \\ln x + (\\ln x)^2\\right)$",
+            "$f'(x) = x^{x^x} \\cdot x^x (\\ln x + 1)$",
+            "$f'(x) = x^{x^x} \\cdot x^{x-1} \\cdot x$",
+            "$f'(x) = x^{x^x} \\ln x$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\tan(\\sqrt[3]{x})}{\\ln(1 + x^2)}$",
+        options: [
+            "$f'(x) = \\frac{\\frac{\\sec^2(\\sqrt[3]{x})}{3\\sqrt[3]{x^2}} \\ln(1 + x^2) - \\tan(\\sqrt[3]{x}) \\cdot \\frac{2x}{1 + x^2}}{\\ln^2(1 + x^2)}$",
+            "$f'(x) = \\frac{\\sec^2(\\sqrt[3]{x})}{3\\sqrt[3]{x^2} \\ln(1 + x^2)}$",
+            "$f'(x) = \\frac{\\tan(\\sqrt[3]{x})}{\\ln(1 + x^2)} \\left(\\frac{\\sec^2(\\sqrt[3]{x})}{3\\sqrt[3]{x^2} \\tan(\\sqrt[3]{x})} - \\frac{2x}{(1 + x^2)\\ln(1 + x^2)}\\right)$",
+            "$f'(x) = \\frac{1}{3\\sqrt[3]{x^2}\\ln(1 + x^2)}$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\cos(\\ln(\\sin(e^x)))$",
+        options: [
+            "$f'(x) = -\\sin(\\ln(\\sin(e^x))) \\cdot \\frac{e^x \\cos(e^x)}{\\sin(e^x)}$",
+            "$f'(x) = -\\frac{e^x \\cos(e^x)}{\\sin(e^x)}$",
+            "$f'(x) = -\\sin(\\ln(\\sin(e^x))) \\cdot \\frac{\\cos(e^x)}{\\sin(e^x)}$",
+            "$f'(x) = \\sin(\\ln(\\sin(e^x))) \\cdot e^x \\cot(e^x)$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sqrt{1 + x^2} - 1}{x}$",
+        options: [
+            "$f'(x) = \\frac{1}{x\\sqrt{1 + x^2}} - \\frac{\\sqrt{1 + x^2} - 1}{x^2}$",
+            "$f'(x) = \\frac{1}{\\sqrt{1 + x^2}}$",
+            "$f'(x) = \\frac{x}{\\sqrt{1 + x^2}} - \\frac{1}{x^2}$",
+            "$f'(x) = \\frac{1}{x^2\\sqrt{1 + x^2}}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arctan(\\frac{\\sqrt{1 + x} - \\sqrt{1 - x}}{\\sqrt{1 + x} + \\sqrt{1 - x}})$",
+        options: [
+            "$f'(x) = \\frac{1}{\\sqrt{1 - x^2}}$",
+            "$f'(x) = \\frac{1}{2\\sqrt{1 - x^2}}$",
+            "$f'(x) = \\frac{x}{\\sqrt{1 - x^2}}$",
+            "$f'(x) = \\frac{1}{\\sqrt{1 + x} \\sqrt{1 - x}}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln\\left(\\frac{\\sqrt{1 + \\sin x} + \\sqrt{1 - \\sin x}}{\\sqrt{1 + \\sin x} - \\sqrt{1 - \\sin x}}\\right)$",
+        options: [
+            "$f'(x) = \\frac{1}{\\sqrt{1 - \\sin^2 x}}$",
+            "$f'(x) = \\frac{\\cos x}{\\sin x}$",
+            "$f'(x) = \\frac{1}{\\cos x}$",
+            "$f'(x) = \\frac{\\cos x}{\\sqrt{1 - \\sin^2 x}}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sin(\\arctan x) - \\cos(\\arctan x)}{\\sin(\\arctan x) + \\cos(\\arctan x)}$",
+        options: [
+            "$f'(x) = \\frac{2}{(1 + x^2)(\\sin(\\arctan x) + \\cos(\\arctan x))^2}$",
+            "$f'(x) = \\frac{1}{1 + x^2}$",
+            "$f'(x) = \\frac{2}{1 + x^2}$",
+            "$f'(x) = \\frac{2x}{(1 + x^2)^2}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = x \\cdot \\arcsin(\\frac{x}{a}) + \\sqrt{a^2 - x^2}$",
+        options: [
+            "$f'(x) = \\arcsin(\\frac{x}{a})$",
+            "$f'(x) = \\frac{x}{\\sqrt{a^2 - x^2}} + \\arcsin(\\frac{x}{a})$",
+            "$f'(x) = \\frac{a}{\\sqrt{a^2 - x^2}}$",
+            "$f'(x) = \\arcsin(\\frac{x}{a}) + \\frac{x}{\\sqrt{a^2 - x^2}} - \\frac{x}{\\sqrt{a^2 - x^2}}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\tan(\\ln x) - \\cot(\\ln x)}{\\tan(\\ln x) + \\cot(\\ln x)}$",
+        options: [
+            "$f'(x) = \\frac{2}{x(\\tan(\\ln x) + \\cot(\\ln x))^2}$",
+            "$f'(x) = \\frac{4}{x\\sin^2(2\\ln x)}$",
+            "$f'(x) = \\frac{1}{x}\\sin(2\\ln x)$",
+            "$f'(x) = \\frac{2}{x}\\cos(2\\ln x)$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\arctan(\\frac{2x}{1 - x^2})$",
+        options: [
+            "$f'(x) = \\frac{2}{1 + x^2}$",
+            "$f'(x) = \\frac{4x}{(1 - x^2)^2}$",
+            "$f'(x) = \\frac{2(1 + x^2)}{(1 - x^2)^2 + 4x^2}$",
+            "$f'(x) = \\frac{2}{1 - x^2}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\ln\\left(\\sqrt{\\frac{1 - \\cos x}{1 + \\cos x}}\\right)$",
+        options: [
+            "$f'(x) = \\csc x$",
+            "$f'(x) = \\frac{1}{\\sin x}$",
+            "$f'(x) = \\frac{\\cos x}{\\sin x}$",
+            "$f'(x) = \\frac{1}{\\sin x \\cos x}$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Найдите производную функции $f(x) = \\frac{\\sqrt{1 + x^2} (x - \\sqrt{1 + x^2})}{x}$",
+        options: [
+            "$f'(x) = -\\frac{1}{x^2}$",
+            "$f'(x) = \\frac{1}{\\sqrt{1 + x^2}}$",
+            "$f'(x) = \\frac{x}{\\sqrt{1 + x^2}} - 1$",
+            "$f'(x) = \\frac{1}{x^2\\sqrt{1 + x^2}}$"
+        ],
+        correct: 3
+    }
+        ];
+// легкие интегралы
+const easyIntegralsQuestions = [
+    {
+        question: "Вычислите интеграл $\\int x dx$",
+        options: [
+            
+            "$x^2 + C$",
+            "$\\ln(x) + C$",
+            "$x + C$",
+            "$\\frac{x^2}{2} + C$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Вычислите интеграл $\\int 2x dx$",
+        options: [
+            "$x^2 + C$",
+            "$2x^2 + C$",
+            "$x + C$",
+            "$\\frac{x^2}{2} + C$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Вычислите интеграл $\\int 3 dx$",
+        options: [
+            "$x^3 + C$",
+            "$\\frac{3}{2}x^2 + C$",
+            "$3x + C$",
+            "$x + C$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Вычислите интеграл $\\int x^2 dx$",
+        options: [
+            "$x^3 + C$",
+            "$2x + C$",
+            "$x^2 + C$",
+            "$\\frac{x^3}{3} + C$",
+        ],
+        correct: 3
+    },
+    {
+        question: "Вычислите интеграл $\\int 5x^4 dx$",
+        options: [
+            "$x^5 + C$",
+            "$5x^5 + C$",
+            "$\\frac{5x^5}{5} + C$",
+            "$\\frac{x^5}{4} + C$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Вычислите интеграл $\\int \\frac{1}{x} dx$",
+        options: [
+            "$x + C$",
+            "$\\frac{1}{x^2} + C$",
+            "$\\ln|x| + C$",
+            "$x^2 + C$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Вычислите интеграл $\\int 4x^3 dx$",
+        options: [
+            "$\\frac{4x^4}{3} + C$",
+            "$4x^4 + C$",
+            "$x^4 + C$",
+            "$x^3 + C$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Вычислите интеграл $\\int (2x + 1) dx$",
+        options: [
+            "$2x^2 + x + C$",
+            "$x^2 + x + C$",
+            "$x^2 + 1 + C$",
+            "$2x + C$"
+        ],
+        correct: 1
+    },
+    {
+        question: "Вычислите интеграл $\\int (3x^2 + 2x) dx$",
+        options: [
+            "$\\frac{3x^3}{2} + \\frac{2x^2}{3} + C$",
+            "$3x^3 + 2x^2 + C$",
+            "$x^2 + x + C$",
+            "$x^3 + x^2 + C$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Вычислите интеграл $\\int 6 dx$",
+        options: [
+            
+            "$x^6 + C$",
+            "$3x + C$",
+            "$x + C$",
+            "$6x + C$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Вычислите интеграл $\\int x^3 dx$",
+        options: [
+            "$x^4 + C$",
+            "$3x + C$",
+            "$x^3 + C$",
+            "$\\frac{x^4}{4} + C$"
+        ],
+        correct: 3
+    },
+    {
+        question: "Вычислите интеграл $\\int 7x^2 dx$",
+        options: [
+            "$\\frac{7x^3}{3} + C$",
+            "$7x^3 + C$",
+            "$x^3 + C$",
+            "$\\frac{x^3}{3} + C$"
+        ],
+        correct: 0
+    },
+    {
+        question: "Вычислите интеграл $\\int 5 dx$",
+        options: [
+            "$x^5 + C$",
+            "$x + C$",
+            "$5x + C$",
+            "$25x + C$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Вычислите интеграл $\\int (x^2 + 2) dx$",
+        options: [
+            "$\\frac{x^2}{2} + 2 + C$",
+            "$x^2 + 2x + C$",
+            "$\\frac{x^3}{3} + 2x + C$",
+            "$x^3 + 2 + C$"
+        ],
+        correct: 2
+    },
+    {
+        question: "Вычислите интеграл $\\int (3 + x^2) dx$",
+        options: [
+            "$x^3/3 + 3x + C$",
+            "$3 + x^2 + C$",
+            "$3x + x^3 + C$",
+            "$x^2 + 3x + C$"
+        ],
+        correct: 0
+    }
+];
+// Средние интегралы
+const mediumIntegralsQuestions = [
+    { 
+        question: "Вычислите \\(\\int x^2  dx\\)", 
+        options: ["\\(x^3 + C\\)", "\\(2x + C\\)", "\\(x^2 + C\\)", "\\(\\frac{x^3}{3} + C\\)"], 
+        correct: 3 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sin(x)  dx\\)", 
+        options: ["\\(\\cos(x) + C\\)", "\\(-\\cos(x) + C\\)", "\\(\\sin(x) + C\\)", "\\(-\\sin(x) + C\\)"], 
+        correct: 1 
+    },
+    { 
+        question: "Вычислите \\(\\int e^x  dx\\)", 
+        options: ["\\(e^x + C\\)", "\\(xe^x + C\\)", "\\(\\ln(x) + C\\)", "\\(\\frac{e^x}{x} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{x}  dx\\)", 
+        options: ["\\(\\ln|x| + C\\)", "\\(x + C\\)", "\\(\\frac{1}{x^2} + C\\)", "\\(-\\frac{1}{x^2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\cos(x)  dx\\)", 
+        options: ["\\(\\sin(x) + C\\)", "\\(-\\sin(x) + C\\)", "\\(\\cos(x) + C\\)", "\\(-\\cos(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int (3x^2 + 2x + 1)  dx\\)", 
+        options: ["\\(x^3 + x^2 + x + C\\)", "\\(6x + 2 + C\\)", "\\(3x^3 + 2x^2 + x + C\\)", "\\(x^3 + x^2 + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{x^2}  dx\\)", 
+        options: ["\\(-\\frac{1}{x} + C\\)", "\\(\\frac{1}{x} + C\\)", "\\(\\ln|x| + C\\)", "\\(-\\frac{1}{2x^2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sqrt{x}  dx\\)", 
+        options: ["\\(\\frac{2}{3}x^{3/2} + C\\)", "\\(\\frac{1}{2\\sqrt{x}} + C\\)", "\\(\\sqrt{x} + C\\)", "\\(\\frac{3}{2}x^{3/2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int (x^3 - 2x + 5)  dx\\)", 
+        options: ["\\(\\frac{x^4}{4} - x^2 + 5x + C\\)", "\\(3x^2 - 2 + C\\)", "\\(x^4 - x^2 + 5x + C\\)", "\\(\\frac{x^3}{3} - x^2 + 5x + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{\\sqrt{x}}  dx\\)", 
+        options: ["\\(2\\sqrt{x} + C\\)", "\\(\\frac{1}{2\\sqrt{x}} + C\\)", "\\(\\sqrt{x} + C\\)", "\\(-\\frac{1}{2x^{3/2}} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sec^2(x)  dx\\)", 
+        options: ["\\(\\tan(x) + C\\)", "\\(\\sec(x) + C\\)", "\\(\\sec(x)\\tan(x) + C\\)", "\\(\\cot(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int (e^x + \\sin(x))  dx\\)", 
+        options: ["\\(e^x - \\cos(x) + C\\)", "\\(e^x + \\cos(x) + C\\)", "\\(e^x - \\sin(x) + C\\)", "\\(e^x + \\sin(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{2x}{x^2 + 1}  dx\\)", 
+        options: ["\\(\\ln|x^2 + 1| + C\\)", "\\(\\frac{1}{x^2 + 1} + C\\)", "\\(2\\ln|x^2 + 1| + C\\)", "\\(\\arctan(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x\\cdot e^{x^2}  dx\\)", 
+        options: ["\\(\\frac{1}{2}e^{x^2} + C\\)", "\\(e^{x^2} + C\\)", "\\(2x e^{x^2} + C\\)", "\\(\\frac{1}{x}e^{x^2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{1 + x^2}  dx\\)", 
+        options: ["\\(\\arctan(x) + C\\)", "\\(\\ln|1 + x^2| + C\\)", "\\(\\frac{1}{2}\\ln|1 + x^2| + C\\)", "\\(\\arcsin(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sin(2x)  dx\\)", 
+        options: ["\\(-\\frac{1}{2}\\cos(2x) + C\\)", "\\(-\\cos(2x) + C\\)", "\\(\\frac{1}{2}\\cos(2x) + C\\)", "\\(2\\cos(2x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x}{\\sqrt{1 - x^2}}  dx\\)", 
+        options: ["\\(-\\sqrt{1 - x^2} + C\\)", "\\(\\sqrt{1 - x^2} + C\\)", "\\(\\frac{1}{2\\sqrt{1 - x^2}} + C\\)", "\\(\\arcsin(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\ln(x)  dx\\)", 
+        options: ["\\(x\\ln(x) - x + C\\)", "\\(\\frac{1}{x} + C\\)", "\\(\\ln(x) + C\\)", "\\(x\\ln(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\cos(3x)  dx\\)", 
+        options: ["\\(\\frac{1}{3}\\sin(3x) + C\\)", "\\(3\\sin(3x) + C\\)", "\\(\\sin(3x) + C\\)", "\\(-\\frac{1}{3}\\sin(3x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{e^x}{e^x + 1}  dx\\)", 
+        options: ["\\(\\ln|e^x + 1| + C\\)", "\\(\\frac{1}{e^x + 1} + C\\)", "\\(e^x\\ln|e^x + 1| + C\\)", "\\(\\arctan(e^x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x\\cdot\\cos(x^2)  dx\\)", 
+        options: ["\\(\\frac{1}{2}\\sin(x^2) + C\\)", "\\(\\sin(x^2) + C\\)", "\\(2x\\sin(x^2) + C\\)", "\\(\\cos(x^2) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{x\\ln(x)}  dx\\)", 
+        options: ["\\(\\ln|\\ln(x)| + C\\)", "\\(\\frac{1}{\\ln(x)} + C\\)", "\\(\\ln(x) + C\\)", "\\(\\frac{1}{x\\ln(x)} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\tan(x)  dx\\)", 
+        options: ["\\(-\\ln|\\cos(x)| + C\\)", "\\(\\ln|\\cos(x)| + C\\)", "\\(\\sec^2(x) + C\\)", "\\(\\ln|\\sin(x)| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{2x + 1}{x^2 + x}  dx\\)", 
+        options: ["\\(\\ln|x^2 + x| + C\\)", "\\(\\frac{1}{x^2 + x} + C\\)", "\\(2\\ln|x^2 + x| + C\\)", "\\(\\arctan(x^2 + x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int e^{3x}  dx\\)", 
+        options: ["\\(\\frac{1}{3}e^{3x} + C\\)", "\\(3e^{3x} + C\\)", "\\(e^{3x} + C\\)", "\\(\\frac{1}{x}e^{3x} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{\\sqrt{1 - x^2}}  dx\\)", 
+        options: ["\\(\\arcsin(x) + C\\)", "\\(\\arccos(x) + C\\)", "\\(\\ln|\\sqrt{1 - x^2}| + C\\)", "\\(\\arctan(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x\\cdot\\sqrt{x^2 + 1}  dx\\)", 
+        options: ["\\(\\frac{1}{3}(x^2 + 1)^{3/2} + C\\)", "\\(\\sqrt{x^2 + 1} + C\\)", "\\(\\frac{1}{2}\\sqrt{x^2 + 1} + C\\)", "\\(\\frac{2}{3}(x^2 + 1)^{3/2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{\\cos(x)}{\\sin(x)}  dx\\)", 
+        options: ["\\(\\ln|\\sin(x)| + C\\)", "\\(-\\ln|\\sin(x)| + C\\)", "\\(\\tan(x) + C\\)", "\\(\\cot(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int (x^2 + 2)^2  dx\\)", 
+        options: ["\\(\\frac{x^5}{5} + \\frac{4x^3}{3} + 4x + C\\)", "\\(2x(x^2 + 2) + C\\)", "\\(x^4 + 4x^2 + 4 + C\\)", "\\(\\frac{x^3}{3} + 2x^2 + 4x + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{x^2 + 4}  dx\\)", 
+        options: ["\\(\\frac{1}{2}\\arctan(\\frac{x}{2}) + C\\)", "\\(\\arctan(\\frac{x}{2}) + C\\)", "\\(\\frac{1}{4}\\arctan(x) + C\\)", "\\(\\ln|x^2 + 4| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x\\cdot\\ln(x)  dx\\)", 
+        options: ["\\(\\frac{x^2}{2}\\ln(x) - \\frac{x^2}{4} + C\\)", "\\(x\\ln(x) - x + C\\)", "\\(\\frac{1}{x} + C\\)", "\\(\\frac{x^2}{2}\\ln(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sin(x)\\cdot\\cos(x)  dx\\)", 
+        options: ["\\(\\frac{1}{2}\\sin^2(x) + C\\)", "\\(\\sin^2(x) + C\\)", "\\(\\cos^2(x) + C\\)", "\\(-\\frac{1}{2}\\cos^2(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{e^{\\sqrt{x}}}{\\sqrt{x}}  dx\\)", 
+        options: ["\\(2e^{\\sqrt{x}} + C\\)", "\\(e^{\\sqrt{x}} + C\\)", "\\(\\frac{1}{2}e^{\\sqrt{x}} + C\\)", "\\(\\sqrt{x}e^{\\sqrt{x}} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{x\\sqrt{\\ln(x)}}  dx\\)", 
+        options: ["\\(2\\sqrt{\\ln(x)} + C\\)", "\\(\\sqrt{\\ln(x)} + C\\)", "\\(\\frac{1}{2\\sqrt{\\ln(x)}} + C\\)", "\\(\\ln|\\sqrt{\\ln(x)}| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x}{x^2 + 9}  dx\\)", 
+        options: ["\\(\\frac{1}{2}\\ln|x^2 + 9| + C\\)", "\\(\\ln|x^2 + 9| + C\\)", "\\(\\frac{1}{x^2 + 9} + C\\)", "\\(\\arctan(\\frac{x}{3}) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sec(x)\\cdot\\tan(x)  dx\\)", 
+        options: ["\\(\\sec(x) + C\\)", "\\(\\tan(x) + C\\)", "\\(\\sec^2(x) + C\\)", "\\(\\ln|\\sec(x) + \\tan(x)| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{\\sqrt{4 - x^2}}  dx\\)", 
+        options: ["\\(\\arcsin(\\frac{x}{2}) + C\\)", "\\(\\frac{1}{2}\\arcsin(x) + C\\)", "\\(\\ln|\\sqrt{4 - x^2}| + C\\)", "\\(\\arccos(\\frac{x}{2}) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x\\cdot e^{-x}  dx\\)", 
+        options: ["\\(-e^{-x}(x + 1) + C\\)", "\\(e^{-x}(x - 1) + C\\)", "\\(-e^{-x} + C\\)", "\\(e^{-x} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{\\sin(x)}{\\cos^2(x)}  dx\\)", 
+        options: ["\\(\\frac{1}{\\cos(x)} + C\\)", "\\(-\\frac{1}{\\cos(x)} + C\\)", "\\(\\tan(x) + C\\)", "\\(\\ln|\\cos(x)| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int (2x + 3)^4  dx\\)", 
+        options: ["\\(\\frac{1}{10}(2x + 3)^5 + C\\)", "\\(8(2x + 3)^3 + C\\)", "\\((2x + 3)^5 + C\\)", "\\(\\frac{1}{5}(2x + 3)^5 + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{e^x - e^{-x}}{e^x + e^{-x}}  dx\\)", 
+        options: ["\\(\\ln|e^x + e^{-x}| + C\\)", "\\(\\arctan(e^x) + C\\)", "\\(\\frac{1}{e^x + e^{-x}} + C\\)", "\\(e^x - e^{-x} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x\\cdot\\sin(x)  dx\\)", 
+        options: ["\\(-x\\cdot\\cos(x) + \\sin(x) + C\\)", "\\(x\\cdot\\cos(x) - \\sin(x) + C\\)", "\\(-\\cos(x) + C\\)", "\\(\\sin(x) - x\\cdot\\cos(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{x^2 - 1}  dx\\)", 
+        options: ["\\(\\frac{1}{2}\\ln|\\frac{x-1}{x+1}| + C\\)", "\\(\\ln|x^2 - 1| + C\\)", "\\(\\frac{1}{x-1} - \\frac{1}{x+1} + C\\)", "\\(\\arctan(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sqrt{1 + x}  dx\\)", 
+        options: ["\\(\\frac{2}{3}(1 + x)^{3/2} + C\\)", "\\(\\sqrt{1 + x} + C\\)", "\\(\\frac{1}{2\\sqrt{1 + x}} + C\\)", "\\(\\frac{3}{2}(1 + x)^{3/2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{\\cos(x)}{1 + \\sin(x)}  dx\\)", 
+        options: ["\\(\\ln|1 + \\sin(x)| + C\\)", "\\(\\frac{1}{1 + \\sin(x)} + C\\)", "\\(-\\ln|1 + \\sin(x)| + C\\)", "\\(\\arctan(\\sin(x)) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x^2\\cdot e^{x^3}  dx\\)", 
+        options: ["\\(\\frac{1}{3}e^{x^3} + C\\)", "\\(e^{x^3} + C\\)", "\\(3x e^{x^3} + C\\)", "\\(\\frac{1}{x}e^{x^3} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{x\\ln^2(x)}  dx\\)", 
+        options: ["\\(-\\frac{1}{\\ln(x)} + C\\)", "\\(\\frac{1}{\\ln(x)} + C\\)", "\\(\\ln|\\ln(x)| + C\\)", "\\(-\\frac{1}{2\\ln^2(x)} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\tan^2(x)  dx\\)", 
+        options: ["\\(\\tan(x) - x + C\\)", "\\(\\tan(x) + x + C\\)", "\\(\\sec^2(x) + C\\)", "\\(\\ln|\\cos(x)| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x + 1}{x^2 + 2x}  dx\\)", 
+        options: ["\\(\\frac{1}{2}\\ln|x^2 + 2x| + C\\)", "\\(\\ln|x^2 + 2x| + C\\)", "\\(\\frac{1}{x^2 + 2x} + C\\)", "\\(\\arctan(x^2 + 2x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int e^{2x}\\cdot\\sin(x)  dx\\)", 
+        options: ["\\(\\frac{e^{2x}}{5}(2\\sin(x) - \\cos(x)) + C\\)", "\\(e^{2x}\\sin(x) + C\\)", "\\(\\frac{e^{2x}}{2}\\sin(x) + C\\)", "\\(e^{2x}(\\sin(x) - \\cos(x)) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{1}{\\sqrt{x}(1 + \\sqrt{x})}  dx\\)", 
+        options: ["\\(2\\ln|1 + \\sqrt{x}| + C\\)", "\\(\\ln|1 + \\sqrt{x}| + C\\)", "\\(\\frac{1}{1 + \\sqrt{x}} + C\\)", "\\(\\sqrt{x}\\ln|1 + \\sqrt{x}| + C\\)"], 
+        correct: 0 
+    }
+];
+// Сложные интегралы
+const hardIntegralsQuestions = [
+    { 
+        question: "Вычислите \\(\\int x e^x  dx\\)", 
+        options: ["\\(e^x(x-1) + C\\)", "\\(e^x(x+1) + C\\)", "\\(xe^x + C\\)", "\\(\\frac{x^2 e^x}{2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\ln(x)  dx\\)", 
+        options: ["\\(x \\ln(x) - x + C\\)", "\\(\\frac{\\ln^2(x)}{2} + C\\)", "\\(x + C\\)", "\\(x \\ln(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sin^2(x)  dx\\)", 
+        options: ["\\(\\frac{x}{2} - \\frac{\\sin(2x)}{4} + C\\)", "\\(-\\frac{\\cos^2(x)}{2} + C\\)", "\\(\\frac{\\sin(x)}{2} + C\\)", "\\(-\\frac{\\cos(2x)}{2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^2}{\\sqrt{1 - x^2}}  dx\\)", 
+        options: ["\\(\\frac{1}{2}\\arcsin(x) - \\frac{x}{2}\\sqrt{1 - x^2} + C\\)", "\\(\\arcsin(x) + C\\)", "\\(x\\sqrt{1 - x^2} + C\\)", "\\(-\\sqrt{1 - x^2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int e^x \\sin(x)  dx\\)", 
+        options: ["\\(\\frac{e^x}{2}(\\sin(x) - \\cos(x)) + C\\)", "\\(e^x\\sin(x) + C\\)", "\\(e^x(\\sin(x) + \\cos(x)) + C\\)", "\\(\\frac{e^x}{2}(\\sin(x) + \\cos(x)) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{x^2\\sqrt{x^2 - 1}}\\)", 
+        options: ["\\(\\frac{\\sqrt{x^2 - 1}}{x} + C\\)", "\\(\\arcsec(x) + C\\)", "\\(\\frac{1}{\\sqrt{x^2 - 1}} + C\\)", "\\(\\ln|x + \\sqrt{x^2 - 1}| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\arctan(x)  dx\\)", 
+        options: ["\\(x\\arctan(x) - \\frac{1}{2}\\ln(1 + x^2) + C\\)", "\\(\\frac{\\arctan^2(x)}{2} + C\\)", "\\(\\frac{x}{1 + x^2} + C\\)", "\\(\\ln(1 + x^2) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{\\sin(x)\\cos(x)}\\)", 
+        options: ["\\(\\ln|\\tan(x)| + C\\)", "\\(\\ln|\\sin(x)\\cos(x)| + C\\)", "\\(\\tan(x) + C\\)", "\\(\\frac{1}{2}\\ln|\\sin(2x)| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x^2 \\ln(x)  dx\\)", 
+        options: ["\\(\\frac{x^3}{3}\\ln(x) - \\frac{x^3}{9} + C\\)", "\\(\\frac{x^3}{2}\\ln(x) + C\\)", "\\(x^2\\ln(x) - x^2 + C\\)", "\\(\\frac{x^3}{3}\\ln(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{x^3\\sqrt{x^2 + 1}}\\)", 
+        options: ["\\(-\\frac{\\sqrt{x^2 + 1}}{2x^2} + \\frac{1}{2}\\ln\\left|\\frac{1 + \\sqrt{x^2 + 1}}{x}\\right| + C\\)", "\\(-\\frac{1}{x^2\\sqrt{x^2 + 1}} + C\\)", "\\(\\frac{\\sqrt{x^2 + 1}}{x} + C\\)", "\\(\\ln|x + \\sqrt{x^2 + 1}| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sin(\\ln(x))  dx\\)", 
+        options: ["\\(\\frac{x}{2}(\\sin(\\ln(x)) - \\cos(\\ln(x))) + C\\)", "\\(x\\sin(\\ln(x)) + C\\)", "\\(\\cos(\\ln(x)) + C\\)", "\\(\\frac{x}{2}(\\sin(\\ln(x)) + \\cos(\\ln(x))) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^2 + 1}{x^4 + 1}  dx\\)", 
+        options: ["\\(\\frac{1}{\\sqrt{2}}\\arctan\\left(\\frac{x^2 - 1}{x\\sqrt{2}}\\right) + C\\)", "\\(\\arctan(x^2) + C\\)", "\\(\\frac{1}{2}\\ln\\left|\\frac{x^2 + 1}{x^2 - 1}\\right| + C\\)", "\\(\\frac{x}{x^4 + 1} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sqrt{x^2 + a^2}  dx\\)", 
+        options: ["\\(\\frac{x}{2}\\sqrt{x^2 + a^2} + \\frac{a^2}{2}\\ln|x + \\sqrt{x^2 + a^2}| + C\\)", "\\(x\\sqrt{x^2 + a^2} + C\\)", "\\(\\frac{1}{3}(x^2 + a^2)^{3/2} + C\\)", "\\(\\ln|x + \\sqrt{x^2 + a^2}| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{x\\sqrt{x^2 - 4}}\\)", 
+        options: ["\\(\\frac{1}{2}\\arcsec\\left(\\frac{x}{2}\\right) + C\\)", "\\(\\frac{1}{\\sqrt{x^2 - 4}} + C\\)", "\\(\\ln|x + \\sqrt{x^2 - 4}| + C\\)", "\\(\\frac{1}{2}\\ln\\left|\\frac{x - 2}{x + 2}\\right| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x^2 e^{-x}  dx\\)", 
+        options: ["\\(-e^{-x}(x^2 + 2x + 2) + C\\)", "\\(e^{-x}(x^2 - 2x + 2) + C\\)", "\\(-e^{-x}x^2 + C\\)", "\\(\\frac{x^3}{3}e^{-x} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{\\sqrt{x^2 + 2x + 5}}\\)", 
+        options: ["\\(\\ln|x + 1 + \\sqrt{x^2 + 2x + 5}| + C\\)", "\\(\\arcsin\\left(\\frac{x + 1}{2}\\right) + C\\)", "\\(\\sqrt{x^2 + 2x + 5} + C\\)", "\\(\\frac{x + 1}{\\sqrt{x^2 + 2x + 5}} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\cos^3(x)  dx\\)", 
+        options: ["\\(\\sin(x) - \\frac{\\sin^3(x)}{3} + C\\)", "\\(\\frac{\\cos^4(x)}{4} + C\\)", "\\(\\sin(x)\\cos^2(x) + C\\)", "\\(\\frac{3\\sin(x)}{4} + \\frac{\\sin(3x)}{12} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^3}{\\sqrt{1 - x^2}}  dx\\)", 
+        options: ["\\(-\\frac{1}{3}(1 - x^2)^{3/2} - \\sqrt{1 - x^2} + C\\)", "\\(-\\sqrt{1 - x^2} + C\\)", "\\(\\frac{x^4}{4\\sqrt{1 - x^2}} + C\\)", "\\(-\\frac{1}{2}x^2\\sqrt{1 - x^2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{x^2 + 4x + 13}\\)", 
+        options: ["\\(\\frac{1}{3}\\arctan\\left(\\frac{x + 2}{3}\\right) + C\\)", "\\(\\frac{1}{2}\\ln|x^2 + 4x + 13| + C\\)", "\\(\\arctan(x + 2) + C\\)", "\\(\\frac{1}{x + 2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x\\arcsin(x)  dx\\)", 
+        options: ["\\(\\frac{x^2}{2}\\arcsin(x) + \\frac{x}{4}\\sqrt{1 - x^2} - \\frac{1}{4}\\arcsin(x) + C\\)", "\\(x\\arcsin(x) + \\sqrt{1 - x^2} + C\\)", "\\(\\frac{x^2}{2}\\arcsin(x) + C\\)", "\\(\\arcsin(x) - x\\sqrt{1 - x^2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{e^x + e^{-x}}\\)", 
+        options: ["\\(\\arctan(e^x) + C\\)", "\\(\\ln|e^x + e^{-x}| + C\\)", "\\(\\frac{1}{2}\\ln\\left|\\frac{e^x - 1}{e^x + 1}\\right| + C\\)", "\\(\\frac{e^x}{e^{2x} + 1} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sqrt{\\frac{1 + x}{1 - x}}  dx\\)", 
+        options: ["\\(\\arcsin(x) - \\sqrt{1 - x^2} + C\\)", "\\(\\sqrt{1 - x^2} + C\\)", "\\(\\frac{1}{2}\\ln\\left|\\frac{1 + x}{1 - x}\\right| + C\\)", "\\(x\\sqrt{\\frac{1 + x}{1 - x}} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^2}{x^4 + 1}  dx\\)", 
+        options: ["\\(\\frac{1}{2\\sqrt{2}}\\ln\\left|\\frac{x^2 - x\\sqrt{2} + 1}{x^2 + x\\sqrt{2} + 1}\\right| + C\\)", "\\(\\arctan(x^2) + C\\)", "\\(\\frac{1}{2}\\ln|x^4 + 1| + C\\)", "\\(\\frac{x}{x^4 + 1} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int e^{\\sqrt{x}}  dx\\)", 
+        options: ["\\(2e^{\\sqrt{x}}(\\sqrt{x} - 1) + C\\)", "\\(e^{\\sqrt{x}} + C\\)", "\\(2\\sqrt{x}e^{\\sqrt{x}} + C\\)", "\\(\\frac{e^{\\sqrt{x}}}{2\\sqrt{x}} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{x\\sqrt{1 - x^3}}\\)", 
+        options: ["\\(-\\frac{1}{3}\\ln\\left|\\frac{1 + \\sqrt{1 - x^3}}{1 - \\sqrt{1 - x^3}}\\right| + C\\)", "\\(\\arcsin(x^{3/2}) + C\\)", "\\(\\frac{2}{3}\\sqrt{1 - x^3} + C\\)", "\\(\\ln|x\\sqrt{1 - x^3}| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sin(x)\\cos^4(x)  dx\\)", 
+        options: ["\\(-\\frac{\\cos^5(x)}{5} + C\\)", "\\(\\frac{\\sin^2(x)\\cos^3(x)}{2} + C\\)", "\\(\\frac{\\cos^5(x)}{5} + C\\)", "\\(-\\frac{\\sin^2(x)}{2}\\cos^3(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^3 + 1}{x^2 - 1}  dx\\)", 
+        options: ["\\(\\frac{x^2}{2} + \\ln|x - 1| + C\\)", "\\(x + \\ln|x^2 - 1| + C\\)", "\\(\\frac{x^2}{2} + \\ln|x + 1| + C\\)", "\\(x + \\frac{1}{x - 1} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{\\sqrt{x} + \\sqrt[4]{x}}\\)", 
+        options: ["\\(2\\sqrt{x} - 4\\sqrt[4]{x} + 4\\ln|1 + \\sqrt[4]{x}| + C\\)", "\\(\\ln|\\sqrt{x} + \\sqrt[4]{x}| + C\\)", "\\(2\\sqrt{x} + 4\\sqrt[4]{x} + C\\)", "\\(\\frac{4}{3}x^{3/4} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x^2\\sqrt{1 - x^2}  dx\\)", 
+        options: ["\\(\\frac{x}{8}(2x^2 - 1)\\sqrt{1 - x^2} + \\frac{1}{8}\\arcsin(x) + C\\)", "\\(\\frac{x^3}{3}\\sqrt{1 - x^2} + C\\)", "\\(-\\frac{1}{3}(1 - x^2)^{3/2} + C\\)", "\\(\\frac{x}{2}\\sqrt{1 - x^2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{x^2\\sqrt{x^2 + 9}}\\)", 
+        options: ["\\(-\\frac{\\sqrt{x^2 + 9}}{9x} + C\\)", "\\(\\frac{1}{3}\\arcsin\\left(\\frac{x}{3}\\right) + C\\)", "\\(-\\frac{1}{x\\sqrt{x^2 + 9}} + C\\)", "\\(\\ln|x + \\sqrt{x^2 + 9}| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\ln(x + \\sqrt{1 + x^2})  dx\\)", 
+        options: ["\\(x\\ln(x + \\sqrt{1 + x^2}) - \\sqrt{1 + x^2} + C\\)", "\\(\\ln(x + \\sqrt{1 + x^2}) + C\\)", "\\(\\frac{1}{2}\\ln^2(x + \\sqrt{1 + x^2}) + C\\)", "\\(x + \\sqrt{1 + x^2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^5}{x^2 + 1}  dx\\)", 
+        options: ["\\(\\frac{x^4}{4} - \\frac{x^2}{2} + \\frac{1}{2}\\ln(x^2 + 1) + C\\)", "\\(\\frac{x^4}{4} + \\frac{x^2}{2} + C\\)", "\\(\\frac{x^6}{6(x^2 + 1)} + C\\)", "\\(x^3 - x + \\arctan(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{\\sin^4(x)}\\)", 
+        options: ["\\(-\\frac{\\cot(x)}{3}(\\csc^2(x) + 2) + C\\)", "\\(-\\frac{\\cos(x)}{3\\sin^3(x)} + C\\)", "\\(\\frac{1}{3}\\tan^3(x) + C\\)", "\\(-\\cot(x) - \\frac{\\cot^3(x)}{3} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sqrt{x}\\ln(x)  dx\\)", 
+        options: ["\\(\\frac{2}{3}x^{3/2}\\ln(x) - \\frac{4}{9}x^{3/2} + C\\)", "\\(\\sqrt{x}\\ln(x) - 2\\sqrt{x} + C\\)", "\\(\\frac{2}{3}x^{3/2}\\ln(x) + C\\)", "\\(\\frac{1}{2\\sqrt{x}}\\ln(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^2}{\\sqrt{4x - x^2}}  dx\\)", 
+        options: ["\\(-\\frac{x}{2}\\sqrt{4x - x^2} + 2\\sqrt{4x - x^2} + 6\\arcsin\\left(\\frac{x - 2}{2}\\right) + C\\)", "\\(\\sqrt{4x - x^2} + C\\)", "\\(\\frac{x^3}{3\\sqrt{4x - x^2}} + C\\)", "\\(2\\arcsin\\left(\\frac{x}{2}\\right) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int e^{2x}\\cos(3x)  dx\\)", 
+        options: ["\\(\\frac{e^{2x}}{13}(2\\cos(3x) + 3\\sin(3x)) + C\\)", "\\(e^{2x}\\cos(3x) + C\\)", "\\(\\frac{e^{2x}}{2}\\cos(3x) + C\\)", "\\(\\frac{e^{2x}}{5}(\\cos(3x) + \\sin(3x)) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{x^4 + 4}\\)", 
+        options: ["\\(\\frac{1}{4\\sqrt{2}}\\arctan\\left(\\frac{x^2 - 2}{x\\sqrt{2}}\\right) + \\frac{1}{8\\sqrt{2}}\\ln\\left|\\frac{x^2 + 2x + 2}{x^2 - 2x + 2}\\right| + C\\)", "\\(\\frac{1}{4}\\arctan\\left(\\frac{x^2}{2}\\right) + C\\)", "\\(\\frac{x}{x^4 + 4} + C\\)", "\\(\\frac{1}{2}\\ln|x^4 + 4| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sqrt{\\tan(x)}  dx\\)", 
+        options: ["\\(\\frac{1}{\\sqrt{2}}\\arctan\\left(\\frac{\\sqrt{\\tan(x)} - 1}{\\sqrt{2\\tan(x)}}\\right) + \\frac{1}{2\\sqrt{2}}\\ln\\left|\\frac{\\sqrt{\\tan(x)} - \\sqrt{2\\tan(x)} + 1}{\\sqrt{\\tan(x)} + \\sqrt{2\\tan(x)} + 1}\\right| + C\\)", "\\(\\frac{2}{3}\\tan^{3/2}(x) + C\\)", "\\(\\ln|\\sqrt{\\tan(x)}| + C\\)", "\\(\\sqrt{\\tan(x)} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^3}{\\sqrt{x^2 + 4}}  dx\\)", 
+        options: ["\\(\\frac{1}{3}(x^2 - 8)\\sqrt{x^2 + 4} + C\\)", "\\(x^2\\sqrt{x^2 + 4} + C\\)", "\\(\\frac{x^4}{4\\sqrt{x^2 + 4}} + C\\)", "\\(\\frac{1}{2}x^2\\sqrt{x^2 + 4} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{\\sin^3(x)}\\)", 
+        options: ["\\(-\\frac{\\cos(x)}{2\\sin^2(x)} + \\frac{1}{2}\\ln|\\csc(x) - \\cot(x)| + C\\)", "\\(-\\frac{\\cot(x)}{2\\sin^2(x)} + C\\)", "\\(\\frac{1}{2}\\tan^2(x) + C\\)", "\\(-\\frac{1}{2}\\cot(x)\\csc(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int x^2\\arctan(x)  dx\\)", 
+        options: ["\\(\\frac{x^3}{3}\\arctan(x) - \\frac{x^2}{6} + \\frac{1}{6}\\ln(1 + x^2) + C\\)", "\\(x\\arctan(x) - \\frac{1}{2}\\ln(1 + x^2) + C\\)", "\\(\\frac{x^3}{3}\\arctan(x) + C\\)", "\\(\\arctan(x) - \\frac{x}{1 + x^2} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{x^4 - 1}\\)", 
+        options: ["\\(\\frac{1}{4}\\ln\\left|\\frac{x - 1}{x + 1}\\right| - \\frac{1}{2}\\arctan(x) + C\\)", "\\(\\frac{1}{2}\\ln|x^2 - 1| + C\\)", "\\(\\frac{1}{x^3} + C\\)", "\\(\\frac{1}{4}\\ln\\left|\\frac{x + 1}{x - 1}\\right| + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sqrt{\\frac{1 - x}{1 + x}}  dx\\)", 
+        options: ["\\(\\arcsin(x) + \\sqrt{1 - x^2} + C\\)", "\\(\\sqrt{1 - x^2} + C\\)", "\\(-\\frac{1}{2}\\ln\\left|\\frac{1 + x}{1 - x}\\right| + C\\)", "\\(x\\sqrt{\\frac{1 - x}{1 + x}} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^2 + x + 1}{x^3 + 1}  dx\\)", 
+        options: ["\\(\\ln|x + 1| + \\frac{1}{\\sqrt{3}}\\arctan\\left(\\frac{2x - 1}{\\sqrt{3}}\\right) + C\\)", "\\(\\ln|x^3 + 1| + C\\)", "\\(\\frac{1}{3}\\ln|x + 1| + C\\)", "\\(\\arctan(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{x\\sqrt{x^2 + x + 1}}\\)", 
+        options: ["\\(-\\frac{1}{\\sqrt{3}}\\ln\\left|\\frac{\\sqrt{x^2 + x + 1} + \\sqrt{3}/2}{x}\\right| + C\\)", "\\(\\ln|x + \\sqrt{x^2 + x + 1}| + C\\)", "\\(\\frac{1}{\\sqrt{x^2 + x + 1}} + C\\)", "\\(\\frac{2x + 1}{\\sqrt{x^2 + x + 1}} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\sin(2x)\\cos(3x)  dx\\)", 
+        options: ["\\(-\\frac{1}{2}\\cos(x) + \\frac{1}{10}\\cos(5x) + C\\)", "\\(\\frac{1}{2}\\sin(x) + \\frac{1}{10}\\sin(5x) + C\\)", "\\(-\\frac{1}{5}\\cos(5x) + C\\)", "\\(\\frac{1}{2}\\cos(x) + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^4}{x^2 + 2x + 2}  dx\\)", 
+        options: ["\\(\\frac{x^3}{3} - x^2 + 2x - 2\\arctan(x + 1) + C\\)", "\\(\\frac{x^3}{3} + x^2 + C\\)", "\\(x^2 - 2x + 2\\ln|x^2 + 2x + 2| + C\\)", "\\(\\frac{x^5}{5(x^2 + 2x + 2)} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{dx}{\\sqrt{x} + \\sqrt[3]{x}}\\)", 
+        options: ["\\(2\\sqrt{x} - 3\\sqrt[3]{x} + 6\\sqrt[6]{x} - 6\\ln|1 + \\sqrt[6]{x}| + C\\)", "\\(\\ln|\\sqrt{x} + \\sqrt[3]{x}| + C\\)", "\\(2\\sqrt{x} + 3\\sqrt[3]{x} + C\\)", "\\(\\frac{6}{5}x^{5/6} + C\\)"], 
+        correct: 0 
+    },
+    { 
+        question: "Вычислите \\(\\int \\frac{x^2}{\\sqrt{1 + x^3}}  dx\\)", 
+        options: ["\\(\\frac{2}{3}\\sqrt{1 + x^3} + C\\)", "\\(x\\sqrt{1 + x^3} + C\\)", "\\(\\frac{x^3}{3\\sqrt{1 + x^3}} + C\\)", "\\(\\frac{2}{9}(1 + x^3)^{3/2} + C\\)"], 
+        correct: 0 
+    }
+];
+
+    // Глобальные переменные
+    let testTimer;
+    let timeRemaining = 25 * 60;
+    let currentTest = [];
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    let testStartTime;
+    let currentDifficulty = '';
+    let currentSection = ''; // "integrals", "derivatives" или "series"
+    let userName = '';
+
+    // Функции навигации
+    function startHome() {
+      const input = document.getElementById('userNameInput').value.trim();
+      if (input === '') {
+        alert('Пожалуйста, введите ваше имя');
+        return;
+      }
+      userName = input;
+      
+      document.getElementById('namePage').classList.add('hidden');
+      document.getElementById('homePage').classList.remove('hidden');
+    }
+
+    function showHome() {
+      stopTimer();
+      
+      document.getElementById('homePage').classList.remove('hidden');
+      document.getElementById('integralsSection').classList.add('hidden');
+      document.getElementById('derivativesSection').classList.add('hidden');
+      document.getElementById('seriesSection').classList.add('hidden');
+      document.getElementById('testPage').classList.add('hidden');
+      document.getElementById('resultsPage').classList.add('hidden');
+      document.getElementById('statisticsPage').classList.add('hidden');
+    }
+
+    function showSection(section) {
+      currentSection = section;
+       document.getElementById('homePage').classList.add('hidden');
+      document.getElementById('integralsSection').classList.add('hidden');
+      document.getElementById('derivativesSection').classList.add('hidden');
+      document.getElementById('seriesSection').classList.add('hidden');
+      if (section === 'integrals') {
+        document.getElementById('integralsSection').classList.remove('hidden');
+      } else if (section === 'derivatives') {
+        document.getElementById('derivativesSection').classList.remove('hidden');
+      } else if (section === 'series') {
+        document.getElementById('seriesSection').classList.remove('hidden');
+      }
+    }
+        // Функции таймера
+    function startTimer() {
+      updateTimerDisplay();
+
+      if (testTimer) clearInterval(testTimer);
+
+      testTimer = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay();
+
+        if (timeRemaining <= 0) {
+          clearInterval(testTimer);
+          alert('Время вышло! Тест будет завершён автоматически.');
+          finishTest();
+        }
+      }, 1000);
+    }
+      function updateTimerDisplay() {
+      const minutes = Math.floor(timeRemaining / 60);
+      const seconds = timeRemaining % 60;
+      const display = `⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+      
+      const timerElement = document.getElementById('timerDisplay');
+      if (timerElement) {
+        timerElement.textContent = display;
+        
+        if (timeRemaining <= 300) {
+          timerElement.className = 'text-lg font-semibold text-red-600 bg-red-50 px-4 py-2 rounded-lg animate-pulse';
+        } else if (timeRemaining <= 600) {
+          timerElement.className = 'text-lg font-semibold text-orange-600 bg-orange-50 px-4 py-2 rounded-lg';
+        } else {
+          timerElement.className = 'text-lg font-semibold text-green-600 bg-green-50 px-4 py-2 rounded-lg';
+        }
+      }
+    }
+ function stopTimer() {
+      if (testTimer) {
+        clearInterval(testTimer);
+        testTimer = null;
+      }
+    }
+// Функции теста
+    function startDerivativesTest(difficulty) {
+      currentSection = 'derivatives';
+      const timeSelect = document.getElementById('derivativesTime');
+      const selectedTime = parseInt(timeSelect.value) * 60;
+      timeRemaining = selectedTime;
+      currentDifficulty = difficulty;
+      
+      let questionPool;
+      if (difficulty === 'easy') questionPool = easyDerivativesQuestions;
+      else if (difficulty === 'medium') questionPool = mediumDerivativesQuestions;
+      else questionPool = hardDerivativesQuestions;
+      
+      currentTest = [...questionPool].sort(() => 0.5 - Math.random()).slice(0, Math.min(20, questionPool.length));
+      currentQuestionIndex = 0;
+      userAnswers = new Array(currentTest.length).fill(null);
+      testStartTime = Date.now();
+      
+      document.getElementById('derivativesSection').classList.add('hidden');
+      document.getElementById('testPage').classList.remove('hidden');
+      document.getElementById('resultsPage').classList.add('hidden');
+      
+      document.getElementById('totalQuestions').textContent = currentTest.length;
+      document.getElementById('difficultyLabel').textContent = `Уровень: ${difficulty === 'easy' ? 'Легкий' : difficulty === 'medium' ? 'Средний' : 'Сложный'}`;
+      document.getElementById('testTitle').textContent = 'Тест: Производные';
+      
+      startTimer();
+      displayQuestion();
+    }
+
+    function startIntegralsTest(difficulty) {
+      currentSection = 'integrals';
+      const timeSelect = document.getElementById('integralsTime');
+      const selectedTime = parseInt(timeSelect.value) * 60;
+      timeRemaining = selectedTime;
+      currentDifficulty = difficulty;
+
+      let questionPool;
+      if (difficulty === 'easy') questionPool = easyIntegralsQuestions;
+      else if (difficulty === 'medium') questionPool = mediumIntegralsQuestions;
+      else if (difficulty === 'hard') questionPool = hardIntegralsQuestions;
+
+      currentTest = [...questionPool].sort(() => 0.5 - Math.random()).slice(0, Math.min(20, questionPool.length));
+      currentQuestionIndex = 0;
+      userAnswers = new Array(currentTest.length).fill(null);
+      testStartTime = Date.now();
+
+      document.getElementById('integralsSection').classList.add('hidden');
+      document.getElementById('testPage').classList.remove('hidden');
+      document.getElementById('resultsPage').classList.add('hidden');
+
+      document.getElementById('totalQuestions').textContent = currentTest.length;
+      document.getElementById('difficultyLabel').textContent = `Раздел: Интегралы, уровень: ${difficulty === 'easy' ? 'Легкий' : difficulty === 'medium' ? 'Средний' : 'Сложный'}`;
+      document.getElementById('testTitle').textContent = 'Тест: Интегралы';
+
+      startTimer();
+      displayQuestion();
+    }
+
+    // Функции для нового раздела "Ряды и последовательности"
+    function startSeriesTest(difficulty) {
+      currentSection = 'series';
+      const timeSelect = document.getElementById('seriesTime');
+      const selectedTime = parseInt(timeSelect.value) * 60;
+      timeRemaining = selectedTime;
+      currentDifficulty = difficulty;
+      
+      let questionPool;
+      if (difficulty === 'easy') questionPool = easySeriesQuestions;
+      else if (difficulty === 'medium') questionPool = mediumSeriesQuestions;
+      else questionPool = hardSeriesQuestions;
+      
+      currentTest = [...questionPool].sort(() => 0.5 - Math.random()).slice(0, Math.min(20, questionPool.length));
+      currentQuestionIndex = 0;
+      userAnswers = new Array(currentTest.length).fill(null);
+      testStartTime = Date.now();
+      
+      document.getElementById('seriesSection').classList.add('hidden');
+      document.getElementById('testPage').classList.remove('hidden');
+      document.getElementById('resultsPage').classList.add('hidden');
+      
+      document.getElementById('totalQuestions').textContent = currentTest.length;
+      document.getElementById('difficultyLabel').textContent = `Раздел: Ряды и последовательности, уровень: ${difficulty === 'easy' ? 'Легкий' : difficulty === 'medium' ? 'Средний' : 'Сложный'}`;
+      document.getElementById('testTitle').textContent = 'Тест: Ряды и последовательности';
+      
+      startTimer();
+      displayQuestion();
+    }
+    function restartTest() {
+      if (currentSection === 'derivatives') {
+        startDerivativesTest(currentDifficulty);
+      } else if (currentSection === 'integrals') {
+        startIntegralsTest(currentDifficulty);
+      } else if (currentSection === 'series') {
+        startSeriesTest(currentDifficulty);
+      }
+    }
+   
+    function displayQuestion() {
+      const question = currentTest[currentQuestionIndex];
+      const container = document.getElementById('questionContainer');
+      
+      container.innerHTML = `
+        <div class="mb-6">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4 math-container">
+            <div class="math-content">${question.question}</div>
+          </h3>
+        </div>
+        
+        <div class="space-y-3">
+          ${question.options.map((option, index) => `
+            <label class="option-label ${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}">
+              <input type="radio" name="answer" value="${index}" 
+                     class="mr-3 mt-1 flex-shrink-0"
+                     ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''} 
+                     onchange="selectAnswer(${index})">
+              <span class="option-text">
+                ${option}
+              </span>
+            </label>
+          `).join('')}
+        </div>
+      `;
+      
+      document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+      const progress = ((currentQuestionIndex + 1) / currentTest.length) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+      
+      document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+      
+      const nextBtn = document.getElementById('nextBtn');
+      const finishBtn = document.getElementById('finishBtn');
+      
+      if (currentQuestionIndex === currentTest.length - 1) {
+        nextBtn.style.display = 'none';
+        finishBtn.style.display = 'inline-block';
+      } else {
+        nextBtn.style.display = 'inline-block';
+        finishBtn.style.display = 'none';
+      }
+      
+      if (window.MathJax) {
+        MathJax.typesetPromise([container]).catch((err) => console.log(err.message));
+      }
+    }
+
+    function selectAnswer(answerIndex) {
+      userAnswers[currentQuestionIndex] = answerIndex;
+    }
+
+    function nextQuestion() {
+      if (currentQuestionIndex < currentTest.length - 1) {
+        currentQuestionIndex++;
+        displayQuestion();
+      } else {
+        finishTest();
+      }
+    }
+
+    function previousQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        displayQuestion();
+      }
+    }
+
+    function finishTest() {
+      stopTimer();
+      
+      let correctAnswers = 0;
+      const results = [];
+      
+      for (let i = 0; i < currentTest.length; i++) {
+        const isCorrect = userAnswers[i] === currentTest[i].correct;
+        if (isCorrect) correctAnswers++;
+        
+        results.push({
+          question: currentTest[i].question,
+          userAnswer: userAnswers[i] !== null ? currentTest[i].options[userAnswers[i]] : 'Не отвечено',
+          correctAnswer: currentTest[i].options[currentTest[i].correct],
+          isCorrect: isCorrect
+        });
+      }
+      
+      const percentage = Math.round((correctAnswers / currentTest.length) * 100);
+      
+      // Сохраняем результаты теста
+      saveTestResult(percentage, currentSection, currentDifficulty);
+      
+      document.getElementById('testPage').classList.add('hidden');
+      document.getElementById('resultsPage').classList.remove('hidden');
+      
+      const scoreDisplay = document.getElementById('scoreDisplay');
+      const scoreText = document.getElementById('scoreText');
+      const detailedResults = document.getElementById('detailedResults');
+      
+      scoreDisplay.textContent = `${correctAnswers}/${currentTest.length}`;
+      scoreDisplay.className = percentage >= 70 
+          ? 'text-6xl font-bold mb-4 text-green-600' 
+          : 'text-6xl font-bold mb-4 text-red-600';
+      
+      let comment = '';
+      if (percentage === 100) {
+        comment = `${userName}, феноменально! Вы набрали все баллы — поздравляю!`;
+      } else if (percentage >= 90) {
+        comment = `${userName}, отлично! Вы справились с тестом почти идеально!`;
+      } else if (percentage >= 60) {
+        comment = `${userName}, хорошо! Вы справились с тестом, но можно ещё улучшить результат.`;
+      } else if (percentage >= 30) {
+        comment = `${userName}, неплохо, но есть над чем поработать. Попробуйте пройти тест ещё раз.`;
+      } else {
+        comment = `Не отчаивайтесь, ${userName}. Этот тест пока сложен, попробуйте ещё раз!`;
+      }
+      
+      scoreText.textContent = comment;
+      
+      detailedResults.innerHTML = `
+        <h3 class="text-lg font-semibold mb-4">Детальные результаты:</h3>
+        <div class="max-h-64 overflow-y-auto space-y-2">
+          ${results.map((result, index) => `
+            <div class="p-3 rounded-lg ${result.isCorrect ? 'bg-green-50 border-l-4 border-green-500' : 'bg-red-50 border-l-4 border-red-500'}">
+              <div class="text-sm font-medium">Вопрос ${index + 1}:</div>
+              <div class="text-sm text-gray-800 mb-1 math-content">${result.question}</div>
+              <div class="text-xs text-gray-600">
+                Ваш ответ: ${result.userAnswer} <br>
+                Правильный ответ: ${result.correctAnswer} <br>
+                ${result.isCorrect ? '✓ Правильно' : '✗ Неправильно'}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      
+      if (window.MathJax) {
+        MathJax.typesetPromise([detailedResults]).catch((err) => console.log(err.message));
+      }
+    }
+
+    // Функции для работы с статистикой
+    function saveTestResult(score, section, difficulty) {
+  let statistics = JSON.parse(localStorage.getItem('mathAnalysisStatistics')) || {};
+  if (!statistics[userName]) {
+    statistics[userName] = {
+      totalTests: 0,
+      bestScore: 0,
+      totalScore: 0,
+      averageScore: 0,
+      integrals: { easy: 0, medium: 0, hard: 0, total: 0 },
+      derivatives: { easy: 0, medium: 0, hard: 0, total: 0 },
+      series: { easy: 0, medium: 0, hard: 0, total: 0 }, // Добавляем раздел series
+      history: []
+    };
+  }
+  
+  const userStats = statistics[userName];
+  userStats.totalTests += 1;
+  userStats.totalScore += score;
+  userStats.bestScore = Math.max(userStats.bestScore, score);
+  userStats.averageScore = Math.round(userStats.totalScore / userStats.totalTests);
+  
+  // Обновляем статистику для соответствующего раздела
+  userStats[section][difficulty] = Math.max(userStats[section][difficulty], score);
+  
+  // Пересчитываем общий результат для раздела
+  userStats[section].total = Math.round(
+    (userStats[section].easy + userStats[section].medium + userStats[section].hard) / 3
+  );
+  
+  userStats.history.unshift({
+    date: new Date().toLocaleString(),
+    section: section,
+    difficulty: difficulty,
+    score: score,
+    totalQuestions: currentTest.length,
+    correctAnswers: Math.round((score / 100) * currentTest.length)
+  });
+  
+  if (userStats.history.length > 10) {
+    userStats.history = userStats.history.slice(0, 10);
+  }
+  
+  localStorage.setItem('mathAnalysisStatistics', JSON.stringify(statistics));
+} 
+function showStatistics() {
+  // Показываем страницу статистики
+  document.getElementById('homePage').classList.add('hidden');
+  document.getElementById('integralsSection').classList.add('hidden');
+  document.getElementById('derivativesSection').classList.add('hidden');
+  document.getElementById('seriesSection').classList.add('hidden'); // новый раздел
+  document.getElementById('testPage').classList.add('hidden');
+  document.getElementById('resultsPage').classList.add('hidden');
+  document.getElementById('statisticsPage').classList.remove('hidden');
+
+  // Загружаем статистику для текущего пользователя
+  const statistics = JSON.parse(localStorage.getItem('mathAnalysisStatistics')) || {};
+  const userStats = statistics[userName] || {
+    totalTests: 0,
+    bestScore: 0,
+    averageScore: 0,
+    integrals: { easy: 0, medium: 0, hard: 0, total: 0 },
+    derivatives: { easy: 0, medium: 0, hard: 0, total: 0 },
+    series: { easy: 0, medium: 0, hard: 0, total: 0 }, // добавили series
+    history: []
+  };
+
+  // Обновляем отображение имени пользователя
+  document.getElementById('statsUserName').textContent = userName;
+
+  // Обновляем основную статистику
+  document.getElementById('totalTests').textContent = userStats.totalTests;
+  document.getElementById('bestScore').textContent = userStats.bestScore + '%';
+  document.getElementById('averageScore').textContent = userStats.averageScore + '%';
+
+  // Обновляем прогресс по разделам
+  document.getElementById('integralsProgress').textContent = userStats.integrals.total + '%';
+  document.getElementById('integralsProgressBar').style.width = userStats.integrals.total + '%';
+
+  document.getElementById('derivativesProgress').textContent = userStats.derivatives.total + '%';
+  document.getElementById('derivativesProgressBar').style.width = userStats.derivatives.total + '%';
+
+  // Добавляем прогресс по series
+  document.getElementById('seriesProgress').textContent = userStats.series.total + '%';
+  document.getElementById('seriesProgressBar').style.width = userStats.series.total + '%';
+
+  // Отображаем историю тестов
+  const testsHistoryElement = document.getElementById('testsHistory');
+  if (userStats.history.length === 0) {
+    testsHistoryElement.innerHTML = '<p class="text-gray-500 text-center py-4">История тестов пуста</p>';
+  } else {
+    testsHistoryElement.innerHTML = userStats.history.map(test => `
+      <div class="bg-gray-50 rounded-lg p-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <h4 class="font-semibold">
+              ${
+                test.section === 'integrals'
+                  ? 'Интегралы'
+                  : test.section === 'derivatives'
+                  ? 'Производные'
+                  : 'Ряды и последовательности'
+              } - ${
+                test.difficulty === 'easy'
+                  ? 'Легкий'
+                  : test.difficulty === 'medium'
+                  ? 'Средний'
+                  : 'Сложный'
+              }
+            </h4>
+            <p class="text-sm text-gray-500">${test.date}</p>
+          </div>
+          <div class="text-right">
+            <span class="font-bold ${test.score >= 70 ? 'text-green-600' : test.score >= 50 ? 'text-yellow-600' : 'text-red-600'}">${test.score}%</span>
+            <p class="text-sm text-gray-500">${test.correctAnswers}/${test.totalQuestions} вопросов</p>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+    
+
+    // Остальные функции (displayQuestion, selectAnswer, nextQuestion, previousQuestion, finishTest, 
+    // saveTestResult, showStatistics, resetStatistics, toggleTheory) остаются без изменений,
+    // но нужно обновить функцию restartTest для поддержки нового раздела:
+
+    function resetStatistics() {
+      if (confirm('Вы уверены, что хотите сбросить всю статистику для пользователя ' + userName + '?')) {
+        const statistics = JSON.parse(localStorage.getItem('mathAnalysisStatistics')) || {};
+        if (statistics[userName]) {
+          delete statistics[userName];
+          localStorage.setItem('mathAnalysisStatistics', JSON.stringify(statistics));
+          showStatistics(); // Обновляем отображение статистики
+        }
+      }
+    }
+// Вспомогательные функции
+        function toggleTheory(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('hidden');
+    }
+    // Также нужно обновить функцию saveTestResult для учета нового раздела:
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+      // Проверяем, есть ли сохраненное имя пользователя
+      const savedUserName = localStorage.getItem('lastUserName');
+      if (savedUserName) {
+        document.getElementById('userNameInput').value = savedUserName;
+      }
+    });
+    // Остальной код (таймер, отображение вопросов и т.д.) остается без изменений
+    // ... (остальной JavaScript код)
+  </script>
+</body>
+</html>

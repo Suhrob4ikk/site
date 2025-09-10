@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тестирование по математическому анализу</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Главная страница -->
+    <div id="homePage" class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12 fade-in">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+                Математический анализ
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Проверьте свои знания в области интегралов и производных
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Карточка Интегралы -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover cursor-pointer" onclick="showSection('integrals')">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">∫</div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Интегралы</h2>
+                    <p class="text-gray-600 mb-6">
+                        Тестирование знаний по интегральному исчислению
+                    </p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Начать тест
+                    </button>
+                </div>
+            </div>
+
+            <!-- Карточка Производные -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover cursor-pointer" onclick="showSection('derivatives')">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">f'(x)</div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Производные</h2>
+                    <p class="text-gray-600 mb-6">
+                        Тестирование знаний по дифференциальному исчислению
+                    </p>
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Начать тест
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Раздел Интегралы -->
+<div id="integralsSection" class="hidden container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto fade-in">
+        <button onclick="showHome()" class="mb-6 text-blue-600 hover:text-blue-800 flex items-center">
+            ← Назад к выбору раздела
+        </button>
+
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Интегралы</h2>
+            
+            <div class="grid gap-6">
+                   <!-- Выбор времени -->
+<div class="mb-6">
+    <label for="integralsTime" class="text-gray-700 font-semibold">Выберите время теста:</label>
+    <select id="integralsTime" class="ml-2 border rounded-lg px-2 py-1">
+        <option value="15">15 минут</option>
+        <option value="20">20 минут</option>
+        <option value="25" selected>25 минут</option>
+        <option value="30">30 минут</option>
+    </select>
+</div>
+                <!-- Легкий уровень -->
+                <div class="bg-blue-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startIntegralsTest('easy')">
+                    <div class="text-6xl mb-4">∫</div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Легкий уровень</h3>
+                    <p class="text-gray-600 mb-4">Базовые интегралы для начинающих</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+                        Начать тест
+                    </button>
+                </div>
+
+               <!-- Средний уровень -->
+<div class="bg-yellow-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startIntegralsTest('medium')">
+    <div class="text-6xl mb-4">∫</div>
+    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Средний уровень</h3>
+    <p class="text-gray-600 mb-4">Интегралы средней сложности</p>
+    <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+        Начать тест
+    </button>
+</div>
+
+<!-- Сложный уровень -->
+<div class="bg-red-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startIntegralsTest('hard')">
+    <div class="text-6xl mb-4">∫</div>
+    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Сложный уровень</h3>
+    <p class="text-gray-600 mb-4">Сложные интегралы для продвинутых</p>
+    <button class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+        Начать тест
+    </button>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- Раздел Производные -->
+<div id="derivativesSection" class="hidden container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto fade-in">
+        <button onclick="showHome()" class="mb-6 text-blue-600 hover:text-blue-800 flex items-center">
+            ← Назад к выбору раздела
+        </button>
+        
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Производные</h2>
+            
+            <div class="grid gap-6">
+              <!-- Выбор времени для производных -->
+<div class="mb-6">
+    <label for="derivativesTime" class="text-gray-700 font-semibold">Выберите время теста:</label>
+    <select id="derivativesTime" class="ml-2 border rounded-lg px-2 py-1">
+        <option value="15">15 минут</option>
+        <option value="20">20 минут</option>
+        <option value="25" selected>25 минут</option>
+        <option value="30">30 минут</option>
+    </select>
+</div>
+
+                <!-- Легкий уровень -->
+                <div class="bg-blue-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startDerivativesTest('easy')">
+                    <div class="text-6xl mb-4">f'(x)</div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Легкий уровень</h3>
+                    <p class="text-gray-600 mb-4">Базовые производные для начинающих</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+                        Начать тест
+                    </button>
+                </div>
+
+                <!-- Средний уровень -->
+                <div class="bg-yellow-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startDerivativesTest('medium')">
+                    <div class="text-6xl mb-4">f'(x)</div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Средний уровень</h3>
+                    <p class="text-gray-600 mb-4">Производные средней сложности</p>
+                    <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+                        Начать тест
+                    </button>
+                </div>
+
+                <!-- Сложный уровень -->
+                <div class="bg-red-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startDerivativesTest('hard')">
+                    <div class="text-6xl mb-4">f'(x)</div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Сложный уровень</h3>
+                    <p class="text-gray-600 mb-4">Сложные производные для продвинутых</p>
+                    <button class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+                        Начать тест
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Страница теста производных -->
+    <div id="derivativesTest" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex justify-between items-center flex-wrap gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Тест: Производные</h3>
+                        <p id="difficultyLabel" class="text-sm text-gray-600 mt-1"></p>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div id="timerDisplay" class="text-lg font-semibold text-orange-600 bg-orange-50 px-4 py-2 rounded-lg">
+                            ⏱️ 25:00
+                        </div>
+                        <div class="text-sm text-gray-600">
+                            Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">20</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+                    <div id="progressBar" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 5%"></div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <div id="questionContainer">
+                    <!-- Вопросы будут загружаться здесь -->
+                </div>
+                
+                <div class="mt-6 flex justify-between">
+  <button id="prevBtn" onclick="previousQuestion()" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">Назад</button>
+  <button id="nextBtn" onclick="nextQuestion()" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Следующий</button>
+  <button id="finishBtn" onclick="finishTest()" class="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700" style="display:none;">Завершить тест</button>
+  <button onclick="exitTest()" class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700">Выйти</button>
+</div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница результатов -->
+    <div id="resultsPage" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto text-center fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Результаты теста</h2>
+                
+                <div id="scoreDisplay" class="text-6xl font-bold mb-4"></div>
+                <div id="scoreText" class="text-xl text-gray-600 mb-8"></div>
+                
+                <div id="detailedResults" class="text-left mb-8">
+                    <!-- Детальные результаты будут здесь -->
+                </div>
+                
+                <div class="flex gap-4 justify-center">
+                    <button onclick="restartTest()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Пройти снова
+                    </button>
+                    <button onclick="showHome()" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        На главную
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/questions.js"></script>
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/timer.js"></script>
+    <script src="scripts/test.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
