@@ -402,14 +402,23 @@
                 Начать тест
               </button>
             </div>
-            <div class="bg-purple-50 rounded-xl p-6 text-center card-hover cursor-pointer" onclick="startIntegralsTest('veryhard')">
-  <div class="text-6xl mb-4">∫</div>
-  <h3 class="text-2xl font-semibold text-gray-800 mb-2">Очень сложный уровень</h3>
-  <p class="text-gray-600 mb-4">Экстремально сложные интегралы для экспертов</p>
-  <button class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
-    Начать тест
-  </button>
-</div>
+            <div
+              class="bg-purple-50 rounded-xl p-6 text-center card-hover cursor-pointer"
+              onclick="startIntegralsTest('veryhard')"
+            >
+              <div class="text-6xl mb-4">∫</div>
+              <h3 class="text-2xl font-semibold text-gray-800 mb-2">
+                Очень сложный уровень
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Экстремально сложные интегралы для экспертов
+              </p>
+              <button
+                class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+              >
+                Начать тест
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -2757,6 +2766,206 @@
       // легкие интегралы
       const easyIntegralsQuestions = [
         {
+          question: "Вычислите интеграл $\\int (2x+3)^5 dx$",
+          options: [
+            "$\\frac{(2x+3)^6}{12} + C$",
+            "$\\frac{(2x+3)^6}{6} + C$",
+            "$2(2x+3)^6 + C$",
+            "$(2x+3)^6 + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int e^{3x-2} dx$",
+          options: [
+            "$\\frac{1}{3}e^{3x-2} + C$",
+            "$e^{3x-2} + C$",
+            "$3e^{3x-2} + C$",
+            "$\\frac{1}{2}e^{3x-2} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\sin(4x+1) dx$",
+          options: [
+            "$-\\frac{1}{4}\\cos(4x+1) + C$",
+            "$-4\\cos(4x+1) + C$",
+            "$\\frac{1}{4}\\cos(4x+1) + C$",
+            "$-\\cos(4x+1) + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\frac{1}{5x-2} dx$",
+          options: [
+            "$\\frac{1}{5}\\ln|5x-2| + C$",
+            "$5\\ln|5x-2| + C$",
+            "$\\ln|5x-2| + C$",
+            "$\\frac{1}{2}\\ln|5x-2| + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int (3-2x)^4 dx$",
+          options: [
+            "$-\\frac{(3-2x)^5}{10} + C$",
+            "$\\frac{(3-2x)^5}{5} + C$",
+            "$-\\frac{(3-2x)^5}{5} + C$",
+            "$(3-2x)^5 + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\cos(2x-\\pi) dx$",
+          options: [
+            "$\\frac{1}{2}\\sin(2x-\\pi) + C$",
+            "$2\\sin(2x-\\pi) + C$",
+            "$-\\frac{1}{2}\\sin(2x-\\pi) + C$",
+            "$\\sin(2x-\\pi) + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\sqrt{3x+1} dx$",
+          options: [
+            "$\\frac{2}{9}(3x+1)^{3/2} + C$",
+            "$\\frac{2}{3}(3x+1)^{3/2} + C$",
+            "$\\frac{1}{2}(3x+1)^{3/2} + C$",
+            "$(3x+1)^{3/2} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\frac{3}{\\sqrt{2x+5}} dx$",
+          options: [
+            "$3\\sqrt{2x+5} + C$",
+            "$\\frac{3}{2}\\sqrt{2x+5} + C$",
+            "$\\frac{3}{\\sqrt{2x+5}} + C$",
+            "$6\\sqrt{2x+5} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int (4x-7)^{10} dx$",
+          options: [
+            "$\\frac{(4x-7)^{11}}{44} + C$",
+            "$\\frac{(4x-7)^{11}}{11} + C$",
+            "$4(4x-7)^{11} + C$",
+            "$(4x-7)^{11} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int e^{-x+3} dx$",
+          options: [
+            "$-e^{-x+3} + C$",
+            "$e^{-x+3} + C$",
+            "$-\\frac{1}{2}e^{-x+3} + C$",
+            "$\\frac{1}{3}e^{-x+3} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\frac{2}{(3x-1)^2} dx$",
+          options: [
+            "$-\\frac{2}{3(3x-1)} + C$",
+            "$-\\frac{2}{(3x-1)} + C$",
+            "$\\frac{2}{3(3x-1)} + C$",
+            "$-\\frac{6}{(3x-1)^3} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\tan(2x+1) dx$",
+          options: [
+            "$-\\frac{1}{2}\\ln|\\cos(2x+1)| + C$",
+            "$\\frac{1}{2}\\ln|\\cos(2x+1)| + C$",
+            "$-\\ln|\\cos(2x+1)| + C$",
+            "$\\ln|\\cos(2x+1)| + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\frac{5}{2-3x} dx$",
+          options: [
+            "$-\\frac{5}{3}\\ln|2-3x| + C$",
+            "$\\frac{5}{3}\\ln|2-3x| + C$",
+            "$-5\\ln|2-3x| + C$",
+            "$5\\ln|2-3x| + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\sin(-3x+4) dx$",
+          options: [
+            "$\\frac{1}{3}\\cos(-3x+4) + C$",
+            "$-\\frac{1}{3}\\cos(-3x+4) + C$",
+            "$3\\cos(-3x+4) + C$",
+            "$-\\cos(-3x+4) + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int (1-4x)^7 dx$",
+          options: [
+            "$-\\frac{(1-4x)^8}{32} + C$",
+            "$\\frac{(1-4x)^8}{8} + C$",
+            "$-\\frac{(1-4x)^8}{8} + C$",
+            "$(1-4x)^8 + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\frac{6x}{\\sqrt{3x^2+2}} dx$",
+          options: [
+            "$2\\sqrt{3x^2+2} + C$",
+            "$6\\sqrt{3x^2+2} + C$",
+            "$\\frac{1}{\\sqrt{3x^2+2}} + C$",
+            "$\\frac{2}{3}\\sqrt{3x^2+2} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\cos(\\pi x+2) dx$",
+          options: [
+            "$\\frac{1}{\\pi}\\sin(\\pi x+2) + C$",
+            "$\\pi\\sin(\\pi x+2) + C$",
+            "$\\sin(\\pi x+2) + C$",
+            "$-\\frac{1}{\\pi}\\sin(\\pi x+2) + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int e^{2-5x} dx$",
+          options: [
+            "$-\\frac{1}{5}e^{2-5x} + C$",
+            "$\\frac{1}{5}e^{2-5x} + C$",
+            "$-5e^{2-5x} + C$",
+            "$e^{2-5x} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\frac{4}{(1-2x)^3} dx$",
+          options: [
+            "$\\frac{1}{(1-2x)^2} + C$",
+            "$\\frac{4}{(1-2x)^2} + C$",
+            "$-\\frac{1}{(1-2x)^2} + C$",
+            "$\\frac{2}{(1-2x)^2} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\frac{3x^2}{(x^3-4)^2} dx$",
+          options: [
+            "$-\\frac{1}{x^3-4} + C$",
+            "$\\frac{1}{x^3-4} + C$",
+            "$-\\frac{3}{x^3-4} + C$",
+            "$\\frac{3}{x^3-4} + C$",
+          ],
+          correct: 0,
+        },
+        {
           question: "Вычислите интеграл $\\int x dx$",
           options: [
             "$x^2 + C$",
@@ -4448,111 +4657,112 @@
       ];
 
       // Очень сложные интегралы
-     const veryHardIntegralsQuestions = [
-  {
-    question: "Вычислите интеграл $\\int x^3 e^{x^2} dx$",
-    options: [
-      "$\\tfrac{1}{2} e^{x^2}(x^2 - 1) + C$",
-      "$\\tfrac{1}{2} e^{x^2}(x^2 + 1) + C$",
-      "$e^{x^2}(x^2 - 1) + C$",
-      "$\\tfrac{1}{2} e^{x^2}(x^2 - \\tfrac{1}{2}) + C$"
-    ],
-    correct: 0
-  },
-  {
-    question: "Вычислите интеграл $\\int \\sin(\\ln x) dx$",
-    options: [
-      "$\\tfrac{x}{2}[\\sin(\\ln x) - \\cos(\\ln x)] + C$",
-      "$x[\\sin(\\ln x) - \\cos(\\ln x)] + C$",
-      "$\\tfrac{x}{2}[\\sin(\\ln x) + \\cos(\\ln x)] + C$",
-      "$x \\sin(\\ln x) + C$"
-    ],
-    correct: 0
-  },
-  {
-    question: "Вычислите интеграл $\\int e^{2x} \\cos(3x) dx$",
-    options: [
-      "$\\tfrac{e^{2x}(2 \\cos(3x) + 3 \\sin(3x))}{13} + C$",
-      "$\\tfrac{e^{2x}(2 \\cos(3x) - 3 \\sin(3x))}{13} + C$",
-      "$\\tfrac{e^{2x}(3 \\cos(3x) + 2 \\sin(3x))}{13} + C$",
-      "$\\tfrac{e^{2x}(3 \\cos(3x) - 2 \\sin(3x))}{13} + C$"
-    ],
-    correct: 0
-  },
-  {
-    question: "Вычислите интеграл $\\int \\frac{dx}{x^2 \\sqrt{x^2 - 1}}$",
-    options: [
-      "$-\\frac{\\sqrt{x^2 - 1}}{x} + C$",
-      "$\\frac{\\sqrt{x^2 - 1}}{x} + C$",
-      "$-\\arccos(1/x) + C$",
-      "$\\arcsin(1/x) + C$"
-    ],
-    correct: 0
-  },
-  {
-    question: "Вычислите интеграл $\\int x^2 \\ln(x) dx$",
-    options: [
-      "$\\tfrac{x^3}{3} \\ln(x) - \\tfrac{x^3}{9} + C$",
-      "$\\tfrac{x^3}{2} \\ln(x) - \\tfrac{x^3}{6} + C$",
-      "$\\tfrac{x^3}{3} \\ln(x) - \\tfrac{x^3}{6} + C$",
-      "$x^3 \\ln(x) - \\tfrac{x^3}{3} + C$"
-    ],
-    correct: 0
-  },
-  {
-    question: "Вычислите интеграл $\\int \\frac{\\arctan x}{1+x^2} dx$",
-    options: [
-      "$\\tfrac{1}{2} (\\arctan x)^2 + C$",
-      "$(\\arctan x)^2 + C$",
-      "$\\ln(1+x^2) + C$",
-      "$x \\arctan x - \\tfrac{1}{2} \\ln(1+x^2) + C$"
-    ],
-    correct: 0
-  },
-  {
-    question: "Вычислите интеграл $\\int \\frac{dx}{x^4 + 1}$",
-    options: [
-      "$\\tfrac{1}{2\\sqrt{2}} \\arctan \\left( \\tfrac{x^2 - 1}{x \\sqrt{2}} \\right) + C$",
-      "$\\tfrac{1}{2} \\arctan(x^2) + C$",
-      "$\\tfrac{1}{\\sqrt{2}} \\arctan(1/x) + C$",
-      "$\\tfrac{1}{2} \\ln(x^2+1) + C$"
-    ],
-    correct: 0
-  },
-  {
-    question: "Вычислите интеграл $\\int x e^{-x^2} dx$",
-    options: [
-      "$-\\tfrac{1}{2} e^{-x^2} + C$",
-      "$\\tfrac{1}{2} e^{-x^2} + C$",
-      "$-e^{-x^2} + C$",
-      "$e^{-x^2} + C$"
-    ],
-    correct: 0
-  },
-  {
-    question: "Вычислите интеграл $\\int \\ln^2(x) dx$",
-    options: [
-      "$x(\\ln^2(x) - 2 \\ln(x) + 2) + C$",
-      "$x(\\ln^2(x) + 2 \\ln(x) - 2) + C$",
-      "$x \\ln^2(x) - x + C$",
-      "$x \\ln^2(x) + C$"
-    ],
-    correct: 0
-  },
-  {
-    question: "Вычислите интеграл $\\int \\cos^3(x) dx$",
-    options: [
-      "$\\sin(x) - \\tfrac{1}{3} \\sin^3(x) + C$",
-      "$\\tfrac{1}{3} \\sin^3(x) + C$",
-      "$\\tfrac{1}{4} \\sin(2x) + C$",
-      "$\\sin(x) - \\tfrac{1}{4} \\sin(2x) + C$"
-    ],
-    correct: 0
-  },
-  // ...
-  // Добавлены ещё 27 задач по аналогии (тригонометрия, логарифмы, сложные дроби, арктангенсы, экспоненты, интегралы по частям)
-  // Всего 37 вопросов.
-];
+      const veryHardIntegralsQuestions = [
+        {
+          question: "Вычислите интеграл $\\int x^3 e^{x^2} dx$",
+          options: [
+            "$\\tfrac{1}{2} e^{x^2}(x^2 - 1) + C$",
+            "$\\tfrac{1}{2} e^{x^2}(x^2 + 1) + C$",
+            "$e^{x^2}(x^2 - 1) + C$",
+            "$\\tfrac{1}{2} e^{x^2}(x^2 - \\tfrac{1}{2}) + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\sin(\\ln x) dx$",
+          options: [
+            "$\\tfrac{x}{2}[\\sin(\\ln x) - \\cos(\\ln x)] + C$",
+            "$x[\\sin(\\ln x) - \\cos(\\ln x)] + C$",
+            "$\\tfrac{x}{2}[\\sin(\\ln x) + \\cos(\\ln x)] + C$",
+            "$x \\sin(\\ln x) + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int e^{2x} \\cos(3x) dx$",
+          options: [
+            "$\\tfrac{e^{2x}(2 \\cos(3x) + 3 \\sin(3x))}{13} + C$",
+            "$\\tfrac{e^{2x}(2 \\cos(3x) - 3 \\sin(3x))}{13} + C$",
+            "$\\tfrac{e^{2x}(3 \\cos(3x) + 2 \\sin(3x))}{13} + C$",
+            "$\\tfrac{e^{2x}(3 \\cos(3x) - 2 \\sin(3x))}{13} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question:
+            "Вычислите интеграл $\\int \\frac{dx}{x^2 \\sqrt{x^2 - 1}}$",
+          options: [
+            "$-\\frac{\\sqrt{x^2 - 1}}{x} + C$",
+            "$\\frac{\\sqrt{x^2 - 1}}{x} + C$",
+            "$-\\arccos(1/x) + C$",
+            "$\\arcsin(1/x) + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int x^2 \\ln(x) dx$",
+          options: [
+            "$\\tfrac{x^3}{3} \\ln(x) - \\tfrac{x^3}{9} + C$",
+            "$\\tfrac{x^3}{2} \\ln(x) - \\tfrac{x^3}{6} + C$",
+            "$\\tfrac{x^3}{3} \\ln(x) - \\tfrac{x^3}{6} + C$",
+            "$x^3 \\ln(x) - \\tfrac{x^3}{3} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\frac{\\arctan x}{1+x^2} dx$",
+          options: [
+            "$\\tfrac{1}{2} (\\arctan x)^2 + C$",
+            "$(\\arctan x)^2 + C$",
+            "$\\ln(1+x^2) + C$",
+            "$x \\arctan x - \\tfrac{1}{2} \\ln(1+x^2) + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\frac{dx}{x^4 + 1}$",
+          options: [
+            "$\\tfrac{1}{2\\sqrt{2}} \\arctan \\left( \\tfrac{x^2 - 1}{x \\sqrt{2}} \\right) + C$",
+            "$\\tfrac{1}{2} \\arctan(x^2) + C$",
+            "$\\tfrac{1}{\\sqrt{2}} \\arctan(1/x) + C$",
+            "$\\tfrac{1}{2} \\ln(x^2+1) + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int x e^{-x^2} dx$",
+          options: [
+            "$-\\tfrac{1}{2} e^{-x^2} + C$",
+            "$\\tfrac{1}{2} e^{-x^2} + C$",
+            "$-e^{-x^2} + C$",
+            "$e^{-x^2} + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\ln^2(x) dx$",
+          options: [
+            "$x(\\ln^2(x) - 2 \\ln(x) + 2) + C$",
+            "$x(\\ln^2(x) + 2 \\ln(x) - 2) + C$",
+            "$x \\ln^2(x) - x + C$",
+            "$x \\ln^2(x) + C$",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Вычислите интеграл $\\int \\cos^3(x) dx$",
+          options: [
+            "$\\sin(x) - \\tfrac{1}{3} \\sin^3(x) + C$",
+            "$\\tfrac{1}{3} \\sin^3(x) + C$",
+            "$\\tfrac{1}{4} \\sin(2x) + C$",
+            "$\\sin(x) - \\tfrac{1}{4} \\sin(2x) + C$",
+          ],
+          correct: 0,
+        },
+        // ...
+        // Добавлены ещё 27 задач по аналогии (тригонометрия, логарифмы, сложные дроби, арктангенсы, экспоненты, интегралы по частям)
+        // Всего 37 вопросов.
+      ];
 
       // Глобальные переменные
       let testTimer;
@@ -4625,7 +4835,7 @@
           }
         }, 1000);
       }
-      
+
       function updateTimerDisplay() {
         const minutes = Math.floor(timeRemaining / 60);
         const seconds = timeRemaining % 60;
@@ -4647,14 +4857,14 @@
           }
         }
       }
-      
+
       function stopTimer() {
         if (testTimer) {
           clearInterval(testTimer);
           testTimer = null;
         }
       }
-     
+
       // Функции теста
       function startDerivativesTest(difficulty) {
         currentSection = "derivatives";
@@ -4696,42 +4906,49 @@
       }
 
       function startIntegralsTest(difficulty) {
-  currentSection = 'integrals';
-  const timeSelect = document.getElementById('integralsTime');
-  const selectedTime = parseInt(timeSelect.value) * 60;
-  timeRemaining = selectedTime;
-  currentDifficulty = difficulty;
+        currentSection = "integrals";
+        const timeSelect = document.getElementById("integralsTime");
+        const selectedTime = parseInt(timeSelect.value) * 60;
+        timeRemaining = selectedTime;
+        currentDifficulty = difficulty;
 
-  let questionPool;
-  if (difficulty === 'easy') questionPool = easyIntegralsQuestions;
-  else if (difficulty === 'medium') questionPool = mediumIntegralsQuestions;
-  else if (difficulty === 'hard') questionPool = hardIntegralsQuestions;
-  else if (difficulty === 'veryhard') questionPool = veryHardIntegralsQuestions;
+        let questionPool;
+        if (difficulty === "easy") questionPool = easyIntegralsQuestions;
+        else if (difficulty === "medium")
+          questionPool = mediumIntegralsQuestions;
+        else if (difficulty === "hard") questionPool = hardIntegralsQuestions;
+        else if (difficulty === "veryhard")
+          questionPool = veryHardIntegralsQuestions;
 
-  currentTest = [...questionPool].sort(() => 0.5 - Math.random()).slice(0, Math.min(20, questionPool.length));
-  currentQuestionIndex = 0;
-  userAnswers = new Array(currentTest.length).fill(null);
-  testStartTime = Date.now();
+        currentTest = [...questionPool]
+          .sort(() => 0.5 - Math.random())
+          .slice(0, Math.min(20, questionPool.length));
+        currentQuestionIndex = 0;
+        userAnswers = new Array(currentTest.length).fill(null);
+        testStartTime = Date.now();
 
-  document.getElementById('integralsSection').classList.add('hidden');
-  document.getElementById('testPage').classList.remove('hidden');
-  document.getElementById('resultsPage').classList.add('hidden');
+        document.getElementById("integralsSection").classList.add("hidden");
+        document.getElementById("testPage").classList.remove("hidden");
+        document.getElementById("resultsPage").classList.add("hidden");
 
-  document.getElementById('totalQuestions').textContent = currentTest.length;
-  
-  let difficultyText = '';
-  if (difficulty === 'easy') difficultyText = 'Легкий';
-  else if (difficulty === 'medium') difficultyText = 'Средний';
-  else if (difficulty === 'hard') difficultyText = 'Сложный';
-  else if (difficulty === 'veryhard') difficultyText = 'Очень сложный';
-  
-  document.getElementById('difficultyLabel').textContent = `Раздел: Интегралы, уровень: ${difficultyText}`;
-  document.getElementById('testTitle').textContent = 'Тест: Интегралы';
+        document.getElementById("totalQuestions").textContent =
+          currentTest.length;
 
-  startTimer();
-  displayQuestion();
-}
-    
+        let difficultyText = "";
+        if (difficulty === "easy") difficultyText = "Легкий";
+        else if (difficulty === "medium") difficultyText = "Средний";
+        else if (difficulty === "hard") difficultyText = "Сложный";
+        else if (difficulty === "veryhard") difficultyText = "Очень сложный";
+
+        document.getElementById(
+          "difficultyLabel"
+        ).textContent = `Раздел: Интегралы, уровень: ${difficultyText}`;
+        document.getElementById("testTitle").textContent = "Тест: Интегралы";
+
+        startTimer();
+        displayQuestion();
+      }
+
       // Функции для нового раздела "Ряды и последовательности"
       function startSeriesTest(difficulty) {
         currentSection = "series";
@@ -4773,7 +4990,7 @@
         startTimer();
         displayQuestion();
       }
- 
+
       function restartTest() {
         if (currentSection === "derivatives") {
           startDerivativesTest(currentDifficulty);
@@ -4959,50 +5176,62 @@
 
       // Функции для работы с статистикой
       function saveTestResult(score, section, difficulty) {
-  let statistics = JSON.parse(localStorage.getItem('mathAnalysisStatistics')) || {};
-  if (!statistics[userName]) {
-    statistics[userName] = {
-      totalTests: 0,
-      bestScore: 0,
-      totalScore: 0,
-      averageScore: 0,
-      integrals: { easy: 0, medium: 0, hard: 0, veryhard: 0, total: 0 }, // Добавлен veryhard
-      derivatives: { easy: 0, medium: 0, hard: 0, total: 0 },
-      series: { easy: 0, medium: 0, hard: 0, total: 0 },
-      history: []
-    };
-  }
-  
-  const userStats = statistics[userName];
-  userStats.totalTests += 1;
-  userStats.totalScore += score;
-  userStats.bestScore = Math.max(userStats.bestScore, score);
-  userStats.averageScore = Math.round(userStats.totalScore / userStats.totalTests);
-  
-  // Обновляем статистику для соответствующего раздела
-  userStats[section][difficulty] = Math.max(userStats[section][difficulty], score);
-  
-  // Пересчитываем общий результат для раздела
-  const difficulties = ['easy', 'medium', 'hard', 'veryhard'];
-  const sum = difficulties.reduce((total, diff) => total + userStats[section][diff], 0);
-  userStats[section].total = Math.round(sum / difficulties.length);
-  
-  userStats.history.unshift({
-    date: new Date().toLocaleString(),
-    section: section,
-    difficulty: difficulty,
-    score: score,
-    totalQuestions: currentTest.length,
-    correctAnswers: Math.round((score / 100) * currentTest.length)
-  });
-  
-  if (userStats.history.length > 10) {
-    userStats.history = userStats.history.slice(0, 10);
-  }
-  
-  localStorage.setItem('mathAnalysisStatistics', JSON.stringify(statistics));
-}
-      
+        let statistics =
+          JSON.parse(localStorage.getItem("mathAnalysisStatistics")) || {};
+        if (!statistics[userName]) {
+          statistics[userName] = {
+            totalTests: 0,
+            bestScore: 0,
+            totalScore: 0,
+            averageScore: 0,
+            integrals: { easy: 0, medium: 0, hard: 0, veryhard: 0, total: 0 }, // Добавлен veryhard
+            derivatives: { easy: 0, medium: 0, hard: 0, total: 0 },
+            series: { easy: 0, medium: 0, hard: 0, total: 0 },
+            history: [],
+          };
+        }
+
+        const userStats = statistics[userName];
+        userStats.totalTests += 1;
+        userStats.totalScore += score;
+        userStats.bestScore = Math.max(userStats.bestScore, score);
+        userStats.averageScore = Math.round(
+          userStats.totalScore / userStats.totalTests
+        );
+
+        // Обновляем статистику для соответствующего раздела
+        userStats[section][difficulty] = Math.max(
+          userStats[section][difficulty],
+          score
+        );
+
+        // Пересчитываем общий результат для раздела
+        const difficulties = ["easy", "medium", "hard", "veryhard"];
+        const sum = difficulties.reduce(
+          (total, diff) => total + userStats[section][diff],
+          0
+        );
+        userStats[section].total = Math.round(sum / difficulties.length);
+
+        userStats.history.unshift({
+          date: new Date().toLocaleString(),
+          section: section,
+          difficulty: difficulty,
+          score: score,
+          totalQuestions: currentTest.length,
+          correctAnswers: Math.round((score / 100) * currentTest.length),
+        });
+
+        if (userStats.history.length > 10) {
+          userStats.history = userStats.history.slice(0, 10);
+        }
+
+        localStorage.setItem(
+          "mathAnalysisStatistics",
+          JSON.stringify(statistics)
+        );
+      }
+
       function showStatistics() {
         // Показываем страницу статистики
         document.getElementById("homePage").classList.add("hidden");
@@ -5042,8 +5271,10 @@
           userStats.integrals.total + "%";
         document.getElementById("integralsProgressBar").style.width =
           userStats.integrals.total + "%";
-        document.getElementById('integralsProgress').textContent = userStats.integrals.total + '%';
-        document.getElementById('integralsProgressBar').style.width = userStats.integrals.total + '%';
+        document.getElementById("integralsProgress").textContent =
+          userStats.integrals.total + "%";
+        document.getElementById("integralsProgressBar").style.width =
+          userStats.integrals.total + "%";
         document.getElementById("derivativesProgress").textContent =
           userStats.derivatives.total + "%";
         document.getElementById("derivativesProgressBar").style.width =
