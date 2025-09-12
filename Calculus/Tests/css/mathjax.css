@@ -1,0 +1,52 @@
+/* Стили для математических формул */
+.math-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.math-content {
+  display: inline-block;
+  min-width: min-content;
+}
+
+/* Стили для вариантов ответов */
+.option-label {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-width: 0;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  break-inside: avoid;
+}
+
+.option-label:hover {
+  background-color: #f9fafb;
+}
+
+.option-label.selected {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+}
+
+.option-text {
+  flex: 1;
+  min-width: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .option-text {
+    font-size: 1rem;
+  }
+}
+
+/* Предотвращаем горизонтальный скролл */
+body {
+  overflow-x: hidden;
+}

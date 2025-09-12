@@ -125,54 +125,34 @@ function stopTimer() {
       displayQuestion();
     }
 
-   function startIntegralsTest(difficulty) {
-  currentSection = 'integrals';
-  const timeSelect = document.getElementById('integralsTime');
-  const selectedTime = parseInt(timeSelect.value) * 60;
-  timeRemaining = selectedTime;
-  currentDifficulty = difficulty;
+    function startIntegralsTest(difficulty) {
+      currentSection = 'integrals';
+      const timeSelect = document.getElementById('integralsTime');
+      const selectedTime = parseInt(timeSelect.value) * 60;
+      timeRemaining = selectedTime;
+      currentDifficulty = difficulty;
 
-  let questionPool;
-  if (difficulty === 'easy') questionPool = easyIntegralsQuestions;
-  else if (difficulty === 'medium') questionPool = mediumIntegralsQuestions;
-  else if (difficulty === 'hard') questionPool = hardIntegralsQuestions;
-  else if (difficulty === 'veryhard') questionPool = veryHardIntegralsQuestions;
+      let questionPool;
+      if (difficulty === 'easy') questionPool = easyIntegralsQuestions;
+      else if (difficulty === 'medium') questionPool = mediumIntegralsQuestions;
+      else if (difficulty === 'hard') questionPool = hardIntegralsQuestions;
 
-  // Добавим проверку
-  console.log("Very hard integrals questions:", veryHardIntegralsQuestions);
-  console.log("Question pool length:", questionPool.length);
-  
-  if (!questionPool || questionPool.length === 0) {
-    alert('Ошибка: вопросы для этого уровня не загружены.');
-    return;
-  }
+      currentTest = [...questionPool].sort(() => 0.5 - Math.random()).slice(0, Math.min(20, questionPool.length));
+      currentQuestionIndex = 0;
+      userAnswers = new Array(currentTest.length).fill(null);
+      testStartTime = Date.now();
 
-  currentTest = [...questionPool].sort(() => 0.5 - Math.random()).slice(0, Math.min(20, questionPool.length));
-  
-  console.log("Current test length:", currentTest.length);
-  
-  currentQuestionIndex = 0;
-  userAnswers = new Array(currentTest.length).fill(null);
-  testStartTime = Date.now();
+      document.getElementById('integralsSection').classList.add('hidden');
+      document.getElementById('testPage').classList.remove('hidden');
+      document.getElementById('resultsPage').classList.add('hidden');
 
-  document.getElementById('integralsSection').classList.add('hidden');
-  document.getElementById('testPage').classList.remove('hidden');
-  document.getElementById('resultsPage').classList.add('hidden');
+      document.getElementById('totalQuestions').textContent = currentTest.length;
+      document.getElementById('difficultyLabel').textContent = `Раздел: Интегралы, уровень: ${difficulty === 'easy' ? 'Легкий' : difficulty === 'medium' ? 'Средний' : 'Сложный'}`;
+      document.getElementById('testTitle').textContent = 'Тест: Интегралы';
 
-  document.getElementById('totalQuestions').textContent = currentTest.length;
-  
-  let difficultyText = '';
-  if (difficulty === 'easy') difficultyText = 'Легкий';
-  else if (difficulty === 'medium') difficultyText = 'Средний';
-  else if (difficulty === 'hard') difficultyText = 'Сложный';
-  else if (difficulty === 'veryhard') difficultyText = 'Очень сложный';
-  
-  document.getElementById('difficultyLabel').textContent = `Раздел: Интегралы, уровень: ${difficultyText}`;
-  document.getElementById('testTitle').textContent = 'Тест: Интегралы';
-
-  startTimer();
-  displayQuestion();
-}
+      startTimer();
+      displayQuestion();
+    }
 
     // Функции для нового раздела "Ряды и последовательности"
     function startSeriesTest(difficulty) {
@@ -285,100 +265,6 @@ function stopTimer() {
     }
 
 function finishTest() {
-  console.log("FinishTest called for:", currentSection, currentDifficulty);
-  
-  // Добавим проверку на очень сложный уровень интегралов
-  if (currentSection === 'integrals' && currentDifficulty === 'veryhard') {
-    console.log("Very hard integrals finish process started");
-    console.log("Current test:", currentTest);
-    console.log("User answers:", userAnswers);
-  }
-  
-  stopTimer();
-  
-  let correctAnswers = 0;
-  const results = [];
-  
-  // Добавим проверку на пустой тест
-  if (!currentTest || currentTest.length === 0) {
-    console.error("Current test is empty!");
-    alert("Произошла ошибка: тест не содержит вопросов. Возвращаемся на главную страницу.");
-    showHome();
-    return;
-  }
-  
-  for (let i = 0; i < currentTest.length; i++) {
-    // Добавим проверку на существование вопроса
-    if (!currentTest[i]) {
-      console.error("Question is undefined at index:", i);
-      continue;
-    }
-    
-    const isCorrect = userAnswers[i] === currentTest[i].correct;
-    if (isCorrect) correctAnswers++;
-    
-    results.push({
-      question: currentTest[i].question,
-      userAnswer: userAnswers[i] !== null ? currentTest[i].options[userAnswers[i]] : 'Не отвечено',
-      correctAnswer: currentTest[i].options[currentTest[i].correct],
-      isCorrect: isCorrect
-    });
-  }
-  
-  const percentage = Math.round((correctAnswers / currentTest.length) * 100);
-  
-  // Сохраняем результаты теста
-  saveTestResult(percentage, currentSection, currentDifficulty);
-  
-  document.getElementById('testPage').classList.add('hidden');
-  document.getElementById('resultsPage').classList.remove('hidden');
-  
-  const scoreDisplay = document.getElementById('scoreDisplay');
-  const scoreText = document.getElementById('scoreText');
-  const detailedResults = document.getElementById('detailedResults');
-  
-  scoreDisplay.textContent = `${correctAnswers}/${currentTest.length}`;
-  scoreDisplay.className = percentage >= 70 
-      ? 'text-6xl font-bold mb-4 text-green-600' 
-      : 'text-6xl font-bold mb-4 text-red-600';
-  
-  let comment = '';
-  if (percentage === 100) {
-    comment = `${userName}, феноменально! Вы набрали все баллы — поздравляю!`;
-  } else if (percentage >= 90) {
-    comment = `${userName}, отлично! Вы справились с тестом почти идеально!`;
-  } else if (percentage >= 60) {
-    comment = `${userName}, хорошо! Вы справились с тестом, но можно ещё улучшить результат.`;
-  } else if (percentage >= 30) {
-    comment = `${userName}, неплохо, но есть над чем поработать. Попробуйте пройти тест ещё раз.`;
-  } else {
-    comment = `Не отчаивайтесь, ${userName}. Этот тест пока сложен, попробуйте ещё раз!`;
-  }
-  
-  scoreText.textContent = comment;
-  
-  detailedResults.innerHTML = `
-    <h3 class="text-lg font-semibold mb-4">Детальные результаты:</h3>
-    <div class="max-h-64 overflow-y-auto space-y-2">
-      ${results.map((result, index) => `
-        <div class="p-3 rounded-lg ${result.isCorrect ? 'bg-green-50 border-l-4 border-green-500' : 'bg-red-50 border-l-4 border-red-500'}">
-          <div class="text-sm font-medium">Вопрос ${index + 1}:</div>
-          <div class="text-sm text-gray-800 mb-1 math-content">${result.question}</div>
-          <div class="text-xs text-gray-600">
-            Ваш ответ: ${result.userAnswer} <br>
-            Правильный ответ: ${result.correctAnswer} <br>
-            ${result.isCorrect ? '✓ Правильно' : '✗ Неправильно'}
-          </div>
-        </div>
-      `).join('')}
-    </div>
-  `;
-  
-  if (window.MathJax && MathJax.typesetPromise) {
-    MathJax.typesetPromise([detailedResults]).catch((err) => console.log(err.message));
-  }
-}function finishTest() {
-  console.log('Finish test function called');
   stopTimer();
   
   let correctAnswers = 0;
@@ -451,7 +337,7 @@ function finishTest() {
 }
 
     // Функции для работы с статистикой
-  function saveTestResult(score, section, difficulty) {
+    function saveTestResult(score, section, difficulty) {
   let statistics = JSON.parse(localStorage.getItem('mathAnalysisStatistics')) || {};
   if (!statistics[userName]) {
     statistics[userName] = {
@@ -459,9 +345,9 @@ function finishTest() {
       bestScore: 0,
       totalScore: 0,
       averageScore: 0,
-      integrals: { easy: 0, medium: 0, hard: 0, veryhard: 0, total: 0 }, // Добавлен veryhard
+      integrals: { easy: 0, medium: 0, hard: 0, total: 0 },
       derivatives: { easy: 0, medium: 0, hard: 0, total: 0 },
-      series: { easy: 0, medium: 0, hard: 0, total: 0 },
+      series: { easy: 0, medium: 0, hard: 0, total: 0 }, // Добавляем раздел series
       history: []
     };
   }
@@ -476,9 +362,9 @@ function finishTest() {
   userStats[section][difficulty] = Math.max(userStats[section][difficulty], score);
   
   // Пересчитываем общий результат для раздела
-  const difficulties = ['easy', 'medium', 'hard', 'veryhard'];
-  const sum = difficulties.reduce((total, diff) => total + userStats[section][diff], 0);
-  userStats[section].total = Math.round(sum / difficulties.length);
+  userStats[section].total = Math.round(
+    (userStats[section].easy + userStats[section].medium + userStats[section].hard) / 3
+  );
   
   userStats.history.unshift({
     date: new Date().toLocaleString(),
@@ -494,7 +380,7 @@ function finishTest() {
   }
   
   localStorage.setItem('mathAnalysisStatistics', JSON.stringify(statistics));
-}
+} 
     
     function showStatistics() {
   // Показываем страницу статистики
