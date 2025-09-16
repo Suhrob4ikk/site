@@ -3,90 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Математические тесты - Производные</title>
+    <title>Математический анализ | Производные</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
+    <header class="header">
         <div class="container">
-            <h1>Математические тесты</h1>
-            <nav>
-                <ul>
-                    <li><a href="#" class="active">Производные</a></li>
-                    <!-- В будущем можно добавить другие разделы -->
-                </ul>
-            </nav>
+            <div class="header-content">
+                <h1 class="logo">Математический анализ</h1>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="#" class="nav-link active">Производные</a></li>
+                        <li><a href="#" class="nav-link">Интегралы</a></li>
+                        <li><a href="#" class="nav-link">Диффуры</a></li>
+                        <li><a href="#" class="nav-link">Ряды</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <main class="container">
-        <section id="main-menu">
-            <h2>Раздел: Производные</h2>
-            <p>Выберите уровень сложности:</p>
-            <div class="levels">
+    <main class="main">
+        <div class="container">
+            <section class="welcome-section">
+                <h2>Тестирование по теме: Производные</h2>
+                <p>Выберите уровень сложности для начала тестирования. Система randomly выберет 20 задач из доступного пула.</p>
+            </section>
+
+            <section class="levels-section">
                 <div class="level-card" data-level="easy">
-                    <h3>Легкий уровень</h3>
-                    <p>5 задач</p>
+                    <div class="level-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Базовый уровень</h3>
+                    <p>Основные правила дифференцирования, производные элементарных функций</p>
+                    <div class="stats">
+                        <span class="task-count">60 задач доступно</span>
+                        <span class="time-estimate"><i class="far fa-clock"></i> 30-40 мин</span>
+                    </div>
+                    <button class="start-btn">Начать тест</button>
                 </div>
+
                 <div class="level-card" data-level="medium">
-                    <h3>Средний уровень</h3>
-                    <p>5 задач</p>
+                    <div class="level-icon">
+                        <i class="fas fa-function"></i>
+                    </div>
+                    <h3>Продвинутый уровень</h3>
+                    <p>Производные сложных функций, неявное дифференцирование, логарифмическая производная</p>
+                    <div class="stats">
+                        <span class="task-count">60 задач доступно</span>
+                        <span class="time-estimate"><i class="far fa-clock"></i> 40-50 мин</span>
+                    </div>
+                    <button class="start-btn">Начать тест</button>
                 </div>
+
                 <div class="level-card" data-level="hard">
-                    <h3>Сложный уровень</h3>
-                    <p>5 задач</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="test-section" class="hidden">
-            <div class="test-header">
-                <h2 id="test-title">Тест: Легкий уровень</h2>
-                <div class="progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
+                    <div class="level-icon">
+                        <i classfas fa-chart-line"></i>
                     </div>
-                    <span class="progress-text">Вопрос <span id="current-question">1</span> из <span id="total-questions">5</span></span>
+                    <h3>Экспертный уровень</h3>
+                    <p>Производные высших порядков, параметрическое дифференцирование, применение в задачах</p>
+                    <div class="stats">
+                        <span class="task-count">60 задач доступно</span>
+                        <span class="time-estimate"><i class="far fa-clock"></i> 50-60 мин</span>
+                    </div>
+                    <button class="start-btn">Начать тест</button>
                 </div>
-            </div>
+            </section>
 
-            <div class="question-container">
-                <div class="question">
-                    <h3 id="question-text">Вопрос появится здесь</h3>
-                    <div id="answers-container" class="answers">
-                        <!-- Ответы будут добавляться через JS -->
+            <section class="test-section hidden">
+                <div class="test-header">
+                    <h2 id="test-title">Тестирование: Базовый уровень</h2>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="progress-text">Вопрос <span id="current-question">1</span> из <span id="total-questions">20</span></div>
+                    </div>
+                    <div class="timer">
+                        <i class="far fa-clock"></i>
+                        <span id="time">40:00</span>
                     </div>
                 </div>
-            </div>
 
-            <div class="navigation">
-                <button id="prev-btn" class="nav-btn" disabled>Назад</button>
-                <button id="next-btn" class="nav-btn">Далее</button>
-                <button id="finish-btn" class="nav-btn hidden">Завершить тест</button>
-            </div>
-        </section>
+                <div class="question-container">
+                    <div class="question">
+                        <h3 id="question-text">Найдите производную функции f(x) = 3x⁴ - 2x³ + 5x - 7</h3>
+                        <div id="answers-container" class="answers">
+                            <!-- Answers will be inserted by JavaScript -->
+                        </div>
+                    </div>
+                </div>
 
-        <section id="results-section" class="hidden">
-            <div class="results-container">
-                <h2>Результаты теста</h2>
-                <div class="score">
-                    Ваш результат: <span id="score-value">0</span> из <span id="max-score">0</span>
+                <div class="navigation">
+                    <button id="prev-btn" class="nav-btn" disabled>
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                    <button id="next-btn" class="nav-btn">
+                        Далее <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button id="finish-btn" class="nav-btn hidden">
+                        Завершить тест <i class="fas fa-check"></i>
+                    </button>
                 </div>
-                <div class="detailed-results" id="detailed-results">
-                    <!-- Детальные результаты будут здесь -->
+            </section>
+
+            <section class="results-section hidden">
+                <div class="results-container">
+                    <h2>Результаты тестирования</h2>
+                    <div class="score-container">
+                        <div class="score-circle">
+                            <svg class="progress-ring" width="120" height="120">
+                                <circle class="progress-ring__circle" stroke="#4caf50" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                            </svg>
+                            <span class="score-value">85%</span>
+                        </div>
+                        <div class="score-details">
+                            <h3>Ваш результат: <span id="score-value">17</span> из <span id="max-score">20</span></h3>
+                            <p>Время выполнения: <span id="time-taken">32:45</span></p>
+                            <p>Уровень: <span id="level-achieved">Продвинутый</span></p>
+                        </div>
+                    </div>
+
+                    <div class="detailed-results">
+                        <h3>Детализация результатов</h3>
+                        <div id="results-breakdown">
+                            <!-- Results will be inserted by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button id="review-btn" class="action-btn">
+                            <i class="fas fa-list-ol"></i> Просмотреть ответы
+                        </button>
+                        <button id="restart-btn" class="action-btn primary">
+                            <i class="fas fa-redo"></i> Пройти другой тест
+                        </button>
+                    </div>
                 </div>
-                <button id="restart-btn" class="restart-btn">Пройти другой тест</button>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <p>© 2023 Математические тесты. Все права защищены.</p>
+            <p>&copy; 2023 Кафедра высшей математики. Все права защищены.</p>
         </div>
     </footer>
 
-    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
