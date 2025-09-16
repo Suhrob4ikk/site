@@ -24,9 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultsBreakdown = document.getElementById('results-breakdown');
     const scoreCircle = document.querySelector('.progress-ring__circle');
     const scoreValueElement = document.querySelector('.score-value');
+    const navLinks = document.querySelectorAll('.nav-link');
 
     // Переменные состояния
     let currentLevel = null;
+    let currentSubject = 'derivatives'; // derivatives, integrals, series, differentials
     let currentQuestions = [];
     let currentQuestionIndex = 0;
     let userAnswers = [];
@@ -34,19 +36,37 @@ document.addEventListener('DOMContentLoaded', function() {
     let timerInterval = null;
     let timeLeft = 40 * 60; // 40 минут в секундах
 
-    // Загрузка вопросов (в реальном приложении это будет загрузка из data.js)
-    function loadQuestions(level) {
+    // Загрузка вопросов
+    function loadQuestions(subject, level) {
         // В реальном приложении здесь будет импорт из data.js
         // Для демонстрации создадим mock данные
         const questions = {
-            easy: [],
-            medium: [],
-            hard: []
+            derivatives: {
+                easy: [],
+                medium: [],
+                hard: []
+            },
+            integrals: {
+                easy: [],
+                medium: [],
+                hard: []
+            },
+            series: {
+                easy: [],
+                medium: [],
+                hard: []
+            },
+            differentials: {
+                easy: [],
+                medium: [],
+                hard: []
+            }
         };
         
         // Заполним каждый уровень 5 вопросами (в реальности будет 60)
         for (let i = 1; i <= 5; i++) {
-            questions.easy.push({
+            // Производные
+            questions.derivatives.easy.push({
                 question: `Базовый вопрос ${i}: Найдите производную функции f(x) = x^${i} + ${i}x`,
                 answers: [
                     { text: `${i}x^${i-1} + ${i}`, correct: true },
@@ -56,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ]
             });
             
-            questions.medium.push({
+            questions.derivatives.medium.push({
                 question: `Продвинутый вопрос ${i}: Найдите производную функции f(x) = sin(${i}x) + e^${i}x`,
                 answers: [
                     { text: `${i}cos(${i}x) + ${i}e^${i}x`, correct: true },
@@ -66,18 +86,80 @@ document.addEventListener('DOMContentLoaded', function() {
                 ]
             });
             
-            questions.hard.push({
+            questions.derivatives.hard.push({
                 question: `Экспертный вопрос ${i}: Найдите вторую производную функции f(x) = x^${i+2} + ln(${i}x)`,
                 answers: [
-                    { text: `${(i+2)*(i+1)}x^${i} - ${1/(i*i*x*x)}`, correct: true },
+                    { text: `${(i+2)*(i+1)}x^${i} - ${1/(i*i)}/x^2`, correct: true },
                     { text: `${(i+2)}x^${i+1} + ${1/(i*x)}`, correct: false },
                     { text: `${(i+2)*(i+1)}x^${i}`, correct: false },
                     { text: `${(i+2)}x^${i+1} - ${1/(i*x)}`, correct: false }
                 ]
             });
+
+            // Интегралы
+            questions.integrals.easy.push({
+                question: `Базовый интеграл ${i}: ∫${i}x^${i-1} dx`,
+                answers: [
+                    { text: `x^${i} + C`, correct: true },
+                    { text: `${i}x^${i} + C`, correct: false },
+                    { text: `x^${i-1} + C`, correct: false },
+                    { text: `${i}x^${i-1} + C`, correct: false }
+                ]
+            });
+
+            questions.integrals.medium.push({
+                question: `Продвинутый интеграл ${i}: ∫e^${i}x dx`,
+                answers: [
+                    { text: `${1/i}e^${i}x + C`, correct: true },
+                    { text: `e^${i}x + C`, correct: false },
+                    { text: `${i}e^${i}x + C`, correct: false },
+                    { text: `${i}e^${i-1}x + C`, correct: false }
+                ]
+            });
+
+            questions.integrals.hard.push({
+                question: `Экспертный интеграл ${i}: ∫x*sin(${i}x) dx`,
+                answers: [
+                    { text: `${-1/i}x*cos(${i}x) + ${1/(i*i)}sin(${i}x) + C`, correct: true },
+                    { text: `x*cos(${i}x) + sin(${i}x) + C`, correct: false },
+                    { text: `${-1/i}x*cos(${i}x) + C`, correct: false },
+                    { text: `x*sin(${i}x) + cos(${i}x) + C`, correct: false }
+                ]
+            });
+
+            // Ряды
+            questions.series.easy.push({
+                question: `Базовый ряд ${i}: Сумма ряда ∑(1/${i}^n) при n=1 до ∞`,
+                answers: [
+                    { text: `1/(${i}-1)`, correct: true },
+                    { text: `${i}/(${i}-1)`, correct: false },
+                    { text: `1/${i}`, correct: false },
+                    { text: `${i}`, correct: false }
+                ]
+            });
+
+            questions.series.medium.push({
+                question: `Продвинутый ряд ${i}: Радиус сходимости ряда ∑(${i}^n * x^n)`,
+                answers: [
+                    { text: `1/${i}`, correct: true },
+                    { text: `${i}`, correct: false },
+                    { text: `1`, correct: false },
+                    { text: `∞`, correct: false }
+                ]
+            });
+
+            questions.series.hard.push({
+                question: `Экспертный ряд ${i}: Сумма ряда ∑(n/${i}^n) при n=1 до ∞`,
+                answers: [
+                    { text: `${i}/(${i}-1)^2`, correct: true },
+                    { text: `1/(${i}-1)`, correct: false },
+                    { text: `${i}/(${i}-1)`, correct: false },
+                    { text: `1/(${i}-1)^2`, correct: false }
+                ]
+            });
         }
         
-        return questions[level];
+        return questions[subject][level];
     }
 
     // Обработчики выбора уровня
@@ -85,14 +167,53 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', (e) => {
             e.stopPropagation();
             currentLevel = levelCards[index].getAttribute('data-level');
-            startTest(currentLevel);
+            startTest(currentSubject, currentLevel);
+        });
+    });
+
+    // Обработчики навигационного меню
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Удаляем активный класс у всех ссылок
+            navLinks.forEach(l => l.classList.remove('active'));
+            // Добавляем активный класс к текущей ссылке
+            this.classList.add('active');
+            
+            // Определяем выбранный раздел
+            const subjectText = this.textContent;
+            let subject = 'derivatives';
+            
+            switch(subjectText) {
+                case 'Производные':
+                    subject = 'derivatives';
+                    break;
+                case 'Интегралы':
+                    subject = 'integrals';
+                    break;
+                case 'Ряды':
+                    subject = 'series';
+                    break;
+                case 'Диффуры':
+                    alert('Раздел "Дифференциальные уравнения" находится в разработке.');
+                    return;
+                default:
+                    subject = 'derivatives';
+            }
+            
+            currentSubject = subject;
+            
+            // Обновляем заголовок
+            document.querySelector('.welcome-section h2').textContent = 
+                `Академическое тестирование: ${subjectText}`;
         });
     });
 
     // Начать тест
-    function startTest(level) {
-        // Получить вопросы для выбранного уровня
-        const allQuestions = loadQuestions(level);
+    function startTest(subject, level) {
+        // Получить вопросы для выбранного уровня и раздела
+        const allQuestions = loadQuestions(subject, level);
         
         // Выбрать 20 случайных вопросов
         currentQuestions = getRandomQuestions(allQuestions, 20);
@@ -103,7 +224,15 @@ document.addEventListener('DOMContentLoaded', function() {
             medium: 'Продвинутый уровень',
             hard: 'Экспертный уровень'
         };
-        testTitle.textContent = `Тестирование: ${levelNames[level]}`;
+        
+        const subjectNames = {
+            derivatives: 'Производные',
+            integrals: 'Интегралы',
+            series: 'Ряды',
+            differentials: 'Дифференциальные уравнения'
+        };
+        
+        testTitle.textContent = `Тестирование: ${subjectNames[subject]} - ${levelNames[level]}`;
         
         // Сбросить состояние
         currentQuestionIndex = 0;
