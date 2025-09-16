@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Математические тесты - Производные</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Математические тесты</h1>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Производные</a></li>
+                    <!-- В будущем можно добавить другие разделы -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="main-menu">
+            <h2>Раздел: Производные</h2>
+            <p>Выберите уровень сложности:</p>
+            <div class="levels">
+                <div class="level-card" data-level="easy">
+                    <h3>Легкий уровень</h3>
+                    <p>5 задач</p>
+                </div>
+                <div class="level-card" data-level="medium">
+                    <h3>Средний уровень</h3>
+                    <p>5 задач</p>
+                </div>
+                <div class="level-card" data-level="hard">
+                    <h3>Сложный уровень</h3>
+                    <p>5 задач</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="test-section" class="hidden">
+            <div class="test-header">
+                <h2 id="test-title">Тест: Легкий уровень</h2>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <span class="progress-text">Вопрос <span id="current-question">1</span> из <span id="total-questions">5</span></span>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <div class="question">
+                    <h3 id="question-text">Вопрос появится здесь</h3>
+                    <div id="answers-container" class="answers">
+                        <!-- Ответы будут добавляться через JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button id="prev-btn" class="nav-btn" disabled>Назад</button>
+                <button id="next-btn" class="nav-btn">Далее</button>
+                <button id="finish-btn" class="nav-btn hidden">Завершить тест</button>
+            </div>
+        </section>
+
+        <section id="results-section" class="hidden">
+            <div class="results-container">
+                <h2>Результаты теста</h2>
+                <div class="score">
+                    Ваш результат: <span id="score-value">0</span> из <span id="max-score">0</span>
+                </div>
+                <div class="detailed-results" id="detailed-results">
+                    <!-- Детальные результаты будут здесь -->
+                </div>
+                <button id="restart-btn" class="restart-btn">Пройти другой тест</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Математические тесты. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
