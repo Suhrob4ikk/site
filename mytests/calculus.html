@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Математический анализ | Тестирование</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">ПМиИ Тестирование</h1>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-subject="derivatives">Производные</a></li>
+                        <li><a href="#" class="nav-link" data-subject="integrals">Интегралы</a></li>
+                        <li><a href="#" class="nav-link" data-subject="differentials">Диффуры</a></li>
+                        <li><a href="#" class="nav-link" data-subject="series">Ряды</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="user-section">
+                <div class="user-input">
+                    <label for="username">Ваше имя:</label>
+                    <input type="text" id="username" placeholder="Введите ваше имя">
+                </div>
+                <button id="stats-btn" class="stats-btn">Статистика</button>
+            </section>
+
+            <section class="welcome-section">
+                <h2 id="welcome-title">Академическое тестирование по математическому анализу</h2>
+                <p>Выберите раздел и уровень сложности для начала тестирования. Система randomly выберет 20 задач из доступного пула.</p>
+            </section>
+
+            <section class="levels-section">
+                <div class="level-card" data-level="easy">
+                    <div class="level-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Базовый уровень</h3>
+                    <p id="easy-desc">Основные правила дифференцирования, производные элементарных функций</p>
+                    <div class="stats">
+                        <span class="task-count">60 задач доступно</span>
+                        <span class="time-estimate"><i class="far fa-clock"></i> 30-40 мин</span>
+                    </div>
+                    <button class="start-btn">Начать тестирование</button>
+                </div>
+
+                <div class="level-card" data-level="medium">
+                    <div class="level-icon">
+                        <i class="fas fa-square-root-alt"></i>
+                    </div>
+                    <h3>Продвинутый уровень</h3>
+                    <p id="medium-desc">Производные сложных функций, неявное дифференцирование, логарифмическая производная</p>
+                    <div class="stats">
+                        <span class="task-count">60 задач доступно</span>
+                        <span class="time-estimate"><i class="far fa-clock"></i> 40-50 мин</span>
+                    </div>
+                    <button class="start-btn">Начать тестирование</button>
+                </div>
+
+                <div class="level-card" data-level="hard">
+                    <div class="level-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Экспертный уровень</h3>
+                    <p id="hard-desc">Производные высших порядков, параметрическое дифференцирование, применение в задачах</p>
+                    <div class="stats">
+                        <span class="task-count">60 задач доступно</span>
+                        <span class="time-estimate"><i class="far fa-clock"></i> 50-60 мин</span>
+                    </div>
+                    <button class="start-btn">Начать тестирование</button>
+                </div>
+            </section>
+
+            <section class="test-section hidden">
+                <div class="test-header">
+                    <h2 id="test-title">Тестирование: Базовый уровень</h2>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="progress-text">Вопрос <span id="current-question">1</span> из <span id="total-questions">20</span></div>
+                    </div>
+                    <div class="timer">
+                        <i class="far fa-clock"></i>
+                        <span id="time">40:00</span>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question">
+                        <h3 id="question-text">Найдите производную функции f(x) = 3x⁴ - 2x³ + 5x - 7</h3>
+                        <div id="answers-container" class="answers">
+                            <!-- Answers will be inserted by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button id="prev-btn" class="nav-btn" disabled>
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                    <button id="next-btn" class="nav-btn">
+                        Далее <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button id="finish-btn" class="nav-btn hidden">
+                        Завершить тест <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="results-section hidden">
+                <div class="results-container">
+                    <h2>Результаты тестирования</h2>
+                    <div class="score-container">
+                        <div class="score-circle">
+                            <svg class="progress-ring" width="120" height="120">
+                                <circle class="progress-ring__circle" stroke="#4caf50" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                            </svg>
+                            <span class="score-value">85%</span>
+                        </div>
+                        <div class="score-details">
+                            <h3>Ваш результат: <span id="score-value">17</span> из <span id="max-score">20</span></h3>
+                            <p>Время выполнения: <span id="time-taken">32:45</span></p>
+                            <p>Уровень: <span id="level-achieved">Продвинутый</span></p>
+                        </div>
+                    </div>
+
+                    <div class="detailed-results">
+                        <h3>Детализация результатов</h3>
+                        <div id="results-breakdown">
+                            <!-- Results will be inserted by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button id="review-btn" class="action-btn">
+                            <i class="fas fa-list-ol"></i> Просмотреть ответы
+                        </button>
+                        <button id="restart-btn" class="action-btn primary">
+                            <i class="fas fa-redo"></i> Пройти другой тест
+                        </button>
+                        <button id="back-to-main" class="action-btn">
+                            <i class="fas fa-home"></i> На главную
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="statistics-section hidden">
+                <h2>Статистика результатов</h2>
+                <div id="stats-container"></div>
+                <button id="back-btn" class="action-btn primary">Назад</button>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 ПМиИ Давлатов Сухроб Эраджович. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="results.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

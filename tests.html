@@ -1,821 +1,2075 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Тест: Производные сложных функций</title>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Математический анализ | Тестирование</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --text-color: #333;
+            --light-gray: #f5f7fa;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
 
-  <style>
-    :root {
-      --primary: #4361ee;
-      --primary-dark: #3a56d4;
-      --secondary: #7209b7;
-      --success: #06d6a0;
-      --danger: #ef476f;
-      --warning: #ffd166;
-      --light: #f8f9fa;
-      --dark: #212529;
-      --gray: #6c757d;
-      --border-radius: 12px;
-      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+        }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
-      color: var(--dark);
-    }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: white;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      padding: 25px;
-      position: relative;
-      overflow: hidden;
-    }
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), #1a2530);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    .header {
-      text-align: center;
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 2px solid var(--light);
-      position: relative;
-    }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    h1 {
-      color: var(--primary);
-      margin-bottom: 10px;
-      font-size: 28px;
-    }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
 
-    .description {
-      color: var(--gray);
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
+        .nav ul {
+            display: flex;
+            list-style: none;
+        }
 
-    .timer-container {
-      display: inline-block;
-      background: var(--light);
-      padding: 8px 15px;
-      border-radius: 30px;
-      font-weight: bold;
-      color: var(--primary);
-      box-shadow: var(--shadow);
-    }
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+        }
 
-    .timer-warning {
-      color: var(--danger);
-    }
+        .nav-link.active, .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
-    .progress-container {
-      margin-bottom: 25px;
-    }
+        /* Main Content Styles */
+        .main {
+            padding: 2rem 0;
+        }
 
-    .progress-bar {
-      height: 10px;
-      background-color: #e9ecef;
-      border-radius: 5px;
-      overflow: hidden;
-    }
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
 
-    .progress {
-      height: 100%;
-      background-color: var(--primary);
-      width: 0%;
-      transition: var(--transition);
-    }
+        .welcome-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
 
-    .progress-text {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 5px;
-      font-size: 14px;
-      color: var(--gray);
-    }
+        .welcome-section p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    .question {
-      background: var(--light);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      padding: 20px;
-      margin-bottom: 20px;
-      transition: var(--transition);
-      border-left: 4px solid var(--primary);
-    }
+        /* Levels Section */
+        .levels-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
 
-    .question:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-    }
+        .level-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
 
-    .question p {
-      font-size: 18px;
-      margin-bottom: 15px;
-      color: var(--dark);
-      font-weight: 500;
-    }
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+        }
 
-    .options {
-      display: grid;
-      grid-gap: 10px;
-    }
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
 
-    .option {
-      display: flex;
-      align-items: center;
-      padding: 12px 15px;
-      background: white;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: var(--transition);
-      border: 1px solid #ddd;
-    }
+        .level-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
 
-    .option:hover {
-      background: #f1f3ff;
-      border-color: var(--primary);
-    }
+        .level-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
 
-    .option input {
-      margin-right: 12px;
-      cursor: pointer;
-    }
+        .level-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
 
-    .option.selected {
-      background: #e6eeff;
-      border-color: var(--primary);
-    }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
 
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 30px;
-    }
+        .start-btn {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
 
-    button {
-      padding: 14px 28px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: var(--transition);
-      border: none;
-      font-weight: 600;
-    }
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
 
-    #submitBtn {
-      background-color: var(--primary);
-      color: white;
-      box-shadow: 0 4px 14px rgba(67, 97, 238, 0.4);
-    }
+        /* Test Section */
+        .test-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
 
-    #submitBtn:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-2px);
-    }
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-    #resetBtn {
-      background-color: white;
-      color: var(--primary);
-      border: 1px solid var(--primary);
-    }
+        .test-header h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
 
-    #resetBtn:hover {
-      background-color: #f8f9ff;
-      transform: translateY(-2px);
-    }
+        .progress-container {
+            flex-grow: 1;
+            max-width: 400px;
+        }
 
-    .result {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 18px;
-      background: white;
-      padding: 25px;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      display: none;
-    }
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
 
-    .score {
-      font-size: 24px;
-      font-weight: bold;
-      color: var(--primary);
-      margin-bottom: 15px;
-    }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            width: 5%;
+            transition: width 0.3s ease;
+        }
 
-    .feedback {
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
+        .progress-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+            text-align: center;
+        }
 
-    .detailed-results {
-      text-align: left;
-      margin-top: 20px;
-      border-top: 1px solid #eee;
-      padding-top: 20px;
-    }
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
 
-    .result-item {
-      margin-bottom: 15px;
-      padding: 15px;
-      border-radius: 8px;
-      background: #f9f9f9;
-    }
+        .question-container {
+            margin-bottom: 2rem;
+        }
 
-    .correct {
-      border-left: 4px solid var(--success);
-    }
+        .question h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            font-weight: 500;
+            line-height: 1.4;
+        }
 
-    .incorrect {
-      border-left: 4px solid var(--danger);
-    }
+        .answers {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
 
-    .explanation {
-      font-size: 14px;
-      color: var(--gray);
-      margin-top: 8px;
-    }
+        .answer-btn {
+            padding: 1rem 1.5rem;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            background: none;
+            text-align: left;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Cambria Math', serif;
+            font-size: 1.1rem;
+        }
 
-    .math-expression {
-      font-size: 18px;
-      margin: 10px 0;
-      padding: 8px 12px;
-      background: #f8f9fa;
-      border-radius: 6px;
-      display: inline-block;
-      border: 1px solid #e9ecef;
-    }
+        .answer-btn:hover {
+            border-color: var(--secondary-color);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
 
-    .user-answer, .correct-answer {
-      display: flex;
-      align-items: center;
-      margin: 8px 0;
-    }
+        .answer-btn.selected {
+            border-color: var(--secondary-color);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
 
-    .answer-icon {
-      margin-right: 10px;
-      font-weight: bold;
-    }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .correct-icon {
-      color: var(--success);
-    }
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
 
-    .incorrect-icon {
-      color: var(--danger);
-    }
+        .nav-btn:hover:not(:disabled) {
+            background-color: #1a2530;
+            transform: translateY(-2px);
+        }
 
-    @media (max-width: 768px) {
-      .container {
-        padding: 15px;
-      }
-      
-      h1 {
-        font-size: 24px;
-      }
-      
-      .question {
-        padding: 15px;
-      }
-      
-      .buttons {
-        flex-direction: column;
-      }
-      
-      button {
-        width: 100%;
-      }
-      
-      .math-expression {
-        font-size: 16px;
-        overflow-x: auto;
-        max-width: 100%;
-      }
-    }
+        .nav-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
 
-    @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
-      
-      .question p {
-        font-size: 16px;
-      }
-      
-      .option {
-        padding: 10px;
-      }
-    }
+        /* Results Section */
+        .results-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
 
-    /* Анимации */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    .fade-in {
-      animation: fadeIn 0.5s ease-in;
-    }
-    
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(1); }
-    }
-    
-    .pulse {
-      animation: pulse 0.5s ease;
-    }
-  </style>
+        .results-container h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .score-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .score-circle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring__circle {
+            stroke-dasharray: 326.56;
+            stroke-dashoffset: 326.56;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .score-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .score-details {
+            text-align: center;
+        }
+
+        .score-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .score-details p {
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .detailed-results {
+            margin-bottom: 2rem;
+        }
+
+        .detailed-results h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .action-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .action-btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            background-color: #1a2530;
+            border-color: #1a2530;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        /* User Info Section */
+        .user-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .user-input {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-input label {
+            font-weight: 500;
+        }
+
+        .user-input input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+        }
+
+        .stats-btn {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .stats-btn:hover {
+            background: #1a2530;
+        }
+
+        /* Statistics Section */
+        .statistics-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .statistics-section h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        #stats-container {
+            margin-bottom: 2rem;
+        }
+
+        .stats-item {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+
+        .stats-subject {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .stats-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .test-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .progress-container {
+                width: 100%;
+                max-width: none;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .answers {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .user-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .levels-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .level-card {
+                padding: 1.5rem;
+            }
+            
+            .test-section, .results-section {
+                padding: 1.5rem;
+            }
+            
+            .question h3 {
+                font-size: 1.1rem;
+            }
+            
+            .answer-btn {
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+        }
+
+        .result-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .result-item.correct {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .result-item.incorrect {
+            border-left: 4px solid var(--danger-color);
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>Тест: Производные сложных функций</h1>
-      <p class="description">Проверьте свои знания в дифференциальном исчислении</p>
-      <div class="timer-container">
-        ⏳ Осталось времени: <span id="timer">40:00</span>
-      </div>
-    </div>
-    
-    <div class="progress-container">
-      <div class="progress-bar">
-        <div class="progress" id="progress"></div>
-      </div>
-      <div class="progress-text">
-        <span>Вопрос <span id="current-question">1</span> из <span id="total-questions">20</span></span>
-        <span id="progress-percent">5%</span>
-      </div>
-    </div>
-    
-    <div id="quiz"></div>
-    
-    <div class="buttons">
-      <button id="submitBtn">Проверить ответы</button>
-      <button id="resetBtn">Начать заново</button>
-    </div>
-    
-    <div class="result" id="result"></div>
-  </div>
-
-<script>
-const questions = [
-  {
-    question: "Найти \\( y' \\), если \\( y = (3x^2 + 2x)^5 \\)",
-    options: [
-      "30x(3x^2+2x)^4 + 10(3x^2+2x)^4",
-      "10x(3x^2+2x)^4",
-      "6x(3x^2+2x)^5",
-      "(3x^2+2x)^5"
-    ],
-    answer: 0,
-    explanation: "Используем правило цепи: \\( y' = 5(3x^2+2x)^4 \\cdot (6x+2) = (30x+10)(3x^2+2x)^4 \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = \\sin(5x) \\)",
-    options: [
-      "\\( 5\\cos(5x) \\)",
-      "\\( \\cos(5x) \\)",
-      "\\( 5\\sin(5x) \\)",
-      "\\( -5\\cos(5x) \\)"
-    ],
-    answer: 0,
-    explanation: "Производная \\( \\sin(u) = u'\\cos(u) \\). Здесь \\( u=5x, u'=5 \\). Ответ: \\( 5\\cos(5x) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = e^{2x^2} \\)",
-    options: [
-      "\\( 4xe^{2x^2} \\)",
-      "\\( 2e^{2x^2} \\)",
-      "\\( e^{2x^2} \\)",
-      "\\( 2x e^{2x^2} \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( (e^u)' = u'e^u \\). Здесь \\( u=2x^2, u'=4x \\). Ответ: \\( 4xe^{2x^2} \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = \\ln(1+x^3) \\)",
-    options: [
-      "\\( \\frac{3x^2}{1+x^3} \\)",
-      "\\( \\frac{1}{1+x^3} \\)",
-      "\\( 3x^2 \\)",
-      "\\( \\frac{1}{x^3} \\)"
-    ],
-    answer: 0,
-    explanation: "Производная \\( \\ln(u) = u'/u \\). Здесь \\( u=1+x^3, u'=3x^2 \\). Ответ: \\( 3x^2/(1+x^3) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = (\\cos x)^3 \\)",
-    options: [
-      "\\( -3\\cos^2(x)\\sin(x) \\)",
-      "\\( 3\\cos^2(x)\\sin(x) \\)",
-      "\\( \\cos^3(x) \\)",
-      "\\( -\\sin(x) \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( y' = 3(\\cos x)^2(-\\sin x) = -3\\cos^2(x)\\sin(x) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = (x^2+1)^7 \\)",
-    options: [
-      "\\( 14x(x^2+1)^6 \\)",
-      "\\( 7(x^2+1)^6 \\)",
-      "\\( 14(x^2+1)^7 \\)",
-      "\\( 2x(x^2+1)^7 \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( y' = 7(x^2+1)^6(2x) = 14x(x^2+1)^6 \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = \\sqrt{1-2x} \\)",
-    options: [
-      "\\( -\\frac{1}{\\sqrt{1-2x}} \\)",
-      "\\( \\frac{1}{2\\sqrt{1-2x}} \\)",
-      "\\( -\\frac{1}{2\\sqrt{1-2x}} \\)",
-      "\\( -2\\sqrt{1-2x} \\)"
-    ],
-    answer: 2,
-    explanation: "Представим: \\( y=(1-2x)^{1/2} \\). Производная: \\( y' = \\frac{1}{2}(1-2x)^{-1/2}(-2) = -1/(2\\sqrt{1-2x}) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = \\arctan(3x) \\)",
-    options: [
-      "\\( \\frac{3}{1+9x^2} \\)",
-      "\\( \\frac{1}{1+9x^2} \\)",
-      "\\( \\frac{3}{1+x^2} \\)",
-      "\\( \\frac{1}{1+x^2} \\)"
-    ],
-    answer: 0,
-    explanation: "Правило: \\( (\\arctan u)' = u'/(1+u^2) \\). Здесь \\( u=3x, u'=3 \\). Ответ: \\( 3/(1+9x^2) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = \\ln(\\sin x) \\)",
-    options: [
-      "\\( \\cot(x) \\)",
-      "\\( \\tan(x) \\)",
-      "\\( \\cos(x) \\)",
-      "\\( 1/\\sin(x) \\)"
-    ],
-    answer: 0,
-    explanation: "Производная: \\( (\\ln u)' = u'/u \\). Здесь \\( u=\\sin x, u'=\\cos x \\). Получаем \\( y' = \\cos x/\\sin x = \\cot x \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = (2x+5)^4 \\)",
-    options: [
-      "\\( 8(2x+5)^3 \\)",
-      "\\( 4(2x+5)^3 \\)",
-      "\\( 2(2x+5)^4 \\)",
-      "\\( (2x+5)^4 \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( y' = 4(2x+5)^3 \\cdot 2 = 8(2x+5)^3 \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = e^{\\sin x} \\)",
-    options: [
-      "\\( \\cos(x)e^{\\sin x} \\)",
-      "\\( e^{\\sin x} \\)",
-      "\\( -\\sin(x)e^{\\sin x} \\)",
-      "\\( e^{x}\\cos x \\)"
-    ],
-    answer: 0,
-    explanation: "Производная: \\( (e^u)' = u'e^u \\). Здесь \\( u=\\sin x, u'=\\cos x \\). Ответ: \\( \\cos(x)e^{\\sin x} \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = (x^3+2x)^2 \\)",
-    options: [
-      "\\( (3x^2+2)(2x^3+4x) \\)",
-      "\\( 2(x^3+2x)(3x^2+2) \\)",
-      "\\( 2(x^3+2x) \\)",
-      "\\( (3x^2+2)(x^3+2x)^2 \\)"
-    ],
-    answer: 1,
-    explanation: "Правило цепи: \\( y' = 2(x^3+2x)(3x^2+2) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = \\cos(\\sqrt{x}) \\)",
-    options: [
-      "\\( -\\frac{1}{2\\sqrt{x}}\\sin(\\sqrt{x}) \\)",
-      "\\( -\\sin(\\sqrt{x}) \\)",
-      "\\( \\sin(\\sqrt{x}) \\)",
-      "\\( -\\frac{1}{\\sqrt{x}}\\cos(\\sqrt{x}) \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( y' = -\\sin(\\sqrt{x}) \\cdot (1/(2\\sqrt{x})) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = (\\tan x)^2 \\)",
-    options: [
-      "\\( 2\\tan(x)\\sec^2(x) \\)",
-      "\\( 2\\sec^2(x) \\)",
-      "\\( \\tan^2(x) \\)",
-      "\\( \\sec^2(x) \\)"
-    ],
-    answer: 0,
-    explanation: "Производная: \\( y' = 2\\tan(x)\\cdot (\\tan x)' = 2\\tan(x)\\sec^2(x) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = \\ln(2x^2+1) \\)",
-    options: [
-      "\\( \\frac{4x}{2x^2+1} \\)",
-      "\\( \\frac{1}{2x^2+1} \\)",
-      "\\( \\frac{2}{2x^2+1} \\)",
-      "\\( 4x \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( (\\ln u)' = u'/u \\). Здесь \\( u=2x^2+1, u'=4x \\). Ответ: \\( 4x/(2x^2+1) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = e^{\\tan x} \\)",
-    options: [
-      "\\( e^{\\tan x}\\sec^2(x) \\)",
-      "\\( e^{\\tan x}\\tan(x) \\)",
-      "\\( \\sec^2(x) \\)",
-      "\\( e^x\\tan(x) \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( y' = (\\tan x)' e^{\\tan x} = \\sec^2(x)e^{\\tan x} \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = \\sqrt{\\ln x} \\)",
-    options: [
-      "\\( \\frac{1}{2x\\sqrt{\\ln x}} \\)",
-      "\\( \\frac{1}{x} \\)",
-      "\\( \\frac{1}{2\\sqrt{\\ln x}} \\)",
-      "\\( \\frac{\\ln x}{2x} \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( y=(\\ln x)^{1/2} \\). Производная: \\( y' = (1/2)(\\ln x)^{-1/2}(1/x) = 1/(2x\\sqrt{\\ln x}) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = \\sin(x^2) \\)",
-    options: [
-      "\\( 2x\\cos(x^2) \\)",
-      "\\( \\cos(x^2) \\)",
-      "\\( 2\\sin(x^2) \\)",
-      "\\( x\\sin(x^2) \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( (\\sin u)' = u'\\cos u \\). Здесь \\( u=x^2, u'=2x \\). Ответ: \\( 2x\\cos(x^2) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = (1+e^x)^5 \\)",
-    options: [
-      "\\( 5(1+e^x)^4 e^x \\)",
-      "\\( 5(1+e^x)^5 \\)",
-      "\\( (1+e^x)^4 \\)",
-      "\\( e^x(1+e^x)^5 \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( y' = 5(1+e^x)^4 (e^x) \\)."
-  },
-  {
-    question: "Найти \\( y' \\), если \\( y = \\cos(3x^2) \\)",
-    options: [
-      "\\( -6x\\sin(3x^2) \\)",
-      "\\( -3\\sin(3x^2) \\)",
-      "\\( -6\\sin(x^2) \\)",
-      "\\( -3x\\cos(3x^2) \\)"
-    ],
-    answer: 0,
-    explanation: "Правило цепи: \\( y' = -\\sin(3x^2)\\cdot(6x) = -6x\\sin(3x^2) \\)."
-  }
-];
-
-  // Перемешивание вопросов
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-
-  shuffleArray(questions);
-
-  const quizContainer = document.getElementById('quiz');
-  const resultDiv = document.getElementById('result');
-  const submitBtn = document.getElementById('submitBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  const progressBar = document.getElementById('progress');
-  const currentQuestionElement = document.getElementById('current-question');
-  const totalQuestionsElement = document.getElementById('total-questions');
-  const progressPercentElement = document.getElementById('progress-percent');
-  const timerDisplay = document.getElementById('timer');
-
-  let currentQuestion = 1;
-  const totalQuestions = questions.length;
-  totalQuestionsElement.textContent = totalQuestions;
-
-  // Таймер на 40 минут (2400 секунд)
-  let timeLeft = 40 * 60;
-  let timerInterval;
-
-  function formatTime(seconds) {
-    const m = String(Math.floor(seconds / 60)).padStart(2, '0');
-    const s = String(seconds % 60).padStart(2, '0');
-    return `${m}:${s}`;
-  }
-
-  function startTimer() {
-    clearInterval(timerInterval);
-    timeLeft = 40 * 60;
-    timerDisplay.textContent = formatTime(timeLeft);
-    timerDisplay.classList.remove('timer-warning');
-    
-    timerInterval = setInterval(() => {
-      timeLeft--;
-      timerDisplay.textContent = formatTime(timeLeft);
-      
-      // Изменение цвета при малом оставшемся времени
-      if (timeLeft <= 300) { // 5 минут
-        timerDisplay.classList.add('timer-warning');
-      }
-      
-      if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        finishQuiz();
-      }
-    }, 1000);
-  }
-
-  function updateProgress() {
-    const progress = (currentQuestion / totalQuestions) * 100;
-    progressBar.style.width = `${progress}%`;
-    progressPercentElement.textContent = `${Math.round(progress)}%`;
-    currentQuestionElement.textContent = currentQuestion;
-  }
-
-  // Генерация вопросов
-  function generateQuiz() {
-    quizContainer.innerHTML = '';
-    currentQuestion = 1;
-    updateProgress();
-    
-    questions.forEach((q, i) => {
-      const div = document.createElement('div');
-      div.className = 'question';
-      div.innerHTML = `
-        <p><strong>Вопрос ${i + 1}:</strong> ${q.question}</p>
-        <div class="options">
-          ${q.options.map((opt, idx) => `
-            <div class="option" data-index="${idx}">
-              <input type="radio" name="q${i}" id="q${i}_${idx}" value="${idx}">
-              <label for="q${i}_${idx}">${opt}</label>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">ПМиИ Тестирование</h1>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="#" class="nav-link active">Производные</a></li>
+                        <li><a href="#" class="nav-link">Интегралы</a></li>
+                        <li><a href="#" class="nav-link">Диффуры</a></li>
+                        <li><a href="#" class="nav-link">Ряды</a></li>
+                    </ul>
+                </nav>
             </div>
-          `).join('')}
         </div>
-      `;
-      quizContainer.appendChild(div);
-    });
+    </header>
 
-    // Добавляем обработчики для вариантов ответов
-    document.querySelectorAll('.option').forEach(option => {
-      option.addEventListener('click', function() {
-        const questionDiv = this.closest('.question');
-        const inputs = questionDiv.querySelectorAll('input[type="radio"]');
-        const options = questionDiv.querySelectorAll('.option');
-        
-        // Снимаем выделение со всех вариантов
-        options.forEach(opt => opt.classList.remove('selected'));
-        
-        // Выделяем выбранный вариант
-        this.classList.add('selected');
-        
-        // Отмечаем соответствующий радио-инпут
-        const input = this.querySelector('input');
-        input.checked = true;
-        
-        // Обновляем прогресс
-        const answeredQuestions = document.querySelectorAll('.question').length - 
-                                 document.querySelectorAll('.question:not(:has(input:checked))').length;
-        currentQuestion = answeredQuestions + 1;
-        updateProgress();
-      });
-    });
+    <main class="main">
+        <div class="container">
+            <section class="user-section">
+                <div class="user-input">
+                    <label for="username">Ваше имя:</label>
+                    <input type="text" id="username" placeholder="Введите ваше имя">
+                </div>
+                <button id="stats-btn" class="stats-btn">Статистика</button>
+            </section>
 
-    // MathJax
-    if (window.MathJax) {
-      MathJax.typesetPromise();
-    }
-  }
+            <section class="welcome-section">
+                <h2>Академическое тестирование по математическому анализу</h2>
+                <p>Выберите раздел и уровень сложности для начала тестирования. Система randomly выберет 20 задач из доступного пула.</p>
+            </section>
 
-  // Проверка и завершение теста
-  submitBtn.addEventListener('click', finishQuiz);
-  
-  // Кнопка сброса
-  resetBtn.addEventListener('click', function() {
-    resultDiv.style.display = 'none';
-    generateQuiz();
-    startTimer();
-  });
+            <section class="levels-section">
+                <div class="level-card" data-level="easy">
+                    <div class="level-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Базовый уровень</h3>
+                    <p id="easy-desc">Основные правила дифференцирования, производные элементарных функций</p>
+                    <div class="stats">
+                        <span class="task-count">60 задач доступно</span>
+                        <span class="time-estimate"><i class="far fa-clock"></i> 30-40 мин</span>
+                    </div>
+                    <button class="start-btn">Начать тестирование</button>
+                </div>
 
-  // Функция завершения теста
-  function finishQuiz() {
-    clearInterval(timerInterval);
-    
-    let score = 0;
-    let resultsHTML = '';
+                <div class="level-card" data-level="medium">
+                    <div class="level-icon">
+                        <i class="fas fa-function"></i>
+                    </div>
+                    <h3>Продвинутый уровень</h3>
+                    <p id="medium-desc">Производные сложных функций, неявное дифференцирование, логарифмическая производная</p>
+                    <div class="stats">
+                        <span class="task-count">60 задач доступно</span>
+                        <span class="time-estimate"><i class="far fa-clock"></i> 40-50 мин</span>
+                    </div>
+                    <button class="start-btn">Начать тестирование</button>
+                </div>
 
-    questions.forEach((q, i) => {
-      const selected = document.querySelector(`input[name="q${i}"]:checked`);
-      const isCorrect = selected && parseInt(selected.value) === q.answer;
-      
-      if (isCorrect) {
-        score++;
-      }
-      
-      // Красивое отображение результатов с математическими выражениями
-      resultsHTML += `
-        <div class="result-item ${isCorrect ? 'correct' : 'incorrect'}">
-          <p><strong>Вопрос ${i + 1}:</strong> ${q.question}</p>
-          
-          <div class="user-answer">
-            <span class="answer-icon ${isCorrect ? 'correct-icon' : 'incorrect-icon'}">${isCorrect ? '✓' : '✗'}</span>
-            <span>Ваш ответ: </span>
-            <div class="math-expression">${selected ? q.options[selected.value] : 'Нет ответа'}</div>
-          </div>
-      `;
-      
-      if (!isCorrect) {
-        resultsHTML += `
-          <div class="correct-answer">
-            <span class="answer-icon correct-icon">✓</span>
-            <span>Правильный ответ: </span>
-            <div class="math-expression">${q.options[q.answer]}</div>
-          </div>
-        `;
-      }
-      
-      resultsHTML += `
-          <p class="explanation">${q.explanation}</p>
+                <div class="level-card" data-level="hard">
+                    <div class="level-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Экспертный уровень</h3>
+                    <p id="hard-desc">Производные высших порядков, параметрическое дифференцирование, применение в задачах</p>
+                    <div class="stats">
+                        <span class="task-count">60 задач доступно</span>
+                        <span class="time-estimate"><i class="far fa-clock"></i> 50-60 мин</span>
+                    </div>
+                    <button class="start-btn">Начать тестирование</button>
+                </div>
+            </section>
+
+            <section class="test-section hidden">
+                <div class="test-header">
+                    <h2 id="test-title">Тестирование: Базовый уровень</h2>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="progress-text">Вопрос <span id="current-question">1</span> из <span id="total-questions">20</span></div>
+                    </div>
+                    <div class="timer">
+                        <i class="far fa-clock"></i>
+                        <span id="time">40:00</span>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question">
+                        <h3 id="question-text">Найдите производную функции f(x) = 3x⁴ - 2x³ + 5x - 7</h3>
+                        <div id="answers-container" class="answers">
+                            <!-- Answers will be inserted by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button id="prev-btn" class="nav-btn" disabled>
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                    <button id="next-btn" class="nav-btn">
+                        Далее <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button id="finish-btn" class="nav-btn hidden">
+                        Завершить тест <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="results-section hidden">
+                <div class="results-container">
+                    <h2>Результаты тестирования</h2>
+                    <div class="score-container">
+                        <div class="score-circle">
+                            <svg class="progress-ring" width="120" height="120">
+                                <circle class="progress-ring__circle" stroke="#4caf50" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                            </svg>
+                            <span class="score-value">85%</span>
+                        </div>
+                        <div class="score-details">
+                            <h3>Ваш результат: <span id="score-value">17</span> из <span id="max-score">20</span></h3>
+                            <p>Время выполнения: <span id="time-taken">32:45</span></p>
+                            <p>Уровень: <span id="level-achieved">Продвинутый</span></p>
+                        </div>
+                    </div>
+
+                    <div class="detailed-results">
+                        <h3>Детализация результатов</h3>
+                        <div id="results-breakdown">
+                            <!-- Results will be inserted by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button id="review-btn" class="action-btn">
+                            <i class="fas fa-list-ol"></i> Просмотреть ответы
+                        </button>
+                        <button id="restart-btn" class="action-btn primary">
+                            <i class="fas fa-redo"></i> Пройти другой тест
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="statistics-section hidden">
+                <h2>Статистика результатов</h2>
+                <div id="stats-container"></div>
+                <button id="back-btn" class="action-btn primary">Назад</button>
+            </section>
         </div>
-      `;
-    });
+    </main>
 
-    let feedback = '';
-    if (score >= 9) {
-      feedback = "🌟 Потрясающе! Вы мастер дифференциального исчисления! Отличное понимание производных сложных функций.";
-    } else if (score >= 7) {
-      feedback = "👍 Очень хороший результат! Вы хорошо разбираетесь в теме, но есть куда расти.";
-    } else if (score >= 5) {
-      feedback = "📚 Неплохо! Вы понимаете основы, но нужно больше практики с сложными функциями.";
-    } else {
-      feedback = "💪 Стоит повторить материал. Обратите внимание на правило цепи и производные элементарных функций.";
-    }
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 ПМиИ Давлатов Сухроб Эраджович. Все права защищены.</p>
+        </div>
+    </footer>
 
-    resultDiv.innerHTML = `
-      <div class="score">Результат: ${score} из ${questions.length}</div>
-      <div class="feedback">${feedback}</div>
-      <div class="detailed-results">
-        <h3>Подробные результаты:</h3>
-        ${resultsHTML}
-      </div>
-    `;
-    
-    resultDiv.style.display = 'block';
-    resultDiv.classList.add('fade-in');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM элементы
+            const mainMenuSection = document.querySelector('.levels-section');
+            const testSection = document.querySelector('.test-section');
+            const resultsSection = document.querySelector('.results-section');
+            const statsSection = document.querySelector('.statistics-section');
+            const levelCards = document.querySelectorAll('.level-card');
+            const startButtons = document.querySelectorAll('.start-btn');
+            const testTitle = document.getElementById('test-title');
+            const questionText = document.getElementById('question-text');
+            const answersContainer = document.getElementById('answers-container');
+            const currentQuestionElement = document.getElementById('current-question');
+            const totalQuestionsElement = document.getElementById('total-questions');
+            const progressFill = document.querySelector('.progress-fill');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishBtn = document.getElementById('finish-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const reviewBtn = document.getElementById('review-btn');
+            const backBtn = document.getElementById('back-btn');
+            const timeElement = document.getElementById('time');
+            const scoreValue = document.getElementById('score-value');
+            const maxScore = document.getElementById('max-score');
+            const timeTaken = document.getElementById('time-taken');
+            const levelAchieved = document.getElementById('level-achieved');
+            const resultsBreakdown = document.getElementById('results-breakdown');
+            const scoreCircle = document.querySelector('.progress-ring__circle');
+            const scoreValueElement = document.querySelector('.score-value');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const usernameInput = document.getElementById('username');
+            const statsBtn = document.getElementById('stats-btn');
+            const statsContainer = document.getElementById('stats-container');
+            const easyDesc = document.getElementById('easy-desc');
+            const mediumDesc = document.getElementById('medium-desc');
+            const hardDesc = document.getElementById('hard-desc');
 
-    // Блокировка всех радио-кнопок
-    document.querySelectorAll('input[type="radio"]').forEach(input => {
-      input.disabled = true;
-    });
+            // Описания для разных разделов
+            const descriptions = {
+                derivatives: {
+                    easy: "Основные правила дифференцирования, производные элементарных функций",
+                    medium: "Производные сложных функций, неявное дифференцирование, логарифмическая производная",
+                    hard: "Производные высших порядков, параметрическое дифференцирование, применение в задачах"
+                },
+                integrals: {
+                    easy: "Основные методы интегрирования, неопределенные интегралы",
+                    medium: "Интегрирование по частям, заменой переменной, простые определенные интегралы",
+                    hard: "Сложные определенные интегралы, несобственные интегралы, приложения интегралов"
+                },
+                series: {
+                    easy: "Числовые ряды, основные признаки сходимости",
+                    medium: "Функциональные ряды, степенные ряды, ряд Тейлора",
+                    hard: "Ряды Фурье, интегралы Фурье, приложения рядов"
+                },
+                differentials: {
+                    easy: "Дифференциальные уравнения первого порядка",
+                    medium: "Дифференциальные уравнения высших порядков, системы ДУ",
+                    hard: "Уравнения в частных производных, краевые задачи"
+                }
+            };
 
-    // Деактивация кнопки отправки
-    submitBtn.disabled = true;
-    submitBtn.innerText = 'Тест завершён';
-    submitBtn.style.backgroundColor = '#ccc';
-    submitBtn.style.cursor = 'not-allowed';
-    
-    // Перерисовка математических выражений в результатах
-    if (window.MathJax) {
-      MathJax.typesetPromise();
-    }
-    
-    // Прокрутка к результатам
-    resultDiv.scrollIntoView({ behavior: 'smooth' });
-  }
+            // Переменные состояния
+            let currentLevel = null;
+            let currentSubject = 'derivatives';
+            let currentQuestions = [];
+            let currentQuestionIndex = 0;
+            let userAnswers = [];
+            let score = 0;
+            let timerInterval = null;
+            let timeLeft = 40 * 60;
 
-  // Инициализация
-  generateQuiz();
-  startTimer();
-</script>
+            // Загрузка вопросов
+            function loadQuestions(subject, level) {
+                const questions = {
+                    derivatives: {
+                        easy: [
+                            {
+                                question: "Найдите производную функции \\( f(x) = 5 \\)",
+                                answers: [
+                                    { text: "\\( 0 \\)", correct: true },
+                                    { text: "\\( 5 \\)", correct: false },
+                                    { text: "\\( 5x \\)", correct: false },
+                                    { text: "\\( 1 \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равна производная функции \\( f(x) = x^3 \\)?",
+                                answers: [
+                                    { text: "\\( 3x^2 \\)", correct: true },
+                                    { text: "\\( 3x \\)", correct: false },
+                                    { text: "\\( x^2 \\)", correct: false },
+                                    { text: "\\( 2x^3 \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\sin(x) \\)",
+                                answers: [
+                                    { text: "\\( \\cos(x) \\)", correct: true },
+                                    { text: "\\( -\\cos(x) \\)", correct: false },
+                                    { text: "\\( -\\sin(x) \\)", correct: false },
+                                    { text: "\\( \\tan(x) \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равна производная функции \\( f(x) = e^x \\)?",
+                                answers: [
+                                    { text: "\\( e^x \\)", correct: true },
+                                    { text: "\\( x e^x \\)", correct: false },
+                                    { text: "\\( e^{x-1} \\)", correct: false },
+                                    { text: "\\( 0 \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\ln(x) \\)",
+                                answers: [
+                                    { text: "\\( \\frac{1}{x} \\)", correct: true },
+                                    { text: "\\( x \\)", correct: false },
+                                    { text: "\\( e^x \\)", correct: false },
+                                    { text: "\\( -\\frac{1}{x^2} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Производная функции \\( f(x) = \\cos(x) \\) равна:",
+                                answers: [
+                                    { text: "\\( -\\sin(x) \\)", correct: true },
+                                    { text: "\\( \\sin(x) \\)", correct: false },
+                                    { text: "\\( -\\cos(x) \\)", correct: false },
+                                    { text: "\\( \\tan(x) \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = 3x^4 - 2x^3 + 5x - 7 \\)",
+                                answers: [
+                                    { text: "\\( 12x^3 - 6x^2 + 5 \\)", correct: true },
+                                    { text: "\\( 12x^3 - 6x^2 \\)", correct: false },
+                                    { text: "\\( 12x^3 - 6x^2 + 5x \\)", correct: false },
+                                    { text: "\\( 4x^3 - 3x^2 + 5 \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Производная функции \\( f(x) = \\sqrt{x} \\) равна:",
+                                answers: [
+                                    { text: "\\( \\frac{1}{2\\sqrt{x}} \\)", correct: true },
+                                    { text: "\\( \\frac{1}{\\sqrt{x}} \\)", correct: false },
+                                    { text: "\\( 2\\sqrt{x} \\)", correct: false },
+                                    { text: "\\( \\frac{1}{2x} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Производная функции \\( f(x) = \\frac{1}{x} \\) равна:",
+                                answers: [
+                                    { text: "\\( -\\frac{1}{x^2} \\)", correct: true },
+                                    { text: "\\( \\frac{1}{x^2} \\)", correct: false },
+                                    { text: "\\( -\\frac{1}{x} \\)", correct: false },
+                                    { text: "\\( \\ln(x) \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = x^2 \\cdot e^x \\)",
+                                answers: [
+                                    { text: "\\( e^x(x^2 + 2x) \\)", correct: true },
+                                    { text: "\\( 2x e^x \\)", correct: false },
+                                    { text: "\\( e^x(x^2 + x) \\)", correct: false },
+                                    { text: "\\( x^2 e^x \\)", correct: false }
+                                ]
+                            }
+                        ],
+                        medium: [
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\ln(\\sin(x)) \\)",
+                                answers: [
+                                    { text: "\\( \\cot(x) \\)", correct: true },
+                                    { text: "\\( \\tan(x) \\)", correct: false },
+                                    { text: "\\( \\frac{1}{\\sin(x)} \\)", correct: false },
+                                    { text: "\\( -\\cot(x) \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равна производная функции \\( f(x) = e^{\\cos(x)} \\)?",
+                                answers: [
+                                    { text: "\\( -e^{\\cos(x)} \\sin(x) \\)", correct: true },
+                                    { text: "\\( e^{\\cos(x)} \\sin(x) \\)", correct: false },
+                                    { text: "\\( e^{\\cos(x)} \\)", correct: false },
+                                    { text: "\\( -e^{\\cos(x)} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\arcsin(x) \\)",
+                                answers: [
+                                    { text: "\\( \\frac{1}{\\sqrt{1-x^2}} \\)", correct: true },
+                                    { text: "\\( \\frac{1}{\\sqrt{x^2-1}} \\)", correct: false },
+                                    { text: "\\( \\frac{1}{1+x^2} \\)", correct: false },
+                                    { text: "\\( -\\frac{1}{\\sqrt{1-x^2}} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Производная функции \\( f(x) = \\arctan(x) \\) равна:",
+                                answers: [
+                                    { text: "\\( \\frac{1}{1+x^2} \\)", correct: true },
+                                    { text: "\\( \\frac{1}{1-x^2} \\)", correct: false },
+                                    { text: "\\( \\frac{1}{\\sqrt{1+x^2}} \\)", correct: false },
+                                    { text: "\\( \\frac{1}{\\sqrt{1-x^2}} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = x^x \\)",
+                                answers: [
+                                    { text: "\\( x^x (\\ln(x) + 1) \\)", correct: true },
+                                    { text: "\\( x \\cdot x^{x-1} \\)", correct: false },
+                                    { text: "\\( x^x \\ln(x) \\)", correct: false },
+                                    { text: "\\( x^{x-1} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Производная функции \\( f(x) = \\sinh(x) \\) равна:",
+                                answers: [
+                                    { text: "\\( \\cosh(x) \\)", correct: true },
+                                    { text: "\\( -\\cosh(x) \\)", correct: false },
+                                    { text: "\\( \\tanh(x) \\)", correct: false },
+                                    { text: "\\( \\frac{1}{\\cosh(x)} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\ln(x^2 + 1) \\)",
+                                answers: [
+                                    { text: "\\( \\frac{2x}{x^2+1} \\)", correct: true },
+                                    { text: "\\( \\frac{1}{x^2+1} \\)", correct: false },
+                                    { text: "\\( \\frac{2x}{x^2} \\)", correct: false },
+                                    { text: "\\( \\frac{x}{x^2+1} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Производная функции \\( f(x) = \\sqrt[3]{x^2} \\) равна:",
+                                answers: [
+                                    { text: "\\( \\frac{2}{3\\sqrt[3]{x}} \\)", correct: true },
+                                    { text: "\\( \\frac{2}{3} x^{-1/3} \\)", correct: false },
+                                    { text: "\\( \\frac{2}{3} x^{2/3} \\)", correct: false },
+                                    { text: "\\( \\frac{2}{3} x^{3/2} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\frac{e^x}{x^2} \\)",
+                                answers: [
+                                    { text: "\\( \\frac{e^x (x-2)}{x^3} \\)", correct: true },
+                                    { text: "\\( \\frac{e^x}{x^2} \\)", correct: false },
+                                    { text: "\\( \\frac{e^x (x+2)}{x^3} \\)", correct: false },
+                                    { text: "\\( \\frac{e^x}{2x} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Производная функции \\( f(x) = \\ln(\\cos(x)) \\) равна:",
+                                answers: [
+                                    { text: "\\( -\\tan(x) \\)", correct: true },
+                                    { text: "\\( \\tan(x) \\)", correct: false },
+                                    { text: "\\( -\\cot(x) \\)", correct: false },
+                                    { text: "\\( \\frac{1}{\\cos(x)} \\)", correct: false }
+                                ]
+                            }
+                        ],
+                        hard: [
+                            {
+                                question: "Найдите вторую производную функции \\( f(x) = \\ln(x^2 + 1) \\)",
+                                answers: [
+                                    { text: "\\( \\frac{2(1-x^2)}{(x^2+1)^2} \\)", correct: true },
+                                    { text: "\\( \\frac{2x}{(x^2+1)^2} \\)", correct: false },
+                                    { text: "\\( \\frac{2}{(x^2+1)^2} \\)", correct: false },
+                                    { text: "\\( \\frac{2(x^2-1)}{(x^2+1)^2} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\int_0^x e^{-t^2} dt \\)",
+                                answers: [
+                                    { text: "\\( e^{-x^2} \\)", correct: true },
+                                    { text: "\\( e^{-x^2} - 1 \\)", correct: false },
+                                    { text: "\\( -2xe^{-x^2} \\)", correct: false },
+                                    { text: "\\( 2xe^{-x^2} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции, заданной параметрически: \\( x = \\cos(t), y = \\sin(t) \\)",
+                                answers: [
+                                    { text: "\\( -\\cot(t) \\)", correct: true },
+                                    { text: "\\( -\\tan(t) \\)", correct: false },
+                                    { text: "\\( \\cot(t) \\)", correct: false },
+                                    { text: "\\( \\tan(t) \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\arcsin(\\sqrt{x}) \\)",
+                                answers: [
+                                    { text: "\\( \\frac{1}{2\\sqrt{x(1-x)}} \\)", correct: true },
+                                    { text: "\\( \\frac{1}{\\sqrt{1-x}} \\)", correct: false },
+                                    { text: "\\( \\frac{1}{2\\sqrt{1-x}} \\)", correct: false },
+                                    { text: "\\( \\frac{1}{\\sqrt{x(1-x)}} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = x^{\\sin(x)} \\)",
+                                answers: [
+                                    { text: "\\( x^{\\sin(x)} \\left( \\frac{\\sin(x)}{x} + \\cos(x) \\ln(x) \\right) \\)", correct: true },
+                                    { text: "\\( x^{\\sin(x)} \\left( \\frac{\\sin(x)}{x} + \\cos(x) \\right) \\)", correct: false },
+                                    { text: "\\( x^{\\sin(x)} \\left( \\cos(x) \\ln(x) \\right) \\)", correct: false },
+                                    { text: "\\( x^{\\sin(x)-1} \\sin(x) \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\frac{1}{\\sqrt{2\\pi}} e^{-\\frac{x^2}{2}} \\)",
+                                answers: [
+                                    { text: "\\( -\\frac{x}{\\sqrt{2\\pi}} e^{-\\frac{x^2}{2}} \\)", correct: true },
+                                    { text: "\\( -\\frac{x^2}{\\sqrt{2\\pi}} e^{-\\frac{x^2}{2}} \\)", correct: false },
+                                    { text: "\\( \\frac{x}{\\sqrt{2\\pi}} e^{-\\frac{x^2}{2}} \\)", correct: false },
+                                    { text: "\\( -\\frac{1}{\\sqrt{2\\pi}} e^{-\\frac{x^2}{2}} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\text{arccosh}(x) = \\ln(x + \\sqrt{x^2 - 1}) \\)",
+                                answers: [
+                                    { text: "\\( \\frac{1}{\\sqrt{x^2 - 1}} \\)", correct: true },
+                                    { text: "\\( \\frac{1}{x + \\sqrt{x^2 - 1}} \\)", correct: false },
+                                    { text: "\\( \\frac{1}{x\\sqrt{x^2 - 1}} \\)", correct: false },
+                                    { text: "\\( \\frac{x}{\\sqrt{x^2 - 1}} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\int_{x}^{x^2} e^{-t^2} dt \\)",
+                                answers: [
+                                    { text: "\\( 2x e^{-x^4} - e^{-x^2} \\)", correct: true },
+                                    { text: "\\( e^{-x^4} - e^{-x^2} \\)", correct: false },
+                                    { text: "\\( 2x e^{-x^4} \\)", correct: false },
+                                    { text: "\\( -2x e^{-x^4} + e^{-x^2} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\ln\\left( \\frac{\\sqrt{x} + 1}{\\sqrt{x} - 1} \\right) \\)",
+                                answers: [
+                                    { text: "\\( -\\frac{1}{\\sqrt{x}(x - 1)} \\)", correct: true },
+                                    { text: "\\( \\frac{1}{\\sqrt{x}(x - 1)} \\)", correct: false },
+                                    { text: "\\( -\\frac{1}{x - 1} \\)", correct: false },
+                                    { text: "\\( \\frac{1}{x - 1} \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите производную функции \\( f(x) = \\arctan(\\sqrt{x}) \\)",
+                                answers: [
+                                    { text: "\\( \\frac{1}{2\\sqrt{x}(1+x)} \\)", correct: true },
+                                    { text: "\\( \\frac{1}{\\sqrt{x}(1+x)} \\)", correct: false },
+                                    { text: "\\( \\frac{1}{2(1+x)} \\)", correct: false },
+                                    { text: "\\( \\frac{1}{\\sqrt{x}(1+x^2)} \\)", correct: false }
+                                ]
+                            }
+                        ]
+                    },
+                    integrals: {
+                        easy: [
+                            {
+                                question: "Найдите интеграл \\( \\int 3x^2  dx \\)",
+                                answers: [
+                                    { text: "\\( x^3 + C \\)", correct: true },
+                                    { text: "\\( 3x^3 + C \\)", correct: false },
+                                    { text: "\\( x^2 + C \\)", correct: false },
+                                    { text: "\\( 6x + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\cos(x) dx \\)?",
+                                answers: [
+                                    { text: "\\( \\sin(x) + C \\)", correct: true },
+                                    { text: "\\( -\\sin(x) + C \\)", correct: false },
+                                    { text: "\\( \\cos(x) + C \\)", correct: false },
+                                    { text: "\\( -\\cos(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int e^x dx \\)",
+                                answers: [
+                                    { text: "\\( e^x + C \\)", correct: true },
+                                    { text: "\\( x e^x + C \\)", correct: false },
+                                    { text: "\\( e^{x+1} + C \\)", correct: false },
+                                    { text: "\\( \\ln(e^x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\frac{1}{x} dx \\)?",
+                                answers: [
+                                    { text: "\\( \\ln|x| + C \\)", correct: true },
+                                    { text: "\\( \\frac{1}{x^2} + C \\)", correct: false },
+                                    { text: "\\( x + C \\)", correct: false },
+                                    { text: "\\( -\\frac{1}{x^2} + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int (2x + 3) dx \\)",
+                                answers: [
+                                    { text: "\\( x^2 + 3x + C \\)", correct: true },
+                                    { text: "\\( 2x^2 + 3x + C \\)", correct: false },
+                                    { text: "\\( x^2 + 3 + C \\)", correct: false },
+                                    { text: "\\( 2x + 3x + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\sin(x) dx \\)?",
+                                answers: [
+                                    { text: "\\( -\\cos(x) + C \\)", correct: true },
+                                    { text: "\\( \\cos(x) + C \\)", correct: false },
+                                    { text: "\\( -\\sin(x) + C \\)", correct: false },
+                                    { text: "\\( \\sin(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int \\frac{1}{1+x^2} dx \\)",
+                                answers: [
+                                    { text: "\\( \\arctan(x) + C \\)", correct: true },
+                                    { text: "\\( \\arcsin(x) + C \\)", correct: false },
+                                    { text: "\\( \\ln(1+x^2) + C \\)", correct: false },
+                                    { text: "\\( \\frac{1}{2}\\ln(1+x^2) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int a^x dx \\) где \\( a > 0, a \\neq 1 \\)?",
+                                answers: [
+                                    { text: "\\( \\frac{a^x}{\\ln(a)} + C \\)", correct: true },
+                                    { text: "\\( a^x \\ln(a) + C \\)", correct: false },
+                                    { text: "\\( \\frac{a^x}{x+1} + C \\)", correct: false },
+                                    { text: "\\( x a^{x-1} + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int \\sec^2(x) dx \\)",
+                                answers: [
+                                    { text: "\\( \\tan(x) + C \\)", correct: true },
+                                    { text: "\\( \\cot(x) + C \\)", correct: false },
+                                    { text: "\\( \\sec(x) + C \\)", correct: false },
+                                    { text: "\\( \\sec(x)\\tan(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\frac{1}{\\sqrt{1-x^2}} dx \\)?",
+                                answers: [
+                                    { text: "\\( \\arcsin(x) + C \\)", correct: true },
+                                    { text: "\\( \\arccos(x) + C \\)", correct: false },
+                                    { text: "\\( \\arctan(x) + C \\)", correct: false },
+                                    { text: "\\( \\ln|\\sqrt{1-x^2}| + C \\)", correct: false }
+                                ]
+                            }
+                        ],
+                        medium: [
+                            {
+                                question: "Найдите интеграл \\( \\int x e^x dx \\)",
+                                answers: [
+                                    { text: "\\( e^x(x - 1) + C \\)", correct: true },
+                                    { text: "\\( e^x(x + 1) + C \\)", correct: false },
+                                    { text: "\\( x e^x + C \\)", correct: false },
+                                    { text: "\\( e^x + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\ln(x) dx \\)?",
+                                answers: [
+                                    { text: "\\( x \\ln(x) - x + C \\)", correct: true },
+                                    { text: "\\( x \\ln(x) + C \\)", correct: false },
+                                    { text: "\\( \\frac{1}{x} + C \\)", correct: false },
+                                    { text: "\\( x + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int \\frac{1}{x^2 + 4x + 5} dx \\)",
+                                answers: [
+                                    { text: "\\( \\arctan(x + 2) + C \\)", correct: true },
+                                    { text: "\\( \\frac{1}{2} \\ln|x^2 + 4x + 5| + C \\)", correct: false },
+                                    { text: "\\( \\ln|x^2 + 4x + 5| + C \\)", correct: false },
+                                    { text: "\\( \\frac{1}{x+2} + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\sin^2(x) dx \\)?",
+                                answers: [
+                                    { text: "\\( \\frac{x}{2} - \\frac{\\sin(2x)}{4} + C \\)", correct: true },
+                                    { text: "\\( \\frac{x}{2} + \\frac{\\sin(2x)}{4} + C \\)", correct: false },
+                                    { text: "\\( -\\frac{\\cos^3(x)}{3} + C \\)", correct: false },
+                                    { text: "\\( \\frac{\\sin^3(x)}{3} + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int \\frac{x}{\\sqrt{1-x^2}} dx \\)",
+                                answers: [
+                                    { text: "\\( -\\sqrt{1-x^2} + C \\)", correct: true },
+                                    { text: "\\( \\sqrt{1-x^2} + C \\)", correct: false },
+                                    { text: "\\( \\arcsin(x) + C \\)", correct: false },
+                                    { text: "\\( -\\frac{1}{2}\\sqrt{1-x^2} + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int e^x \\sin(x) dx \\)?",
+                                answers: [
+                                    { text: "\\( \\frac{e^x}{2} (\\sin(x) - \\cos(x)) + C \\)", correct: true },
+                                    { text: "\\( e^x (\\sin(x) - \\cos(x)) + C \\)", correct: false },
+                                    { text: "\\( \\frac{e^x}{2} (\\sin(x) + \\cos(x)) + C \\)", correct: false },
+                                    { text: "\\( e^x \\cos(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int \\frac{1}{x\\ln(x)} dx \\)",
+                                answers: [
+                                    { text: "\\( \\ln|\\ln(x)| + C \\)", correct: true },
+                                    { text: "\\( \\frac{1}{\\ln(x)} + C \\)", correct: false },
+                                    { text: "\\( \\ln(x) + C \\)", correct: false },
+                                    { text: "\\( \\frac{\\ln(x)}{x} + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\tan(x) dx \\)?",
+                                answers: [
+                                    { text: "\\( -\\ln|\\cos(x)| + C \\)", correct: true },
+                                    { text: "\\( \\ln|\\sin(x)| + C \\)", correct: false },
+                                    { text: "\\( \\ln|\\sec(x)| + C \\)", correct: false },
+                                    { text: "\\( \\frac{\\tan^2(x)}{2} + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int \\frac{1}{x^2 - 1} dx \\)",
+                                answers: [
+                                    { text: "\\( \\frac{1}{2} \\ln\\left| \\frac{x-1}{x+1} \\right| + C \\)", correct: true },
+                                    { text: "\\( \\ln|x^2 - 1| + C \\)", correct: false },
+                                    { text: "\\( \\frac{1}{2} \\ln|x^2 - 1| + C \\)", correct: false },
+                                    { text: "\\( \\arctan(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int x \\cos(x) dx \\)?",
+                                answers: [
+                                    { text: "\\( x \\sin(x) + \\cos(x) + C \\)", correct: true },
+                                    { text: "\\( x \\sin(x) - \\cos(x) + C \\)", correct: false },
+                                    { text: "\\( x \\cos(x) + \\sin(x) + C \\)", correct: false },
+                                    { text: "\\( x \\cos(x) - \\sin(x) + C \\)", correct: false }
+                                ]
+                            }
+                        ],
+                        hard: [
+                            {
+                                question: "Найдите интеграл \\( \\int e^x \\cos(x) dx \\)",
+                                answers: [
+                                    { text: "\\( \\frac{e^x}{2} (\\sin(x) + \\cos(x)) + C \\)", correct: true },
+                                    { text: "\\( e^x (\\sin(x) + \\cos(x)) + C \\)", correct: false },
+                                    { text: "\\( \\frac{e^x}{2} (\\sin(x) - \\cos(x)) + C \\)", correct: false },
+                                    { text: "\\( e^x \\sin(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\sqrt{1-x^2} dx \\)?",
+                                answers: [
+                                    { text: "\\( \\frac{x}{2} \\sqrt{1-x^2} + \\frac{1}{2} \\arcsin(x) + C \\)", correct: true },
+                                    { text: "\\( x \\sqrt{1-x^2} + \\arcsin(x) + C \\)", correct: false },
+                                    { text: "\\( \\frac{x}{2} \\sqrt{1-x^2} + C \\)", correct: false },
+                                    { text: "\\( \\arcsin(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int \\frac{1}{x^3+1} dx \\)",
+                                answers: [
+                                    { text: "\\( \\frac{1}{3} \\ln|x+1| - \\frac{1}{6} \\ln|x^2 - x + 1| + \\frac{1}{\\sqrt{3}} \\arctan\\left(\\frac{2x-1}{\\sqrt{3}}\\right) + C \\)", correct: true },
+                                    { text: "\\( \\ln|x^3+1| + C \\)", correct: false },
+                                    { text: "\\( \\frac{1}{3} \\ln|x^3+1| + C \\)", correct: false },
+                                    { text: "\\( \\frac{1}{3} \\ln|x+1| + \\frac{2}{3} \\ln|x^2 - x + 1| + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\ln(x^2 + 1) dx \\)?",
+                                answers: [
+                                    { text: "\\( x \\ln(x^2+1) - 2x + 2 \\arctan(x) + C \\)", correct: true },
+                                    { text: "\\( x \\ln(x^2+1) + C \\)", correct: false },
+                                    { text: "\\( \\frac{2x}{x^2+1} + C \\)", correct: false },
+                                    { text: "\\( \\ln(x^2+1) + 2 \\arctan(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int \\frac{x^2}{\\sqrt{1-x^2}} dx \\)",
+                                answers: [
+                                    { text: "\\( \\frac{1}{2} \\arcsin(x) - \\frac{x}{2} \\sqrt{1-x^2} + C \\)", correct: true },
+                                    { text: "\\( -\\sqrt{1-x^2} + C \\)", correct: false },
+                                    { text: "\\( x \\sqrt{1-x^2} + C \\)", correct: false },
+                                    { text: "\\( \\frac{1}{2} \\arcsin(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\sec^3(x) dx \\)?",
+                                answers: [
+                                    { text: "\\( \\frac{1}{2} (\\sec(x)\\tan(x) + \\ln|\\sec(x)+\\tan(x)|) + C \\)", correct: true },
+                                    { text: "\\( \\frac{1}{2} \\sec(x)\\tan(x) + C \\)", correct: false },
+                                    { text: "\\( \\sec(x)\\tan(x) + \\ln|\\sec(x)+\\tan(x)| + C \\)", correct: false },
+                                    { text: "\\( \\frac{1}{3} \\sec^3(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int \\frac{1}{x\\sqrt{x^2-1}} dx \\)",
+                                answers: [
+                                    { text: "\\( \\arcsec|x| + C \\)", correct: true },
+                                    { text: "\\( \\ln|x + \\sqrt{x^2-1}| + C \\)", correct: false },
+                                    { text: "\\( \\frac{1}{2} \\ln|x^2-1| + C \\)", correct: false },
+                                    { text: "\\( \\arctan(\\sqrt{x^2-1}) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int x^2 e^{-x} dx \\)?",
+                                answers: [
+                                    { text: "\\( -e^{-x}(x^2 + 2x + 2) + C \\)", correct: true },
+                                    { text: "\\( e^{-x}(x^2 + 2x + 2) + C \\)", correct: false },
+                                    { text: "\\( -e^{-x}(x^2 + 2x) + C \\)", correct: false },
+                                    { text: "\\( e^{-x}(x^2 - 2x + 2) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите интеграл \\( \\int \\frac{1}{1+\\sin(x)} dx \\)",
+                                answers: [
+                                    { text: "\\( \\tan(x) - \\sec(x) + C \\)", correct: true },
+                                    { text: "\\( \\ln|1+\\sin(x)| + C \\)", correct: false },
+                                    { text: "\\( -\\cos(x) + C \\)", correct: false },
+                                    { text: "\\( x - \\cos(x) + C \\)", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен интеграл \\( \\int \\frac{1}{x^2\\sqrt{x^2+1}} dx \\)?",
+                                answers: [
+                                    { text: "\\( -\\frac{\\sqrt{x^2+1}}{x} + C \\)", correct: true },
+                                    { text: "\\( \\frac{\\sqrt{x^2+1}}{x} + C \\)", correct: false },
+                                    { text: "\\( -\\frac{1}{x\\sqrt{x^2+1}} + C \\)", correct: false },
+                                    { text: "\\( \\ln|x + \\sqrt{x^2+1}| + C \\)", correct: false }
+                                ]
+                            }
+                        ]
+                    },
+                    series: {
+                        easy: [
+                            {
+                                question: "Является ли ряд \\( \\sum_{n=1}^{\\infty} \\frac{1}{n} \\) сходящимся?",
+                                answers: [
+                                    { text: "Расходится", correct: true },
+                                    { text: "Сходится", correct: false },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Сходится абсолютно", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равна сумма геометрического ряда \\( \\sum_{n=0}^{\\infty} \\frac{1}{2^n} \\)?",
+                                answers: [
+                                    { text: "2", correct: true },
+                                    { text: "1", correct: false },
+                                    { text: "∞", correct: false },
+                                    { text: "1/2", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Является ли ряд \\( \\sum_{n=1}^{\\infty} \\frac{1}{n^2} \\) сходящимся?",
+                                answers: [
+                                    { text: "Сходится", correct: true },
+                                    { text: "Расходится", correct: false },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Расходится абсолютно", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равна сумма ряда \\( \\sum_{n=1}^{\\infty} \\frac{1}{n(n+1)} \\)?",
+                                answers: [
+                                    { text: "1", correct: true },
+                                    { text: "∞", correct: false },
+                                    { text: "1/2", correct: false },
+                                    { text: "2", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Каким признаком удобно исследовать сходимость ряда \\( \\sum_{n=1}^{\\infty} \\frac{n}{2^n} \\)?",
+                                answers: [
+                                    { text: "Признак Даламбера", correct: true },
+                                    { text: "Признак Лейбница", correct: false },
+                                    { text: "Интегральный признак", correct: false },
+                                    { text: "Признак сравнения", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Является ли ряд \\( \\sum_{n=1}^{\\infty} (-1)^n \\frac{1}{n} \\) сходящимся?",
+                                answers: [
+                                    { text: "Сходится условно", correct: true },
+                                    { text: "Сходится абсолютно", correct: false },
+                                    { text: "Расходится", correct: false },
+                                    { text: "Сходится", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равен радиус сходимости степенного ряда \\( \\sum_{n=0}^{\\infty} x^n \\)?",
+                                answers: [
+                                    { text: "1", correct: true },
+                                    { text: "0", correct: false },
+                                    { text: "∞", correct: false },
+                                    { text: "1/2", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Является ли ряд \\( \\sum_{n=1}^{\\infty} \\frac{1}{\\sqrt{n}} \\) сходящимся?",
+                                answers: [
+                                    { text: "Расходится", correct: true },
+                                    { text: "Сходится", correct: false },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Сходится абсолютно", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Чему равна сумма ряда \\( \\sum_{n=0}^{\\infty} \\frac{1}{3^n} \\)?",
+                                answers: [
+                                    { text: "3/2", correct: true },
+                                    { text: "2", correct: false },
+                                    { text: "1", correct: false },
+                                    { text: "∞", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Каким признаком удобно исследовать сходимость ряда \\( \\sum_{n=1}^{\\infty} \\frac{1}{n^p} \\)?",
+                                answers: [
+                                    { text: "Интегральный признак", correct: true },
+                                    { text: "Признак Даламбера", correct: false },
+                                    { text: "Признак Лейбница", correct: false },
+                                    { text: "Признак сравнения", correct: false }
+                                ]
+                            }
+                        ],
+                        medium: [
+                            {
+                                question: "Исследуйте на сходимость ряд \\( \\sum_{n=1}^{\\infty} \\frac{n!}{10^n} \\)",
+                                answers: [
+                                    { text: "Расходится", correct: true },
+                                    { text: "Сходится", correct: false },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Сходится абсолютно", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите радиус сходимости степенного ряда \\( \\sum_{n=0}^{\\infty} \\frac{x^n}{n!} \\)",
+                                answers: [
+                                    { text: "∞", correct: true },
+                                    { text: "1", correct: false },
+                                    { text: "0", correct: false },
+                                    { text: "e", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Исследуйте на сходимость ряд \\( \\sum_{n=1}^{\\infty} \\frac{(-1)^n}{\\sqrt{n}} \\)",
+                                answers: [
+                                    { text: "Сходится условно", correct: true },
+                                    { text: "Сходится абсолютно", correct: false },
+                                    { text: "Расходится", correct: false },
+                                    { text: "Сходится", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите сумму ряда \\( \\sum_{n=1}^{\\infty} \\frac{(-1)^{n+1}}{n} \\)",
+                                answers: [
+                                    { text: "ln(2)", correct: true },
+                                    { text: "1", correct: false },
+                                    { text: "π/4", correct: false },
+                                    { text: "∞", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Исследуйте на сходимость ряд \\( \\sum_{n=1}^{\\infty} \\frac{n^2}{2^n} \\)",
+                                answers: [
+                                    { text: "Сходится", correct: true },
+                                    { text: "Расходится", correct: false },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Сходится абсолютно", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите радиус сходимости степенного ряда \\( \\sum_{n=1}^{\\infty} \\frac{x^n}{n} \\)",
+                                answers: [
+                                    { text: "1", correct: true },
+                                    { text: "0", correct: false },
+                                    { text: "∞", correct: false },
+                                    { text: "1/2", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Исследуйте на сходимость ряд \\( \\sum_{n=1}^{\\infty} \\frac{\\sin(n)}{n^2} \\)",
+                                answers: [
+                                    { text: "Сходится абсолютно", correct: true },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Расходится", correct: false },
+                                    { text: "Сходится", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите сумму ряда \\( \\sum_{n=0}^{\\infty} \\frac{(-1)^n}{2n+1} \\)",
+                                answers: [
+                                    { text: "π/4", correct: true },
+                                    { text: "π/2", correct: false },
+                                    { text: "1", correct: false },
+                                    { text: "∞", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Исследуйте на сходимость ряд \\( \\sum_{n=1}^{\\infty} \\frac{1}{n\\ln(n)} \\)",
+                                answers: [
+                                    { text: "Расходится", correct: true },
+                                    { text: "Сходится", correct: false },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Сходится абсолютно", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите радиус сходимости степенного ряда \\( \\sum_{n=1}^{\\infty} n! x^n \\)",
+                                answers: [
+                                    { text: "0", correct: true },
+                                    { text: "1", correct: false },
+                                    { text: "∞", correct: false },
+                                    { text: "e", correct: false }
+                                ]
+                            }
+                        ],
+                        hard: [
+                            {
+                                question: "Исследуйте на сходимость ряд \\( \\sum_{n=1}^{\\infty} \\frac{(-1)^n}{n^p} \\) при p>1",
+                                answers: [
+                                    { text: "Сходится абсолютно", correct: true },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Расходится", correct: false },
+                                    { text: "Сходится", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите сумму ряда \\( \\sum_{n=1}^{\\infty} \\frac{n}{2^n} \\)",
+                                answers: [
+                                    { text: "2", correct: true },
+                                    { text: "1", correct: false },
+                                    { text: "∞", correct: false },
+                                    { text: "1/2", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Исследуйте на сходимость ряд \\( \\sum_{n=1}^{\\infty} \\frac{(-1)^n}{\\ln(n)} \\)",
+                                answers: [
+                                    { text: "Сходится условно", correct: true },
+                                    { text: "Сходится абсолютно", correct: false },
+                                    { text: "Расходится", correct: false },
+                                    { text: "Сходится", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите радиус сходимости степенного ряда \\( \\sum_{n=1}^{\\infty} \\frac{(x-2)^n}{n^2} \\)",
+                                answers: [
+                                    { text: "1", correct: true },
+                                    { text: "2", correct: false },
+                                    { text: "∞", correct: false },
+                                    { text: "0", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Исследуйте на сходимость ряд \\( \\sum_{n=1}^{\\infty} \\frac{1}{n^{1+1/n}} \\)",
+                                answers: [
+                                    { text: "Расходится", correct: true },
+                                    { text: "Сходится", correct: false },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Сходится абсолютно", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите сумму ряда \\( \\sum_{n=1}^{\\infty} \\frac{(-1)^{n+1}}{n^2} \\)",
+                                answers: [
+                                    { text: "\\( \\frac{\\pi^2}{12} \\)", correct: true },
+                                    { text: "\\( \\frac{\\pi^2}{6} \\)", correct: false },
+                                    { text: "1", correct: false },
+                                    { text: "∞", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Исследуйте на сходимость ряд \\( \\sum_{n=1}^{\\infty} \\frac{\\cos(n)}{n} \\)",
+                                answers: [
+                                    { text: "Расходится", correct: true },
+                                    { text: "Сходится", correct: false },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Сходится абсолютно", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите радиус сходимости степенного ряда \\( \\sum_{n=1}^{\\infty} \\frac{(2x)^n}{n^2} \\)",
+                                answers: [
+                                    { text: "1/2", correct: true },
+                                    { text: "1", correct: false },
+                                    { text: "2", correct: false },
+                                    { text: "∞", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Исследуйте на сходимость ряд \\( \\sum_{n=1}^{\\infty} \\frac{(-1)^n n!}{n^n} \\)",
+                                answers: [
+                                    { text: "Сходится абсолютно", correct: true },
+                                    { text: "Сходится условно", correct: false },
+                                    { text: "Расходится", correct: false },
+                                    { text: "Сходится", correct: false }
+                                ]
+                            },
+                            {
+                                question: "Найдите сумму ряда \\( \\sum_{n=0}^{\\infty} \\frac{(-1)^n}{(2n+1)!} \\)",
+                                answers: [
+                                    { text: "sin(1)", correct: true },
+                                    { text: "cos(1)", correct: false },
+                                    { text: "e", correct: false },
+                                    { text: "ln(2)", correct: false }
+                                ]
+                            }
+                        ]
+                    },
+                    differentials: {
+                        easy: [],
+                        medium: [],
+                        hard: []
+                    }
+                };
+                
+                return questions[subject][level];
+            }
 
+            // Обработчики выбора уровня
+            startButtons.forEach((button, index) => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    currentLevel = levelCards[index].getAttribute('data-level');
+                    startTest(currentSubject, currentLevel);
+                });
+            });
+
+            // Обработчики навигационного меню
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Удаляем активный класс у всех ссылок
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Добавляем активный класс к текущей ссылке
+                    this.classList.add('active');
+                    
+                    // Определяем выбранный раздел
+                    const subjectText = this.textContent;
+                    let subject = 'derivatives';
+                    
+                    switch(subjectText) {
+                        case 'Производные':
+                            subject = 'derivatives';
+                            break;
+                        case 'Интегралы':
+                            subject = 'integrals';
+                            break;
+                        case 'Ряды':
+                            subject = 'series';
+                            break;
+                        case 'Диффуры':
+                            alert('Раздел "Дифференциальные уравнения" находится в разработке.');
+                            return;
+                        default:
+                            subject = 'derivatives';
+                    }
+                    
+                    currentSubject = subject;
+                    
+                    // Обновляем заголовок
+                    document.querySelector('.welcome-section h2').textContent = 
+                        `Академическое тестирование: ${subjectText}`;
+                    
+                    // Обновляем описания уровней
+                    updateLevelDescriptions(subject);
+                });
+            });
+
+            function updateLevelDescriptions(subject) {
+                easyDesc.textContent = descriptions[subject].easy;
+                mediumDesc.textContent = descriptions[subject].medium;
+                hardDesc.textContent = descriptions[subject].hard;
+            }
+
+            // Обработчик кнопки статистики
+            statsBtn.addEventListener('click', showStatistics);
+
+            // Обработчик кнопки назад из статистики
+            backBtn.addEventListener('click', () => {
+                statsSection.classList.add('hidden');
+                mainMenuSection.classList.remove('hidden');
+            });
+
+            function showStatistics() {
+                const username = usernameInput.value.trim();
+                if (!username) {
+                    alert('Пожалуйста, введите ваше имя для просмотра статистики.');
+                    return;
+                }
+
+                const userResults = JSON.parse(localStorage.getItem('mathTestResults') || '{}');
+                const userStats = userResults[username] || [];
+
+                if (userStats.length === 0) {
+                    statsContainer.innerHTML = '<p>Нет данных о результатах.</p>';
+                } else {
+                    statsContainer.innerHTML = userStats.map((result, index) => `
+                        <div class="stats-item">
+                            <div class="stats-subject">${result.subject} - ${result.level} (${result.date})</div>
+                            <div class="stats-details">
+                                <span>Результат: ${result.score}/${result.total}</span>
+                                <span>Время: ${result.time}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                mainMenuSection.classList.add('hidden');
+                statsSection.classList.remove('hidden');
+            }
+
+            // Начать тест
+            function startTest(subject, level) {
+                // Получить вопросы для выбранного уровня и раздела
+                const allQuestions = loadQuestions(subject, level);
+                
+                // Выбрать 20 случайных вопросов
+                currentQuestions = getRandomQuestions(allQuestions, 20);
+                
+                // Установить заголовок теста
+                const levelNames = {
+                    easy: 'Базовый уровень',
+                    medium: 'Продвинутый уровень',
+                    hard: 'Экспертный уровень'
+                };
+                
+                const subjectNames = {
+                    derivatives: 'Производные',
+                    integrals: 'Интегралы',
+                    series: 'Ряды',
+                    differentials: 'Дифференциальные уравнения'
+                };
+                
+                testTitle.textContent = `Тестирование: ${subjectNames[subject]} - ${levelNames[level]}`;
+                
+                // Сбросить состояние
+                currentQuestionIndex = 0;
+                userAnswers = new Array(currentQuestions.length).fill(null);
+                score = 0;
+                timeLeft = 40 * 60; // 40 минут
+                
+                // Обновить информацию о количестве вопросов
+                totalQuestionsElement.textContent = currentQuestions.length;
+                
+                // Запустить таймер
+                startTimer();
+                
+                // Показать раздел теста, скрыть главное меню
+                mainMenuSection.classList.add('hidden');
+                testSection.classList.remove('hidden');
+                resultsSection.classList.add('hidden');
+                statsSection.classList.add('hidden');
+                
+                // Показать первый вопрос
+                showQuestion(currentQuestionIndex);
+            }
+
+            // Таймер
+            function startTimer() {
+                if (timerInterval) clearInterval(timerInterval);
+                
+                updateTimerDisplay();
+                
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        finishTest();
+                    }
+                }, 1000);
+            }
+            
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timeElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Изменение цвета при малом оставшемся времени
+                if (timeLeft < 300) { // Меньше 5 минут
+                    timeElement.style.color = '#e74c3c';
+                }
+            }
+
+            // Показать вопрос
+            function showQuestion(index) {
+                const question = currentQuestions[index];
+                
+                // Обновить текст вопроса
+                questionText.textContent = question.question;
+                
+                // Очистить контейнер ответов
+                answersContainer.innerHTML = '';
+                
+                // Добавить варианты ответов
+                question.answers.forEach((answer, i) => {
+                    const answerButton = document.createElement('button');
+                    answerButton.classList.add('answer-btn');
+                    if (userAnswers[index] === i) {
+                        answerButton.classList.add('selected');
+                    }
+                    answerButton.textContent = answer.text;
+                    answerButton.addEventListener('click', () => selectAnswer(i));
+                    answersContainer.appendChild(answerButton);
+                });
+                
+                // Обновить номер текущего вопроса
+                currentQuestionElement.textContent = index + 1;
+                
+                // Обновить прогресс
+                const progressPercent = ((index + 1) / currentQuestions.length) * 100;
+                progressFill.style.width = `${progressPercent}%`;
+                
+                // Обновить состояние кнопок навигации
+                prevBtn.disabled = index === 0;
+                
+                if (index === currentQuestions.length - 1) {
+                    nextBtn.classList.add('hidden');
+                    finishBtn.classList.remove('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                    finishBtn.classList.add('hidden');
+                }
+                
+                // Перерисовка MathJax
+                MathJax.typeset();
+            }
+
+            // Выбор ответа
+            function selectAnswer(answerIndex) {
+                // Снять выделение со всех ответов
+                const allAnswers = document.querySelectorAll('.answer-btn');
+                allAnswers.forEach(btn => btn.classList.remove('selected'));
+                
+                // Выделить выбранный ответ
+                allAnswers[answerIndex].classList.add('selected');
+                
+                // Сохранить ответ пользователя
+                userAnswers[currentQuestionIndex] = answerIndex;
+            }
+
+            // Переход к следующему вопросу
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < currentQuestions.length - 1) {
+                    currentQuestionIndex++;
+                    showQuestion(currentQuestionIndex);
+                }
+            });
+
+            // Переход к предыдущему вопросу
+            prevBtn.addEventListener('click', () => {
+                if (currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                    showQuestion(currentQuestionIndex);
+                }
+            });
+
+            // Завершение теста
+            finishBtn.addEventListener('click', () => {
+                clearInterval(timerInterval);
+                finishTest();
+            });
+
+            // Расчет результатов
+            function calculateResults() {
+                score = 0;
+                currentQuestions.forEach((question, index) => {
+                    const userAnswerIndex = userAnswers[index];
+                    if (userAnswerIndex !== null && question.answers[userAnswerIndex].correct) {
+                        score++;
+                    }
+                });
+                
+                return score;
+            }
+
+            // Завершить тест и показать результаты
+            function finishTest() {
+                const score = calculateResults();
+                const totalQuestions = currentQuestions.length;
+                const percentage = Math.round((score / totalQuestions) * 100);
+                
+                // Определить уровень по результатам
+                let levelText = '';
+                if (percentage >= 90) levelText = 'Отлично';
+                else if (percentage >= 75) levelText = 'Очень хорошо';
+                else if (percentage >= 60) levelText = 'Хорошо';
+                else if (percentage >= 40) levelText = 'Удовлетворительно';
+                else levelText = 'Неудовлетворительно';
+                
+                // Расчет времени выполнения
+                const timeSpent = (40 * 60 - timeLeft);
+                const minutesSpent = Math.floor(timeSpent / 60);
+                const secondsSpent = timeSpent % 60;
+                const timeSpentText = `${minutesSpent} мин ${secondsSpent} сек`;
+                
+                // Обновить UI с результатами
+                scoreValue.textContent = score;
+                maxScore.textContent = totalQuestions;
+                timeTaken.textContent = timeSpentText;
+                levelAchieved.textContent = levelText;
+                
+                // Установить значение в круговой диаграмме
+                const circumference = 2 * Math.PI * 52;
+                const offset = circumference - (percentage / 100) * circumference;
+                scoreCircle.style.strokeDashoffset = offset;
+                scoreValueElement.textContent = `${percentage}%`;
+                
+                // Сохранение результатов
+                const username = usernameInput.value.trim() || 'Аноним';
+                saveResult(username, currentSubject, currentLevel, score, totalQuestions, timeSpentText);
+                
+                // Показать детальные результаты
+                showDetailedResults();
+                
+                // Показать раздел результатов, скрыть раздел теста
+                testSection.classList.add('hidden');
+                resultsSection.classList.remove('hidden');
+            }
+
+            function saveResult(username, subject, level, score, total, time) {
+                const results = JSON.parse(localStorage.getItem('mathTestResults') || '{}');
+                if (!results[username]) {
+                    results[username] = [];
+                }
+
+                const subjectNames = {
+                    derivatives: 'Производные',
+                    integrals: 'Интегралы',
+                    series: 'Ряды',
+                    differentials: 'Дифференциальные уравнения'
+                };
+
+                const levelNames = {
+                    easy: 'Базовый',
+                    medium: 'Продвинутый',
+                    hard: 'Экспертный'
+                };
+
+                results[username].push({
+                    subject: subjectNames[subject],
+                    level: levelNames[level],
+                    score: score,
+                    total: total,
+                    time: time,
+                    date: new Date().toLocaleString()
+                });
+
+                localStorage.setItem('mathTestResults', JSON.stringify(results));
+            }
+
+            // Показать детальные результаты
+            function showDetailedResults() {
+                resultsBreakdown.innerHTML = '';
+                
+                currentQuestions.forEach((question, index) => {
+                    const userAnswerIndex = userAnswers[index];
+                    const isCorrect = userAnswerIndex !== null && question.answers[userAnswerIndex].correct;
+                    
+                    const resultItem = document.createElement('div');
+                    resultItem.classList.add('result-item');
+                    resultItem.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    let answerStatus = isCorrect ? 
+                        '<span style="color: #2ecc71;"><i class="fas fa-check-circle"></i> Правильно</span>' : 
+                        '<span style="color: #e74c3c;"><i class="fas fa-times-circle"></i> Неправильно</span>';
+                    
+                    let userAnswerText = userAnswerIndex !== null ? 
+                        question.answers[userAnswerIndex].text : 'Нет ответа';
+                    let correctAnswerText = question.answers.find(a => a.correct).text;
+                    
+                    resultItem.innerHTML = `
+                        <p><strong>Вопрос ${index + 1}:</strong> ${question.question}</p>
+                        <p>Ваш ответ: ${userAnswerText}</p>
+                        <p>Правильный ответ: ${correctAnswerText}</p>
+                        <p>${answerStatus}</p>
+                    `;
+                    
+                    resultsBreakdown.appendChild(resultItem);
+                });
+                
+                // Перерисовка MathJax
+                MathJax.typeset();
+            }
+
+            // Кнопка перезапуска
+            restartBtn.addEventListener('click', () => {
+                resultsSection.classList.add('hidden');
+                mainMenuSection.classList.remove('hidden');
+            });
+
+            // Вспомогательная функция для выбора случайных вопросов
+            function getRandomQuestions(questions, count) {
+                const shuffled = [...questions].sort(() => 0.5 - Math.random());
+                return shuffled.slice(0, count);
+            }
+        });
+    </script>
 </body>
 </html>

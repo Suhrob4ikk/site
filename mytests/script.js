@@ -1,8 +1,13 @@
+// script.js
+
+// Основная логика приложения
+
 document.addEventListener('DOMContentLoaded', function() {
     // DOM элементы
     const mainMenuSection = document.querySelector('.levels-section');
     const testSection = document.querySelector('.test-section');
     const resultsSection = document.querySelector('.results-section');
+    const statsSection = document.querySelector('.statistics-section');
     const levelCards = document.querySelectorAll('.level-card');
     const startButtons = document.querySelectorAll('.start-btn');
     const testTitle = document.getElementById('test-title');
@@ -15,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextBtn = document.getElementById('next-btn');
     const finishBtn = document.getElementById('finish-btn');
     const restartBtn = document.getElementById('restart-btn');
+    const backToMainBtn = document.getElementById('back-to-main');
     const reviewBtn = document.getElementById('review-btn');
     const timeElement = document.getElementById('time');
     const scoreValue = document.getElementById('score-value');
@@ -25,198 +31,119 @@ document.addEventListener('DOMContentLoaded', function() {
     const scoreCircle = document.querySelector('.progress-ring__circle');
     const scoreValueElement = document.querySelector('.score-value');
     const navLinks = document.querySelectorAll('.nav-link');
+    const usernameInput = document.getElementById('username');
+    const statsBtn = document.getElementById('stats-btn');
+    const backBtn = document.getElementById('back-btn');
+    const welcomeTitle = document.getElementById('welcome-title');
+    const easyDesc = document.getElementById('easy-desc');
+    const mediumDesc = document.getElementById('medium-desc');
+    const hardDesc = document.getElementById('hard-desc');
 
     // Переменные состояния
     let currentLevel = null;
-    let currentSubject = 'derivatives'; // derivatives, integrals, series, differentials
+    let currentSubject = 'derivatives';
     let currentQuestions = [];
     let currentQuestionIndex = 0;
     let userAnswers = [];
     let score = 0;
     let timerInterval = null;
-    let timeLeft = 40 * 60; // 40 минут в секундах
+    let timeLeft = 40 * 60;
 
-    // Загрузка вопросов
-    function loadQuestions(subject, level) {
-        // В реальном приложении здесь будет импорт из data.js
-        // Для демонстрации создадим mock данные
-        const questions = {
-            derivatives: {
-                easy: [],
-                medium: [],
-                hard: []
-            },
-            integrals: {
-                easy: [],
-                medium: [],
-                hard: []
-            },
-            series: {
-                easy: [],
-                medium: [],
-                hard: []
-            },
-            differentials: {
-                easy: [],
-                medium: [],
-                hard: []
-            }
-        };
-        
-        // Заполним каждый уровень 5 вопросами (в реальности будет 60)
-        for (let i = 1; i <= 5; i++) {
-            // Производные
-            questions.derivatives.easy.push({
-                question: `Базовый вопрос ${i}: Найдите производную функции f(x) = x^${i} + ${i}x`,
-                answers: [
-                    { text: `${i}x^${i-1} + ${i}`, correct: true },
-                    { text: `${i}x^${i-1}`, correct: false },
-                    { text: `x^${i-1} + ${i}`, correct: false },
-                    { text: `${i}x^${i} + ${i}`, correct: false }
-                ]
+    // Инициализация приложения
+    function init() {
+        // Обработчики выбора уровня
+        startButtons.forEach((button, index) => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentLevel = levelCards[index].getAttribute('data-level');
+                startTest(currentSubject, currentLevel);
             });
-            
-            questions.derivatives.medium.push({
-                question: `Продвинутый вопрос ${i}: Найдите производную функции f(x) = sin(${i}x) + e^${i}x`,
-                answers: [
-                    { text: `${i}cos(${i}x) + ${i}e^${i}x`, correct: true },
-                    { text: `cos(${i}x) + e^${i}x`, correct: false },
-                    { text: `${i}cos(${i}x) + e^${i}x`, correct: false },
-                    { text: `cos(${i}x) + ${i}e^${i}x`, correct: false }
-                ]
-            });
-            
-            questions.derivatives.hard.push({
-                question: `Экспертный вопрос ${i}: Найдите вторую производную функции f(x) = x^${i+2} + ln(${i}x)`,
-                answers: [
-                    { text: `${(i+2)*(i+1)}x^${i} - ${1/(i*i)}/x^2`, correct: true },
-                    { text: `${(i+2)}x^${i+1} + ${1/(i*x)}`, correct: false },
-                    { text: `${(i+2)*(i+1)}x^${i}`, correct: false },
-                    { text: `${(i+2)}x^${i+1} - ${1/(i*x)}`, correct: false }
-                ]
-            });
-
-            // Интегралы
-            questions.integrals.easy.push({
-                question: `Базовый интеграл ${i}: ∫${i}x^${i-1} dx`,
-                answers: [
-                    { text: `x^${i} + C`, correct: true },
-                    { text: `${i}x^${i} + C`, correct: false },
-                    { text: `x^${i-1} + C`, correct: false },
-                    { text: `${i}x^${i-1} + C`, correct: false }
-                ]
-            });
-
-            questions.integrals.medium.push({
-                question: `Продвинутый интеграл ${i}: ∫e^${i}x dx`,
-                answers: [
-                    { text: `${1/i}e^${i}x + C`, correct: true },
-                    { text: `e^${i}x + C`, correct: false },
-                    { text: `${i}e^${i}x + C`, correct: false },
-                    { text: `${i}e^${i-1}x + C`, correct: false }
-                ]
-            });
-
-            questions.integrals.hard.push({
-                question: `Экспертный интеграл ${i}: ∫x*sin(${i}x) dx`,
-                answers: [
-                    { text: `${-1/i}x*cos(${i}x) + ${1/(i*i)}sin(${i}x) + C`, correct: true },
-                    { text: `x*cos(${i}x) + sin(${i}x) + C`, correct: false },
-                    { text: `${-1/i}x*cos(${i}x) + C`, correct: false },
-                    { text: `x*sin(${i}x) + cos(${i}x) + C`, correct: false }
-                ]
-            });
-
-            // Ряды
-            questions.series.easy.push({
-                question: `Базовый ряд ${i}: Сумма ряда ∑(1/${i}^n) при n=1 до ∞`,
-                answers: [
-                    { text: `1/(${i}-1)`, correct: true },
-                    { text: `${i}/(${i}-1)`, correct: false },
-                    { text: `1/${i}`, correct: false },
-                    { text: `${i}`, correct: false }
-                ]
-            });
-
-            questions.series.medium.push({
-                question: `Продвинутый ряд ${i}: Радиус сходимости ряда ∑(${i}^n * x^n)`,
-                answers: [
-                    { text: `1/${i}`, correct: true },
-                    { text: `${i}`, correct: false },
-                    { text: `1`, correct: false },
-                    { text: `∞`, correct: false }
-                ]
-            });
-
-            questions.series.hard.push({
-                question: `Экспертный ряд ${i}: Сумма ряда ∑(n/${i}^n) при n=1 до ∞`,
-                answers: [
-                    { text: `${i}/(${i}-1)^2`, correct: true },
-                    { text: `1/(${i}-1)`, correct: false },
-                    { text: `${i}/(${i}-1)`, correct: false },
-                    { text: `1/(${i}-1)^2`, correct: false }
-                ]
-            });
-        }
-        
-        return questions[subject][level];
-    }
-
-    // Обработчики выбора уровня
-    startButtons.forEach((button, index) => {
-        button.addEventListener('click', (e) => {
-            e.stopPropagation();
-            currentLevel = levelCards[index].getAttribute('data-level');
-            startTest(currentSubject, currentLevel);
         });
-    });
 
-    // Обработчики навигационного меню
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Удаляем активный класс у всех ссылок
-            navLinks.forEach(l => l.classList.remove('active'));
-            // Добавляем активный класс к текущей ссылке
-            this.classList.add('active');
-            
-            // Определяем выбранный раздел
-            const subjectText = this.textContent;
-            let subject = 'derivatives';
-            
-            switch(subjectText) {
-                case 'Производные':
-                    subject = 'derivatives';
-                    break;
-                case 'Интегралы':
-                    subject = 'integrals';
-                    break;
-                case 'Ряды':
-                    subject = 'series';
-                    break;
-                case 'Диффуры':
+        // Обработчики навигационного меню
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Удаляем активный класс у всех ссылок
+                navLinks.forEach(l => l.classList.remove('active'));
+                // Добавляем активный класс к текущей ссылке
+                this.classList.add('active');
+                
+                // Определяем выбранный раздел
+                const subject = this.getAttribute('data-subject');
+                
+                if (subject === 'differentials') {
                     alert('Раздел "Дифференциальные уравнения" находится в разработке.');
                     return;
-                default:
-                    subject = 'derivatives';
-            }
-            
-            currentSubject = subject;
-            
-            // Обновляем заголовок
-            document.querySelector('.welcome-section h2').textContent = 
-                `Академическое тестирование: ${subjectText}`;
+                }
+                
+                currentSubject = subject;
+                
+                // Обновляем заголовок
+                updateWelcomeTitle(subject);
+                
+                // Обновляем описания уровней
+                updateLevelDescriptions(subject);
+            });
         });
-    });
+
+        // Обработчик кнопки статистики
+        statsBtn.addEventListener('click', showStatistics);
+
+        // Обработчик кнопки назад из статистики
+        backBtn.addEventListener('click', () => {
+            statsSection.classList.add('hidden');
+            mainMenuSection.classList.remove('hidden');
+        });
+
+        // Обработчик кнопки "На главную" из результатов
+        backToMainBtn.addEventListener('click', () => {
+            resultsSection.classList.add('hidden');
+            mainMenuSection.classList.remove('hidden');
+        });
+
+        // Обработчик кнопки "Пройти другой тест" из результатов
+        restartBtn.addEventListener('click', () => {
+            resultsSection.classList.add('hidden');
+            testSection.classList.remove('hidden');
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill(null);
+            showQuestion(currentQuestionIndex);
+            startTimer();
+        });
+
+        // Обработчики навигации по вопросам
+        nextBtn.addEventListener('click', goToNextQuestion);
+        prevBtn.addEventListener('click', goToPrevQuestion);
+        finishBtn.addEventListener('click', finishTest);
+    }
+
+    // Обновление заголовка при смене раздела
+    function updateWelcomeTitle(subject) {
+        const subjectNames = {
+            derivatives: 'Производные',
+            integrals: 'Интегралы',
+            series: 'Ряды'
+        };
+        
+        welcomeTitle.textContent = `Академическое тестирование: ${subjectNames[subject]}`;
+    }
+
+    // Обновление описаний уровней при смене раздела
+    function updateLevelDescriptions(subject) {
+        easyDesc.textContent = descriptions[subject].easy;
+        mediumDesc.textContent = descriptions[subject].medium;
+        hardDesc.textContent = descriptions[subject].hard;
+    }
 
     // Начать тест
     function startTest(subject, level) {
         // Получить вопросы для выбранного уровня и раздела
-        const allQuestions = loadQuestions(subject, level);
+        const allQuestions = getQuestionsBySubject(subject, level);
         
         // Выбрать 20 случайных вопросов
-        currentQuestions = getRandomQuestions(allQuestions, 20);
+        currentQuestions = allQuestions.slice(0, 20);
         
         // Установить заголовок теста
         const levelNames = {
@@ -228,8 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const subjectNames = {
             derivatives: 'Производные',
             integrals: 'Интегралы',
-            series: 'Ряды',
-            differentials: 'Дифференциальные уравнения'
+            series: 'Ряды'
         };
         
         testTitle.textContent = `Тестирование: ${subjectNames[subject]} - ${levelNames[level]}`;
@@ -238,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentQuestionIndex = 0;
         userAnswers = new Array(currentQuestions.length).fill(null);
         score = 0;
-        timeLeft = 40 * 60; // 40 минут
+        timeLeft = 40 * 60;
         
         // Обновить информацию о количестве вопросов
         totalQuestionsElement.textContent = currentQuestions.length;
@@ -250,6 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mainMenuSection.classList.add('hidden');
         testSection.classList.remove('hidden');
         resultsSection.classList.add('hidden');
+        statsSection.classList.add('hidden');
         
         // Показать первый вопрос
         showQuestion(currentQuestionIndex);
@@ -278,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
         timeElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         
         // Изменение цвета при малом оставшемся времени
-        if (timeLeft < 300) { // Меньше 5 минут
+        if (timeLeft < 300) {
             timeElement.style.color = '#e74c3c';
         }
     }
@@ -322,6 +249,9 @@ document.addEventListener('DOMContentLoaded', function() {
             nextBtn.classList.remove('hidden');
             finishBtn.classList.add('hidden');
         }
+        
+        // Перерисовка MathJax
+        MathJax.typeset();
     }
 
     // Выбор ответа
@@ -338,42 +268,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Переход к следующему вопросу
-    nextBtn.addEventListener('click', () => {
+    function goToNextQuestion() {
         if (currentQuestionIndex < currentQuestions.length - 1) {
             currentQuestionIndex++;
             showQuestion(currentQuestionIndex);
         }
-    });
+    }
 
     // Переход к предыдущему вопросу
-    prevBtn.addEventListener('click', () => {
+    function goToPrevQuestion() {
         if (currentQuestionIndex > 0) {
             currentQuestionIndex--;
             showQuestion(currentQuestionIndex);
         }
-    });
-
-    // Завершение теста
-    finishBtn.addEventListener('click', () => {
-        clearInterval(timerInterval);
-        finishTest();
-    });
-
-    // Расчет результатов
-    function calculateResults() {
-        score = 0;
-        currentQuestions.forEach((question, index) => {
-            const userAnswerIndex = userAnswers[index];
-            if (userAnswerIndex !== null && question.answers[userAnswerIndex].correct) {
-                score++;
-            }
-        });
-        
-        return score;
     }
 
-    // Завершить тест и показать результаты
+    // Завершение теста
     function finishTest() {
+        clearInterval(timerInterval);
         const score = calculateResults();
         const totalQuestions = currentQuestions.length;
         const percentage = Math.round((score / totalQuestions) * 100);
@@ -404,12 +316,29 @@ document.addEventListener('DOMContentLoaded', function() {
         scoreCircle.style.strokeDashoffset = offset;
         scoreValueElement.textContent = `${percentage}%`;
         
+        // Сохранение результатов
+        const username = usernameInput.value.trim() || 'Аноним';
+        saveResult(username, currentSubject, currentLevel, score, totalQuestions, timeSpentText);
+        
         // Показать детальные результаты
         showDetailedResults();
         
         // Показать раздел результатов, скрыть раздел теста
         testSection.classList.add('hidden');
         resultsSection.classList.remove('hidden');
+    }
+
+    // Расчет результатов
+    function calculateResults() {
+        score = 0;
+        currentQuestions.forEach((question, index) => {
+            const userAnswerIndex = userAnswers[index];
+            if (userAnswerIndex !== null && question.answers[userAnswerIndex].correct) {
+                score++;
+            }
+        });
+        
+        return score;
     }
 
     // Показать детальные результаты
@@ -441,19 +370,25 @@ document.addEventListener('DOMContentLoaded', function() {
             
             resultsBreakdown.appendChild(resultItem);
         });
+        
+        // Перерисовка MathJax
+        MathJax.typeset();
     }
 
-    // Кнопка перезапуска
-    restartBtn.addEventListener('click', () => {
-        resultsSection.classList.add('hidden');
-        mainMenuSection.classList.remove('hidden');
-    });
+    // Показать статистику
+    function showStatistics() {
+        const username = usernameInput.value.trim();
+        if (!username) {
+            alert('Пожалуйста, введите ваше имя для просмотра статистики.');
+            return;
+        }
 
-    // Вспомогательная функция для выбора случайных вопросов
-    function getRandomQuestions(questions, count) {
-        // В реальном приложении здесь будет логика выбора 20 случайных вопросов
-        // из 60+ доступных
-        const shuffled = [...questions].sort(() => 0.5 - Math.random());
-        return shuffled.slice(0, count);
+        displayStatistics(username);
+        
+        mainMenuSection.classList.add('hidden');
+        statsSection.classList.remove('hidden');
     }
+
+    // Инициализация приложения
+    init();
 });
