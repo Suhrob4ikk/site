@@ -3,90 +3,786 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Математические тесты - Производные</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Тестирование по математическому анализу</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+        }
+
+        .stats-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .stats-section.show {
+            display: block;
+        }
+
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Test page styles */
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .test-header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .question-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .options {
+            list-style: none;
+        }
+
+        .option {
+            margin-bottom: 15px;
+        }
+
+        .option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .option label:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 15px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e1e5e9;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .results-container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+
+        .score.low {
+            color: #e74c3c;
+        }
+
+        .score.medium {
+            color: #f39c12;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Математические тесты</h1>
-            <nav>
-                <ul>
-                    <li><a href="#" class="active">Производные</a></li>
-                    <!-- В будущем можно добавить другие разделы -->
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main class="container">
-        <section id="main-menu">
-            <h2>Раздел: Производные</h2>
-            <p>Выберите уровень сложности:</p>
-            <div class="levels">
-                <div class="level-card" data-level="easy">
-                    <h3>Легкий уровень</h3>
-                    <p>5 задач</p>
-                </div>
-                <div class="level-card" data-level="medium">
-                    <h3>Средний уровень</h3>
-                    <p>5 задач</p>
-                </div>
-                <div class="level-card" data-level="hard">
-                    <h3>Сложный уровень</h3>
-                    <p>5 задач</p>
-                </div>
+    <div class="container">
+        <h1>📊 Тест по математическому анализу</h1>
+        
+        <form id="testForm">
+            <div class="form-group">
+                <label for="studentName">Введите ваше имя:</label>
+                <input type="text" id="studentName" name="studentName" required>
+                <div class="error" id="nameError"></div>
             </div>
-        </section>
 
-        <section id="test-section" class="hidden">
-            <div class="test-header">
-                <h2 id="test-title">Тест: Легкий уровень</h2>
-                <div class="progress">
+            <div class="form-group">
+                <label for="subject">Выберите раздел:</label>
+                <select id="subject" name="subject" required>
+                    <option value="">-- Выберите раздел --</option>
+                    <option value="derivatives">Производные</option>
+                    <option value="integrals">Интегралы</option>
+                    <option value="limits">Пределы</option>
+                    <option value="series">Ряды</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="level">Выберите уровень сложности:</label>
+                <select id="level" name="level" required>
+                    <option value="">-- Выберите уровень --</option>
+                    <option value="easy">Легкий</option>
+                    <option value="medium">Средний</option>
+                    <option value="hard">Сложный</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">🚀 Начать тест</button>
+        </form>
+
+        <button type="button" class="btn btn-secondary" onclick="toggleStats()">📈 Показать статистику</button>
+
+        <div class="stats-section" id="statsSection">
+            <h3>📊 Статистика результатов</h3>
+            <div id="statsContent">
+                <p>Результаты тестов не найдены</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные вопросов (в реальном приложении загружались бы из JSON файла)
+        const questionsData = {
+            derivatives: {
+                easy: [
+                    {
+                        id: 1,
+                        question: "Найдите производную функции $f(x) = x^2$",
+                        options: ["$2x$", "$x$", "$2x^2$", "$x^2$"],
+                        correct: 0
+                    },
+                    {
+                        id: 2,
+                        question: "Чему равна производная константы $c$?",
+                        options: ["$c$", "$0$", "$1$", "$x$"],
+                        correct: 1
+                    },
+                    {
+                        id: 3,
+                        question: "Найдите производную $f(x) = 3x$",
+                        options: ["$3$", "$3x$", "$x$", "$0$"],
+                        correct: 0
+                    },
+                    {
+                        id: 4,
+                        question: "Производная функции $f(x) = x^3$ равна:",
+                        options: ["$x^2$", "$3x^2$", "$3x^3$", "$x^3$"],
+                        correct: 1
+                    },
+                    {
+                        id: 5,
+                        question: "Найдите производную $f(x) = 5x^2 + 2x$",
+                        options: ["$10x + 2$", "$5x + 2$", "$10x^2 + 2x$", "$5x^2 + 2$"],
+                        correct: 0
+                    },
+                    {
+                        id: 6,
+                        question: "Производная функции $f(x) = \\sin(x)$ равна:",
+                        options: ["$\\sin(x)$", "$-\\cos(x)$", "$\\cos(x)$", "$-\\sin(x)$"],
+                        correct: 2
+                    },
+                    {
+                        id: 7,
+                        question: "Найдите производную $f(x) = e^x$",
+                        options: ["$e^x$", "$xe^{x-1}$", "$e$", "$x$"],
+                        correct: 0
+                    },
+                    {
+                        id: 8,
+                        question: "Производная $f(x) = \\ln(x)$ равна:",
+                        options: ["$\\frac{1}{x}$", "$\\ln(x)$", "$x$", "$\\frac{1}{\\ln(x)}$"],
+                        correct: 0
+                    }
+                ],
+                medium: [
+                    {
+                        id: 9,
+                        question: "Найдите производную $f(x) = x^2 \\sin(x)$",
+                        options: ["$2x\\sin(x) + x^2\\cos(x)$", "$2x\\cos(x)$", "$x^2\\cos(x)$", "$2x\\sin(x)$"],
+                        correct: 0
+                    },
+                    {
+                        id: 10,
+                        question: "Производная $f(x) = \\frac{x^2}{x+1}$ равна:",
+                        options: ["$\\frac{2x}{x+1}$", "$\\frac{x^2+2x}{(x+1)^2}$", "$\\frac{2x(x+1)-x^2}{(x+1)^2}$", "$\\frac{x(x+2)}{(x+1)^2}$"],
+                        correct: 3
+                    }
+                ],
+                hard: [
+                    {
+                        id: 11,
+                        question: "Найдите производную $f(x) = x^x$",
+                        options: ["$x^x(\\ln(x) + 1)$", "$x^{x-1}$", "$x^x \\ln(x)$", "$x^x$"],
+                        correct: 0
+                    }
+                ]
+            },
+            integrals: {
+                easy: [
+                    {
+                        id: 12,
+                        question: "Найдите интеграл $\\int x dx$",
+                        options: ["$\\frac{x^2}{2} + C$", "$x + C$", "$x^2 + C$", "$\\frac{x}{2} + C$"],
+                        correct: 0
+                    }
+                ],
+                medium: [],
+                hard: []
+            },
+            limits: {
+                easy: [
+                    {
+                        id: 13,
+                        question: "Найдите $\\lim_{x \\to 2} (x + 1)$",
+                        options: ["$2$", "$3$", "$1$", "$\\infty$"],
+                        correct: 1
+                    }
+                ],
+                medium: [],
+                hard: []
+            },
+            series: {
+                easy: [
+                    {
+                        id: 14,
+                        question: "Сумма геометрической прогрессии $1 + \\frac{1}{2} + \\frac{1}{4} + \\frac{1}{8} + ...$",
+                        options: ["$1$", "$2$", "$\\frac{3}{2}$", "$\\infty$"],
+                        correct: 1
+                    }
+                ],
+                medium: [],
+                hard: []
+            }
+        };
+
+        // Функция для безопасного экранирования HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Проверка, запущен ли тест
+        function isTestPage() {
+            return window.location.search.includes('test=true');
+        }
+
+        // Инициализация приложения
+        function initApp() {
+            if (isTestPage()) {
+                initTest();
+            } else {
+                initMainPage();
+            }
+        }
+
+        // Инициализация главной страницы
+        function initMainPage() {
+            const form = document.getElementById('testForm');
+            if (form) {
+                form.addEventListener('submit', handleFormSubmit);
+            }
+        }
+
+        // Обработка отправки формы
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('studentName').value.trim();
+            const subject = document.getElementById('subject').value;
+            const level = document.getElementById('level').value;
+            
+            // Валидация
+            if (!name) {
+                showError('nameError', 'Пожалуйста, введите ваше имя');
+                return;
+            }
+            
+            if (name.length < 2) {
+                showError('nameError', 'Имя должно содержать минимум 2 символа');
+                return;
+            }
+            
+            clearError('nameError');
+            
+            // Сохранение данных пользователя
+            sessionStorage.setItem('currentUser', JSON.stringify({
+                name: escapeHtml(name),
+                subject: subject,
+                level: level
+            }));
+            
+            // Открытие теста в новой вкладке
+            const testUrl = `${window.location.href}?test=true&subject=${subject}&level=${level}`;
+            window.open(testUrl, '_blank');
+        }
+
+        // Показ ошибки
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.textContent = message;
+            }
+        }
+
+        // Очистка ошибки
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.textContent = '';
+            }
+        }
+
+        // Переключение статистики
+        function toggleStats() {
+            const statsSection = document.getElementById('statsSection');
+            const isVisible = statsSection.classList.contains('show');
+            
+            if (isVisible) {
+                statsSection.classList.remove('show');
+            } else {
+                loadStats();
+                statsSection.classList.add('show');
+            }
+        }
+
+        // Загрузка статистики
+        function loadStats() {
+            const results = JSON.parse(localStorage.getItem('mathTestResults') || '{}');
+            const statsContent = document.getElementById('statsContent');
+            
+            if (Object.keys(results).length === 0) {
+                statsContent.innerHTML = '<p>Результаты тестов не найдены</p>';
+                return;
+            }
+            
+            let html = '';
+            for (const [userName, userResults] of Object.entries(results)) {
+                html += `<div class="stats-item">
+                    <strong>${escapeHtml(userName)}</strong>
+                    <span>Тестов пройдено: ${userResults.length}</span>
+                </div>`;
+                
+                userResults.forEach((result, index) => {
+                    const percentage = Math.round((result.score / result.total) * 100);
+                    html += `<div class="stats-item">
+                        <span>Тест ${index + 1}: ${result.subject} (${result.level})</span>
+                        <span>${result.score}/${result.total} (${percentage}%)</span>
+                    </div>`;
+                });
+            }
+            
+            statsContent.innerHTML = html;
+        }
+
+        // Инициализация теста
+        function initTest() {
+            document.body.innerHTML = `
+                <div class="test-container">
+                    <div class="test-header">
+                        <h2>Тест по математическому анализу</h2>
+                        <div class="timer" id="timer">40:00</div>
+                    </div>
+                    
                     <div class="progress-bar">
-                        <div class="progress-fill"></div>
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
                     </div>
-                    <span class="progress-text">Вопрос <span id="current-question">1</span> из <span id="total-questions">5</span></span>
+                    
+                    <div id="testContent"></div>
                 </div>
-            </div>
+            `;
+            
+            startTest();
+        }
 
-            <div class="question-container">
-                <div class="question">
-                    <h3 id="question-text">Вопрос появится здесь</h3>
-                    <div id="answers-container" class="answers">
-                        <!-- Ответы будут добавляться через JS -->
+        // Запуск теста
+        function startTest() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const subject = urlParams.get('subject');
+            const level = urlParams.get('level');
+            const userData = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+            
+            if (!subject || !level) {
+                document.getElementById('testContent').innerHTML = 
+                    '<div class="question-card"><p>Ошибка: не указаны параметры теста</p></div>';
+                return;
+            }
+            
+            const questions = questionsData[subject]?.[level] || [];
+            if (questions.length === 0) {
+                document.getElementById('testContent').innerHTML = 
+                    '<div class="question-card"><p>Вопросы для данного раздела пока не добавлены</p></div>';
+                return;
+            }
+            
+            // Перемешивание и выбор 20 вопросов (или меньше, если их недостаточно)
+            const shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
+            const selectedQuestions = shuffledQuestions.slice(0, Math.min(20, shuffledQuestions.length));
+            
+            // Инициализация состояния теста
+            window.testState = {
+                questions: selectedQuestions,
+                currentQuestion: 0,
+                answers: {},
+                timeLeft: 40 * 60, // 40 минут в секундах
+                subject: subject,
+                level: level,
+                userName: userData.name || 'Неизвестный пользователь'
+            };
+            
+            startTimer();
+            showQuestion();
+        }
+
+        // Запуск таймера
+        function startTimer() {
+            const timer = setInterval(() => {
+                window.testState.timeLeft--;
+                updateTimerDisplay();
+                
+                if (window.testState.timeLeft <= 0) {
+                    clearInterval(timer);
+                    finishTest();
+                }
+            }, 1000);
+            
+            window.testTimer = timer;
+        }
+
+        // Обновление отображения таймера
+        function updateTimerDisplay() {
+            const minutes = Math.floor(window.testState.timeLeft / 60);
+            const seconds = window.testState.timeLeft % 60;
+            const timerElement = document.getElementById('timer');
+            if (timerElement) {
+                timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Изменение цвета при малом времени
+                if (window.testState.timeLeft < 300) { // менее 5 минут
+                    timerElement.style.color = '#e74c3c';
+                }
+            }
+        }
+
+        // Показ вопроса
+        function showQuestion() {
+            const state = window.testState;
+            const question = state.questions[state.currentQuestion];
+            
+            if (!question) {
+                finishTest();
+                return;
+            }
+            
+            // Обновление прогресс-бара
+            const progress = ((state.currentQuestion + 1) / state.questions.length) * 100;
+            const progressFill = document.getElementById('progressFill');
+            if (progressFill) {
+                progressFill.style.width = `${progress}%`;
+            }
+            
+            const testContent = document.getElementById('testContent');
+            testContent.innerHTML = `
+                <div class="question-card">
+                    <div class="question-text">
+                        <strong>Вопрос ${state.currentQuestion + 1} из ${state.questions.length}</strong><br><br>
+                        ${question.question}
+                    </div>
+                    
+                    <ul class="options">
+                        ${question.options.map((option, index) => `
+                            <li class="option">
+                                <label>
+                                    <input type="radio" name="answer" value="${index}" 
+                                           ${state.answers[question.id] === index ? 'checked' : ''}>
+                                    ${option}
+                                </label>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    
+                    <div style="margin-top: 30px; display: flex; gap: 15px;">
+                        ${state.currentQuestion > 0 ? 
+                            '<button class="btn btn-secondary" onclick="previousQuestion()">← Назад</button>' : 
+                            '<div></div>'
+                        }
+                        <button class="btn" onclick="nextQuestion()">
+                            ${state.currentQuestion === state.questions.length - 1 ? 'Завершить тест' : 'Далее →'}
+                        </button>
                     </div>
                 </div>
-            </div>
+            `;
+            
+            // Обработка выбора ответа
+            const radioButtons = testContent.querySelectorAll('input[name="answer"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    state.answers[question.id] = parseInt(e.target.value);
+                });
+            });
+            
+            // Рендеринг MathJax
+            if (window.MathJax) {
+                MathJax.typesetPromise([testContent]).catch((err) => console.log(err));
+            }
+        }
 
-            <div class="navigation">
-                <button id="prev-btn" class="nav-btn" disabled>Назад</button>
-                <button id="next-btn" class="nav-btn">Далее</button>
-                <button id="finish-btn" class="nav-btn hidden">Завершить тест</button>
-            </div>
-        </section>
+        // Следующий вопрос
+        function nextQuestion() {
+            const state = window.testState;
+            
+            if (state.currentQuestion === state.questions.length - 1) {
+                finishTest();
+            } else {
+                state.currentQuestion++;
+                showQuestion();
+            }
+        }
 
-        <section id="results-section" class="hidden">
-            <div class="results-container">
-                <h2>Результаты теста</h2>
-                <div class="score">
-                    Ваш результат: <span id="score-value">0</span> из <span id="max-score">0</span>
+        // Предыдущий вопрос
+        function previousQuestion() {
+            const state = window.testState;
+            
+            if (state.currentQuestion > 0) {
+                state.currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        // Завершение теста
+        function finishTest() {
+            if (window.testTimer) {
+                clearInterval(window.testTimer);
+            }
+            
+            const state = window.testState;
+            let correctAnswers = 0;
+            
+            // Подсчет правильных ответов
+            state.questions.forEach(question => {
+                if (state.answers[question.id] === question.correct) {
+                    correctAnswers++;
+                }
+            });
+            
+            // Сохранение результатов
+            saveTestResult(correctAnswers, state.questions.length);
+            
+            // Показ результатов
+            showResults(correctAnswers, state.questions.length);
+        }
+
+        // Сохранение результата теста
+        function saveTestResult(score, total) {
+            const state = window.testState;
+            const results = JSON.parse(localStorage.getItem('mathTestResults') || '{}');
+            
+            if (!results[state.userName]) {
+                results[state.userName] = [];
+            }
+            
+            results[state.userName].push({
+                date: new Date().toISOString(),
+                subject: state.subject,
+                level: state.level,
+                score: score,
+                total: total,
+                timeSpent: (40 * 60) - state.timeLeft
+            });
+            
+            localStorage.setItem('mathTestResults', JSON.stringify(results));
+        }
+
+        // Показ результатов
+        function showResults(score, total) {
+            const percentage = Math.round((score / total) * 100);
+            let scoreClass = 'low';
+            let message = 'Нужно больше практики!';
+            
+            if (percentage >= 80) {
+                scoreClass = 'high';
+                message = 'Отличный результат! 🎉';
+            } else if (percentage >= 60) {
+                scoreClass = 'medium';
+                message = 'Хороший результат! 👍';
+            }
+            
+            document.body.innerHTML = `
+                <div class="container results-container">
+                    <h1>📊 Результаты теста</h1>
+                    
+                    <div class="score ${scoreClass}">
+                        ${score}/${total}
+                    </div>
+                    
+                    <p style="font-size: 1.2rem; margin-bottom: 10px;">
+                        Процент правильных ответов: <strong>${percentage}%</strong>
+                    </p>
+                    
+                    <p style="font-size: 1.1rem; margin-bottom: 30px; color: #666;">
+                        ${message}
+                    </p>
+                    
+                    <button class="btn" onclick="returnToMain()">
+                        🏠 Выйти и вернуться на главную
+                    </button>
                 </div>
-                <div class="detailed-results" id="detailed-results">
-                    <!-- Детальные результаты будут здесь -->
-                </div>
-                <button id="restart-btn" class="restart-btn">Пройти другой тест</button>
-            </div>
-        </section>
-    </main>
+            `;
+        }
 
-    <footer>
-        <div class="container">
-            <p>© 2023 Математические тесты. Все права защищены.</p>
-        </div>
-    </footer>
+        // Возврат на главную страницу
+        function returnToMain() {
+            window.close();
+            // Если окно не закрылось (некоторые браузеры блокируют), перенаправляем
+            setTimeout(() => {
+                window.location.href = window.location.origin + window.location.pathname;
+            }, 100);
+        }
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
-</body>
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'980285bf65c3e950',t:'MTc1ODA0ODM0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

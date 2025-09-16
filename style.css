@@ -6,12 +6,14 @@
     --dark-color: #2c3e50;
     --success-color: #2ecc71;
     --warning-color: #f39c12;
+    --danger-color: #e74c3c;
     --text-color: #333;
     --light-gray: #f5f7fa;
     --border-radius: 8px;
     --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
 }
+
 
 * {
     margin: 0;
