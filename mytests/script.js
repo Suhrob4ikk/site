@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const easyDesc = document.getElementById('easy-desc');
     const mediumDesc = document.getElementById('medium-desc');
     const hardDesc = document.getElementById('hard-desc');
+    const completeTestBtn = document.getElementById('complete-test-btn');
 
     // Переменные состояния
     let currentLevel = null;
@@ -58,6 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentLevel = levelCards[index].getAttribute('data-level');
                 startTest(currentSubject, currentLevel);
             });
+            // Обработчик кнопки "Завершить тест"
+completeTestBtn.addEventListener('click', function() {
+    if (confirm('Вы уверены, что хотите завершить тест досрочно? Все ответы будут сохранены.')) {
+        finishTest();
+    }
+});
         });
 
         // Обработчики навигационного меню
@@ -240,18 +247,20 @@ document.addEventListener('DOMContentLoaded', function() {
         progressFill.style.width = `${progressPercent}%`;
         
         // Обновить состояние кнопок навигации
-        prevBtn.disabled = index === 0;
-        
-        if (index === currentQuestions.length - 1) {
-            nextBtn.classList.add('hidden');
-            finishBtn.classList.remove('hidden');
-        } else {
-            nextBtn.classList.remove('hidden');
-            finishBtn.classList.add('hidden');
-        }
-        
-        // Перерисовка MathJax
-        MathJax.typeset();
+    prevBtn.disabled = index === 0;
+    
+    if (index === currentQuestions.length - 1) {
+        nextBtn.classList.add('hidden');
+        completeTestBtn.classList.add('hidden');
+        finishBtn.classList.remove('hidden');
+    } else {
+        nextBtn.classList.remove('hidden');
+        completeTestBtn.classList.remove('hidden');
+        finishBtn.classList.add('hidden');
+    }
+    
+    // Перерисовка MathJax
+    MathJax.typeset();
     }
 
     // Выбор ответа
