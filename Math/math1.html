@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>МатемаТека - Изучение математики с нуля</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .slide-up {
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .progress-ring {
+      transition: stroke-dashoffset 0.5s ease;
+    }
+
+    .difficulty-badge {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+    }
+
+    .topic-card {
+      transition: all 0.3s ease;
+      border-left: 4px solid;
+    }
+
+    .level-selector {
+      transition: all 0.2s ease;
+    }
+
+    .level-selector.active {
+      transform: scale(1.05);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .question-counter {
+      display: inline-block;
+      background: #f1f5f9;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+    }
+  </style>
+  <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+
+<body class="bg-gray-50">
+  <!-- Приветственное окно -->
+  <div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 slide-up">
+      <div class="text-center">
+        <div
+          class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <span class="text-white text-2xl font-bold">∑</span>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">Добро пожаловать в МатемаТеку!</h2>
+        <p class="text-gray-600 mb-6">Введите ваше имя, чтобы начать изучение математики</p>
+        <input type="text" id="userName" placeholder="Ваше имя"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none mb-4"
+          maxlength="30">
+        <button id="startButton"
+          class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300">
+          Начать обучение
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Основная страница -->
+  <div id="mainPage" class="hidden fade-in">
+    <!-- Шапка -->
+    <header class="gradient-bg text-white py-4 shadow-lg">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+              <span class="text-white text-xl font-bold">∑</span>
+            </div>
+            <h1 class="text-2xl font-bold">МатемаТека</h1>
+          </div>
+          <div class="text-right">
+            <p class="text-sm opacity-90">Добро пожаловать,</p>
+            <p id="userGreeting" class="font-semibold"></p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Навигация -->
+    <nav class="bg-white shadow-sm border-b">
+      <div class="container mx-auto px-4">
+        <div class="flex space-x-8">
+          <button id="homeTab" class="py-4 px-2 border-b-2 border-blue-500 text-blue-600 font-medium">
+            Главная
+          </button>
+          <button id="schoolMathTab"
+            class="py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium">
+            Школьная математика
+          </button>
+          <button id="statsTab"
+            class="py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium">
+            Статистика
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Контент -->
+    <main class="container mx-auto px-4 py-8">
+      <!-- Главная страница -->
+      <div id="homeContent" class="fade-in">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-gray-800 mb-4">Изучайте математику пошагово</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">От основ арифметики до высшей математики. Интерактивные
+            уроки, тесты и персональная статистика прогресса.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-green-600 text-xl">📚</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Школьная математика</h3>
+            <p class="text-gray-600 mb-4">Арифметика, алгебра, геометрия и тригонометрия</p>
+            <button onclick="showSchoolMath()" class="text-blue-600 font-medium hover:text-blue-700">
+              Начать изучение →
+            </button>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg card-hover opacity-50">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-blue-600 text-xl">🎓</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Высшая математика</h3>
+            <p class="text-gray-600 mb-4">Математический анализ, линейная алгебра</p>
+            <span class="text-gray-400 font-medium">Скоро доступно</span>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg card-hover opacity-50">
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-purple-600 text-xl">📊</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Статистика и вероятность</h3>
+            <p class="text-gray-600 mb-4">Теория вероятностей и математическая статистика</p>
+            <span class="text-gray-400 font-medium">Скоро доступно</span>
+          </div>
+        </div>
+
+        <div class="mt-16 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
+          <div class="text-center max-w-3xl mx-auto">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Как работает обучение?</h3>
+            <div class="grid md:grid-cols-3 gap-6 mt-8">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-blue-600 text-2xl">1</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-2">Изучайте теорию</h4>
+                <p class="text-gray-600 text-sm">Освойте основные концепции с помощью понятных объяснений и примеров</p>
+              </div>
+              <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-blue-600 text-2xl">2</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-2">Практикуйтесь</h4>
+                <p class="text-gray-600 text-sm">Закрепляйте знания, решая задачи разного уровня сложности</p>
+              </div>
+              <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-blue-600 text-2xl">3</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-2">Следите за прогрессом</h4>
+                <p class="text-gray-600 text-sm">Анализируйте свои успехи и улучшайте результаты</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Школьная математика -->
+      <div id="schoolMathContent" class="hidden">
+        <div class="mb-8">
+          <button onclick="showHome()" class="text-blue-600 hover:text-blue-700 mb-4 flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Назад к разделам
+          </button>
+          <h2 class="text-3xl font-bold text-gray-800 mb-2">Школьная математика</h2>
+          <p class="text-gray-600">Выберите тему для изучения</p>
+        </div>
+
+        <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-white rounded-xl p-6 shadow-lg topic-card border-l-blue-500 cursor-pointer"
+            onclick="showTopic('arithmetic')">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">Арифметика</h3>
+                <p class="text-gray-600 text-sm">Основы счета, операции с числами</p>
+              </div>
+              <span class="text-3xl text-blue-500">🔢</span>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+              <div class="flex space-x-2">
+                <span class="difficulty-badge bg-green-100 text-green-800">Лёгкий</span>
+                <span class="difficulty-badge bg-yellow-100 text-yellow-800">Средний</span>
+                <span class="difficulty-badge bg-red-100 text-red-800">Сложный</span>
+              </div>
+              <span class="text-xs text-gray-500">45+ вопросов</span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg topic-card border-l-green-500 cursor-pointer"
+            onclick="showTopic('algebra')">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">Алгебра</h3>
+                <p class="text-gray-600 text-sm">Уравнения, неравенства, функции</p>
+              </div>
+              <span class="text-3xl text-green-500">📐</span>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+              <div class="flex space-x-2">
+                <span class="difficulty-badge bg-green-100 text-green-800">Лёгкий</span>
+                <span class="difficulty-badge bg-yellow-100 text-yellow-800">Средний</span>
+                <span class="difficulty-badge bg-red-100 text-red-800">Сложный</span>
+              </div>
+              <span class="text-xs text-gray-500">45+ вопросов</span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg topic-card border-l-purple-500 cursor-pointer"
+            onclick="showTopic('geometry')">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">Геометрия</h3>
+                <p class="text-gray-600 text-sm">Фигуры, площади, объемы</p>
+              </div>
+              <span class="text-3xl text-purple-500">📏</span>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+              <div class="flex space-x-2">
+                <span class="difficulty-badge bg-green-100 text-green-800">Лёгкий</span>
+                <span class="difficulty-badge bg-yellow-100 text-yellow-800">Средний</span>
+                <span class="difficulty-badge bg-red-100 text-red-800">Сложный</span>
+              </div>
+              <span class="text-xs text-gray-500">45+ вопросов</span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg topic-card border-l-orange-500 cursor-pointer opacity-50">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">Тригонометрия</h3>
+                <p class="text-gray-600 text-sm">Синусы, косинусы, тангенсы</p>
+              </div>
+              <span class="text-3xl text-orange-500">📊</span>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+              <div class="flex space-x-2">
+                <span class="difficulty-badge bg-gray-100 text-gray-800">Лёгкий</span>
+                <span class="difficulty-badge bg-gray-100 text-gray-800">Средний</span>
+                <span class="difficulty-badge bg-gray-100 text-gray-800">Сложный</span>
+              </div>
+              <span class="text-xs text-gray-500">Скоро доступно</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Выбор уровня сложности -->
+      <div id="levelSelectionContent" class="hidden">
+        <div class="mb-8">
+          <button onclick="showSchoolMath()" class="text-blue-600 hover:text-blue-700 mb-4 flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Назад к темам
+          </button>
+          <h2 id="levelTopicTitle" class="text-3xl font-bold text-gray-800 mb-2"></h2>
+          <p class="text-gray-600">Выберите уровень сложности</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+          <div class="level-selector bg-white rounded-xl p-6 shadow-lg text-center cursor-pointer" data-level="easy"
+            onclick="selectLevel('easy')">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-green-600 text-2xl"><i class="fas fa-seedling"></i></span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Лёгкий уровень</h3>
+            <p class="text-gray-600 text-sm mb-4">Базовые понятия и простые задачи для начинающих</p>
+            <span class="text-xs text-gray-500">10 случайных вопросов из 15+</span>
+          </div>
+
+          <div class="level-selector bg-white rounded-xl p-6 shadow-lg text-center cursor-pointer" data-level="medium"
+            onclick="selectLevel('medium')">
+            <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-yellow-600 text-2xl"><i class="fas fa-mountain"></i></span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Средний уровень</h3>
+            <p class="text-gray-600 text-sm mb-4">Задачи средней сложности для продолжающих изучение</p>
+            <span class="text-xs text-gray-500">10 случайных вопросов из 15+</span>
+          </div>
+
+          <div class="level-selector bg-white rounded-xl p-6 shadow-lg text-center cursor-pointer" data-level="hard"
+            onclick="selectLevel('hard')">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-red-600 text-2xl"><i class="fas fa-fire"></i></span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Сложный уровень</h3>
+            <p class="text-gray-600 text-sm mb-4">Сложные задачи для продвинутых учащихся</p>
+            <span class="text-xs text-gray-500">10 случайных вопросов из 15+</span>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 rounded-xl p-6">
+          <h4 class="font-semibold text-blue-800 mb-2 flex items-center"><i class="fas fa-lightbulb mr-2"></i> Совет
+          </h4>
+          <p class="text-blue-700 text-sm">Если вы только начинаете изучать тему, рекомендуем начать с лёгкого уровня и
+            постепенно переходить к более сложным заданиям.</p>
+        </div>
+      </div>
+
+      <!-- Тема -->
+      <div id="topicContent" class="hidden">
+        <div class="mb-8">
+          <button onclick="showLevelSelection()" class="text-blue-600 hover:text-blue-700 mb-4 flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Назад к выбору уровня
+          </button>
+          <div class="flex justify-between items-center">
+            <div>
+              <h2 id="topicTitle" class="text-3xl font-bold text-gray-800 mb-2"></h2>
+              <p id="topicDescription" class="text-gray-600"></p>
+            </div>
+            <span id="difficultyBadge" class="difficulty-badge"></span>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+          <!-- Теория -->
+          <div class="lg:col-span-2">
+            <div class="bg-white rounded-xl p-6 shadow-lg mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-book mr-2"></i>
+                Теория</h3>
+              <div id="theoryContent" class="prose max-w-none"></div>
+            </div>
+
+            <!-- Тест -->
+            <div class="bg-white rounded-xl p-6 shadow-lg">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800 flex items-center"><i
+                    class="fas fa-check-circle mr-2"></i> Проверьте знания</h3>
+                <span id="questionCounter" class="question-counter">Вопрос 1/10</span>
+              </div>
+              <div id="quizContent"></div>
+            </div>
+          </div>
+
+          <!-- Боковая панель -->
+          <div>
+            <div class="bg-white rounded-xl p-6 shadow-lg mb-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">Ваш прогресс</h3>
+              <div class="flex justify-center mb-4">
+                <div class="relative w-32 h-32">
+                  <svg class="w-full h-full" viewBox="0 0 36 36">
+                    <path class="text-gray-200 stroke-current" d="M18 2.0845
+                                            a 15.9155 15.9155 0 0 1 0 31.831
+                                            a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="2"
+                      stroke-dasharray="100, 100" />
+                    <path id="progressRing" class="progress-ring text-green-500 stroke-current" d="M18 2.0845
+                                            a 15.9155 15.9155 0 0 1 0 31.831
+                                            a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="2"
+                      stroke-dasharray="0, 100" />
+                  </svg>
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <span id="progressPercent" class="text-2xl font-bold">0%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>Правильных ответов</span>
+                    <span id="correctAnswers">0/0</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="progressBar" class="bg-green-500 h-2 rounded-full" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-blue-50 rounded-xl p-6">
+              <h4 class="font-semibold text-blue-800 mb-2 flex items-center"><i class="fas fa-trophy mr-2"></i>
+                Достижения</h4>
+              <p class="text-blue-700 text-sm" id="achievementText">Продолжайте в том же духе! Решайте задачи, чтобы
+                открывать новые достижения.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Статистика -->
+      <div id="statsContent" class="hidden">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Ваша статистика</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+          <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+            <div class="text-3xl font-bold text-blue-600 mb-2" id="totalQuestions">0</div>
+            <div class="text-gray-600">Всего вопросов</div>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+            <div class="text-3xl font-bold text-green-600 mb-2" id="totalCorrect">0</div>
+            <div class="text-gray-600">Правильных ответов</div>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+            <div class="text-3xl font-bold text-purple-600 mb-2" id="accuracy">0%</div>
+            <div class="text-gray-600">Точность</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-lg mb-8">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Прогресс по темам</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-gray-700">Арифметика</span>
+                <span class="text-gray-700" id="arithmeticProgress">0%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-blue-500 h-2.5 rounded-full" id="arithmeticBar" style="width: 0%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-gray-700">Алгебра</span>
+                <span class="text-gray-700" id="algebraProgress">0%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-green-500 h-2.5 rounded-full" id="algebraBar" style="width: 0%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-gray-700">Геометрия</span>
+                <span class="text-gray-700" id="geometryProgress">0%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-purple-500 h-2.5 rounded-full" id="geometryBar" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-lg">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">История ответов</h3>
+          <div id="historyList" class="space-y-2">
+            <p class="text-gray-500 text-center py-8">Пока нет данных. Начните решать задачи!</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                <span class="text-white text-xl font-bold">∑</span>
+              </div>
+              <h2 class="text-xl font-bold">МатемаТека</h2>
+            </div>
+            <p class="text-gray-400 text-sm mt-2">Изучение математики с нуля</p>
+          </div>
+          <div class="text-center md:text-right">
+            <p class="text-gray-400 text-sm">© 2023 МатемаТека. Все права защищены.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    let currentUser = '';
+    let userStats = {
+      totalQuestions: 0,
+      correctAnswers: 0,
+      topicProgress: {
+        arithmetic: { easy: 0, medium: 0, hard: 0, total: 0 },
+        algebra: { easy: 0, medium: 0, hard: 0, total: 0 },
+        geometry: { easy: 0, medium: 0, hard: 0, total: 0 }
+      },
+      history: []
+    };
+    let currentQuiz = null;
+    let currentQuestionIndex = 0;
+    let currentTopic = '';
+    let currentLevel = '';
+
+    // Данные для тем с тремя уровнями сложности
+    const topicsData = {
+      arithmetic: {
+        title: 'Арифметика',
+        description: 'Изучите основы работы с числами',
+        theory: {
+          easy: `
+                        <h4 class="text-lg font-semibold mb-3">Основы арифметики</h4>
+                        <p class="mb-4">Арифметика — это раздел математики, изучающий простейшие свойства чисел и операции над ними.</p>
+                        
+                        <h5 class="font-semibold mb-2">Четыре основные операции:</h5>
+                        <ul class="list-disc pl-6 mb-4">
+                            <li><strong>Сложение (+)</strong> — объединение количеств</li>
+                            <li><strong>Вычитание (−)</strong> — нахождение разности</li>
+                            <li><strong>Умножение (×)</strong> — повторное сложение</li>
+                            <li><strong>Деление (÷)</strong> — разбиение на равные части</li>
+                        </ul>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Пример:</h5>
+                            <p>15 + 7 = 22 (сложение)</p>
+                            <p>20 - 8 = 12 (вычитание)</p>
+                            <p>6 × 4 = 24 (умножение)</p>
+                            <p>35 ÷ 7 = 5 (деление)</p>
+                        </div>
+                    `,
+          medium: `
+                        <h4 class="text-lg font-semibold mb-3">Арифметика среднего уровня</h4>
+                        <p class="mb-4">На среднем уровне мы изучаем более сложные операции и их свойства.</p>
+                        
+                        <h5 class="font-semibold mb-2">Свойства операций:</h5>
+                        <ul class="list-disc pl-6 mb-4">
+                            <li><strong>Коммутативность</strong> — от перемены мест слагаемых сумма не меняется: a + b = b + a</li>
+                            <li><strong>Ассоциативность</strong> — группировка не влияет на результат: (a + b) + c = a + (b + c)</li>
+                            <li><strong>Дистрибутивность</strong> — умножение распределяется над сложением: a × (b + c) = a×b + a×c</li>
+                        </ul>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Примеры:</h5>
+                            <p>12 × (5 + 3) = 12×5 + 12×3 = 60 + 36 = 96</p>
+                            <p>125 ÷ 5 = (100 + 25) ÷ 5 = 100÷5 + 25÷5 = 20 + 5 = 25</p>
+                        </div>
+                    `,
+          hard: `
+                        <h4 class="text-lg font-semibold mb-3">Сложная арифметика</h4>
+                        <p class="mb-4">На сложном уровне рассматриваются комбинированные операции, приоритеты операций и работа с большими числами.</p>
+                        
+                        <h5 class="font-semibold mb-2">Порядок операций:</h5>
+                        <ol class="list-decimal pl-6 mb-4">
+                            <li>Выражения в скобках</li>
+                            <li>Умножение и деление (слева направо)</li>
+                            <li>Сложение и вычитание (слева направо)</li>
+                        </ol>
+                        
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Пример:</h5>
+                            <p>15 + 3 × 4 = 15 + 12 = 27 (сначала умножение, потом сложение)</p>
+                            <p>(15 + 3) × 4 = 18 × 4 = 72 (сначала скобки, потом умножение)</p>
+                            <p>48 ÷ 6 × 2 = 8 × 2 = 16 (деление и умножение слева направо)</p>
+                        </div>
+                    `
+        },
+        questions: {
+          easy: [
+            { question: 'Сколько будет 23 + 19?', options: ['40', '41', '42', '43'], correct: 2 },
+            { question: 'Найдите разность: 72 - 28', options: ['42', '43', '44', '45'], correct: 0 },
+            { question: 'Чему равно 8 × 6?', options: ['46', '48', '50', '52'], correct: 1 },
+            { question: 'Разделите 90 на 10', options: ['8', '9', '10', '11'], correct: 1 },
+            { question: 'Решите: (12 + 8) × 2', options: ['36', '38', '40', '42'], correct: 2 },
+            { question: 'Сколько будет 45 + 27?', options: ['71', '72', '73', '74'], correct: 1 },
+            { question: 'Чему равно 100 - 36?', options: ['62', '64', '66', '68'], correct: 2 },
+            { question: 'Найдите произведение: 11 × 5', options: ['53', '54', '55', '56'], correct: 2 },
+            { question: 'Разделите 48 на 6', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Решите: 18 + 22 - 15', options: ['23', '24', '25', '26'], correct: 1 },
+            { question: 'Чему равно 7 × 9?', options: ['61', '62', '63', '64'], correct: 2 },
+            { question: 'Найдите разность: 200 - 125', options: ['70', '75', '80', '85'], correct: 1 },
+            { question: 'Сколько будет 120 ÷ 12?', options: ['8', '9', '10', '11'], correct: 2 },
+            { question: 'Решите: 16 × 4', options: ['62', '64', '66', '68'], correct: 1 },
+            { question: 'Чему равно 55 + 28?', options: ['81', '82', '83', '84'], correct: 0 },
+            { question: 'Сколько будет 98 - 29?', options: ['68', '69', '70', '71'], correct: 1 },
+            { question: 'Чему равно 14 × 6?', options: ['82', '84', '86', '88'], correct: 1 },
+            { question: 'Разделите 72 на 9', options: ['7', '8', '9', '10'], correct: 1 },
+            { question: 'Решите: (20 + 15) ÷ 5', options: ['6', '7', '8', '9'], correct: 1 },
+            { question: 'Сколько будет 33 + 47?', options: ['78', '79', '80', '81'], correct: 2 },
+            { question: 'Чему равно 15 + 28?', options: ['41', '43', '45', '47'], correct: 1 },
+            { question: 'Найдите результат: 84 - 37', options: ['47', '49', '51', '53'], correct: 0 },
+            { question: 'Чему равно 12 × 7?', options: ['82', '84', '86', '88'], correct: 1 },
+            { question: 'Найдите частное: 96 ÷ 8', options: ['11', '12', '13', '14'], correct: 1 },
+            { question: 'Решите: (15 + 5) × 2', options: ['30', '35', '40', '45'], correct: 2 },
+            { question: 'Сколько будет 56 + 34?', options: ['80', '90', '100', '110'], correct: 1 },
+            { question: 'Чему равно 75 - 28?', options: ['47', '48', '49', '50'], correct: 0 },
+            { question: 'Найдите произведение: 9 × 8', options: ['72', '74', '76', '78'], correct: 0 },
+            { question: 'Разделите 81 на 9', options: ['8', '9', '10', '11'], correct: 1 },
+            { question: 'Решите: 17 + 25 - 13', options: ['27', '28', '29', '30'], correct: 2 },
+            { question: 'Чему равно 6 × 7?', options: ['42', '43', '44', '45'], correct: 0 },
+            { question: 'Найдите разность: 100 - 47', options: ['53', '54', '55', '56'], correct: 0 },
+            { question: 'Сколько будет 64 ÷ 8?', options: ['7', '8', '9', '10'], correct: 1 },
+            { question: 'Решите: 14 × 3', options: ['38', '40', '42', '44'], correct: 2 },
+            { question: 'Чему равно 39 + 46?', options: ['75', '85', '95', '105'], correct: 1 }
+          ],
+          medium: [
+            { question: 'Решите: (50 ÷ 5) + (8 × 2)', options: ['18', '20', '22', '24'], correct: 1 },
+            { question: 'Найдите значение: (40 - 12) ÷ 7', options: ['3', '4', '5', '6'], correct: 1 },
+            { question: 'Чему равно 6³ - 5²?', options: ['191', '197', '199', '201'], correct: 0 },
+            { question: 'Вычислите: 25% от 240', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: 2 × (15 - 7)² ÷ 8', options: ['14', '15', '16', '18'], correct: 2 },
+            { question: 'Найдите НОД чисел 45 и 60', options: ['10', '12', '15', '20'], correct: 2 },
+            { question: 'Чему равно 6! (факториал 6)?', options: ['480', '600', '720', '840'], correct: 2 },
+            { question: 'Вычислите: √225 + √100', options: ['20', '25', '30', '35'], correct: 2 },
+            { question: 'Решите: 4³ ÷ 2³', options: ['2', '4', '6', '8'], correct: 1 },
+            { question: 'Найдите 30% от 90', options: ['20', '25', '27', '30'], correct: 2 },
+            { question: 'Чему равно 12 × 12 - 10 × 10?', options: ['24', '34', '44', '54'], correct: 2 },
+            { question: 'Вычислите: 8² + 6²', options: ['96', '100', '104', '108'], correct: 1 },
+            { question: 'Решите: 150 ÷ 5 × 4', options: ['100', '110', '115', '120'], correct: 3 },
+            { question: 'Найдите НОК чисел 9 и 12', options: ['18', '24', '27', '36'], correct: 3 },
+            { question: 'Чему равно 5³ - 2³?', options: ['117', '118', '119', '120'], correct: 0 },
+            { question: 'Решите: (60 ÷ 3) + (25 ÷ 5)', options: ['20', '21', '22', '23'], correct: 1 },
+            { question: 'Вычислите: (9² - 7²) ÷ 2', options: ['15', '16', '17', '18'], correct: 2 },
+            { question: 'Найдите НОД чисел 28 и 42', options: ['7', '14', '21', '28'], correct: 1 },
+            { question: 'Решите: 2⁴ + 3³', options: ['33', '35', '37', '39'], correct: 0 },
+            { question: 'Чему равно (100 ÷ 4) + √81?', options: ['32', '33', '34', '35'], correct: 3 },
+            { question: 'Решите: 135 ÷ 9 + 7 × 3', options: ['32', '36', '40', '44'], correct: 1 },
+            { question: 'Найдите значение: (24 - 8) × 3 + 12', options: ['50', '54', '60', '64'], correct: 2 },
+            { question: 'Чему равно 7² + 4³?', options: ['49', '64', '113', '127'], correct: 2 },
+            { question: 'Вычислите: 15% от 200', options: ['15', '20', '25', '30'], correct: 3 },
+            { question: 'Решите: 3 × (10 - 4)² ÷ 6', options: ['12', '18', '24', '36'], correct: 1 },
+            { question: 'Найдите НОД чисел 36 и 48', options: ['6', '12', '18', '24'], correct: 1 },
+            { question: 'Чему равно 5! (факториал 5)?', options: ['60', '80', '100', '120'], correct: 3 },
+            { question: 'Вычислите: √144 + √169', options: ['25', '26', '27', '28'], correct: 0 },
+            { question: 'Решите: 2³ × 3²', options: ['36', '48', '64', '72'], correct: 3 },
+            { question: 'Найдите 20% от 150', options: ['20', '25', '30', '35'], correct: 2 },
+            { question: 'Чему равно 7 × 8 - 6 × 5?', options: ['16', '26', '36', '46'], correct: 1 },
+            { question: 'Вычислите: 4² + 5²', options: ['31', '41', '51', '61'], correct: 1 },
+            { question: 'Решите: 100 ÷ 4 × 3', options: ['50', '65', '75', '85'], correct: 2 },
+            { question: 'Найдите НОК чисел 6 и 8', options: ['12', '18', '24', '30'], correct: 2 },
+            { question: 'Чему равно 3³ - 2⁴?', options: ['9', '10', '11', '12'], correct: 2 }
+          ],
+          hard: [
+            { question: 'Решите: (6³ - 5³) ÷ (6 - 5)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: √(25² - 24²)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: (3⁵ ÷ 3²) + (2⁴ ÷ 2²)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: 6! ÷ (4! × 2!)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно 1 + 2 + 3 + ... + 20?', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: 2⁶ - 4³ + 5²', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: 200 - (18 - 10)² ÷ 4', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: 10³ - 9³', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно 1² + 2² + 3² + ... + 6²?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: (15 × 14) - (13 × 16)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: 512 ÷ 16 × 2 ÷ 4', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: 101² - 99²', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно 12! ÷ 10!', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: ³√125 × ²√144', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: (7³ - 5³) ÷ (7² + 7×5 + 5²)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Вычислите: √(50² - 48²)', options: ['10', '12', '14', '16'], correct: 2 },
+            { question: 'Чему равно (2⁵ + 3⁴) ÷ 7', options: ['13', '14', '15', '16'], correct: 2 },
+            { question: 'Решите: 8! ÷ (6! × 2!)', options: ['27', '28', '29', '30'], correct: 1 },
+            { question: 'Найдите значение: 15² - 14²', options: ['27', '28', '29', '30'], correct: 1 },
+            { question: 'Вычислите: (20 × 21) - (19 × 22)', options: ['2', '3', '4', '5'], correct: 0 },
+            { question: 'Решите: 3² + 4³ - 5² × 2', options: ['-13', '-5', '5', '13'], correct: 0 },
+            { question: 'Вычислите: √(19² - 17²)', options: ['6', '8', '10', '12'], correct: 1 },
+            { question: 'Найдите значение: (2⁴ × 3²) ÷ (2² × 3)', options: ['12', '18', '24', '36'], correct: 0 },
+            { question: 'Решите: 5! ÷ (3! × 2!)', options: ['5', '10', '15', '20'], correct: 1 },
+            { question: 'Чему равно 1 + 2 + 3 + ... + 10?', options: ['45', '50', '55', '60'], correct: 2 },
+            { question: 'Вычислите: 2⁵ - 3³ + 4²', options: ['15', '21', '27', '33'], correct: 1 },
+            { question: 'Решите: 100 - 4 × (15 - 7)² ÷ 8', options: ['68', '72', '76', '80'], correct: 0 },
+            { question: 'Найдите значение: 7³ - 6³', options: ['91', '127', '169', '217'], correct: 1 },
+            { question: 'Чему равно 1² + 2² + 3² + 4²?', options: ['20', '25', '30', '35'], correct: 2 },
+            { question: 'Вычислите: (12 × 13) - (11 × 14)', options: ['2', '4', '6', '8'], correct: 0 },
+            { question: 'Решите: 256 ÷ 16 × 4 ÷ 2', options: ['16', '24', '32', '48'], correct: 2 },
+            { question: 'Найдите значение: 99² - 98²', options: ['97', '147', '197', '247'], correct: 2 },
+            { question: 'Чему равно 10! ÷ 8!', options: ['80', '90', '100', '110'], correct: 1 },
+            { question: 'Вычислите: ³√64 × ²√81', options: ['12', '18', '24', '36'], correct: 2 },
+            { question: 'Решите: (5³ - 4³) ÷ (5² + 5×4 + 4²)', options: ['1', '2', '3', '4'], correct: 0 }
+          ]
+        }
+      },
+      algebra: {
+        title: 'Алгебра',
+        description: 'Работа с переменными и уравнениями',
+        theory: {
+          easy: `
+                        <h4 class="text-lg font-semibold mb-3">Основы алгебры</h4>
+                        <p class="mb-4">Алгебра изучает общие свойства чисел и действий над ними с помощью буквенных обозначений.</p>
+                        
+                        <h5 class="font-semibold mb-2">Переменные и выражения:</h5>
+                        <ul class="list-disc pl-6 mb-4">
+                            <li><strong>Переменная</strong> — буква, обозначающая неизвестное число</li>
+                            <li><strong>Выражение</strong> — комбинация чисел, переменных и операций</li>
+                            <li><strong>Уравнение</strong> — равенство с неизвестными</li>
+                        </ul>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Пример решения уравнения:</h5>
+                            <p>x + 5 = 12</p>
+                            <p>x = 12 - 5</p>
+                            <p>x = 7</p>
+                        </div>
+                    `,
+          medium: `
+                        <h4 class="text-lg font-semibold mb-3">Алгебра среднего уровня</h4>
+                        <p class="mb-4">На среднем уровне изучаются системы уравнений, квадратные уравнения и более сложные алгебраические выражения.</p>
+                        
+                        <h5 class="font-semibold mb-2">Квадратные уравнения:</h5>
+                        <p class="mb-2">Уравнение вида ax² + bx + c = 0, где a ≠ 0</p>
+                        <p>Решается через дискриминант: D = b² - 4ac</p>
+                        <p class="mb-2">Корни уравнения: x = (-b ± √D) / (2a)</p>
+                        
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Пример:</h5>
+                            <p>Решите: x² - 5x + 6 = 0</p>
+                            <p>D = (-5)² - 4×1×6 = 25 - 24 = 1</p>
+                            <p>x = (5 ± 1) / 2</p>
+                            <p>x₁ = 3, x₂ = 2</p>
+                        </div>
+                    `,
+          hard: `
+                        <h4 class="text-lg font-semibold mb-3">Сложная алгебра</h4>
+                        <p class="mb-4">На сложном уровне рассматриваются системы уравнений с несколькими переменными, неравенства и сложные алгебраические преобразования.</p>
+                        
+                        <h5 class="font-semibold mb-2">Системы уравнений:</h5>
+                        <p>Методы решения:</p>
+                        <ul class="list-disc pl-6 mb-4">
+                            <li>Метод подстановки</li>
+                            <li>Метод сложения</li>
+                            <li>Графический метод</li>
+                        </ul>
+                        
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Пример системы:</h5>
+                            <p>2x + y = 10</p>
+                            <p>x - y = 2</p>
+                            <p>Сложим уравнения: 3x = 12 ⇒ x = 4</p>
+                            <p>Подставим: 4 - y = 2 ⇒ y = 2</p>
+                            <p>Ответ: (4, 2)</p>
+                        </div>
+                    `
+        },
+        questions: {
+          easy: [
+            { question: 'Найдите x: x + 8 = 15', options: ['5', '6', '7', '8'], correct: 2 },
+            { question: 'Чему равно x в уравнении 3x = 21?', options: ['6', '7', '8', '9'], correct: 1 },
+            { question: 'Решите: 2x - 4 = 10', options: ['6', '7', '8', '9'], correct: 1 },
+            { question: 'Найдите значение выражения 3a + 2b при a = 4, b = 5', options: ['20', '22', '24', '26'], correct: 1 },
+            { question: 'Упростите: 2(x + 3) - 4', options: ['2x + 2', '2x + 6', '2x - 1', '2x + 1'], correct: 0 },
+            { question: 'Решите: 5x = 45', options: ['5', '7', '9', '11'], correct: 2 },
+            { question: 'Найдите x: x - 7 = 12', options: ['17', '18', '19', '20'], correct: 2 },
+            { question: 'Чему равно y в уравнении y/4 = 5?', options: ['15', '18', '20', '25'], correct: 2 },
+            { question: 'Решите: 3x + 5 = 20', options: ['3', '4', '5', '6'], correct: 2 },
+            { question: 'Упростите: 4(a - 2) + 3a', options: ['7a - 8', '7a - 2', '7a + 8', '7a + 2'], correct: 0 },
+            { question: 'Найдите x: 2x + 3 = 13', options: ['4', '5', '6', '7'], correct: 1 },
+            { question: 'Решите: 7x - 4 = 24', options: ['3', '4', '5', '6'], correct: 1 },
+            { question: 'Чему равно x в уравнении x/5 = 9?', options: ['40', '42', '45', '48'], correct: 2 },
+            { question: 'Упростите: 5(b + 3) - 2b', options: ['3b + 15', '3b + 3', '3b + 10', '3b + 5'], correct: 0 },
+            { question: 'Решите: 4x + 7 = 31', options: ['5', '6', '7', '8'], correct: 1 }
+          ],
+          medium: [
+            { question: 'Решите: x² - 5x + 6 = 0', options: ['x=2; x=3', 'x=1; x=6', 'x=-2; x=-3', 'x=2; x=-3'], correct: 0 },
+            { question: 'Найдите корни уравнения: 2x² - 7x + 3 = 0', options: ['x=0.5; x=3', 'x=1; x=1.5', 'x=2; x=3', 'x=1; x=3'], correct: 0 },
+            { question: 'Решите систему: x + y = 5; x - y = 1', options: ['x=3, y=2', 'x=4, y=1', 'x=2, y=3', 'x=5, y=0'], correct: 0 },
+            { question: 'Упростите: (x+3)(x-2)', options: ['x²+x-6', 'x²-x-6', 'x²+5x-6', 'x²-5x+6'], correct: 0 },
+            { question: 'Решите неравенство: 2x - 5 > 7', options: ['x > 6', 'x > 7', 'x > 8', 'x > 9'], correct: 0 },
+            { question: 'Найдите дискриминант уравнения: 3x² - 4x + 1 = 0', options: ['4', '8', '12', '16'], correct: 0 },
+            { question: 'Решите: x² - 9 = 0', options: ['x=3; x=-3', 'x=9; x=-9', 'x=0; x=9', 'x=1; x=-9'], correct: 0 },
+            { question: 'Упростите: (2x-3)²', options: ['4x²-12x+9', '4x²-6x+9', '4x²-12x-9', '4x²+12x+9'], correct: 0 },
+            { question: 'Решите: |x-3| = 5', options: ['x=8; x=-2', 'x=8; x=2', 'x=5; x=-5', 'x=3; x=-3'], correct: 0 },
+            { question: 'Найдите вершину параболы y = x² - 4x + 3', options: ['(2, -1)', '(1, 0)', '(4, 3)', '(2, 1)'], correct: 0 },
+            { question: 'Решите: √(x+1) = 3', options: ['x=8', 'x=9', 'x=10', 'x=11'], correct: 0 },
+            { question: 'Упростите: (x³y²)/(xy³)', options: ['x²/y', 'x/y', 'xy', 'x²y'], correct: 0 },
+            { question: 'Решите: 2/x = 1/3', options: ['x=6', 'x=5', 'x=4', 'x=3'], correct: 0 },
+            { question: 'Найдите область определения: y = √(x-2)', options: ['x ≥ 2', 'x > 2', 'x ≤ 2', 'x < 2'], correct: 0 },
+            { question: 'Решите: log₂8 = x', options: ['x=3', 'x=2', 'x=4', 'x=1'], correct: 0 }
+          ],
+          hard: [
+            { question: 'Решите: 2x² - 5x - 3 = 0', options: ['x=-0.5; x=3', 'x=0.5; x=-3', 'x=1; x=1.5', 'x=2; x=3'], correct: 0 },
+            { question: 'Решите систему: 2x + 3y = 7; 3x - 2y = 4', options: ['x=2, y=1', 'x=1, y=2', 'x=3, y=1', 'x=2, y=2'], correct: 0 },
+            { question: 'Упростите: (x²-4)/(x-2)', options: ['x+2', 'x-2', 'x²+2', 'x+4'], correct: 0 },
+            { question: 'Решите: 3^(2x) = 81', options: ['x=2', 'x=3', 'x=4', 'x=5'], correct: 0 },
+            { question: 'Найдите сумму корней уравнения: x² - 6x + 8 = 0', options: ['6', '5', '4', '3'], correct: 0 },
+            { question: 'Решите неравенство: x² - 4x - 5 > 0', options: ['x<-1 или x>5', 'x<1 или x>5', 'x<-5 или x>1', 'x<-2 или x>2'], correct: 0 },
+            { question: 'Упростите: (√a + √b)(√a - √b)', options: ['a-b', 'a+b', 'a²-b²', 'a-b²'], correct: 0 },
+            { question: 'Решите: log₃(x+1) + log₃(x-1) = 1', options: ['x=2', 'x=3', 'x=4', 'x=5'], correct: 0 },
+            { question: 'Найдите обратную функцию для y = 2x + 3', options: ['y = (x-3)/2', 'y = (x+3)/2', 'y = 2x-3', 'y = (x-2)/3'], correct: 0 },
+            { question: 'Решите: |2x-3| = 7', options: ['x=5; x=-2', 'x=5; x=2', 'x=3; x=-5', 'x=7; x=-7'], correct: 0 },
+            { question: 'Упростите: (xⁿ⁺¹ * x²ⁿ⁻¹)/(x³ⁿ)', options: ['1', 'x', 'x²', 'xⁿ'], correct: 0 },
+            { question: 'Решите: 2/(x-1) + 3/(x+1) = 5/x', options: ['x=2', 'x=3', 'x=4', 'x=5'], correct: 0 },
+            { question: 'Найдите период функции y = sin(2x)', options: ['π', '2π', 'π/2', '4π'], correct: 0 },
+            { question: 'Решите: √(x+5) - √(x-3) = 2', options: ['x=4', 'x=5', 'x=6', 'x=7'], correct: 0 },
+            { question: 'Упростите: (a² - b²)/(a³ - b³)', options: ['(a+b)/(a²+ab+b²)', '1/(a-b)', '(a-b)/(a²+ab+b²)', '1/(a+b)'], correct: 0 }
+          ]
+        }
+      },
+      geometry: {
+        title: 'Геометрия',
+        description: 'Изучение фигур, их свойств и измерений',
+        theory: {
+          easy: `
+                        <h4 class="text-lg font-semibold mb-3">Основы геометрии</h4>
+                        <p class="mb-4">Геометрия изучает пространственные отношения и формы.</p>
+                        
+                        <h5 class="font-semibold mb-2">Основные фигуры:</h5>
+                        <ul class="list-disc pl-6 mb-4">
+                            <li><strong>Треугольник</strong> — фигура с тремя сторонами</li>
+                            <li><strong>Квадрат</strong> — четырехугольник с равными сторонами</li>
+                            <li><strong>Прямоугольник</strong> — четырехугольник с прямыми углами</li>
+                            <li><strong>Круг</strong> — фигура, все точки которой равноудалены от центра</li>
+                        </ul>
+                        
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Формулы площадей:</h5>
+                            <p>Квадрат: S = a²</p>
+                            <p>Прямоугольник: S = a × b</p>
+                            <p>Треугольник: S = (a × h) ÷ 2</p>
+                        </div>
+                    `,
+          medium: `
+                        <h4 class="text-lg font-semibold mb-3">Геометрия среднего уровня</h4>
+                        <p class="mb-4">На среднем уровне изучаются теоремы, свойства фигур и более сложные вычисления.</p>
+                        
+                        <h5 class="font-semibold mb-2">Теорема Пифагора:</h5>
+                        <p>В прямоугольном треугольнике квадрат гипотенузы равен сумме квадратов катетов.</p>
+                        <p class="mb-2">c² = a² + b²</p>
+                        
+                        <h5 class="font-semibold mb-2">Формулы объема:</h5>
+                        <p>Куб: V = a³</p>
+                        <p>Прямоугольный параллелепипед: V = a × b × c</p>
+                        <p>Цилиндр: V = πr²h</p>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Пример:</h5>
+                            <p>Найдите гипотенузу треугольника с катетами 3 и 4:</p>
+                            <p>c² = 3² + 4² = 9 + 16 = 25</p>
+                            <p>c = √25 = 5</p>
+                        </div>
+                    `,
+          hard: `
+                        <h4 class="text-lg font-semibold mb-3">Сложная геометрия</h4>
+                        <p class="mb-4">На сложном уровне рассматриваются тригонометрические функции, свойства окружностей и сложные пространственные фигуры.</p>
+                        
+                        <h5 class="font-semibold mb-2">Тригонометрия в геометрии:</h5>
+                        <ul class="list-disc pl-6 mb-4">
+                            <li>sin(α) = противолежащий катет / гипотенуза</li>
+                            <li>cos(α) = прилежащий катет / гипотенуза</li>
+                            <li>tan(α) = противолежащий катет / прилежащий катет</li>
+                        </ul>
+                        
+                        <h5 class="font-semibold mb-2">Формулы для окружности:</h5>
+                        <p>Длина окружности: C = 2πr</p>
+                        <p>Площадь круга: S = πr²</p>
+                        
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Пример:</h5>
+                            <p>Найдите площадь сектора круга радиусом 6 с углом 60°:</p>
+                            <p>S = (πr² × α) / 360° = (π×36×60)/360 = 6π</p>
+                        </div>
+                    `
+        },
+        questions: {
+          easy: [
+            { question: 'Найдите площадь квадрата со стороной 6 см', options: ['24 см²', '30 см²', '36 см²', '42 см²'], correct: 2 },
+            { question: 'Чему равна площадь прямоугольника 8×5 см?', options: ['35 см²', '40 см²', '45 см²', '50 см²'], correct: 1 },
+            { question: 'Сколько углов у треугольника?', options: ['2', '3', '4', '5'], correct: 1 },
+            { question: 'Чему равен периметр квадрата со стороной 7 см?', options: ['21 см', '28 см', '35 см', '42 см'], correct: 1 },
+            { question: 'Найдите площадь треугольника с основанием 10 см и высотой 8 см', options: ['30 см²', '40 см²', '50 см²', '60 см²'], correct: 1 },
+            { question: 'Сколько сторон у шестиугольника?', options: ['5', '6', '7', '8'], correct: 1 },
+            { question: 'Чему равна площадь круга с радиусом 3 см? (π≈3.14)', options: ['18.84 см²', '28.26 см²', '37.68 см²', '47.1 см²'], correct: 1 },
+            { question: 'Найдите объем куба с ребром 4 см', options: ['16 см³', '32 см³', '48 см³', '64 см³'], correct: 3 },
+            { question: 'Чему равен периметр прямоугольника 12×8 см?', options: ['30 см', '40 см', '50 см', '60 см'], correct: 1 },
+            { question: 'Сколько градусов в прямом углу?', options: ['45°', '90°', '180°', '360°'], correct: 1 },
+            { question: 'Найдите площадь квадрата со стороной 9 см', options: ['36 см²', '63 см²', '81 см²', '99 см²'], correct: 2 },
+            { question: 'Чему равен объем прямоугольного параллелепипеда 3×4×5 см?', options: ['40 см³', '50 см³', '60 см³', '70 см³'], correct: 2 },
+            { question: 'Сколько вершин у куба?', options: ['6', '8', '10', '12'], correct: 1 },
+            { question: 'Чему равна длина окружности с радиусом 5 см? (π≈3.14)', options: ['15.7 см', '31.4 см', '47.1 см', '62.8 см'], correct: 1 },
+            { question: 'Найдите площадь треугольника с основанием 12 см и высотой 5 см', options: ['25 см²', '30 см²', '35 см²', '40 см²'], correct: 1 }
+          ],
+          medium: [
+            { question: 'Найдите гипотенузу прямоугольного треугольника с катетами 6 и 8 см', options: ['10 см', '12 см', '14 см', '16 см'], correct: 0 },
+            { question: 'Чему равна площадь равностороннего треугольника со стороной 10 см?', options: ['25√3 см²', '30√3 см²', '40√3 см²', '50√3 см²'], correct: 0 },
+            { question: 'Найдите объем цилиндра с радиусом 3 см и высотой 5 см (π≈3.14)', options: ['141.3 см³', '150.7 см³', '188.4 см³', '235.5 см³'], correct: 0 },
+            { question: 'Чему равна площадь поверхности куба с ребром 5 см?', options: ['100 см²', '125 см²', '150 см²', '175 см²'], correct: 2 },
+            { question: 'Найдите площадь ромба с диагоналями 8 и 6 см', options: ['20 см²', '24 см²', '28 см²', '32 см²'], correct: 1 },
+            { question: 'Чему равен объем конуса с радиусом 3 см и высотой 4 см? (π≈3.14)', options: ['37.68 см³', '47.1 см³', '56.52 см³', '75.36 см³'], correct: 0 },
+            { question: 'Найдите площадь трапеции с основаниями 6 и 10 см и высотой 5 см', options: ['30 см²', '35 см²', '40 см²', '45 см²'], correct: 2 },
+            { question: 'Чему равна площадь правильного шестиугольника со стороной 4 см?', options: ['24√3 см²', '36√3 см²', '48√3 см²', '64√3 см²'], correct: 0 },
+            { question: 'Найдите объем шара с радиусом 6 см (π≈3.14)', options: ['904.32 см³', '923.16 см³', '942.48 см³', '972.12 см³'], correct: 0 },
+            { question: 'Чему равна площадь боковой поверхности цилиндра с радиусом 4 см и высотой 7 см? (π≈3.14)', options: ['175.84 см²', '186.52 см²', '196.25 см²', '215.6 см²'], correct: 0 },
+            { question: 'Найдите длину диагонали прямоугольника 6×8 см', options: ['10 см', '12 см', '14 см', '16 см'], correct: 0 },
+            { question: 'Чему равен объем пирамиды с площадью основания 36 см² и высотой 9 см?', options: ['108 см³', '112 см³', '116 см³', '120 см³'], correct: 0 },
+            { question: 'Найдите площадь сферы с радиусом 5 см (π≈3.14)', options: ['314 см²', '328 см²', '342 см²', '356 см²'], correct: 0 },
+            { question: 'Чему равна высота равностороннего треугольника со стороной 10 см?', options: ['5√3 см', '6√3 см', '7√3 см', '8√3 см'], correct: 0 },
+            { question: 'Найдите объем призмы с площадью основания 24 см² и высотой 7 см', options: ['148 см³', '158 см³', '168 см³', '178 см³'], correct: 2 }
+          ],
+          hard: [
+            { question: 'Чему равен тангенс угла 45°?', options: ['0', '0.5', '1', '√3'], correct: 2 },
+            { question: 'Найдите площадь сегмента круга радиусом 10 см с центральным углом 60° (π≈3.14)', options: ['9.06 см²', '9.25 см²', '9.48 см²', '9.67 см²'], correct: 2 },
+            { question: 'Чему равен синус угла 30°?', options: ['0', '0.5', '√2/2', '√3/2'], correct: 1 },
+            { question: 'Найдите объем усеченного конуса с радиусами 6 и 4 см и высотой 5 см (π≈3.14)', options: ['316.87 см³', '326.56 см³', '336.28 см³', '346.92 см³'], correct: 0 },
+            { question: 'Чему равен косинус угла 60°?', options: ['0', '0.5', '√2/2', '√3/2'], correct: 1 },
+            { question: 'Найдите площадь эллипса с полуосями 8 и 5 см (π≈3.14)', options: ['125.6 см²', '136.8 см²', '145.2 см²', '156.4 см²'], correct: 0 },
+            { question: 'Чему равен синус угла 90°?', options: ['0', '0.5', '1', '√3/2'], correct: 2 },
+            { question: 'Найдите объем тетраэдра с ребром 6 см', options: ['18√2 см³', '20√2 см³', '22√2 см³', '24√2 см³'], correct: 0 },
+            { question: 'Чему равен тангенс угла 60°?', options: ['0', '1', '√3', '√3/3'], correct: 2 },
+            { question: 'Найдите площадь поверхности сферы с диаметром 14 см (π≈3.14)', options: ['615.44 см²', '628.32 см²', '642.16 см²', '656.92 см²'], correct: 0 },
+            { question: 'Чему равен косинус угла 45°?', options: ['0', '0.5', '√2/2', '√3/2'], correct: 2 },
+            { question: 'Найдите объем шарового сегмента высотой 3 см и радиусом шара 5 см (π≈3.14)', options: ['113.04 см³', '122.46 см³', '131.88 см³', '141.3 см³'], correct: 0 },
+            { question: 'Чему равен синус угла 0°?', options: ['0', '0.5', '1', '√3/2'], correct: 0 },
+            { question: 'Найдите площадь поверхности конуса с радиусом 3 см и образующей 5 см (π≈3.14)', options: ['75.36 см²', '78.54 см²', '81.64 см²', '84.78 см²'], correct: 0 },
+            { question: 'Чему равен косинус угла 90°?', options: ['0', '0.5', '1', '√3/2'], correct: 0 }
+          ]
+        }
+      }
+    };
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', function () {
+      const nameInput = document.getElementById('userName');
+      const startButton = document.getElementById('startButton');
+
+      nameInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          startApp();
+        }
+      });
+
+      startButton.addEventListener('click', startApp);
+
+      // Обработчики табов
+      document.getElementById('homeTab').addEventListener('click', showHome);
+      document.getElementById('schoolMathTab').addEventListener('click', showSchoolMath);
+      document.getElementById('statsTab').addEventListener('click', showStats);
+
+      // Загрузка сохраненных данных
+      loadUserData();
+    });
+
+    function startApp() {
+      const name = document.getElementById('userName').value.trim();
+      if (name) {
+        currentUser = name;
+        document.getElementById('userGreeting').textContent = name;
+        document.getElementById('welcomeModal').style.display = 'none';
+        document.getElementById('mainPage').classList.remove('hidden');
+        updateStats();
+
+        // Сохранение данных пользователя
+        saveUserData();
+      }
+    }
+
+    function showHome() {
+      hideAllContent();
+      document.getElementById('homeContent').classList.remove('hidden');
+      updateActiveTab('homeTab');
+    }
+
+    function showSchoolMath() {
+      hideAllContent();
+      document.getElementById('schoolMathContent').classList.remove('hidden');
+      updateActiveTab('schoolMathTab');
+    }
+
+    function showStats() {
+      hideAllContent();
+      document.getElementById('statsContent').classList.remove('hidden');
+      updateActiveTab('statsTab');
+      displayStats();
+    }
+
+    function showLevelSelection() {
+      hideAllContent();
+      document.getElementById('levelSelectionContent').classList.remove('hidden');
+    }
+
+    function showTopic(topicKey) {
+      currentTopic = topicKey;
+      const topic = topicsData[topicKey];
+      if (!topic) return;
+
+      document.getElementById('levelTopicTitle').textContent = topic.title;
+      showLevelSelection();
+    }
+
+    function selectLevel(levelKey) {
+      currentLevel = levelKey;
+      const topic = topicsData[currentTopic];
+      if (!topic) return;
+
+      // Активируем выбранный уровень
+      document.querySelectorAll('.level-selector').forEach(el => {
+        if (el.dataset.level === levelKey) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+
+      // Показываем контент темы
+      hideAllContent();
+      document.getElementById('topicContent').classList.remove('hidden');
+
+      document.getElementById('topicTitle').textContent = topic.title;
+      document.getElementById('topicDescription').textContent = topic.description;
+      // В функции selectLevel после установки теории
+document.getElementById('theoryContent').innerHTML = topic.theory[levelKey];
+// Добавьте эту строку
+if (window.MathJax) MathJax.typesetPromise([document.getElementById('theoryContent')]);
+
+// В функции displayQuestion после установки вопроса
+// Добавьте эту строку после вставки HTML в quizContent
+if (window.MathJax) MathJax.typesetPromise([document.getElementById('quizContent')]);
+
+      // Устанавливаем бейдж сложности
+      const difficultyBadge = document.getElementById('difficultyBadge');
+      difficultyBadge.className = 'difficulty-badge';
+
+      if (levelKey === 'easy') {
+        difficultyBadge.classList.add('bg-green-100', 'text-green-800');
+        difficultyBadge.textContent = 'Лёгкий уровень';
+      } else if (levelKey === 'medium') {
+        difficultyBadge.classList.add('bg-yellow-100', 'text-yellow-800');
+        difficultyBadge.textContent = 'Средний уровень';
+      } else {
+        difficultyBadge.classList.add('bg-red-100', 'text-red-800');
+        difficultyBadge.textContent = 'Сложный уровень';
+      }
+
+      // Выбираем 10 случайных вопросов
+      const allQuestions = topic.questions[levelKey];
+      const randomQuestions = getRandomQuestions(allQuestions, 10);
+      currentQuiz = randomQuestions;
+      currentQuestionIndex = 0;
+      displayQuestion();
+      updateProgress();
+    }
+
+    function getRandomQuestions(questions, count) {
+      if (questions.length <= count) return [...questions];
+
+      const shuffled = [...questions].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    }
+
+    function displayQuestion() {
+      if (!currentQuiz || currentQuestionIndex >= currentQuiz.length) {
+        document.getElementById('quizContent').innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="text-6xl mb-4">🎉</div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Тест завершен!</h3>
+                        <p class="text-gray-600 mb-4">Отличная работа, ${currentUser}!</p>
+                        <button onclick="restartQuiz()" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 mr-2">
+                            Пройти еще раз
+                        </button>
+                        <button onclick="showLevelSelection()" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600">
+                            Выбрать другой уровень
+                        </button>
+                    </div>
+                `;
+        return;
+      }
+
+      const question = currentQuiz[currentQuestionIndex];
+      document.getElementById('quizContent').innerHTML = `
+                <div class="mb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm text-gray-500">Вопрос ${currentQuestionIndex + 1} из ${currentQuiz.length}</span>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">${question.question}</h4>
+                    <div class="space-y-2">
+                        ${question.options.map((option, index) => `
+                            <button onclick="selectAnswer(${index})" 
+                                    class="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                                ${String.fromCharCode(65 + index)}. ${option}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+      // Обновляем счетчик вопросов
+      document.getElementById('questionCounter').textContent = `Вопрос ${currentQuestionIndex + 1}/${currentQuiz.length}`;
+    }
+
+    function selectAnswer(selectedIndex) {
+      const question = currentQuiz[currentQuestionIndex];
+      const isCorrect = selectedIndex === question.correct;
+
+      // Обновляем статистику
+      userStats.totalQuestions++;
+      if (isCorrect) {
+        userStats.correctAnswers++;
+        userStats.topicProgress[currentTopic][currentLevel]++;
+      }
+      userStats.topicProgress[currentTopic].total++;
+
+      // Добавляем в историю
+      userStats.history.unshift({
+        topic: currentTopic,
+        level: currentLevel,
+        question: question.question,
+        userAnswer: question.options[selectedIndex],
+        correctAnswer: question.options[question.correct],
+        isCorrect: isCorrect,
+        timestamp: new Date().toLocaleString('ru-RU')
+      });
+
+      // Показываем результат
+      const buttons = document.querySelectorAll('#quizContent button');
+      buttons.forEach((btn, index) => {
+        btn.disabled = true;
+        if (index === question.correct) {
+          btn.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+        } else if (index === selectedIndex && !isCorrect) {
+          btn.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+        }
+      });
+
+      // Показываем кнопку "Далее"
+      setTimeout(() => {
+        const nextButton = document.createElement('button');
+        nextButton.textContent = currentQuestionIndex < currentQuiz.length - 1 ? 'Следующий вопрос' : 'Завершить тест';
+        nextButton.className = 'mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600';
+        nextButton.onclick = nextQuestion;
+        document.getElementById('quizContent').appendChild(nextButton);
+      }, 1000);
+
+      updateProgress();
+      saveUserData();
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      displayQuestion();
+    }
+
+    function restartQuiz() {
+      currentQuestionIndex = 0;
+      displayQuestion();
+    }
+
+    function updateProgress() {
+      const correct = userStats.correctAnswers;
+      const total = userStats.totalQuestions;
+      const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+      document.getElementById('correctAnswers').textContent = `${correct}/${total}`;
+      document.getElementById('progressBar').style.width = `${percentage}%`;
+
+      // Обновляем круговой прогресс
+      const progressRing = document.getElementById('progressRing');
+      const circumference = 2 * Math.PI * 15.9155;
+      const offset = circumference - (percentage / 100) * circumference;
+      progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
+      progressRing.style.strokeDashoffset = offset;
+      document.getElementById('progressPercent').textContent = `${percentage}%`;
+
+      // Обновляем прогресс по темам
+      updateTopicProgress();
+    }
+
+    function updateTopicProgress() {
+      // Арифметика
+      const arithmeticTotal = userStats.topicProgress.arithmetic.total;
+      const arithmeticCorrect = userStats.topicProgress.arithmetic.easy +
+        userStats.topicProgress.arithmetic.medium +
+        userStats.topicProgress.arithmetic.hard;
+      const arithmeticPercentage = arithmeticTotal > 0 ? Math.round((arithmeticCorrect / arithmeticTotal) * 100) : 0;
+      document.getElementById('arithmeticProgress').textContent = `${arithmeticPercentage}%`;
+      document.getElementById('arithmeticBar').style.width = `${arithmeticPercentage}%`;
+
+      // Алгебра
+      const algebraTotal = userStats.topicProgress.algebra.total;
+      const algebraCorrect = userStats.topicProgress.algebra.easy +
+        userStats.topicProgress.algebra.medium +
+        userStats.topicProgress.algebra.hard;
+      const algebraPercentage = algebraTotal > 0 ? Math.round((algebraCorrect / algebraTotal) * 100) : 0;
+      document.getElementById('algebraProgress').textContent = `${algebraPercentage}%`;
+      document.getElementById('algebraBar').style.width = `${algebraPercentage}%`;
+
+      // Геометрия
+      const geometryTotal = userStats.topicProgress.geometry.total;
+      const geometryCorrect = userStats.topicProgress.geometry.easy +
+        userStats.topicProgress.geometry.medium +
+        userStats.topicProgress.geometry.hard;
+      const geometryPercentage = geometryTotal > 0 ? Math.round((geometryCorrect / geometryTotal) * 100) : 0;
+      document.getElementById('geometryProgress').textContent = `${geometryPercentage}%`;
+      document.getElementById('geometryBar').style.width = `${geometryPercentage}%`;
+    }
+
+    function displayStats() {
+      document.getElementById('totalQuestions').textContent = userStats.totalQuestions;
+      document.getElementById('totalCorrect').textContent = userStats.correctAnswers;
+
+      const accuracy = userStats.totalQuestions > 0 ?
+        Math.round((userStats.correctAnswers / userStats.totalQuestions) * 100) : 0;
+      document.getElementById('accuracy').textContent = `${accuracy}%`;
+
+      updateTopicProgress();
+
+      const historyList = document.getElementById('historyList');
+      if (userStats.history.length === 0) {
+        historyList.innerHTML = '<p class="text-gray-500 text-center py-8">Пока нет данных. Начните решать задачи!</p>';
+      } else {
+        historyList.innerHTML = userStats.history.slice(0, 10).map(item => `
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-1">
+                                <span class="text-xs font-medium px-2 py-1 rounded-full ${getLevelBadgeClass(item.level)} mr-2">
+                                    ${getLevelName(item.level)}
+                                </span>
+                                <span class="text-xs text-gray-500">${item.topic}</span>
+                            </div>
+                            <p class="font-medium text-gray-800 text-sm">${item.question}</p>
+                            <p class="text-xs text-gray-600 mt-1">Ваш ответ: ${item.userAnswer}</p>
+                            <p class="text-xs text-gray-500 mt-1">${item.timestamp}</p>
+                        </div>
+                        <div class="ml-4">
+                            ${item.isCorrect ?
+            '<span class="text-green-600 text-xl">✅</span>' :
+            '<span class="text-red-600 text-xl">❌</span>'
+          }
+                        </div>
+                    </div>
+                `).join('');
+      }
+    }
+
+    function getLevelName(level) {
+      switch (level) {
+        case 'easy': return 'Лёгкий';
+        case 'medium': return 'Средний';
+        case 'hard': return 'Сложный';
+        default: return level;
+      }
+    }
+
+    function getLevelBadgeClass(level) {
+      switch (level) {
+        case 'easy': return 'bg-green-100 text-green-800';
+        case 'medium': return 'bg-yellow-100 text-yellow-800';
+        case 'hard': return 'bg-red-100 text-red-800';
+        default: return 'bg-gray-100 text-gray-800';
+      }
+    }
+
+    function updateStats() {
+      updateProgress();
+    }
+
+    function hideAllContent() {
+      document.getElementById('homeContent').classList.add('hidden');
+      document.getElementById('schoolMathContent').classList.add('hidden');
+      document.getElementById('levelSelectionContent').classList.add('hidden');
+      document.getElementById('topicContent').classList.add('hidden');
+      document.getElementById('statsContent').classList.add('hidden');
+    }
+
+    function updateActiveTab(activeTabId) {
+      const tabs = ['homeTab', 'schoolMathTab', 'statsTab'];
+      tabs.forEach(tabId => {
+        const tab = document.getElementById(tabId);
+        if (tabId === activeTabId) {
+          tab.classList.remove('border-transparent', 'text-gray-500');
+          tab.classList.add('border-blue-500', 'text-blue-600');
+        } else {
+          tab.classList.remove('border-blue-500', 'text-blue-600');
+          tab.classList.add('border-transparent', 'text-gray-500');
+        }
+      });
+    }
+
+    function saveUserData() {
+      const userData = {
+        name: currentUser,
+        stats: userStats
+      };
+      localStorage.setItem('matemateka_user', JSON.stringify(userData));
+    }
+
+    function loadUserData() {
+      const savedData = localStorage.getItem('matemateka_user');
+      if (savedData) {
+        const userData = JSON.parse(savedData);
+        currentUser = userData.name;
+        userStats = userData.stats || userStats;
+
+        document.getElementById('userName').value = currentUser;
+        document.getElementById('userGreeting').textContent = currentUser;
+      }
+    }
+  </script>
+</body>
+
+</html>
