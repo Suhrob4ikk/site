@@ -1,532 +1,703 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Математика с нуля - от основ до высшей математики</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Математика с нуля - профессиональная платформа для изучения математики</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Serif+Pro:wght@400;600;700&display=swap');
+
+    :root {
+      --primary: #1a365d;
+      --primary-dark: #153060;
+      --secondary: #2d3748;
+      --accent: #3182ce;
+      --light: #f7fafc;
+      --dark: #2d3748;
+      --text: #4a5568;
+      --success: #38a169;
+      --warning: #ecc94b;
+      --error: #e53e3e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text);
+      background-color: #f9fafb;
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Source Serif Pro', serif;
+      color: var(--dark);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header Styles */
+    header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .logo i {
+      margin-right: 0.5rem;
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      margin-right: 2rem;
+    }
+
+    .nav-links li {
+      margin: 0 1rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .btn-outline {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(120deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 4rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 20%);
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text {
+      flex: 1;
+      padding-right: 2rem;
+    }
+
+    .hero-text h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+      color: white;
+      line-height: 1.2;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .hero-btn {
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .hero-btn-primary {
+      background: white;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .hero-btn-primary:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-btn-secondary {
+      border: 2px solid white;
+      color: white;
+    }
+
+    .hero-btn-secondary:hover {
+      background: white;
+      color: var(--primary);
+    }
+
+    .hero-visual {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .math-formulas {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .formula {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      text-align: center;
+      font-family: 'Source Serif Pro', serif;
+      font-size: 1.2rem;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 5rem 0;
+      background: var(--light);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.2rem;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--text);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .feature-card p {
+      color: var(--text);
+    }
+
+    /* Programs Section */
+    .programs {
+      padding: 5rem 0;
+      background: white;
+    }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+    }
+
+    .program-card {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .program-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .program-icon {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-right: 1rem;
+    }
+
+    .program-card h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .program-content {
+      margin-bottom: 2rem;
+    }
+
+    .program-levels {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .level {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .level-name {
+      font-weight: 500;
+    }
+
+    .level-classes {
+      font-size: 0.9rem;
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-text {
+        padding-right: 0;
+        margin-bottom: 2rem;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      .programs-grid,
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
+
+      .auth-buttons {
+        display: none;
+      }
+
+      .mobile-auth {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+
+    @media (max-width: 992px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        z-index: 99;
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .nav-links li {
+        margin: 0.5rem 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <div class="text-xl font-bold text-blue-800 serif">
-                        <i class="fas fa-square-root-alt mr-2 text-blue-600"></i>Математика с нуля
-                    </div>
-                </div>
-                
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="nav-item text-gray-700 font-medium">Главная</a>
-                    <a href="#" class="nav-item text-gray-700 font-medium">О проекте</a>
-                    
-                    <!-- Учебная программа dropdown -->
-                    <div class="relative dropdown-parent">
-                        <button class="nav-item text-gray-700 font-medium flex items-center">
-                            Учебная программа
-                            <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div class="dropdown absolute top-full left-0 mt-2 w-80 bg-white rounded-md shadow-xl border border-gray-200">
-                            <div class="p-4">
-                                <div class="mb-4">
-                                    <h3 class="font-semibold text-gray-900 mb-2 text-blue-800">Школьная математика</h3>
-                                    <ul class="space-y-2 text-sm">
-                                        <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-calculator mr-2 text-blue-600 text-xs"></i>Начальная школа</a></li>
-                                        <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-calculator mr-2 text-blue-600 text-xs"></i>Средняя школа</a></li>
-                                        <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-calculator mr-2 text-blue-600 text-xs"></i>Старшая школа</a></li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900 mb-2 text-blue-800">Высшая математика</h3>
-                                    <ul class="space-y-2 text-sm">
-                                        <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-infinity mr-2 text-blue-600 text-xs"></i>Математический анализ</a></li>
-                                        <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-vector-square mr-2 text-blue-600 text-xs"></i>Линейная алгебра</a></li>
-                                        <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-chart-line mr-2 text-blue-600 text-xs"></i>Дифференциальные уравнения</a></li>
-                                        <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-dice mr-2 text-blue-600 text-xs"></i>Теория вероятностей</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Уроки dropdown -->
-                    <div class="relative dropdown-parent">
-                        <button class="nav-item text-gray-700 font-medium flex items-center">
-                            Уроки
-                            <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div class="dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-md shadow-xl border border-gray-200">
-                            <div class="p-4">
-                                <ul class="space-y-3 text-sm">
-                                    <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-book mr-2 text-blue-600"></i>Текстовые уроки</a></li>
-                                    <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-video mr-2 text-blue-600"></i>Видеоуроки</a></li>
-                                    <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-project-diagram mr-2 text-blue-600"></i>Интерактивные визуализации</a></li>
-                                    <li><a href="#" class="text-gray-600 hover:text-blue-700 flex items-center"><i class="fas fa-file-alt mr-2 text-blue-600"></i>Формулы и шпаргалки</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <a href="#" class="nav-item text-gray-700 font-medium">Практика</a>
-                    <a href="#" class="nav-item text-gray-700 font-medium">Инструменты</a>
-                </div>
-                
-                <!-- Auth buttons -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="#" class="text-gray-700 hover:text-blue-700 font-medium">Вход</a>
-                    <a href="#" class="btn-primary px-4 py-2 rounded-md font-medium">Регистрация</a>
-                </div>
-                
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-blue-700">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="#" class="logo">
+          <i class="fas fa-square-root-alt"></i>
+          <span>Математика с нуля</span>
+        </a>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">О проекте</a></li>
+            <li><a href="#">Учебная программа</a></li>
+            <li><a href="#">Уроки</a></li>
+            <li><a href="#">Практика</a></li>
+            <li><a href="#">Инструменты</a></li>
+          </ul>
+
+          <div class="auth-buttons">
+            <a href="#" class="btn btn-outline">Вход</a>
+            <a href="#" class="btn btn-primary">Регистрация</a>
+          </div>
+
+          <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+          </button>
         </nav>
-        
-        <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
-            <div class="px-4 py-2 space-y-3">
-                <a href="#" class="block py-2 text-gray-700 font-medium">Главная</a>
-                <a href="#" class="block py-2 text-gray-700 font-medium">О проекте</a>
-                <a href="#" class="block py-2 text-gray-700 font-medium">Учебная программа</a>
-                <a href="#" class="block py-2 text-gray-700 font-medium">Уроки</a>
-                <a href="#" class="block py-2 text-gray-700 font-medium">Практика</a>
-                <a href="#" class="block py-2 text-gray-700 font-medium">Инструменты</a>
-                <div class="pt-4 border-t border-gray-200">
-                    <a href="#" class="block py-2 text-gray-700 font-medium">Вход</a>
-                    <a href="#" class="block py-2 text-blue-700 font-medium">Регистрация</a>
-                </div>
-            </div>
-        </div>
-    </header>
+      </div>
+    </div>
+  </header>
 
-    <!-- Hero Section -->
-    <section class="academic-bg text-white py-16 math-pattern">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="md:w-1/2 mb-10 md:mb-0">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-6 serif">
-                        Системное изучение <span class="text-blue-300">математики</span>
-                    </h1>
-                    <p class="text-xl mb-8 text-blue-100">
-                        От основ арифметики до высшего анализа. Пошаговое обучение с глубоким пониманием концепций.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button class="btn-primary px-8 py-4 rounded-md font-semibold text-lg flex items-center">
-                            <i class="fas fa-graduation-cap mr-2"></i> Начать обучение
-                        </button>
-                        <button class="btn-secondary px-8 py-4 rounded-md font-semibold text-lg flex items-center">
-                            <i class="fas fa-list-alt mr-2"></i> Программа обучения
-                        </button>
-                    </div>
-                </div>
-                <div class="md:w-1/2 flex justify-center">
-                    <div class="bg-white/10 p-8 rounded-xl border border-blue-400/30 backdrop-blur-sm">
-                        <div class="text-center p-4">
-                            <div class="text-blue-300 text-5xl mb-4"><i class="fas fa-integral"></i></div>
-                            <div class="text-white text-xl font-light mb-2">Фундаментальные принципы</div>
-                            <div class="text-blue-200 text-sm">
-                                <span class="formula-badge text-gray-800 mx-1">a² + b² = c²</span>
-                                <span class="formula-badge text-gray-800 mx-1">e^(iπ) + 1 = 0</span>
-                                <span class="formula-badge text-gray-800 mx-1">F = ma</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Системное изучение математики от основ к высшему уровню</h1>
+          <p>Профессиональная платформа для глубокого понимания математических концепций через структурированное
+            обучение и практику.</p>
+          <div class="hero-buttons">
+            <a href="#" class="hero-btn hero-btn-primary">Начать обучение</a>
+            <a href="#" class="hero-btn hero-btn-secondary">Программа обучения</a>
+          </div>
         </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4 serif section-title">Академический подход к изучению математики</h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                    Наша методика основана на системном подходе, используемом в ведущих математических вузах
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card-hover bg-white p-8 rounded-md text-center">
-                    <div class="feature-icon mx-auto">
-                        <i class="fas fa-sitemap text-blue-700 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Структурированная программа</h3>
-                    <p class="text-gray-600">Поэтапное изучение тем от простого к сложному с закреплением материала. Каждый раздел содержит теорию, примеры и практические задания.</p>
-                </div>
-                
-                <div class="card-hover bg-white p-8 rounded-md text-center">
-                    <div class="feature-icon mx-auto">
-                        <i class="fas fa-brain text-blue-700 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Глубокое понимание</h3>
-                    <p class="text-gray-600">Акцент на понимании концепций, а не механическом запоминании формул. Объясняем происхождение теорем и их доказательства.</p>
-                </div>
-                
-                <div class="card-hover bg-white p-8 rounded-md text-center">
-                    <div class="feature-icon mx-auto">
-                        <i class="fas fa-chart-line text-blue-700 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Прикладное применение</h3>
-                    <p class="text-gray-600">Примеры использования математики в науке, технике и анализе данных. Показываем, как абстрактные концепции применяются в реальном мире.</p>
-                </div>
-            </div>
+        <div class="hero-visual">
+          <div class="math-formulas">
+            <div class="formula">a² + b² = c²</div>
+            <div class="formula">e<sup>iπ</sup> + 1 = 0</div>
+            <div class="formula">F = ma</div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Levels Section -->
-    <section class="py-16 bg-light">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4 serif section-title">Система обучения</h2>
-                <p class="text-lg text-gray-600">Полный путь от основ к продвинутым разделам математики</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Школьная математика -->
-                <div class="card-hover bg-white p-8 rounded-md">
-                    <div class="flex items-center mb-6">
-                        <div class="text-blue-700 text-2xl mr-4"><i class="fas fa-calculator"></i></div>
-                        <h3 class="text-2xl font-bold text-gray-900 serif">Базовая математика</h3>
-                    </div>
-                    <p class="text-gray-600 mb-6">Фундаментальные знания, необходимые для дальнейшего изучения. Подробные объяснения с множеством примеров.</p>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-blue-50 rounded-md">
-                            <span class="font-medium">Арифметика и основы</span>
-                            <span class="text-sm text-gray-600">1-4 классы</span>
-                        </div>
-                        <div class="flex items-center justify-between p-4 bg-blue-50 rounded-md">
-                            <span class="font-medium">Алгебра и геометрия</span>
-                            <span class="text-sm text-gray-600">5-9 классы</span>
-                        </div>
-                        <div class="flex items-center justify-between p-4 bg-blue-50 rounded-md">
-                            <span class="font-medium">Математический анализ</span>
-                            <span class="text-sm text-gray-600">10-11 классы</span>
-                        </div>
-                    </div>
-                    <button class="w-full mt-6 btn-primary py-3 rounded-md font-semibold">
-                        Изучить основы
-                    </button>
-                </div>
-                
-                <!-- Высшая математика -->
-                <div class="card-hover bg-white p-8 rounded-md">
-                    <div class="flex items-center mb-6">
-                        <div class="text-blue-700 text-2xl mr-4"><i class="fas fa-infinity"></i></div>
-                        <h3 class="text-2xl font-bold text-gray-900 serif">Высшая математика</h3>
-                    </div>
-                    <p class="text-gray-600 mb-6">Продвинутые разделы для углубленного изучения. Полные курсы университетского уровня.</p>
-                    <div class="grid grid-cols-2 gap-3 text-sm">
-                        <div class="p-3 bg-gray-50 rounded-md flex items-center">
-                            <i class="fas fa-function text-blue-600 mr-2"></i>
-                            <span>Матанализ</span>
-                        </div>
-                        <div class="p-3 bg-gray-50 rounded-md flex items-center">
-                            <i class="fas fa-vector-square text-blue-600 mr-2"></i>
-                            <span>Линейная алгебра</span>
-                        </div>
-                        <div class="p-3 bg-gray-50 rounded-md flex items-center">
-                            <i class="fas fa-chart-line text-blue-600 mr-2"></i>
-                            <span>Диффуравнения</span>
-                        </div>
-                        <div class="p-3 bg-gray-50 rounded-md flex items-center">
-                            <i class="fas fa-dice text-blue-600 mr-2"></i>
-                            <span>Теория вероятностей</span>
-                        </div>
-                        <div class="p-3 bg-gray-50 rounded-md flex items-center">
-                            <i class="fas fa-project-diagram text-blue-600 mr-2"></i>
-                            <span>Дискретная математика</span>
-                        </div>
-                        <div class="p-3 bg-gray-50 rounded-md flex items-center">
-                            <i class="fas fa-cogs text-blue-600 mr-2"></i>
-                            <span>Математическая логика</span>
-                        </div>
-                    </div>
-                    <button class="w-full mt-6 btn-primary py-3 rounded-md font-semibold">
-                        Изучить высшую математику
-                    </button>
-                </div>
-            </div>
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Академический подход к изучению математики</h2>
+        <p>Наша методика основана на системном подходе, используемом в ведущих математических вузах</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-sitemap"></i>
+          </div>
+          <h3>Структурированная программа</h3>
+          <p>Поэтапное изучение тем от простого к сложному с закреплением материала. Каждый раздел содержит теорию,
+            примеры и практические задания.</p>
         </div>
-    </section>
 
-    <!-- Practice Section with Problems -->
-    <section class="py-16 bg-white" id="practice-section">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 serif section-title">Практические задания</h2>
-                <p class="text-lg text-gray-600">Проверьте свои знания с помощью интерактивных задач</p>
-            </div>
-            
-            <div class="mb-8">
-                <h3 class="text-xl font-semibold mb-4 text-gray-800">Выберите раздел:</h3>
-                <div class="flex flex-wrap gap-2">
-                    <button class="problem-category-btn active" data-category="all">Все разделы</button>
-                    <button class="problem-category-btn" data-category="arithmetic">Арифметика</button>
-                    <button class="problem-category-btn" data-category="algebra">Алгебра</button>
-                    <button class="problem-category-btn" data-category="geometry">Геометрия</button>
-                    <button class="problem-category-btn" data-category="calculus">Матанализ</button>
-                    <button class="problem-category-btn" data-category="probability">Теория вероятностей</button>
-                </div>
-            </div>
-            
-            <div id="problems-container" class="grid md:grid-cols-2 gap-6">
-                <!-- Problems will be loaded dynamically from JavaScript -->
-            </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3>Глубокое понимание</h3>
+          <p>Акцент на понимании концепций, а не механическом запоминании формул. Объясняем происхождение теорем и их
+            доказательства.</p>
         </div>
-    </section>
 
-    <!-- Content Section -->
-    <section class="py-16 bg-light">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 serif section-title">Подробные учебные материалы</h2>
-                <p class="text-lg text-gray-600">Каждая тема раскрыта максимально полно и доступно</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card-hover bg-white p-6 rounded-md">
-                    <div class="text-blue-700 text-3xl mb-4"><i class="fas fa-book"></i></div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Теоретические материалы</h3>
-                    <p class="text-gray-600 mb-4">Подробные объяснения концепций с доказательствами теорем и историческим контекстом.</p>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li class="flex items-center"><i class="fas fa-check-circle text-blue-600 mr-2"></i> Пошаговые объяснения</li>
-                        <li class="flex items-center"><i class="fas fa-check-circle text-blue-600 mr-2"></i> Доказательства теорем</li>
-                        <li class="flex items-center"><i class="fas fa-check-circle text-blue-600 mr-2"></i> Исторические справки</li>
-                    </ul>
-                </div>
-                
-                <div class="card-hover bg-white p-6 rounded-md">
-                    <div class="text-blue-700 text-3xl mb-4"><i class="fas fa-tasks"></i></div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Практические задания</h3>
-                    <p class="text-gray-600 mb-4">Задачи разного уровня сложности с подробными решениями и объяснениями.</p>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li class="flex items-center"><i class="fas fa-check-circle text-blue-600 mr-2"></i> Задачи для начинающих</li>
-                        <li class="flex items-center"><i class="fas fa-check-circle text-blue-600 mr-2"></i> Продвинутые задания</li>
-                        <li class="flex items-center"><i class="fas fa-check-circle text-blue-600 mr-2"></i> Олимпиадные задачи</li>
-                    </ul>
-                </div>
-                
-                <div class="card-hover bg-white p-6 rounded-md">
-                    <div class="text-blue-700 text-3xl mb-4"><i class="fas fa-video"></i></div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Видеоуроки</h3>
-                    <p class="text-gray-600 mb-4">Наглядные объяснения сложных концепций с анимацией и визуализацией.</p>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li class="flex items-center"><i class="fas fa-check-circle text-blue-600 mr-2"></i> Наглядная анимация</li>
-                        <li class="flex items-center"><i class="fas fa-check-circle text-blue-600 mr-2"></i> Пошаговые решения</li>
-                        <li class="flex items-center"><i class="fas fa-check-circle text-blue-600 mr-2"></i> Визуализация концепций</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Прикладное применение</h3>
+          <p>Примеры использования математики в науке, технике и анализе данных. Показываем, как абстрактные концепции
+            применяются в реальном мире.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Theorem example -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 serif section-title">Математическая строгость</h2>
-                <p class="text-lg text-gray-600">Изучайте математику через доказательства и теоремы</p>
-            </div>
-            
-            <div class="bg-light p-8 rounded-md shadow-sm">
-                <div class="theorem">
-                    <div class="theorem-title">Основная теорема алгебры</div>
-                    <p>Всякий отличный от константы многочлен с комплексными коэффициентами имеет по крайней мере один комплексный корень.</p>
-                    <div class="mt-3">
-                        <span class="formula-badge">P(z) = aₙzⁿ + aₙ₋₁zⁿ⁻¹ + ... + a₁z + a₀</span>
-                    </div>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-8 mt-8">
-                    <div>
-                        <h3 class="font-semibold text-lg mb-4 text-gray-800">Аксиоматический подход</h3>
-                        <p class="text-gray-600">Мы учим понимать математику как систему аксиом и теорем, а не как набор разрозненных формул. Каждое утверждение имеет строгое обоснование.</p>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold text-lg mb-4 text-gray-800">Доказательное мышление</h3>
-                        <p class="text-gray-600">Развиваем навыки построения логических доказательств и решения нестандартных задач. Учимся мыслить как математики.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Programs Section -->
+  <section class="programs">
+    <div class="container">
+      <div class="section-header">
+        <h2>Система обучения</h2>
+        <p>Полный путь от основ к продвинутым разделам математики</p>
+      </div>
 
-    <!-- Tools Section -->
-    <section class="py-16 bg-light">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 serif section-title">Математические инструменты</h2>
-                <p class="text-lg text-gray-600">Современные средства для вычислений и визуализации</p>
+      <div class="programs-grid">
+        <div class="program-card">
+          <div class="program-header">
+            <div class="program-icon">
+              <i class="fas fa-calculator"></i>
             </div>
-            
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="card-hover bg-white p-6 rounded-md text-center">
-                    <div class="text-blue-700 text-3xl mb-4"><i class="fas fa-chart-line"></i></div>
-                    <h3 class="font-semibold mb-2 text-gray-800">Построитель графиков</h3>
-                    <p class="text-gray-600 text-sm">Визуализация функций и зависимостей</p>
-                </div>
-                
-                <div class="card-hover bg-white p-6 rounded-md text-center">
-                    <div class="text-blue-700 text-3xl mb-4"><i class="fas fa-calculator"></i></div>
-                    <h3 class="font-semibold mb-2 text-gray-800">Символьные вычисления</h3>
-                    <p class="text-gray-600 text-sm">Аналитические преобразования</p>
-                </div>
-                
-                <div class="card-hover bg-white p-6 rounded-md text-center">
-                    <div class="text-blue-700 text-3xl mb-4"><i class="fas fa-table"></i></div>
-                    <h3 class="font-semibold mb-2 text-gray-800">Матричный калькулятор</h3>
-                    <p class="text-gray-600 text-sm">Операции с матрицами и векторами</p>
-                </div>
-                
-                <div class="card-hover bg-white p-6 rounded-md text-center">
-                    <div class="text-blue-700 text-3xl mb-4"><i class="fas fa-dice"></i></div>
-                    <h3 class="font-semibold mb-2 text-gray-800">Вероятностные модели</h3>
-                    <p class="text-gray-600 text-sm">Стохастическое моделирование</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            <h3>Базовая математика</h3>
+          </div>
 
-    <!-- Testimonials Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 serif section-title">Отзывы учащихся</h2>
-                <p class="text-lg text-gray-600">Что говорят те, кто уже изучает математику с нами</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card-hover bg-light p-6 rounded-md">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-user-graduate text-blue-700"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-semibold">Алексей Петров</h4>
-                            <p class="text-sm text-gray-600">Студент</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600">"Благодаря этим материалам я наконец-то понял матанализ. Объяснения очень четкие и последовательные."</p>
-                </div>
-                
-                <div class="card-hover bg-light p-6 rounded-md">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-user-tie text-blue-700"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-semibold">Мария Иванова</h4>
-                            <p class="text-sm text-gray-600">Инженер</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600">"Как инженер, я часто сталкиваюсь с сложными вычислениями. Этот ресурс помог мне освежить знания и понять новые концепции."</p>
-                </div>
-                
-                <div class="card-hover bg-light p-6 rounded-md">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-user-md text-blue-700"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-semibold">Иван Сидоров</h4>
-                            <p class="text-sm text-gray-600">Преподаватель</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600">"Использую материалы сайта для подготовки к занятиям. Отличная структура и глубина подачи материала."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="academic-bg text-white py-16 math-pattern">
-        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold mb-6 serif">Начните системное изучение математики</h2>
-            <p class="text-lg mb-8 text-blue-100">
-                Присоединяйтесь к академическому сообществу, ценящему точность и глубину понимания
+          <div class="program-content">
+            <p>Фундаментальные знания, необходимые для дальнейшего изучения. Подробные объяснения с множеством примеров.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="btn-primary px-8 py-4 rounded-md font-semibold text-lg">
-                    <i class="fas fa-user-graduate mr-2"></i> Начать обучение
-                </button>
-                <button class="btn-secondary border-white text-white hover:bg-white/10 px-8 py-4 rounded-md font-semibold text-lg">
-                    <i class="fas fa-book-open mr-2"></i> Учебные программы
-                </button>
-            </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <div class="text-xl font-bold mb-4 serif">
-                        <i class="fas fa-square-root-alt mr-2 text-blue-400"></i>Математика с нуля
-                    </div>
-                    <p class="text-gray-400 mb-4 text-sm">
-                        Академическая платформа для системного изучения математики
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-vk"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="font-semibold mb-4 text-gray-200">Обучение</h3>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white">Базовый курс</a></li>
-                        <li><a href="#" class="hover:text-white">Высшая математика</a></li>
-                        <li><a href="#" class="hover:text-white">Специализации</a></li>
-                        <li><a href="#" class="hover:text-white">Подготовка к экзаменам</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="font-semibold mb-4 text-gray-200">Ресурсы</h3>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white">Калькуляторы</a></li>
-                        <li><a href="#" class="hover:text-white">Справочники</a></li>
-                        <li><a href="#" class="hover:text-white">Задачники</a></li>
-                        <li><a href="#" class="hover:text-white">Визуализации</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="font-semibold mb-4 text-gray-200">Поддержка</h3>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white">Помощь</a></li>
-                        <li><a href="#" class="hover:text-white">Сообщество</a></li>
-                        <li><a href="#" class="hover:text-white">Контакты</a></li>
-                        <li><a href="#" class="hover:text-white">Для преподавателей</a></li>
-                    </ul>
-                </div>
+          <div class="program-levels">
+            <div class="level">
+              <span class="level-name">Арифметика и основы</span>
+              <span class="level-classes">1-4 классы</span>
             </div>
-            
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-                <p>&copy; 2024 Математика с нуля. Академический подход к изучению математики.</p>
-            </div>
-        </div>
-    </footer>
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+            <div class="level">
+              <span class="level-name">Алгебра и геометрия</span>
+              <span class="level-classes">5-9 классы</span>
+            </div>
+
+            <div class="level">
+              <span class="level-name">Математический анализ</span>
+              <span class="level-classes">10-11 классы</span>
+            </div>
+          </div>
+
+          <a href="#" class="btn btn-primary">Изучить основы</a>
+        </div>
+
+        <div class="program-card">
+          <div class="program-header">
+            <div class="program-icon">
+              <i class="fas fa-infinity"></i>
+            </div>
+            <h3>Высшая математика</h3>
+          </div>
+
+          <div class="program-content">
+            <p>Продвинутые разделы для углубленного изучения. Полные курсы университетского уровня.</p>
+          </div>
+
+          <div class="program-levels">
+            <div class="level">
+              <span class="level-name">Математический анализ</span>
+            </div>
+
+            <div class="level">
+              <span class="level-name">Линейная алгебра</span>
+            </div>
+
+            <div class="level">
+              <span class="level-name">Дифференциальные уравнения</span>
+            </div>
+
+            <div class="level">
+              <span class="level-name">Теория вероятностей</span>
+            </div>
+          </div>
+
+          <a href="#" class="btn btn-primary">Изучить высшую математику</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Mobile menu functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const navLinks = document.querySelector('.nav-links');
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function () {
+          navLinks.classList.toggle('active');
+        });
+      }
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function (event) {
+        if (!event.target.closest('nav') && navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>
