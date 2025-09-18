@@ -4,172 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Математика с нуля - от основ до высшей математики</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Source+Serif+Pro:wght@400;600;700&display=swap');
-        
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #4f46e5;
-            --accent: #f59e0b;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --text: #334155;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            color: var(--text);
-            background-color: #f9fafb;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Source Serif Pro', serif;
-            color: var(--dark);
-        }
-        
-        .serif {
-            font-family: 'Source Serif Pro', serif;
-        }
-        
-        .academic-bg {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            border-color: #cbd5e0;
-        }
-        
-        .nav-item {
-            transition: all 0.2s ease;
-            position: relative;
-        }
-        
-        .nav-item:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-item:hover:after {
-            width: 100%;
-        }
-        
-        .dropdown {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-        
-        .dropdown-parent:hover .dropdown {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .math-pattern {
-            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-        
-        .formula-badge {
-            font-family: 'Source Serif Pro', serif;
-            background: #f7fafc;
-            border: 1px solid #e2e8f0;
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-        
-        .theorem {
-            border-left: 4px solid var(--primary);
-            background: #f7fafc;
-            padding: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .theorem-title {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-        
-        .text-primary {
-            color: var(--primary);
-        }
-        
-        .bg-light {
-            background-color: var(--light);
-        }
-        
-        .section-title {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 2rem;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            width: 60%;
-            height: 3px;
-            background: var(--primary);
-            bottom: -10px;
-            left: 0;
-            border-radius: 3px;
-        }
-        
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(37, 99, 235, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-    </style>
 </head>
 <body>
     <!-- Header -->
@@ -428,8 +264,34 @@
         </div>
     </section>
 
+    <!-- Practice Section with Problems -->
+    <section class="py-16 bg-white" id="practice-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4 serif section-title">Практические задания</h2>
+                <p class="text-lg text-gray-600">Проверьте свои знания с помощью интерактивных задач</p>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800">Выберите раздел:</h3>
+                <div class="flex flex-wrap gap-2">
+                    <button class="problem-category-btn active" data-category="all">Все разделы</button>
+                    <button class="problem-category-btn" data-category="arithmetic">Арифметика</button>
+                    <button class="problem-category-btn" data-category="algebra">Алгебра</button>
+                    <button class="problem-category-btn" data-category="geometry">Геометрия</button>
+                    <button class="problem-category-btn" data-category="calculus">Матанализ</button>
+                    <button class="problem-category-btn" data-category="probability">Теория вероятностей</button>
+                </div>
+            </div>
+            
+            <div id="problems-container" class="grid md:grid-cols-2 gap-6">
+                <!-- Problems will be loaded dynamically from JavaScript -->
+            </div>
+        </div>
+    </section>
+
     <!-- Content Section -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-light">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold mb-4 serif section-title">Подробные учебные материалы</h2>
@@ -474,14 +336,14 @@
     </section>
 
     <!-- Theorem example -->
-    <section class="py-16 bg-light">
+    <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold mb-4 serif section-title">Математическая строгость</h2>
                 <p class="text-lg text-gray-600">Изучайте математику через доказательства и теоремы</p>
             </div>
             
-            <div class="bg-white p-8 rounded-md shadow-sm">
+            <div class="bg-light p-8 rounded-md shadow-sm">
                 <div class="theorem">
                     <div class="theorem-title">Основная теорема алгебры</div>
                     <p>Всякий отличный от константы многочлен с комплексными коэффициентами имеет по крайней мере один комплексный корень.</p>
@@ -505,7 +367,7 @@
     </section>
 
     <!-- Tools Section -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-light">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold mb-4 serif section-title">Математические инструменты</h2>
@@ -541,7 +403,7 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="py-16 bg-light">
+    <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold mb-4 serif section-title">Отзывы учащихся</h2>
@@ -549,7 +411,7 @@
             </div>
             
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="card-hover bg-white p-6 rounded-md">
+                <div class="card-hover bg-light p-6 rounded-md">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                             <i class="fas fa-user-graduate text-blue-700"></i>
@@ -562,7 +424,7 @@
                     <p class="text-gray-600">"Благодаря этим материалам я наконец-то понял матанализ. Объяснения очень четкие и последовательные."</p>
                 </div>
                 
-                <div class="card-hover bg-white p-6 rounded-md">
+                <div class="card-hover bg-light p-6 rounded-md">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                             <i class="fas fa-user-tie text-blue-700"></i>
@@ -575,7 +437,7 @@
                     <p class="text-gray-600">"Как инженер, я часто сталкиваюсь с сложными вычислениями. Этот ресурс помог мне освежить знания и понять новые концепции."</p>
                 </div>
                 
-                <div class="card-hover bg-white p-6 rounded-md">
+                <div class="card-hover bg-light p-6 rounded-md">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                             <i class="fas fa-user-md text-blue-700"></i>
@@ -664,24 +526,7 @@
         </div>
     </footer>
 
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Add scroll effect to header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.classList.add('shadow-md');
-            } else {
-                header.classList.remove('shadow-md');
-            }
-        });
-    </script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
