@@ -199,22 +199,15 @@
             </button>
           </div>
 
-          <div class="bg-white rounded-xl p-6 shadow-lg card-hover opacity-50">
+          <div class="bg-white rounded-xl p-6 shadow-lg card-hover" onclick="showHigherMath()">
             <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
               <span class="text-blue-600 text-xl">🎓</span>
             </div>
             <h3 class="text-xl font-semibold text-gray-800 mb-2">Высшая математика</h3>
-            <p class="text-gray-600 mb-4">Математический анализ, линейная алгебра</p>
-            <span class="text-gray-400 font-medium">Скоро доступно</span>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 shadow-lg card-hover opacity-50">
-            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-              <span class="text-purple-600 text-xl">📊</span>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Статистика и вероятность</h3>
-            <p class="text-gray-600 mb-4">Теория вероятностей и математическая статистика</p>
-            <span class="text-gray-400 font-medium">Скоро доступно</span>
+            <p class="text-gray-600 mb-4">Математический анализ, линейная алгебра, дифференциальные уравнения</p>
+            <button class="text-blue-600 font-medium hover:text-blue-700">
+              Начать изучение →
+            </button>
           </div>
         </div>
 
@@ -336,6 +329,125 @@
         </div>
       </div>
 
+      <!-- Добавляем контент для высшей математики -->
+      <div id="higherMathContent" class="hidden">
+        <div class="mb-8">
+          <button onclick="showHome()" class="text-blue-600 hover:text-blue-700 mb-4 flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Назад к разделам
+          </button>
+          <h2 class="text-3xl font-bold text-gray-800 mb-2">Высшая математика</h2>
+          <p class="text-gray-600">Выберите тему для изучения</p>
+        </div>
+
+        <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-white rounded-xl p-6 shadow-lg topic-card border-l-blue-500 cursor-pointer"
+            onclick="showHigherMathTopic('calculus')">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">Математический анализ</h3>
+                <p class="text-gray-600 text-sm">Пределы, производные, интегралы</p>
+              </div>
+              <span class="text-3xl text-blue-500">∫</span>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+              <div class="flex space-x-2">
+                <span class="difficulty-badge bg-green-100 text-green-800">Лёгкий</span>
+                <span class="difficulty-badge bg-yellow-100 text-yellow-800">Средний</span>
+                <span class="difficulty-badge bg-red-100 text-red-800">Сложный</span>
+              </div>
+              <span class="text-xs text-gray-500">30+ вопросов</span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg topic-card border-l-green-500 cursor-pointer"
+            onclick="showHigherMathTopic('linear_algebra')">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">Линейная алгебра</h3>
+                <p class="text-gray-600 text-sm">Матрицы, векторы, системы уравнений</p>
+              </div>
+              <span class="text-3xl text-green-500">⎡</span>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+              <div class="flex space-x-2">
+                <span class="difficulty-badge bg-green-100 text-green-800">Лёгкий</span>
+                <span class="difficulty-badge bg-yellow-100 text-yellow-800">Средний</span>
+                <span class="difficulty-badge bg-red-100 text-red-800">Сложный</span>
+              </div>
+              <span class="text-xs text-gray-500">30+ вопросов</span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg topic-card border-l-purple-500 cursor-pointer"
+            onclick="showHigherMathTopic('diff_equations')">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">Дифференциальные уравнения</h3>
+                <p class="text-gray-600 text-sm">ОДУ, системы уравнений</p>
+              </div>
+              <span class="text-3xl text-purple-500">∂</span>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+              <div class="flex space-x-2">
+                <span class="difficulty-badge bg-green-100 text-green-800">Лёгкий</span>
+                <span class="difficulty-badge bg-yellow-100 text-yellow-800">Средний</span>
+                <span class="difficulty-badge bg-red-100 text-red-800">Сложный</span>
+              </div>
+              <span class="text-xs text-gray-500">30+ вопросов</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Выбор уровня сложности для высшей математики -->
+      <div id="higherMathLevelSelectionContent" class="hidden">
+        <div class="mb-8">
+          <button onclick="showHigherMath()" class="text-blue-600 hover:text-blue-700 mb-4 flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Назад к темам
+          </button>
+          <h2 id="higherMathLevelTopicTitle" class="text-3xl font-bold text-gray-800 mb-2"></h2>
+          <p class="text-gray-600">Выберите уровень сложности</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+          <div class="level-selector bg-white rounded-xl p-6 shadow-lg text-center cursor-pointer" data-level="easy"
+            onclick="selectHigherMathLevel('easy')">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-green-600 text-2xl"><i class="fas fa-seedling"></i></span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Лёгкий уровень</h3>
+            <p class="text-gray-600 text-sm mb-4">Базовые понятия и простые задачи для начинающих</p>
+            <span class="text-xs text-gray-500">10 случайных вопросов из 15+</span>
+          </div>
+
+          <div class="level-selector bg-white rounded-xl p-6 shadow-lg text-center cursor-pointer" data-level="medium"
+            onclick="selectHigherMathLevel('medium')">
+            <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-yellow-600 text-2xl"><i class="fas fa-mountain"></i></span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Средний уровень</h3>
+            <p class="text-gray-600 text-sm mb-4">Задачи средней сложности для продолжающих изучение</p>
+            <span class="text-xs text-gray-500">10 случайных вопросов из 15+</span>
+          </div>
+
+          <div class="level-selector bg-white rounded-xl p-6 shadow-lg text-center cursor-pointer" data-level="hard"
+            onclick="selectHigherMathLevel('hard')">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-red-600 text-2xl"><i class="fas fa-fire"></i></span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Сложный уровень</h3>
+            <p class="text-gray-600 text-sm mb-4">Сложные задачи для продвинутых учащихся</p>
+            <span class="text-xs text-gray-500">10 случайных вопросов из 15+</span>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 rounded-xl p-6">
+          <h4 class="font-semibold text-blue-800 mb-2 flex items-center"><i class="fas fa-lightbulb mr-2"></i> Совет
+          </h4>
+          <p class="text-blue-700 text-sm">Если вы только начинаете изучать тему, рекомендуем начать с лёгкого уровня и
+            постепенно переходить к более сложным заданиям.</p>
+        </div>
+      </div>
       <!-- Выбор уровня сложности -->
       <div id="levelSelectionContent" class="hidden">
         <div class="mb-8">
@@ -751,532 +863,808 @@
             { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
             { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
             { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
-            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 }
-          ]
-        }
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+            { question: 'Найдите значение: \\(\\dfrac{3^{5}}{3^{2}} + \\dfrac{2^{4}}{2^{2}}\\)', options: ['31', '32', '33', '34'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{6!}{4! \\times 2!}\\)', options: ['10', '12', '15', '20'], correct: 1 },
+            { question: 'Чему равно \\(1 + 2 + 3 + \\dots + 20\\)', options: ['190', '200', '210', '220'], correct: 2 },
+            { question: 'Вычислите: \\(2^{6} - 4^{3} + 5^{2}\\)', options: ['57', '61', '65', '69'], correct: 1 },
+            { question: 'Решите: \\(200 - \\dfrac{(18 - 10)^{2}}{4}\\)', options: ['180', '184', '188', '192'], correct: 2 },
+            { question: 'Найдите значение: \\(10^{3} - 9^{3}\\)', options: ['217', '271', '341', '370'], correct: 0 },
+            { question: 'Чему равно \\(1^{2} + 2^{2} + 3^{2} + \\dots + 6^{2}\\)?', options: ['84', '85', '86', '87'], correct: 2 },
+            { question: 'Вычислите: \\((15 \\times 14) - (13 \\times 16)\\)', options: ['4', '6', '8', '10'], correct: 1 },
+            { question: 'Решите: \\(512 \\div 16 \\times 2 \\div 4\\)', options: ['14', '16', '18', '20'], correct: 1 },
+            { question: 'Найдите значение: \\(101^{2} - 99^{2}\\)', options: ['396', '400', '404', '408'], correct: 1 },
+            { question: 'Чему равно \\(\\dfrac{12!}{10!}\\)?', options: ['120', '132', '144', '156'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt[3]{125} \\times \\sqrt{144}\\)', options: ['50', '55', '60', '65'], correct: 2 },
+            { question: 'Решите: \\(\\dfrac{7^{3} - 5^{3}}{7^{2} + 7\\times5 + 5^{2}}\\)', options: ['1', '2', '3', '4'], correct: 0 },
+            { question: 'Решите: \\(\\dfrac{6^{3} - 5^{3}}{6 - 5}\\)', options: ['91', '121', '151', '181'], correct: 0 },
+            { question: 'Вычислите: \\(\\sqrt{25^{2} - 24^{2}}\\)', options: ['6', '7', '8', '9'], correct: 2 },
+       }
       },
-      algebra: {
-        title: 'Алгебра',
-        description: 'Работа с переменными и уравнениями',
+
+      questions: {
+        easy: [
+          { question: 'Найдите предел: \\( \\lim_{x \\to 2} (3x + 1) \\)', options: ['5', '6', '7', '8'], correct: 2 },
+          { question: 'Чему равна производная функции \\( f(x) = x^3 \\)?', options: ['\\( 2x^2 \\)', '\\( 3x^2 \\)', '\\( 3x \\)', '\\( x^2 \\)'], correct: 1 },
+          { question: 'Найдите интеграл: \\( \\int 2x \\, dx \\)', options: ['\\( x^2 + C \\)', '\\( 2x^2 + C \\)', '\\( x^2 \\)', '\\( 2x + C \\)'], correct: 0 },
+          { question: 'Чему равен предел \\( \\lim_{x \\to 0} \\frac{\\sin x}{x} \\)?', options: ['0', '1', '2', 'Не существует'], correct: 1 },
+          { question: 'Найдите производную функции \\( f(x) = \\cos x \\)', options: ['\\( \\sin x \\)', '\\( -\\sin x \\)', '\\( -\\cos x \\)', '\\( \\cos x \\)'], correct: 1 },
+          { question: 'Чему равен \\( \\int e^x \\, dx \\)?', options: ['\\( e^x + C \\)', '\\( xe^x + C \\)', '\\( e^{x+1} + C \\)', '\\( \\ln x + C \\)'], correct: 0 },
+          { question: 'Найдите предел: \\( \\lim_{x \\to \\infty} \\frac{1}{x} \\)', options: ['0', '1', '∞', 'Не существует'], correct: 0 },
+          { question: 'Чему равна производная функции \\( f(x) = \\ln x \\)?', options: ['\\( \\frac{1}{x} \\)', '\\( x \\)', '\\( e^x \\)', '\\( \\frac{1}{x^2} \\)'], correct: 0 },
+          { question: 'Найдите интеграл: \\( \\int \\frac{1}{x} \\, dx \\)', options: ['\\( \\ln |x| + C \\)', '\\( \\frac{1}{x^2} + C \\)', '\\( x \\ln x + C \\)', '\\( e^x + C \\)'], correct: 0 },
+          { question: 'Чему равен предел \\( \\lim_{x \\to 0} \\frac{e^x - 1}{x} \\)?', options: ['0', '1', 'e', 'Не существует'], correct: 1 }
+        ],
+        medium: [
+          { question: 'Найдите производную функции \\( f(x) = x^2 e^x \\)', options: ['\\( e^x(2x + x^2) \\)', '\\( 2x e^x \\)', '\\( x^2 e^x \\)', '\\( e^x(2x) \\)'], correct: 0 },
+          { question: 'Вычислите интеграл: \\( \\int x \\cos x \\, dx \\)', options: ['\\( x \\sin x + \\cos x + C \\)', '\\( x \\sin x - \\cos x + C \\)', '\\( \\sin x + x \\cos x + C \\)', '\\( \\sin x - x \\cos x + C \\)'], correct: 0 },
+          { question: 'Найдите предел: \\( \\lim_{x \\to 0} \\frac{\\tan x}{x} \\)', options: ['0', '1', '2', 'Не существует'], correct: 1 },
+          { question: 'Чему равна производная функции \\( f(x) = \\ln(\\sin x) \\)?', options: ['\\( \\cot x \\)', '\\( \\tan x \\)', '\\( \\frac{1}{\\sin x} \\)', '\\( \\cos x \\)'], correct: 0 },
+          { question: 'Вычислите интеграл: \\( \\int \\frac{1}{x^2 + 1} \\, dx \\)', options: ['\\( \\arctan x + C \\)', '\\( \\arcsin x + C \\)', '\\( \\ln(x^2 + 1) + C \\)', '\\( \\frac{1}{2} \\ln(x^2 + 1) + C \\)'], correct: 0 },
+          { question: 'Найдите производную функции \\( f(x) = \\sin(2x) \\)', options: ['\\( 2 \\cos(2x) \\)', '\\( \\cos(2x) \\)', '\\( 2 \\sin x \\cos x \\)', '\\( \\sin(2x) \\)'], correct: 0 },
+          { question: 'Вычислите интеграл: \\( \\int e^{2x} \\, dx \\)', options: ['\\( \\frac{1}{2} e^{2x} + C \\)', '\\( 2 e^{2x} + C \\)', '\\( e^{2x} + C \\)', '\\( \\frac{1}{2} e^{x} + C \\)'], correct: 0 },
+          { question: 'Найдите предел: \\( \\lim_{x \\to 0} (1 + x)^{1/x} \\)', options: ['0', '1', 'e', '∞'], correct: 2 },
+          { question: 'Чему равна производная функции \\( f(x) = \\sqrt{x} \\)?', options: ['\\( \\frac{1}{2\\sqrt{x}} \\)', '\\( \\frac{1}{\\sqrt{x}} \\)', '\\( 2\\sqrt{x} \\)', '\\( \\sqrt{x} \\)'], correct: 0 },
+          { question: 'Вычислите интеграл: \\( \\int \\sin x \\cos x \\, dx \\)', options: ['\\( \\frac{1}{2} \\sin^2 x + C \\)', '\\( \\frac{1}{2} \\cos^2 x + C \\)', '\\( -\\frac{1}{2} \\cos 2x + C \\)', '\\( \\sin^2 x + C \\)'], correct: 0 }
+        ],
+        hard: [
+          { question: 'Найдите производную функции \\( f(x) = x^x \\)', options: ['\\( x^x(\\ln x + 1) \\)', '\\( x^{x-1} \\)', '\\( x^x \\ln x \\)', '\\( x^x(\\ln x) \\)'], correct: 0 },
+          { question: 'Вычислите интеграл: \\( \\int \\frac{dx}{x^2 - 4} \\)', options: ['\\( \\frac{1}{4} \\ln \\left| \\frac{x-2}{x+2} \\right| + C \\)', '\\( \\frac{1}{2} \\ln |x^2 - 4| + C \\)', '\\( \\ln |x^2 - 4| + C \\)', '\\( \\frac{1}{4} \\ln |x^2 - 4| + C \\)'], correct: 0 },
+          { question: 'Найдите предел: \\( \\lim_{x \\to 0} \\frac{\\ln(1 + x)}{x} \\)', options: ['0', '1', 'e', '∞'], correct: 1 },
+          { question: 'Чему равна производная функции \\( f(x) = \\arcsin x \\)?', options: ['\\( \\frac{1}{\\sqrt{1 - x^2}} \\)', '\\( \\frac{1}{\\sqrt{1 + x^2}} \\)', '\\( \\frac{1}{1 - x^2} \\)', '\\( \\frac{1}{1 + x^2} \\)'], correct: 0 },
+          { question: 'Вычислите интеграл: \\( \\int x^2 e^x \\, dx \\)', options: ['\\( e^x(x^2 - 2x + 2) + C \\)', '\\( e^x(x^2 + 2x + 2) + C \\)', '\\( e^x(x^2 - 2x) + C \\)', '\\( e^x(x^2 + 2) + C \\)'], correct: 0 },
+          { question: 'Найдите производную функции \\( f(x) = \\tan^{-1} x \\)', options: ['\\( \\frac{1}{1 + x^2} \\)', '\\( \\frac{1}{\\sqrt{1 + x^2}} \\)', '\\( \\frac{1}{1 - x^2} \\)', '\\( \\frac{1}{\\sqrt{1 - x^2}} \\)'], correct: 0 },
+          { question: 'Вычислите интеграл: \\( \\int \\frac{dx}{\\sqrt{4 - x^2}} \\)', options: ['\\( \\arcsin\\frac{x}{2} + C \\)', '\\( \\arccos\\frac{x}{2} + C \\)', '\\( \\frac{1}{2} \\arcsin x + C \\)', '\\( \\ln|\\sqrt{4 - x^2} + x| + C \\)'], correct: 0 },
+          { question: 'Найдите предел: \\( \\lim_{x \\to 0} \\frac{e^x - e^{-x}}{x} \\)', options: ['0', '1', '2', 'Не существует'], correct: 2 },
+          { question: 'Чему равна производная функции \\( f(x) = \\sinh x \\)?', options: ['\\( \\cosh x \\)', '\\( -\\cosh x \\)', '\\( \\sinh x \\)', '\\( -\\sinh x \\)'], correct: 0 },
+          { question: 'Вычислите интеграл: \\( \\int \\ln x \\, dx \\)', options: ['\\( x \\ln x - x + C \\)', '\\( \\frac{1}{x} + C \\)', '\\( x \\ln x + C \\)', '\\( \\frac{\\ln^2 x}{2} + C \\)'], correct: 0 }
+        ]
+    },
+      linear_algebra: {
+        title: 'Линейная алгебра',
+        description: 'Матрицы, векторы и системы линейных уравнений',
         theory: {
           easy: `
-            <h4 class="text-lg font-semibold mb-3">Основы алгебры</h4>
-            <p class="mb-4">Алгебра изучает общие свойства чисел и действий над ними с помощью буквенных обозначений.</p>
-            
-            <h5 class="font-semibold mb-2">Переменные и выражения:</h5>
-            <ul class="list-disc pl-6 mb-4">
-                <li><strong>Переменная</strong> — буква, обозначающая неизвестное число</li>
-                <li><strong>Выражение</strong> — комбинация чисел, переменных и операций</li>
-                <li><strong>Уравнение</strong> — равенство с неизвестными</li>
-            </ul>
-            
-            <div class="bg-green-50 p-4 rounded-lg">
-                <h5 class="font-semibold mb-2">Пример решения уравнения:</h5>
-                <p>\\(x + 5 = 12\\)</p>
-                <p>\\(x = 12 - 5\\)</p>
-                <p>\\(x = 7\\)</p>
-            </div>
-          `,
+        <h4 class="text-lg font-semibold mb-3">Основы линейной алгебры</h4>
+        <p class="mb-4">Линейная алгебра изучает векторы, матрицы и линейные преобразования.</p>
+        
+        <h5 class="font-semibold mb-2">Основные понятия:</h5>
+        <ul class="list-disc pl-6 mb-4">
+          <li><strong>Вектор</strong> — величина, имеющая направление и модуль</li>
+          <li><strong>Матрица</strong> — прямоугольная таблица чисел</li>
+          <li><strong>Определитель</strong> — скалярная характеристика квадратной матрицы</li>
+        </ul>
+        
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <h5 class="font-semibold mb-2">Пример умножения матриц:</h5>
+          <p>Если \\( A = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix} \\) и \\( B = \\begin{bmatrix} 5 & 6 \\\\ 7 & 8 \\end{bmatrix} \\)</p>
+          <p>То \\( AB = \\begin{bmatrix} 1*5+2*7 & 1*6+2*8 \\\\ 3*5+4*7 & 3*6+4*8 \\end{bmatrix} = \\begin{bmatrix} 19 & 22 \\\\ 43 & 50 \\end{bmatrix} \\)</p>
+        </div>
+      `,
           medium: `
-            <h4 class="text-lg font-semibold mb-3">Алгебра среднего уровня</h4>
-            <p class="mb-4">На среднем уровне изучаются системы уравнений, квадратные уравнения и более сложные алгебраические выражения.</p>
-            
-            <h5 class="font-semibold mb-2">Квадратные уравнения:</h5>
-            <p class="mb-2">Уравнение вида \\(ax² + bx + c = 0\\), где \\(a ≠ 0\\)</p>
-            <p>Решается через дискриминант: \\(D = b² - 4ac\\)</p>
-            <p class="mb-2">Корни уравнения: \\(x = \\dfrac{-b \\pm \\sqrt{D}}{2a}\\)</p>
-            
-            <div class="bg-yellow-50 p-4 rounded-lg">
-                <h5 class="font-semibold mb-2">Пример:</h5>
-                <p>Решите: \\(x² - 5x + 6 = 0\\)</p>
-                <p>\\(D = (-5)² - 4×1×6 = 25 - 24 = 1\\)</p>
-                <p>\\(x = \\dfrac{5 \\pm 1}{2}\\)</p>
-                <p>\\(x₁ = 3, x₂ = 2\\)</p>
-            </div>
-          `,
+        <h4 class="text-lg font-semibold mb-3">Линейная алгебра среднего уровня</h4>
+        <p class="mb-4">На среднем уровне изучаются свойства векторных пространств и линейные преобразования.</p>
+        
+        <h5 class="font-semibold mb-2">Собственные значения и векторы:</h5>
+        <p>Для матрицы A, ненулевой вектор v называется собственным вектором, если:</p>
+        <p class="mb-2">\\( A\\mathbf{v} = \\lambda\\mathbf{v} \\)</p>
+        <p>где λ — собственное значение.</p>
+        
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h5 class="font-semibold mb-2">Пример:</h5>
+          <p>Найдите собственные значения матрицы \\( A = \\begin{bmatrix} 2 & 1 \\\\ 1 & 2 \\end{bmatrix} \\)</p>
+          <p>Решение: \\( \\det(A - \\lambda I) = \\det\\begin{bmatrix} 2-\\lambda & 1 \\\\ 1 & 2-\\lambda \\end{bmatrix} = (2-\\lambda)^2 - 1 = 0 \\)</p>
+          <p>\\( \\lambda^2 - 4\\lambda + 3 = 0 \\), \\( \\lambda_1 = 1, \\lambda_2 = 3 \\)</p>
+        </div>
+      `,
           hard: `
-            <h4 class="text-lg font-semibold mb-3">Сложная алгебра</h4>
-            <p class="mb-4">На сложном уровне рассматриваются системы уравнений с несколькими переменными, неравенства и сложные алгебраические преобразования.</p>
-            
-            <h5 class="font-semibold mb-2">Системы уравнений:</h5>
-            <p>Методы решения:</p>
-            <ul class="list-disc pl-6 mb-4">
-                <li>Метод подстановки</li>
-                <li>Метод сложения</li>
-                <li>Графический метод</li>
-            </ul>
-            
-            <div class="bg-red-50 p-4 rounded-lg">
-                <h5 class="font-semibold mb-2">Пример системы:</h5>
-                <p>\\(2x + y = 10\\)</p>
-                <p>\\(x - y = 2\\)</p>
-                <p>Сложим уравнения: \\(3x = 12 \\Rightarrow x = 4\\)</p>
-                <p>Подставим: \\(4 - y = 2 \\Rightarrow y = 2\\)</p>
-                <p>Ответ: \\((4, 2)\\)</p>
-            </div>
-          `
+        <h4 class="text-lg font-semibold mb-3">Сложная линейная алгебра</h4>
+        <p class="mb-4">На сложном уровне рассматриваются ортогональные преобразования, квадратичные формы и сингулярное разложение.</p>
+        
+        <h5 class="font-semibold mb-2">Сингулярное разложение (SVD):</h5>
+        <p>Любая матрица A размера m×n может быть представлена в виде:</p>
+        <p class="mb-2">\\( A = U\\Sigma V^T \\)</p>
+        <p>где U и V — ортогональные матрицы, Σ — диагональная матрица с сингулярными значениями.</p>
+        
+        <div class="bg-purple-50 p-4 rounded-lg">
+          <h5 class="font-semibold mb-2">Пример:</h5>
+          <p>Найдите сингулярное разложение матрицы \\( A = \\begin{bmatrix} 3 & 0 \\\\ 0 & -2 \\end{bmatrix} \\)</p>
+          <p>Решение: \\( A = \\begin{bmatrix} 1 & 0 \\\\ 0 & -1 \\end{bmatrix} \\begin{bmatrix} 3 & 0 \\\\ 0 & 2 \\end{bmatrix} \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} \\)</p>
+        </div>
+      `
         },
         questions: {
           easy: [
-            { question: 'Решите: \\(x + 12 = 25\\)', options: ['11', '12', '13', '14'], correct: 2 },
-            { question: 'Чему равно \\(x\\) в уравнении \\(4x = 36\\)?', options: ['8', '9', '10', '11'], correct: 1 },
-            { question: 'Найдите значение выражения \\(2a - b\\) при \\(a = 7, b = 3\\)', options: ['11', '12', '13', '14'], correct: 0 },
-            { question: 'Упростите: \\(3(x - 2) + 5\\)', options: ['\\(3x - 1\\)', '\\(3x + 1\\)', '\\(3x - 6\\)', '\\(3x + 6\\)'], correct: 0 },
-            { question: 'Решите: \\(7x = 63\\)', options: ['8', '9', '10', '11'], correct: 1 },
-            { question: 'Найдите \\(x\\): \\(x - 9 = 14\\)', options: ['22', '23', '24', '25'], correct: 1 },
-            { question: 'Чему равно \\(y\\) в уравнении \\(\\frac{y}{5} = 8\\)?', options: ['35', '38', '40', '42'], correct: 2 },
-            { question: 'Решите: \\(4x + 7 = 31\\)', options: ['5', '6', '7', '8'], correct: 1 },
-            { question: 'Упростите: \\(5(b + 3) - 2b\\)', options: ['\\(3b + 15\\)', '\\(3b + 3\\)', '\\(3b + 10\\)', '\\(3b + 5\\)'], correct: 0 },
-            { question: 'Решите: \\(x + 17 = 30\\)', options: ['12', '13', '14', '15'], correct: 1 },
-            { question: 'Чему равно \\(x\\) в уравнении \\(6x = 54\\)?', options: ['8', '9', '10', '11'], correct: 1 },
-            { question: 'Найдите значение выражения \\(4a + 3b\\) при \\(a = 2, b = 5\\)', options: ['21', '22', '23', '24'], correct: 2 },
-            { question: 'Упростите: \\(2(x + 5) - 3x\\)', options: ['\\(-x + 10\\)', '\\(-x - 10\\)', '\\(5x + 10\\)', '\\(5x - 10\\)'], correct: 0 },
-            { question: 'Решите: \\(8x = 72\\)', options: ['8', '9', '10', '11'], correct: 1 },
-            { question: 'Найдите \\(x\\): \\(x - 11 = 19\\)', options: ['28', '29', '30', '31'], correct: 2 },
-            { question: 'Чему равно \\(y\\) в уравнении \\(\\frac{y}{6} = 7\\)?', options: ['40', '42', '44', '46'], correct: 1 },
-            { question: 'Решите: \\(5x + 8 = 33\\)', options: ['4', '5', '6', '7'], correct: 1 },
-            { question: 'Упростите: \\(3(c - 4) + 2c\\)', options: ['\\(5c - 12\\)', '\\(5c + 12\\)', '\\(c - 12\\)', '\\(c + 12\\)'], correct: 0 },
-            { question: 'Решите: \\(x + 23 = 40\\)', options: ['16', '17', '18', '19'], correct: 1 },
-            { question: 'Чему равно \\(x\\) в уравнении \\(9x = 81\\)?', options: ['8', '9', '10', '11'], correct: 1 },
-            { question: 'Найдите \\(x\\): \\(x + 8 = 15\\)', options: ['5', '6', '7', '8'], correct: 2 },
-            { question: 'Чему равно \\(x\\) в уравнении \\(3x = 21\\)?', options: ['6', '7', '8', '9'], correct: 1 },
-            { question: 'Решите: \\(2x - 4 = 10\\)', options: ['6', '7', '8', '9'], correct: 1 },
-            { question: 'Найдите значение выражения \\(3a + 2b\\) при \\(a = 4, b = 5\\)', options: ['20', '22', '24', '26'], correct: 1 },
-            { question: 'Упростите: \\(2(x + 3) - 4\\)', options: ['\\(2x + 2\\)', '\\(2x + 6\\)', '\\(2x - 1\\)', '\\(2x + 1\\)'], correct: 0 },
-            { question: 'Решите: \\(5x = 45\\)', options: ['5', '7', '9', '11'], correct: 2 },
-            { question: 'Найдите \\(x\\): \\(x - 7 = 12\\)', options: ['17', '18', '19', '20'], correct: 2 },
-            { question: 'Чему равно \\(y\\) в уравнении \\(\\frac{y}{4} = 5\\)?', options: ['15', '18', '20', '25'], correct: 2 },
-            { question: 'Решите: \\(3x + 5 = 20\\)', options: ['3', '4', '5', '6'], correct: 2 },
-            { question: 'Упростите: \\(4(a - 2) + 3a\\)', options: ['\\(7a - 8\\)', '\\(7a - 2\\)', '\\(7a + 8\\)', '\\(7a + 2\\)'], correct: 0 }
+            { question: 'Чему равен определитель матрицы \\( \\begin{bmatrix} 2 & 3 \\\\ 1 & 4 \\end{bmatrix} \\)?', options: ['5', '6', '7', '8'], correct: 0 },
+            { question: 'Что такое единичная матрица?', options: ['Матрица с 1 на главной диагонали', 'Матрица со всеми элементами 1', 'Матрица с определителем 1', 'Матрица с обратной матрицей'], correct: 0 },
+            { question: 'Чему равно произведение матриц \\( \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} \\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix} \\)?', options: ['\\( \\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 1 & 1 \\\\ 1 & 1 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 0 & 0 \\\\ 0 & 0 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} a & 0 \\\\ 0 & d \\end{bmatrix} \\)'], correct: 0 },
+            { question: 'Что такое транспонирование матрицы?', options: ['Замена строк столбцами', 'Умножение всех элементов на -1', 'Возведение матрицы в степень', 'Вычисление определителя'], correct: 0 },
+            { question: 'Чему равен след матрицы \\( \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix} \\)?', options: ['5', '6', '7', '8'], correct: 0 },
+            { question: 'Что такое обратная матрица?', options: ['Матрица, которая при умножении на исходную дает единичную', 'Матрица с противоположными знаками', 'Транспонированная матрица', 'Матрица с определителем 0'], correct: 0 },
+            { question: 'Чему равен определитель единичной матрицы 3x3?', options: ['1', '0', '3', '9'], correct: 0 },
+            { question: 'Что такое линейно зависимые векторы?', options: ['Векторы, которые можно выразить через друг друга', 'Векторы с одинаковым направлением', 'Векторы с разными длинами', 'Векторы, образующие базис'], correct: 0 },
+            { question: 'Чему равно скалярное произведение векторов (1,2) и (3,4)?', options: ['11', '10', '12', '13'], correct: 0 },
+            { question: 'Что такое ранг матрицы?', options: ['Максимальное число линейно независимых строк', 'Сумма всех элементов матрицы', 'Определитель матрицы', 'Количество столбцов матрицы'], correct: 0 }
           ],
           medium: [
-            { question: 'Решите: \\(x² + 4x + 3 = 0\\)', options: ['\\(x=-1; x=-3\\)', '\\(x=1; x=3\\)', '\\(x=-1; x=3\\)', '\\(x=1; x=-3\\)'], correct: 0 },
-            { question: 'Найдите корни уравнения: \\(3x² - 10x + 3 = 0\\)', options: ['\\(x=1/3; x=3\\)', '\\(x=1; x=3\\)', '\\(x=1/3; x=1\\)', '\\(x=2; x=3\\)'], correct: 0 },
-            { question: 'Решите систему: \\(2x + y = 7; x - y = 2\\)', options: ['\\(x=3, y=1\\)', '\\(x=2, y=3\\)', '\\(x=4, y=-1\\)', '\\(x=1, y=5\\)'], correct: 0 },
-            { question: 'Упростите: \\((2x+1)(x-3)\\)', options: ['\\(2x²-5x-3\\)', '\\(2x²+5x-3\\)', '\\(2x²-5x+3\\)', '\\(2x²+5x+3\\)'], correct: 0 },
-            { question: 'Решите неравенство: \\(3x - 7 > 8\\)', options: ['\\(x > 5\\)', '\\(x > 6\\)', '\\(x > 7\\)', '\\(x > 8\\)'], correct: 0 },
-            { question: 'Найдите дискриминант уравнения: \\(2x² - 5x + 2 = 0\\)', options: ['9', '8', '7', '6'], correct: 0 },
-            { question: 'Решите: \\(x² - 16 = 0\\)', options: ['\\(x=4; x=-4\\)', '\\(x=8; x=-8\\)', '\\(x=2; x=-2\\)', '\\(x=1; x=-1\\)'], correct: 0 },
-            { question: 'Упростите: \\((3x-2)²\\)', options: ['\\(9x²-12x+4\\)', '\\(9x²+12x+4\\)', '\\(9x²-12x-4\\)', '\\(9x²+12x-4\\)'], correct: 0 },
-            { question: 'Решите: \\(|2x-1| = 7\\)', options: ['\\(x=4; x=-3\\)', '\\(x=3; x=-4\\)', '\\(x=4; x=3\\)', '\\(x=-4; x=-3\\)'], correct: 0 },
-            { question: 'Найдите вершину параболы \\(y = x² + 6x + 5\\)', options: ['\\((-3, -4)\\)', '\\((3, -4)\\)', '\\((-3, 4)\\)', '\\((3, 4)\\)'], correct: 0 },
-            { question: 'Решите: \\(x² - 7x + 10 = 0\\)', options: ['\\(x=2; x=5\\)', '\\(x=-2; x=-5\\)', '\\(x=2; x=-5\\)', '\\(x=-2; x=5\\)'], correct: 0 },
-            { question: 'Найдите корни уравнения: \\(4x² - 12x + 9 = 0\\)', options: ['\\(x=1.5\\)', '\\(x=2; x=3\\)', '\\(x=1; x=2\\)', '\\(x=0.5; x=1.5\\)'], correct: 0 },
-            { question: 'Решите систему: \\(3x + 2y = 12; 2x - y = 1\\)', options: ['\\(x=2, y=3\\)', '\\(x=3, y=2\\)', '\\(x=1, y=4\\)', '\\(x=4, y=0\\)'], correct: 0 },
-            { question: 'Упростите: \\((x+4)(x-5)\\)', options: ['\\(x²-x-20\\)', '\\(x²+x-20\\)', '\\(x²-x+20\\)', '\\(x²+x+20\\)'], correct: 0 },
-            { question: 'Решите неравенство: \\(4x + 3 ≤ 15\\)', options: ['\\(x ≤ 3\\)', '\\(x ≤ 4\\)', '\\(x ≤ 5\\)', '\\(x ≤ 6\\)'], correct: 0 },
-            { question: 'Найдите дискриминант уравнения: \\(x² - 8x + 16 = 0\\)', options: ['0', '1', '2', '3'], correct: 0 },
-            { question: 'Решите: \\(x² - 25 = 0\\)', options: ['\\(x=5; x=-5\\)', '\\(x=10; x=-10\\)', '\\(x=2; x=-2\\)', '\\(x=1; x=-1\\)'], correct: 0 },
-            { question: 'Упростите: \\((4x+1)²\\)', options: ['\\(16x²+8x+1\\)', '\\(16x²-8x+1\\)', '\\(16x²+8x-1\\)', '\\(16x²-8x-1\\)'], correct: 0 },
-            { question: 'Решите: \\(|3x+2| = 8\\)', options: ['\\(x=2; x=-10/3\\)', '\\(x=-2; x=10/3\\)', '\\(x=2; x=10/3\\)', '\\(x=-2; x=-10/3\\)'], correct: 0 },
-            { question: 'Найдите вершину параболы \\(y = -x² + 4x - 3\\)', options: ['\\((2, 1)\\)', '\\((2, -1)\\)', '\\((1, 2)\\)', '\\((1, -2)\\)'], correct: 0 },
-            { question: 'Решите: \\(x² - 5x + 6 = 0\\)', options: ['\\(x=2; x=3\\)', '\\(x=1; x=6\\)', '\\(x=-2; x=-3\\)', '\\(x=2; x=-3\\)'], correct: 0 },
-            { question: 'Найдите корни уравнения: \\(2x² - 7x + 3 = 0\\)', options: ['\\(x=0.5; x=3\\)', '\\(x=1; x=1.5\\)', '\\(x=2; x=3\\)', '\\(x=1; x=3\\)'], correct: 0 },
-            { question: 'Решите систему: \\(x + y = 5; x - y = 1\\)', options: ['\\(x=3, y=2\\)', '\\(x=4, y=1\\)', '\\(x=2, y=3\\)', '\\(x=5, y=0\\)'], correct: 0 },
-            { question: 'Упростите: \\((x+3)(x-2)\\)', options: ['\\(x²+x-6\\)', '\\(x²-x-6\\)', '\\(x²+5x-6\\)', '\\(x²-5x+6\\)'], correct: 0 },
-            { question: 'Решите неравенство: \\(2x - 5 > 7\\)', options: ['\\(x > 6\\)', '\\(x > 7\\)', '\\(x > 8\\)', '\\(x > 9\\)'], correct: 0 },
-            { question: 'Найдите дискриминант уравнения: \\(3x² - 4x + 1 = 0\\)', options: ['4', '8', '12', '16'], correct: 0 },
-            { question: 'Решите: \\(x² - 9 = 0\\)', options: ['\\(x=3; x=-3\\)', '\\(x=9; x=-9\\)', '\\(x=0; x=9\\)', '\\(x=1; x=-9\\)'], correct: 0 },
-            { question: 'Упростите: \\((2x-3)²\\)', options: ['\\(4x²-12x+9\\)', '\\(4x²-6x+9\\)', '\\(4x²-12x-9\\)', '\\(4x²+12x+9\\)'], correct: 0 },
-            { question: 'Решите: \\(|x-3| = 5\\)', options: ['\\(x=8; x=-2\\)', '\\(x=8; x=2\\)', '\\(x=5; x=-5\\)', '\\(x=3; x=-3\\)'], correct: 0 },
-            { question: 'Найдите вершину параболы \\(y = x² - 4x + 3\\)', options: ['\\((2, -1)\\)', '\\((1, 0)\\)', '\\((4, 3)\\)', '\\((2, 1)\\)'], correct: 0 },
-            { question: 'Решите: \\(x² + 2x - 15 = 0\\)', options: ['\\(x=3; x=-5\\)', '\\(x=-3; x=5\\)', '\\(x=15; x=-1\\)', '\\(x=5; x=-5\\)'], correct: 0 },
-            { question: 'Найдите корни уравнения: \\(x² - 9x + 20 = 0\\)', options: ['\\(x=4; x=5\\)', '\\(x=2; x=10\\)', '\\(x=-4; x=-5\\)', '\\(x=1; x=20\\)'], correct: 0 },
-            { question: 'Решите систему: \\(x+y=10; x-y=2\\)', options: ['\\(x=6, y=4\\)', '\\(x=5, y=5\\)', '\\(x=4, y=6\\)', '\\(x=7, y=3\\)'], correct: 0 },
-            { question: 'Упростите: \\((x+2)(x+7)\\)', options: ['\\(x²+9x+14\\)', '\\(x²-9x+14\\)', '\\(x²+5x+14\\)', '\\(x²+7x+2\\)'], correct: 0 },
-            { question: 'Решите неравенство: \\(5x - 2 < 13\\)', options: ['\\(x < 3\\)', '\\(x < 4\\)', '\\(x < 5\\)', '\\(x < 6\\)'], correct: 0 },
-            { question: 'Найдите дискриминант: \\(x² - 6x + 5 = 0\\)', options: ['16', '20', '36', '25'], correct: 0 },
-            { question: 'Решите: \\(2x² - 18 = 0\\)', options: ['\\(x=3; x=-3\\)', '\\(x=9; x=-9\\)', '\\(x=18; x=-18\\)', '\\(x=2; x=-2\\)'], correct: 0 },
-            { question: 'Упростите: \\((x-5)²\\)', options: ['\\(x²-10x+25\\)', '\\(x²+10x+25\\)', '\\(x²-25\\)', '\\(x²+25\\)'], correct: 0 },
-            { question: 'Решите: \\(|x+4| = 6\\)', options: ['\\(x=2; x=-10\\)', '\\(x=-2; x=10\\)', '\\(x=6; x=-4\\)', '\\(x=4; x=-6\\)'], correct: 0 },
-            { question: 'Найдите вершину параболы: \\(y = x² - 2x - 3\\)', options: ['\\((1, -4)\\)', '\\((2, -3)\\)', '\\((-1, -4)\\)', '\\((1, -2)\\)'], correct: 0 },
-            { question: 'Решите: \\(3x² - 12x = 0\\)', options: ['\\(x=0; x=4\\)', '\\(x=0; x=-4\\)', '\\(x=3; x=-3\\)', '\\(x=2; x=-2\\)'], correct: 0 },
-            { question: 'Найдите корни уравнения: \\(x² - 2x - 8 = 0\\)', options: ['\\(x=4; x=-2\\)', '\\(x=-4; x=2\\)', '\\(x=8; x=-1\\)', '\\(x=2; x=-8\\)'], correct: 0 },
-            { question: 'Решите систему: \\(2x+y=9; 3x-y=6\\)', options: ['\\(x=3, y=3\\)', '\\(x=2, y=5\\)', '\\(x=1, y=7\\)', '\\(x=4, y=1\\)'], correct: 0 },
-            { question: 'Упростите: \\((x+1)(x-8)\\)', options: ['\\(x²-7x-8\\)', '\\(x²-7x+8\\)', '\\(x²+7x-8\\)', '\\(x²+7x+8\\)'], correct: 0 },
-            { question: 'Решите неравенство: \\(x² - 4 > 0\\)', options: ['\\(x<-2; x>2\\)', '\\(x>-2; x<2\\)', '\\(-2<x<2\\)', '\\(x=±2\\)'], correct: 0 },
-            { question: 'Найдите дискриминант: \\(2x²+3x-2=0\\)', options: ['25', '9', '17', '13'], correct: 0 },
-            { question: 'Решите: \\(x² - x - 6 = 0\\)', options: ['\\(x=3; x=-2\\)', '\\(x=-3; x=2\\)', '\\(x=6; x=-1\\)', '\\(x=1; x=-6\\)'], correct: 0 },
-            { question: 'Упростите: \\((2x+3)(x-4)\\)', options: ['\\(2x²-5x-12\\)', '\\(2x²+5x-12\\)', '\\(2x²-8x+3\\)', '\\(2x²+8x-3\\)'], correct: 0 },
-            { question: 'Решите: \\(|2x-3|=9\\)', options: ['\\(x=6; x=-3\\)', '\\(x=3; x=-6\\)', '\\(x=4; x=-2\\)', '\\(x=-4; x=2\\)'], correct: 0 },
-            { question: 'Найдите вершину параболы: \\(y=2x²-8x+6\\)', options: ['\\((2, -2)\\)', '\\((1, 0)\\)', '\\((2, 0)\\)', '\\((3, -3)\\)'], correct: 0 },
-            { question: 'Решите: \\(x²+12x+36=0\\)', options: ['\\(x=-6\\)', '\\(x=6\\)', '\\(x=±6\\)', '\\(x=0\\)'], correct: 0 },
-            { question: 'Найдите корни: \\(5x²-20x=0\\)', options: ['\\(x=0; x=4\\)', '\\(x=5; x=-4\\)', '\\(x=2; x=-2\\)', '\\(x=10; x=0\\)'], correct: 0 },
-            { question: 'Решите систему: \\(x+y=7; 2x-y=1\\)', options: ['\\(x=2, y=5\\)', '\\(x=3, y=4\\)', '\\(x=1, y=6\\)', '\\(x=4, y=3\\)'], correct: 0 },
-            { question: 'Упростите: \\((x-2)(x-9)\\)', options: ['\\(x²-11x+18\\)', '\\(x²+11x-18\\)', '\\(x²-7x+18\\)', '\\(x²+7x-18\\)'], correct: 0 },
-            { question: 'Решите неравенство: \\(7x+5 ≥ 26\\)', options: ['\\(x ≥ 3\\)', '\\(x ≥ 2\\)', '\\(x ≥ 4\\)', '\\(x ≥ 5\\)'], correct: 0 },
-            { question: 'Найдите дискриминант: \\(x²+10x+25=0\\)', options: ['0', '25', '50', '100'], correct: 0 },
-            { question: 'Решите: \\(x²-11x+28=0\\)', options: ['\\(x=7; x=4\\)', '\\(x=-7; x=-4\\)', '\\(x=28; x=-1\\)', '\\(x=1; x=-28\\)'], correct: 0 },
-            { question: 'Упростите: \\((3x+2)(x-5)\\)', options: ['\\(3x²-13x-10\\)', '\\(3x²-13x+10\\)', '\\(3x²+13x-10\\)', '\\(3x²+13x+10\\)'], correct: 0 },
-            { question: 'Решите: \\(|x+7|=2\\)', options: ['\\(x=-5; x=-9\\)', '\\(x=5; x=-9\\)', '\\(x=-5; x=9\\)', '\\(x=5; x=9\\)'], correct: 0 },
-            { question: 'Найдите вершину параболы: \\(y=-x²-6x-5\\)', options: ['\\((-3, 4)\\)', '\\((-3, -4)\\)', '\\((3, 4)\\)', '\\((3, -4)\\)'], correct: 0 }
-
+            { question: 'Найдите собственные значения матрицы \\( \\begin{bmatrix} 3 & 1 \\\\ 1 & 3 \\end{bmatrix} \\)', options: ['2 и 4', '1 и 5', '3 и 3', '0 и 6'], correct: 0 },
+            { question: 'Что такое ортогональная матрица?', options: ['Матрица, обратная которой равна транспонированной', 'Матрица с определителем 1', 'Матрица с симметричными элементами', 'Матрица с нулевым следом'], correct: 0 },
+            { question: 'Решите систему уравнений: \\( \\begin{cases} 2x + y = 5 \\\\ x - y = 1 \\end{cases} \\)', options: ['\\( x=2, y=1 \\)', '\\( x=1, y=2 \\)', '\\( x=3, y=-1 \\)', '\\( x=0, y=5 \\)'], correct: 0 },
+            { question: 'Чему равно произведение матриц \\( \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix} \\begin{bmatrix} 5 & 6 \\\\ 7 & 8 \\end{bmatrix} \\)?', options: ['\\( \\begin{bmatrix} 19 & 22 \\\\ 43 & 50 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 22 & 19 \\\\ 50 & 43 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 5 & 12 \\\\ 21 & 32 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 19 & 43 \\\\ 22 & 50 \\end{bmatrix} \\)'], correct: 0 },
+            { question: 'Что такое ядро линейного оператора?', options: ['Множество векторов, которые отображаются в нуль', 'Множество собственных векторов', 'Область значений оператора', 'Определитель матрицы оператора'], correct: 0 },
+            { question: 'Найдите обратную матрицу для \\( \\begin{bmatrix} 2 & 0 \\\\ 0 & 3 \\end{bmatrix} \\)', options: ['\\( \\begin{bmatrix} 1/2 & 0 \\\\ 0 & 1/3 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 2 & 0 \\\\ 0 & 3 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} -2 & 0 \\\\ 0 & -3 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 0 & 1/2 \\\\ 1/3 & 0 \\end{bmatrix} \\)'], correct: 0 },
+            { question: 'Что такое квадратичная форма?', options: ['Однородный многочлен второй степени', 'Матрица специального вида', 'Способ решения систем уравнений', 'Метод нахождения обратной матрицы'], correct: 0 },
+            { question: 'Чему равен определитель матрицы \\( \\begin{bmatrix} 1 & 2 & 3 \\\\ 0 & 4 & 5 \\\\ 0 & 0 & 6 \\end{bmatrix} \\)?', options: ['24', '20', '30', '36'], correct: 0 },
+            { question: 'Что такое метод Гаусса?', options: ['Метод решения систем линейных уравнений', 'Метод нахождения обратной матрицы', 'Метод вычисления определителя', 'Метод нахождения собственных значений'], correct: 0 },
+            { question: 'Чему равно векторное произведение векторов (1,0,0) и (0,1,0)?', options: ['(0,0,1)', '(0,0,-1)', '(1,1,0)', '(0,0,0)'], correct: 0 }
           ],
           hard: [
-            { question: 'Решите: \\(3x² - 7x - 6 = 0\\)', options: ['\\(x=-2/3; x=3\\)', '\\(x=2/3; x=-3\\)', '\\(x=1; x=2\\)', '\\(x=-1; x=-2\\)'], correct: 0 },
-            { question: 'Решите систему: \\(x² + y² = 25; x + y = 7\\)', options: ['\\(x=3, y=4\\) и \\(x=4, y=3\\)', '\\(x=2, y=5\\) и \\(x=5, y=2\\)', '\\(x=1, y=6\\) и \\(x=6, y=1\\)', '\\(x=0, y=7\\) и \\(x=7, y=0\\)'], correct: 0 },
-            { question: 'Упростите: \\(\\frac{x²-9}{x²-4x+3}\\)', options: ['\\(\\frac{x+3}{x-1}\\)', '\\(\\frac{x-3}{x-1}\\)', '\\(\\frac{x+3}{x+1}\\)', '\\(\\frac{x-3}{x+1}\\)'], correct: 0 },
-            { question: 'Решите: \\(5^{x-1} = 25\\)', options: ['\\(x=3\\)', '\\(x=2\\)', '\\(x=1\\)', '\\(x=0\\)'], correct: 0 },
-            { question: 'Найдите сумму корней уравнения: \\(2x² + 5x - 3 = 0\\)', options: ['\\(-2.5\\)', '\\(2.5\\)', '\\(-1.5\\)', '\\(1.5\\)'], correct: 0 },
-            { question: 'Решите неравенство: \\(\\frac{x-2}{x+3} > 0\\)', options: ['\\(x<-3\\) или \\(x>2\\)', '\\(x>-3\\) и \\(x<2\\)', '\\(x<-2\\) или \\(x>3\\)', '\\(x>-2\\) и \\(x<3\\)'], correct: 0 },
-            { question: 'Упростите: \\((\\sqrt{5} + \\sqrt{3})(\\sqrt{5} - \\sqrt{3})\\)', options: ['2', '3', '4', '5'], correct: 0 },
-            { question: 'Решите: \\(\\log_2(x) + \\log_2(x+2) = 3\\)', options: ['\\(x=2\\)', '\\(x=4\\)', '\\(x=6\\)', '\\(x=8\\)'], correct: 0 },
-            { question: 'Найдите обратную функцию для \\(y = \\frac{x+1}{x-1}\\)', options: ['\\(y = \\frac{x+1}{x-1}\\)', '\\(y = \\frac{x-1}{x+1}\\)', '\\(y = \\frac{1+x}{1-x}\\)', '\\(y = \\frac{1-x}{1+x}\\)'], correct: 0 },
-            { question: 'Решите: \\(|3x-2| = |x+4|\\)', options: ['\\(x=-0.5; x=3\\)', '\\(x=0.5; x=-3\\)', '\\(x=1; x=2\\)', '\\(x=-1; x=-2\\)'], correct: 0 },
-            { question: 'Решите: \\(4x² - 12x + 9 = 0\\)', options: ['\\(x=1.5\\)', '\\(x=2.5\\)', '\\(x=3.5\\)', '\\(x=4.5\\)'], correct: 0 },
-            { question: 'Решите систему: \\(x² + y² = 10; x - y = 2\\)', options: ['\\(x=3, y=1\\) и \\(x=-1, y=-3\\)', '\\(x=2, y=0\\) и \\(x=0, y=-2\\)', '\\(x=1, y=-1\\) и \\(x=-3, y=-5\\)', '\\(x=4, y=2\\) и \\(x=-2, y=-4\\)'], correct: 0 },
-            { question: 'Упростите: \\(\\frac{x³-8}{x²-4}\\)', options: ['\\(\\frac{x²+2x+4}{x+2}\\)', '\\(\\frac{x²-2x+4}{x+2}\\)', '\\(\\frac{x²+2x+4}{x-2}\\)', '\\(\\frac{x²-2x+4}{x-2}\\)'], correct: 0 },
-            { question: 'Решите: \\(2^{x+1} = 16\\)', options: ['\\(x=3\\)', '\\(x=2\\)', '\\(x=1\\)', '\\(x=0\\)'], correct: 0 },
-            { question: 'Найдите сумму корней уравнения: \\(3x² - 2x - 1 = 0\\)', options: ['\\(\\frac{2}{3}\\)', '\\(\\frac{1}{3}\\)', '\\(-\\frac{2}{3}\\)', '\\(-\\frac{1}{3}\\)'], correct: 0 },
-            { question: 'Решите неравенство: \\(\\frac{x+1}{x-2} ≤ 0\\)', options: ['\\(-1 ≤ x < 2\\)', '\\(x ≤ -1\\) или \\(x > 2\\)', '\\(x ≤ -2\\) или \\(x ≥ 1\\)', '\\(-2 ≤ x ≤ 1\\)'], correct: 0 },
-            { question: 'Упростите: \\((\\sqrt{7} - \\sqrt{2})(\\sqrt{7} + \\sqrt{2})\\)', options: ['5', '6', '7', '8'], correct: 0 },
-            { question: 'Решите: \\(\\log_5(x) - \\log_5(x-2) = 1\\)', options: ['\\(x=2.5\\)', '\\(x=3\\)', '\\(x=3.5\\)', '\\(x=4\\)'], correct: 0 },
-            { question: 'Найдите обратную функцию для \\(y = 3^x\\)', options: ['\\(y = \\log_3 x\\)', '\\(y = \\log_x 3\\)', '\\(y = \\frac{1}{3^x}\\)', '\\(y = -3^x\\)'], correct: 0 },
-            { question: 'Решите: \\(|x-2| = |2x+1|\\)', options: ['\\(x=-3; x=1/3\\)', '\\(x=3; x=-1/3\\)', '\\(x=1; x=-1\\)', '\\(x=2; x=-2\\)'], correct: 0 },
-            { question: 'Решите: \\(2x² - 5x - 3 = 0\\)', options: ['\\(x=-0.5; x=3\\)', '\\(x=0.5; x=-3\\)', '\\(x=1; x=1.5\\)', '\\(x=2; x=3\\)'], correct: 0 },
-            { question: 'Решите систему: \\(2x + 3y = 7; 3x - 2y = 4\\)', options: ['\\(x=2, y=1\\)', '\\(x=1, y=2\\)', '\\(x=3, y=1\\)', '\\(x=2, y=2\\)'], correct: 0 },
-            { question: 'Упростите: \\(\\frac{x²-4}{x-2}\\)', options: ['\\(x+2\\)', '\\(x-2\\)', '\\(x²+2\\)', '\\(x+4\\)'], correct: 0 },
-            { question: 'Решите: \\(3^{2x} = 81\\)', options: ['\\(x=2\\)', '\\(x=3\\)', '\\(x=4\\)', '\\(x=5\\)'], correct: 0 },
-            { question: 'Найдите сумму корней уравнения: \\(x² - 6x + 8 = 0\\)', options: ['6', '5', '4', '3'], correct: 0 },
-            { question: 'Решите неравенство: \\(x² - 4x - 5 > 0\\)', options: ['\\(x<-1\\) или \\(x>5\\)', '\\(x<1\\) или \\(x>5\\)', '\\(x<-5\\) или \\(x>1\\)', '\\(x<-2\\) или \\(x>2\\)'], correct: 0 },
-            { question: 'Упростите: \\((\\sqrt{a} + \\sqrt{b})(\\sqrt{a} - \\sqrt{b})\\)', options: ['\\(a-b\\)', '\\(a+b\\)', '\\(a²-b²\\)', '\\(a-b²\\)'], correct: 0 },
-            { question: 'Решите: \\(\\log₃(x+1) + \\log₃(x-1) = 1\\)', options: ['\\(x=2\\)', '\\(x=3\\)', '\\(x=4\\)', '\\(x=5\\)'], correct: 0 },
-            { question: 'Найдите обратную функцию для \\(y = 2x + 3\\)', options: ['\\(y = \\frac{x-3}{2}\\)', '\\(y = \\frac{x+3}{2}\\)', '\\(y = 2x-3\\)', '\\(y = \\frac{x-2}{3}\\)'], correct: 0 },
-            { question: 'Решите: \\(|2x-3| = 7\\)', options: ['\\(x=5; x=-2\\)', '\\(x=5; x=2\\)', '\\(x=3; x=-5\\)', '\\(x=7; x=-7\\)'], correct: 0 },
-            { question: 'Решите: \\(x^2 - 5x + 6 = 0\\)', options: ['\\(x=2; x=3\\)', '\\(x=1; x=6\\)', '\\(x=-2; x=-3\\)', '\\(x=0; x=5\\)'], correct: 0 },
-            { question: 'Решите систему: \\(x+y=5; x^2+y^2=13\\)', options: ['\\(x=2,y=3\\) и \\(x=3,y=2\\)', '\\(x=1,y=4\\) и \\(x=4,y=1\\)', '\\(x=0,y=5\\) и \\(x=5,y=0\\)', '\\(x=-1,y=6\\) и \\(x=6,y=-1\\)'], correct: 0 },
-            { question: 'Упростите: \\(\\frac{x^2-16}{x-4}\\)', options: ['\\(x+4\\)', '\\(x-4\\)', '\\(x^2+16\\)', '\\(x^2-4\\)'], correct: 0 },
-            { question: 'Решите: \\(2^{x+2}=32\\)', options: ['\\(x=3\\)', '\\(x=4\\)', '\\(x=5\\)', '\\(x=6\\)'], correct: 0 },
-            { question: 'Найдите произведение корней уравнения: \\(x^2 - 7x + 12 = 0\\)', options: ['12', '7', '6', '5'], correct: 0 },
-            { question: 'Решите неравенство: \\(\\frac{x+2}{x-1} < 0\\)', options: ['\\(x<-2\\) или \\(x>1\\)', '\\(-2<x<1\\)', '\\(x>2\\)', '\\(x<-1\\)'], correct: 1 },
-            { question: 'Упростите: \\((\\sqrt{11}+\\sqrt{5})(\\sqrt{11}-\\sqrt{5})\\)', options: ['6', '16', '20', '36'], correct: 1 },
-            { question: 'Решите: \\(\\log_3(x) + \\log_3(x-2) = 2\\)', options: ['\\(x=3\\)', '\\(x=4\\)', '\\(x=5\\)', '\\(x=6\\)'], correct: 1 },
-            { question: 'Найдите обратную функцию для \\(y = \\frac{2x-1}{x+3}\\)', options: ['\\(y=\\frac{3x+1}{2-x}\\)', '\\(y=\\frac{x+1}{x-3}\\)', '\\(y=\\frac{x+3}{2x-1}\\)', '\\(y=\\frac{1-2x}{x+3}\\)'], correct: 0 },
-            { question: 'Решите: \\(|x+5|=7\\)', options: ['\\(x=2; x=-12\\)', '\\(x=7; x=-7\\)', '\\(x=12; x=-2\\)', '\\(x=5; x=-5\\)'], correct: 0 },
-
-            { question: 'Решите: \\(x^2-9x+20=0\\)', options: ['\\(x=4; x=5\\)', '\\(x=2; x=10\\)', '\\(x=-4; x=-5\\)', '\\(x=1; x=20\\)'], correct: 0 },
-            { question: 'Решите систему: \\(x-y=1; x^2+y^2=25\\)', options: ['\\(x=3,y=2\\) и \\(x=-2,y=-3\\)', '\\(x=4,y=3\\) и \\(x=-3,y=-4\\)', '\\(x=5,y=4\\) и \\(x=-4,y=-5\\)', '\\(x=1,y=0\\) и \\(x=0,y=-1\\)'], correct: 0 },
-            { question: 'Упростите: \\(\\frac{x^3-27}{x-3}\\)', options: ['\\(x^2+3x+9\\)', '\\(x^2-3x+9\\)', '\\(x^2+9\\)', '\\(x^2-9\\)'], correct: 0 },
-            { question: 'Решите: \\(3^{x+1}=81\\)', options: ['\\(x=3\\)', '\\(x=4\\)', '\\(x=5\\)', '\\(x=6\\)'], correct: 0 },
-            { question: 'Найдите сумму корней уравнения: \\(x^2-8x+15=0\\)', options: ['8', '15', '7', '5'], correct: 0 },
-            { question: 'Решите неравенство: \\(x^2-3x-4\\geq0\\)', options: ['\\(x\\leq-1\\) или \\(x\\geq4\\)', '\\(x\\leq1\\) или \\(x\\geq3\\)', '\\(x<-4\\) или \\(x>1\\)', '\\(x<-2\\) или \\(x>2\\)'], correct: 0 },
-            { question: 'Упростите: \\((\\sqrt{13}+\\sqrt{7})(\\sqrt{13}-\\sqrt{7})\\)', options: ['4', '6', '12', '20'], correct: 3 },
-            { question: 'Решите: \\(\\log_2(x+4)-\\log_2(x)=2\\)', options: ['\\(x=1\\)', '\\(x=2\\)', '\\(x=3\\)', '\\(x=4\\)'], correct: 1 },
-            { question: 'Найдите обратную функцию для \\(y=\\frac{3x+2}{x-1}\\)', options: ['\\(y=\\frac{x+2}{3-x}\\)', '\\(y=\\frac{x-2}{3+x}\\)', '\\(y=\\frac{x-2}{3}\\)', '\\(y=\\frac{x+1}{x-3}\\)'], correct: 0 },
-            { question: 'Решите: \\(|2x+1|=5\\)', options: ['\\(x=2; x=-3\\)', '\\(x=3; x=-2\\)', '\\(x=4; x=-1\\)', '\\(x=5; x=0\\)'], correct: 0 },
-
-            { question: 'Решите: \\(x^2-4x-12=0\\)', options: ['\\(x=6; x=-2\\)', '\\(x=4; x=-3\\)', '\\(x=3; x=-4\\)', '\\(x=2; x=-6\\)'], correct: 0 },
-            { question: 'Решите систему: \\(x+y=9; x^2+y^2=85\\)', options: ['\\(x=4,y=5\\) и \\(x=5,y=4\\)', '\\(x=3,y=6\\) и \\(x=6,y=3\\)', '\\(x=2,y=7\\) и \\(x=7,y=2\\)', '\\(x=1,y=8\\) и \\(x=8,y=1\\)'], correct: 0 },
-            { question: 'Упростите: \\(\\frac{x^2-25}{x^2-10x+25}\\)', options: ['\\(\\frac{x+5}{x-5}\\)', '\\(\\frac{x-5}{x+5}\\)', '\\(\\frac{x+5}{x-10}\\)', '\\(\\frac{x-10}{x+5}\\)'], correct: 0 },
-            { question: 'Решите: \\(4^{x-1}=64\\)', options: ['\\(x=4\\)', '\\(x=5\\)', '\\(x=6\\)', '\\(x=7\\)'], correct: 0 },
-            { question: 'Найдите произведение корней уравнения: \\(2x^2-7x+3=0\\)', options: ['\\(3/2\\)', '\\(7/2\\)', '2', '3'], correct: 0 },
-            { question: 'Решите неравенство: \\(\\frac{x-1}{x+4}\\leq0\\)', options: ['\\(-4<x\\leq1\\)', '\\(x\\leq-4\\) или \\(x>1\\)', '\\(-1<x<4\\)', '\\(x<-1\\) или \\(x>4\\)'], correct: 0 },
-            { question: 'Упростите: \\((\\sqrt{19}+\\sqrt{11})(\\sqrt{19}-\\sqrt{11})\\)', options: ['6', '8', '30', '28'], correct: 2 },
-            { question: 'Решите: \\(\\log_4(x)-\\log_4(x-3)=1\\)', options: ['\\(x=4\\)', '\\(x=5\\)', '\\(x=6\\)', '\\(x=7\\)'], correct: 1 },
-            { question: 'Найдите обратную функцию для \\(y=\\sqrt{x+5}\\)', options: ['\\(y=x^2-5\\)', '\\(y=x^2+5\\)', '\\(y=\\sqrt{x-5}\\)', '\\(y=\\sqrt{x}+5\\)'], correct: 0 },
-            { question: 'Решите: \\(|x-7|=9\\)', options: ['\\(x=16; x=-2\\)', '\\(x=15; x=-1\\)', '\\(x=14; x=0\\)', '\\(x=13; x=1\\)'], correct: 0 }
-
+            { question: 'Что такое жорданова нормальная форма?', options: ['Каноническая форма матрицы', 'Способ решения систем уравнений', 'Метод вычисления определителя', 'Вид квадратичной формы'], correct: 0 },
+            { question: 'Найдите сингулярные значения матрицы \\( \\begin{bmatrix} 3 & 0 \\\\ 0 & 2 \\end{bmatrix} \\)', options: ['3 и 2', '1 и 6', '5 и 0', '9 и 4'], correct: 0 },
+            { question: 'Что такое псевдообратная матрица Мура-Пенроуза?', options: ['Обобщение понятия обратной матрицы', 'Матрица с комплексными элементами', 'Ортогональная матрица', 'Матрица с определителем 0'], correct: 0 },
+            { question: 'Чему равна норма Фробениуса матрицы \\( \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} \\)?', options: ['\\( \\sqrt{2} \\)', '1', '2', '0'], correct: 0 },
+            { question: 'Что такое число обусловленности матрицы?', options: ['Мера чувствительности системы к погрешностям', 'Определитель матрицы', 'След матрицы', 'Ранг матрицы'], correct: 0 },
+            { question: 'Найдите exp(A) для матрицы \\( A = \\begin{bmatrix} 0 & \\pi \\\\ -\\pi & 0 \\end{bmatrix} \\)', options: ['\\( \\begin{bmatrix} -1 & 0 \\\\ 0 & -1 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 0 & 1 \\\\ -1 & 0 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 0 & 0 \\\\ 0 & 0 \\end{bmatrix} \\)'], correct: 0 },
+            { question: 'Что такое LU-разложение матрицы?', options: ['Представление матрицы в виде произведения нижней и верхней треугольных', 'Метод нахождения обратной матрицы', 'Способ вычисления определителя', 'Вид жордановой формы'], correct: 0 },
+            { question: 'Чему равен определитель матрицы Вандермонда 3x3?', options: ['\\( (a-b)(a-c)(b-c) \\)', '\\( a+b+c \\)', '\\( abc \\)', '\\( a^2+b^2+c^2 \\)'], correct: 0 },
+            { question: 'Что такое метод Якоби для нахождения собственных значений?', options: ['Итерационный метод диагонализации матрицы', 'Метод решения систем уравнений', 'Способ вычисления обратной матрицы', 'Метод нахождения определителя'], correct: 0 },
+            { question: 'Чему равна матрица поворота на 90 градусов?', options: ['\\( \\begin{bmatrix} 0 & -1 \\\\ 1 & 0 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix} \\)', '\\( \\begin{bmatrix} -1 & 0 \\\\ 0 & -1 \\end{bmatrix} \\)'], correct: 0 }
           ]
         }
       },
-      geometry: {
-        title: 'Геометрия',
-        description: 'Изучение фигур, их свойств и измерений',
+      diff_equations: {
+        title: 'Дифференциальные уравнения',
+        description: 'Обыкновенные дифференциальные уравнения и системы',
         theory: {
           easy: `
-            <h4 class="text-lg font-semibold mb-3">Основы геометрии</h4>
-            <p class="mb-4">Геометрия изучает пространственные отношения и формы.</p>
-            
-            <h5 class="font-semibold mb-2">Основные фигуры:</h5>
-            <ul class="list-disc pl-6 mb-4">
-                <li><strong>Треугольник</strong> — фигура с тремя сторонами</li>
-                <li><strong>Квадрат</strong> — четырехугольник с равными сторонами</li>
-                <li><strong>Прямоугольник</strong> — четырехугольник с прямыми углами</li>
-                <li><strong>Круг</strong> — фигура, все точки которой равноудалены от центра</li>
-            </ul>
-            
-            <div class="bg-purple-50 p-4 rounded-lg">
-                <h5 class="font-semibold mb-2">Формулы площадей:</h5>
-                <p>Квадрат: \\(S = a²\\)</p>
-                <p>Прямоугольник: \\(S = a \\times b\\)</p>
-                <p>Треугольник: \\(S = \\frac{a \\times h}{2}\\)</p>
-            </div>
-          `,
+        <h4 class="text-lg font-semibold mb-3">Основы дифференциальных уравнений</h4>
+        <p class="mb-4">Дифференциальные уравнения описывают зависимости между функциями и их производными.</p>
+        
+        <h5 class="font-semibold mb-2">Основные понятия:</h5>
+        <ul class="list-disc pl-6 mb-4">
+          <li><strong>Обыкновенное дифференциальное уравнение (ОДУ)</strong> — уравнение, содержащее одну независимую переменную</li>
+          <li><strong>Порядок уравнения</strong> — наивысший порядок производной в уравнении</li>
+          <li><strong>Линейное уравнение</strong> — уравнение, линейное относительно искомой функции и ее производных</li>
+        </ul>
+        
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <h5 class="font-semibold mb-2">Пример:</h5>
+          <p>Решите уравнение: \\( \\frac{dy}{dx} = 2x \\)</p>
+          <p>Решение: \\( y = \\int 2x \\, dx = x^2 + C \\)</p>
+        </div>
+      `,
           medium: `
-            <h4 class="text-lg font-semibold mb-3">Геометрия среднего уровня</h4>
-            <p class="mb-4">На среднем уровне изучаются теоремы, свойства фигур и более сложные вычисления.</p>
-            
-            <h5 class="font-semibold mb-2">Теорема Пифагора:</h5>
-            <p>В прямоугольном треугольнике квадрат гипотенузы равен сумме квадратов катетов.</p>
-            <p class="mb-2">\\(c² = a² + b²\\)</p>
-            
-            <h5 class="font-semibold mb-2">Формулы объема:</h5>
-            <p>Куб: \\(V = a³\\)</p>
-            <p>Прямоугольный параллелепипед: \\(V = a \\times b \\times c\\)</p>
-            <p>Цилиндр: \\(V = \\pi r² h\\)</p>
-            
-            <div class="bg-blue-50 p-4 rounded-lg">
-                <h5 class="font-semibold mb-2">Пример:</h5>
-                <p>Найдите гипотенузу треугольника с катетами 3 и 4:</p>
-                <p>\\(c² = 3² + 4² = 9 + 16 = 25\\)</p>
-                <p>\\(c = \\sqrt{25} = 5\\)</p>
-            </div>
-          `,
+        <h4 class="text-lg font-semibold mb-3">Дифференциальные уравнения среднего уровня</h4>
+        <p class="mb-4">На среднем уровне изучаются линейные дифференциальные уравнения с постоянными коэффициентами.</p>
+        
+        <h5 class="font-semibold mb-2">Линейные однородные уравнения:</h5>
+        <p>Уравнение вида: \\( a_n y^{(n)} + a_{n-1} y^{(n-1)} + \\cdots + a_1 y' + a_0 y = 0 \\)</p>
+        <p>Решается с помощью характеристического уравнения: \\( a_n r^n + a_{n-1} r^{n-1} + \\cdots + a_1 r + a_0 = 0 \\)</p>
+        
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h5 class="font-semibold mb-2">Пример:</h5>
+          <p>Решите уравнение: \\( y'' - 3y' + 2y = 0 \\)</p>
+          <p>Характеристическое уравнение: \\( r^2 - 3r + 2 = 0 \\)</p>
+          <p>Корни: \\( r_1 = 1, r_2 = 2 \\)</p>
+          <p>Общее решение: \\( y = C_1 e^x + C_2 e^{2x} \\)</p>
+        </div>
+      `,
           hard: `
-            <h4 class="text-lg font-semibold mb-3">Сложная геометрия</h4>
-            <p class="mb-4">На сложном уровне рассматриваются тригонометрические функции, свойства окружностей и сложные пространственные фигуры.</p>
-            
-            <h5 class="font-semibold mb-2">Тригонометрия в геометрии:</h5>
-            <ul class="list-disc pl-6 mb-4">
-                <li>\\(\\sin(α) = \\frac{\\text{противолежащий катет}}{\\text{гипотенуза}}\\)</li>
-                <li>\\(\\cos(α) = \\frac{\\text{прилежащий катет}}{\\text{гипотенуza}}\\)</li>
-                <li>\\(\\tan(α) = \\frac{\\text{противолежащий катет}}{\\text{прилежащий катет}}\\)</li>
-            </ul>
-            
-            <h5 class="font-semibold mb-2">Формулы для окружности:</h5>
-            <p>Длина окружности: \\(C = 2\\pi r\\)</p>
-            <p>Площадь круга: \\(S = \\pi r²\\)</p>
-            
-            <div class="bg-red-50 p-4 rounded-lg">
-                <h5 class="font-semibold mb-2">Пример:</h5>
-                <p>Найдите площадь сектора круга радиусом 6 с углом 60°:</p>
-                <p>\\(S = \\frac{\\pi r² \\times α}{360°} = \\frac{\\pi\\times36\\times60}{360} = 6\\pi\\)</p>
-            </div>
-          `
+        <h4 class="text-lg font-semibold mb-3">Сложные дифференциальные уравнения</h4>
+        <p class="mb-4">На сложном уровне рассматриваются системы дифференциальных уравнений, уравнения в частных производных и специальные функции.</p>
+        
+        <h5 class="font-semibold mb-2">Системы дифференциальных уравнений:</h5>
+        <p>Система вида: \\( \\begin{cases} \\frac{dx}{dt} = f(t, x, y) \\\\ \\frac{dy}{dt} = g(t, x, y) \\end{cases} \\)</p>
+        <p>Может быть решена методом исключения или с помощью матричной экспоненты.</p>
+        
+        <div class="bg-purple-50 p-4 rounded-lg">
+          <h5 class="font-semibold mb-2">Пример:</h5>
+          <p>Решите систему: \\( \\begin{cases} \\frac{dx}{dt} = y \\\\ \\frac{dy}{dt} = -x \\end{cases} \\)</p>
+          <p>Решение: \\( x = C_1 \\cos t + C_2 \\sin t \\), \\( y = -C_1 \\sin t + C_2 \\cos t \\)</p>
+        </div>
+      `
         },
         questions: {
           easy: [
-            { question: 'Найдите площадь квадрата со стороной 9 см', options: ['\\(81\\text{ см}²\\)', '\\(72\\text{ см}²\\)', '\\(63\\text{ см}²\\)', '\\(54\\text{ см}²\\)'], correct: 0 },
-            { question: 'Чему равна площадь прямоугольника 6×9 см?', options: ['\\(54\\text{ см}²\\)', '\\(56\\text{ см}²\\)', '\\(58\\text{ см}²\\)', '\\(60\\text{ см}²\\)'], correct: 0 },
-            { question: 'Сколько вершин у куба?', options: ['8', '9', '10', '12'], correct: 0 },
-            { question: 'Чему равен периметр квадрата со стороной 11 см?', options: ['\\(44\\text{ см}\\)', '\\(45\\text{ см}\\)', '\\(46\\text{ см}\\)', '\\(47\\text{ см}\\)'], correct: 0 },
-            { question: 'Найдите площадь треугольника с основанием 12 см и высотой 5 см', options: ['\\(30\\text{ см}²\\)', '\\(35\\text{ см}²\\)', '\\(40\\text{ см}²\\)', '\\(45\\text{ см}²\\)'], correct: 0 },
-            { question: 'Сколько сторон у восьмиугольника?', options: ['8', '9', '10', '12'], correct: 0 },
-            { question: 'Чему равна площадь круга с радиусом 5 см? (\\(\\pi\\approx3.14\\))', options: ['\\(78.5\\text{ см}²\\)', '\\(80.5\\text{ см}²\\)', '\\(82.5\\text{ см}²\\)', '\\(84.5\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите объем куба с ребром 7 см', options: ['\\(343\\text{ см}³\\)', '\\(344\\text{ см}³\\)', '\\(345\\text{ см}³\\)', '\\(346\\text{ см}³\\)'], correct: 0 },
-            { question: 'Чему равен периметр прямоугольника 15×10 см?', options: ['\\(50\\text{ см}\\)', '\\(60\\text{ см}\\)', '\\(70\\text{ см}\\)', '\\(80\\text{ см}\\)'], correct: 0 },
-            { question: 'Сколько градусов в развернутом угле?', options: ['90°', '180°', '270°', '360°'], correct: 1 },
-            { question: 'Найдите площадь квадрата со стороной 12 см', options: ['\\(144\\text{ см}²\\)', '\\(134\\text{ см}²\\)', '\\(124\\text{ см}²\\)', '\\(114\\text{ см}²\\)'], correct: 0 },
-            { question: 'Чему равна площадь прямоугольника 7×8 см?', options: ['\\(56\\text{ см}²\\)', '\\(57\\text{ см}²\\)', '\\(58\\text{ см}²\\)', '\\(59\\text{ см}²\\)'], correct: 0 },
-            { question: 'Сколько ребер у тетраэдра?', options: ['6', '8', '10', '12'], correct: 0 },
-            { question: 'Чему равен периметр квадрата со стороной 15 см?', options: ['\\(60\\text{ см}\\)', '\\(65\\text{ см}\\)', '\\(70\\text{ см}\\)', '\\(75\\text{ см}\\)'], correct: 0 },
-            { question: 'Найдите площадь треугольника с основанием 8 см и высотой 6 см', options: ['\\(24\\text{ см}²\\)', '\\(26\\text{ см}²\\)', '\\(28\\text{ см}²\\)', '\\(30\\text{ см}²\\)'], correct: 0 },
-            { question: 'Сколько сторон у десятиугольника?', options: ['10', '11', '12', '13'], correct: 0 },
-            { question: 'Чему равна площадь круга с радиусом 7 см? (\\(\\pi\\approx3.14\\))', options: ['\\(153.86\\text{ см}²\\)', '\\(154.86\\text{ см}²\\)', '\\(155.86\\text{ см}²\\)', '\\(156.86\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите объем куба с ребром 9 см', options: ['\\(729\\text{ см}³\\)', '\\(730\\text{ см}³\\)', '\\(731\\text{ см}³\\)', '\\(732\\text{ см}³\\)'], correct: 0 },
-            { question: 'Чему равен периметр прямоугольника 20×15 см?', options: ['\\(70\\text{ см}\\)', '\\(80\\text{ см}\\)', '\\(90\\text{ см}\\)', '\\(100\\text{ см}\\)'], correct: 0 },
-            { question: 'Сколько градусов в полном обороте?', options: ['90°', '180°', '270°', '360°'], correct: 3 },
-            { question: 'Найдите площадь квадрата со стороной 6 см', options: ['\\(24\\text{ см}²\\)', '\\(30\\text{ см}²\\)', '\\(36\\text{ см}²\\)', '\\(42\\text{ см}²\\)'], correct: 2 },
-            { question: 'Чему равна площадь прямоугольника 8×5 см?', options: ['\\(35\\text{ см}²\\)', '\\(40\\text{ см}²\\)', '\\(45\\text{ см}²\\)', '\\(50\\text{ см}²\\)'], correct: 1 },
-            { question: 'Сколько углов у треугольника?', options: ['2', '3', '4', '5'], correct: 1 },
-            { question: 'Чему равен периметр квадрата со стороной 7 см?', options: ['\\(21\\text{ см}\\)', '\\(28\\text{ см}\\)', '\\(35\\text{ см}\\)', '\\(42\\text{ см}\\)'], correct: 1 },
-            { question: 'Найдите площадь треугольника с основанием 10 см и высотой 8 см', options: ['\\(30\\text{ см}²\\)', '\\(40\\text{ см}²\\)', '\\(50\\text{ см}²\\)', '\\(60\\text{ см}²\\)'], correct: 1 },
-            { question: 'Сколько сторон у шестиугольника?', options: ['5', '6', '7', '8'], correct: 1 },
-            { question: 'Чему равна площадь круга с радиусом 3 см? (\\(\\pi\\approx3.14\\))', options: ['\\(18.84\\text{ см}²\\)', '\\(28.26\\text{ см}²\\)', '\\(37.68\\text{ см}²\\)', '\\(47.1\\text{ см}²\\)'], correct: 1 },
-            { question: 'Найдите объем куба с ребром 4 см', options: ['\\(16\\text{ см}³\\)', '\\(32\\text{ см}³\\)', '\\(48\\text{ см}³\\)', '\\(64\\text{ см}³\\)'], correct: 3 },
-            { question: 'Чему равен периметр прямоугольника 12×8 см?', options: ['\\(30\\text{ см}\\)', '\\(40\\text{ см}\\)', '\\(50\\text{ см}\\)', '\\(60\\text{ см}\\)'], correct: 1 },
-            { question: 'Сколько градусов в прямом углу?', options: ['45°', '90°', '180°', '360°'], correct: 1 }
-          ],
-          medium: [
-            { question: 'Найдите гипотенузу прямоугольного треугольника с катетами 5 и 12 см', options: ['\\(13\\text{ см}\\)', '\\(14\\text{ см}\\)', '\\(15\\text{ см}\\)', '\\(16\\text{ см}\\)'], correct: 0 },
-            { question: 'Чему равна площадь равностороннего треугольника со стороной 12 см?', options: ['\\(36\\sqrt{3}\\text{ см}²\\)', '\\(38\\sqrt{3}\\text{ см}²\\)', '\\(40\\sqrt{3}\\text{ см}²\\)', '\\(42\\sqrt{3}\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите объем цилиндра с радиусом 5 см и высотой 8 см (\\(\\pi\\approx3.14\\))', options: ['\\(628\\text{ см}³\\)', '\\(630\\text{ см}³\\)', '\\(632\\text{ см}³\\)', '\\(634\\text{ край}³\\)'], correct: 0 },
-            { question: 'Чему равна площадь поверхности куба с ребром 7 см?', options: ['\\(294\\text{ см}²\\)', '\\(296\\text{ см}²\\)', '\\(298\\text{ см}²\\)', '\\(300\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите площадь ромба с диагоналями 10 и 8 см', options: ['\\(40\\text{ см}²\\)', '\\(42\\text{ см}²\\)', '\\(44\\text{ см}²\\)', '\\(46\\text{ см}²\\)'], correct: 0 },
-            { question: 'Чему равен объем конуса с радиусом 6 см и высотой 5 см? (\\(\\pi\\approx3.14\\))', options: ['\\(188.4\\text{ см}³\\)', '\\(190.4\\text{ см}³\\)', '\\(192.4\\text{ см}³\\)', '\\(194.4\\text{ см}³\\)'], correct: 0 },
-            { question: 'Найдите площадь трапеции с основаниями 8 и 12 см и высотой 6 см', options: ['\\(60\\text{ см}²\\)', '\\(62\\text{ см}²\\)', '\\(64\\text{ см}²\\)', '\\(66\\text{ см}²\\)'], correct: 0 },
-            { question: 'Чему равна площадь правильного шестиугольника со стороной 6 см?', options: ['\\(54\\sqrt{3}\\text{ см}²\\)', '\\(56\\sqrt{3}\\text{ см}²\\)', '\\(58\\sqrt{3}\\text{ см}²\\)', '\\(60\\sqrt{3}\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите объем шара с радиусом 8 см (\\(\\pi\\approx3.14\\))', options: ['\\(2143.57\\text{ см}³\\)', '\\(2144.57\\text{ см}³\\)', '\\(2145.57\\text{ см}³\\)', '\\(2146.57\\text{ см}³\\)'], correct: 0 },
-            { question: 'Чему равна площадь боковой поверхности цилиндра с радиусом 6 см и высотой 9 см? (\\(\\pi\\approx3.14\\))', options: ['\\(339.12\\text{ см}²\\)', '\\(340.12\\text{ см}²\\)', '\\(341.12\\text{ см}²\\)', '\\(342.12\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите гипотенузу прямоугольного треугольника с катетами 7 и 24 см', options: ['\\(25\\text{ см}\\)', '\\(26\\text{ см}\\)', '\\(27\\text{ см}\\)', '\\(28\\text{ см}\\)'], correct: 0 },
-            { question: 'Чему равна площадь равностороннего треугольника со стороной 14 см?', options: ['\\(49\\sqrt{3}\\text{ см}²\\)', '\\(50\\sqrt{3}\\text{ см}²\\)', '\\(51\\sqrt{3}\\text{ см}²\\)', '\\(52\\sqrt{3}\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите объем цилиндра с радиусом 7 см и высотой 10 см (\\(\\pi\\approx3.14\\))', options: ['\\(1538.6\\text{ см}³\\)', '\\(1540.6\\text{ см}³\\)', '\\(1542.6\\text{ см}³\\)', '\\(1544.6\\text{ см}³\\)'], correct: 0 },
-            { question: 'Найдите гипотенузу прямоугольного треугольника с катетами 6 и 8 см', options: ['\\(10\\text{ см}\\)', '\\(12\\text{ см}\\)', '\\(14\\text{ см}\\)', '\\(16\\text{ см}\\)'], correct: 0 },
-            { question: 'Чему равна площадь равностороннего треугольника со стороной 10 см?', options: ['\\(25\\sqrt{3}\\text{ см}²\\)', '\\(30\\sqrt{3}\\text{ см}²\\)', '\\(40\\sqrt{3}\\text{ см}²\\)', '\\(50\\sqrt{3}\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите объем цилиндра с радиусом 3 см и высотой 5 см (\\(\\pi\\approx3.14\\))', options: ['\\(141.3\\text{ см}³\\)', '\\(150.7\\text{ см}³\\)', '\\(188.4\\text{ см}³\\)', '\\(235.5\\text{ см}³\\)'], correct: 0 },
-            { question: 'Чему равна площадь поверхности куба с ребром 5 см?', options: ['\\(100\\text{ см}²\\)', '\\(125\\text{ см}²\\)', '\\(150\\text{ см}²\\)', '\\(175\\text{ см}²\\)'], correct: 2 },
-            { question: 'Найдите площадь ромба с диагоналями 8 и 6 см', options: ['\\(20\\text{ см}²\\)', '\\(24\\text{ см}²\\)', '\\(28\\text{ см}²\\)', '\\(32\\text{ см}²\\)'], correct: 1 },
-            { question: 'Чему равен объем конуса с радиусом 3 см и высотой 4 см? (\\(\\pi\\approx3.14\\))', options: ['\\(37.68\\text{ см}³\\)', '\\(47.1\\text{ см}³\\)', '\\(56.52\\text{ см}³\\)', '\\(75.36\\text{ см}³\\)'], correct: 0 },
-            { question: 'Найдите площадь трапеции с основаниями 6 и 10 см и высотой 5 см', options: ['\\(30\\text{ см}²\\)', '\\(35\\text{ см}²\\)', '\\(40\\text{ см}²\\)', '\\(45\\text{ см}²\\)'], correct: 2 },
-            { question: 'Чему равна площадь правильного шестиугольника со стороной 4 см?', options: ['\\(24\\sqrt{3}\\text{ см}²\\)', '\\(36\\sqrt{3}\\text{ см}²\\)', '\\(48\\sqrt{3}\\text{ см}²\\)', '\\(64\\sqrt{3}\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите объем шара с радиусом 6 см (\\(\\pi\\approx3.14\\))', options: ['\\(904.32\\text{ см}³\\)', '\\(923.16\\text{ см}³\\)', '\\(942.48\\text{ см}³\\)', '\\(972.12\\text{ см}³\\)'], correct: 0 },
-            { question: 'Чему равна площадь боковой поверхности цилиндра с радиусом 4 см и высотой 7 см? (\\(\\pi\\approx3.14\\))', options: ['\\(175.84\\text{ см}²\\)', '\\(186.52\\text{ см}²\\)', '\\(196.25\\text{ см}²\\)', '\\(215.6\\text{ см}²\\)'], correct: 0 }
-          ],
-          hard: [
-            { question: 'Чему равен тангенс угла 45°?', options: ['0', '0.5', '1', '\\(\\sqrt{3}\\)'], correct: 2 },
-            { question: 'Найдите площадь сегмента круга радиусом 10 см с центральным углом 60° (\\(\\pi\\approx3.14\\))', options: ['\\(9.06\\text{ см}²\\)', '\\(9.25\\text{ см}²\\)', '\\(9.48\\text{ см}²\\)', '\\(9.67\\text{ см}²\\)'], correct: 2 },
-            { question: 'Чему равен синус угла 30°?', options: ['0', '0.5', '\\(\\frac{\\sqrt{2}}{2}\\)', '\\(\\frac{\\sqrt{3}}{2}\\)'], correct: 1 },
-            { question: 'Найдите объем усеченного конуса с радиусами 6 и 4 см и высотой 5 см (\\(\\pi\\approx3.14\\))', options: ['\\(316.87\\text{ см}³\\)', '\\(326.56\\text{ см}³\\)', '\\(336.28\\text{ см}³\\)', '\\(346.92\\text{ см}³\\)'], correct: 0 },
-            { question: 'Чему равен косинус угла 60°?', options: ['0', '0.5', '\\(\\frac{\\sqrt{2}}{2}\\)', '\\(\\frac{\\sqrt{3}}{2}\\)'], correct: 1 },
-            { question: 'Найдите площадь эллипса с полуосями 8 и 5 см (\\(\\pi\\approx3.14\\))', options: ['\\(125.6\\text{ см}²\\)', '\\(136.8\\text{ см}²\\)', '\\(145.2\\text{ см}²\\)', '\\(156.4\\text{ см}²\\)'], correct: 0 },
-            { question: 'Чему равен синус угла 90°?', options: ['0', '0.5', '1', '\\(\\frac{\\sqrt{3}}{2}\\)'], correct: 2 },
-            { question: 'Найдите объем тетраэдра с ребром 6 см', options: ['\\(18\\sqrt{2}\\text{ см}³\\)', '\\(20\\sqrt{2}\\text{ см}³\\)', '\\(22\\sqrt{2}\\text{ см}³\\)', '\\(24\\sqrt{2}\\text{ см}³\\)'], correct: 0 },
-            { question: 'Чему равен тангенс угла 60°?', options: ['0', '1', '\\(\\sqrt{3}\\)', '\\(\\frac{\\sqrt{3}}{3}\\)'], correct: 2 },
-            { question: 'Найдите площадь поверхности сферы с диаметром 14 см (\\(\\pi\\approx3.14\\))', options: ['\\(615.44\\text{ см}²\\)', '\\(628.32\\text{ см}²\\)', '\\(642.16\\text{ см}²\\)', '\\(656.92\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите длину дуги окружности радиусом 12 см при центральном угле 150° (\\(\\pi\\approx3.14\\))', options: ['\\(30\\text{ см}\\)', '\\(31.4\\text{ см}\\)', '\\(32.5\\text{ см}\\)', '\\(33.2\\text{ см}\\)'], correct: 1 },
-            { question: 'Найдите площадь правильного шестиугольника со стороной 6 см (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(93.2\\text{ см}²\\)', '\\(93.5\\text{ см}²\\)', '\\(94.0\\text{ см}²\\)', '\\(94.2\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите объем цилиндра радиусом 7 см и высотой 10 см (\\(\\pi\\approx3.14\\))', options: ['\\(1538\\text{ см}³\\)', '\\(1540\\text{ см}³\\)', '\\(1542\\text{ см}³\\)', '\\(1544\\text{ см}³\\)'], correct: 0 },
-            { question: 'Найдите площадь поверхности куба с ребром 9 см', options: ['\\(486\\text{ см}²\\)', '\\(490\\text{ см}²\\)', '\\(492\\text{ см}²\\)', '\\(496\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите площадь ромба со стороной 10 см и углом 60° (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(85.9\\text{ см}²\\)', '\\(86.6\\text{ см}²\\)', '\\(87.3\\text{ см}²\\)', '\\(88.0\\text{ см}²\\)'], correct: 1 },
-            { question: 'Найдите объем конуса радиусом 5 см и высотой 12 см (\\(\\pi\\approx3.14\\))', options: ['\\(314\\text{ см}³\\)', '\\(314.2\\text{ см}³\\)', '\\(314.3\\text{ см}³\\)', '\\(314.5\\text{ см}³\\)'], correct: 0 },
-            { question: 'Найдите площадь поверхности прямой призмы с основанием равносторонний треугольник со стороной 6 см и высотой 10 см (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(205.9\\text{ см}²\\)', '\\(206.2\\text{ см}²\\)', '\\(206.5\\text{ см}²\\)', '\\(207.0\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите объем правильной четырехугольной пирамиды с основанием 6 см и высотой 8 см', options: ['\\(96\\text{ см}³\\)', '\\(97\\text{ см}³\\)', '\\(98\\text{ см}³\\)', '\\(99\\text{ см}³\\)'], correct: 0 },
-            { question: 'Чему равен косинус угла 45°?', options: ['0', '0.5', '\\(\\frac{\\sqrt{2}}{2}\\)', '\\(\\sqrt{3}/2\\)'], correct: 2 },
-            { question: 'Найдите площадь сектора круга радиусом 9 см с углом 120° (\\(\\pi\\approx3.14\\))', options: ['\\(84.8\\text{ см}²\\)', '\\(84.9\\text{ см}²\\)', '\\(85.0\\text{ см}²\\)', '\\(85.2\\text{ см}²\\)'], correct: 1 },
-            { question: 'Найдите диагональ квадрата со стороной 12 см (\\(\\sqrt{2}\\approx1.41\\))', options: ['\\(16.9\\text{ см}\\)', '\\(17.0\\text{ см}\\)', '\\(17.1\\text{ см}\\)', '\\(17.2\\text{ см}\\)'], correct: 1 },
-            { question: 'Найдите радиус окружности, вписанной в правильный треугольник со стороной 10 см (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(2.8\\text{ см}\\)', '\\(2.9\\text{ см}\\)', '\\(3.0\\text{ см}\\)', '\\(3.1\\text{ см}\\)'], correct: 2 },
-            { question: 'Найдите площадь трапеции с основаниями 10 и 6 см и высотой 4 см', options: ['\\(32\\text{ см}²\\)', '\\(33\\text{ см}²\\)', '\\(34\\text{ см}²\\)', '\\(35\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите объем шара радиусом 6 см (\\(\\pi\\approx3.14\\))', options: ['\\(904\\text{ см}³\\)', '\\(905\\text{ см}³\\)', '\\(906\\text{ см}³\\)', '\\(907\\text{ см}³\\)'], correct: 0 },
-            { question: 'Найдите площадь поверхности правильной шестиугольной пирамиды со стороной основания 4 см и апофемой 7 см (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(122.4\\text{ см}²\\)', '\\(123.5\\text{ см}²\\)', '\\(124.6\\text{ см}²\\)', '\\(125.0\\text{ см}²\\)'], correct: 2 },
-            { question: 'Найдите длину бокового ребра куба, если его диагональ равна 10 см (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(5.7\\text{ см}\\)', '\\(5.8\\text{ см}\\)', '\\(5.9\\text{ см}\\)', '\\(6.0\\text{ см}\\)'], correct: 2 },
-            { question: 'Найдите площадь правильного треугольника со стороной 14 см (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(84.8\\text{ см}²\\)', '\\(84.9\\text{ см}²\\)', '\\(85.0\\text{ см}²\\)', '\\(85.2\\text{ см}²\\)'], correct: 2 },
-            { question: 'Найдите радиус окружности, описанной около прямоугольного треугольника с катетами 6 и 8 см', options: ['\\(5.0\\text{ см}\\)', '\\(5.1\\text{ см}\\)', '\\(5.2\\text{ см}\\)', '\\(5.3\\text{ см}\\)'], correct: 0 },
-            { question: 'Найдите площадь поверхности правильного октаэдра с ребром 5 см (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(86.6\\text{ см}²\\)', '\\(86.8\\text{ см}²\\)', '\\(87.0\\text{ см}²\\)', '\\(87.2\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите площадь параллелограмма со сторонами 10 и 8 см и углом 60° (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(69.2\\text{ см}²\\)', '\\(69.3\\text{ см}²\\)', '\\(69.4\\text{ см}²\\)', '\\(69.5\\text{ см}²\\)'], correct: 1 },
-            { question: 'Найдите длину окружности радиусом 15 см (\\(\\pi\\approx3.14\\))', options: ['\\(94.2\\text{ см}\\)', '\\(94.3\\text{ см}\\)', '\\(94.4\\text{ см}\\)', '\\(94.5\\text{ см}\\)'], correct: 0 },
-            { question: 'Найдите высоту равностороннего треугольника со стороной 10 см (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(8.6\\text{ см}\\)', '\\(8.7\\text{ см}\\)', '\\(8.8\\text{ см}\\)', '\\(8.9\\text{ см}\\)'], correct: 0 },
-            { question: 'Найдите площадь круга радиусом 11 см (\\(\\pi\\approx3.14\\))', options: ['\\(379.8\\text{ см}²\\)', '\\(380.1\\text{ см}²\\)', '\\(380.3\\text{ см}²\\)', '\\(380.5\\text{ см}²\\)'], correct: 1 },
-            { question: 'Найдите объем куба с ребром 12 см', options: ['\\(1728\\text{ см}³\\)', '\\(1730\\text{ см}³\\)', '\\(1732\\text{ см}³\\)', '\\(1734\\text{ см}³\\)'], correct: 0 },
-            { question: 'Найдите площадь поверхности цилиндра радиусом 7 см и высотой 24 см (\\(\\pi\\approx3.14\\))', options: ['\\(1385.4\\text{ см}²\\)', '\\(1386.5\\text{ см}²\\)', '\\(1387.6\\text{ см}²\\)', '\\(1388.7\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите площадь прямоугольного треугольника с катетами 9 и 12 см', options: ['\\(54\\text{ см}²\\)', '\\(55\\text{ см}²\\)', '\\(56\\text{ см}²\\)', '\\(57\\text{ см}²\\)'], correct: 0 },
-            { question: 'Найдите апофему правильного шестиугольника со стороной 10 см (\\(\\sqrt{3}\\approx1.73\\))', options: ['\\(8.6\\text{ см}\\)', '\\(8.7\\text{ см}\\)', '\\(8.8\\text{ см}\\)', '\\(8.9\\text{ см}\\)'], correct: 2 },
-            { question: 'Найдите радиус окружности, вписанной в квадрат со стороной 12 см', options: ['\\(6\\text{ см}\\)', '\\(7\\text{ см}\\)', '\\(8\\text{ см}\\)', '\\(9\\text{ см}\\)'], correct: 0 },
-            { question: 'Найдите объем прямоугольного параллелепипеда со сторонами 5, 6 и 10 см', options: ['\\(300\\text{ см}³\\)', '\\(301\\text{ см}³\\)', '\\(302\\text{ см}³\\)', '\\(303\\text{ см}³\\)'], correct: 0 }
-          ]
-        }
-      }
+            { question: 'Что такое обыкновенное дифференциальное уравнение?', options: ['Уравнение с одной независимой переменной', 'Уравнение с частными производными', 'Уравнение в конечных разностях', 'Интегральное уравнение'], correct: 0 },
+            { question: "Каков порядок уравнения \\( y''' + y' = 0 \\)?", options: ['3', '2', '1', '0'], correct: 0 },
+    { question: 'Что такое общее решение дифференциального уравнения?', options: ['Семейство решений, содержащее все частные решения', 'Одно конкретное решение', 'Решение при нулевых начальных условиях', 'Приближенное решение'], correct: 0 },
+    { question: 'Решите уравнение: \\( \\frac{dy}{dx} = 3x^2 \\)', options: ['\\( y = x^3 + C \\)', '\\( y = 6x + C \\)', '\\( y = 3x^2 + C \\)', '\\( y = x^2 + C \\)'], correct: 0 },
+    { question: 'Что такое начальные условия?', options: ['Значения функции и производных в начальной точке', 'Граничные значения функции', 'Условия существования решения', 'Параметры уравнения'], correct: 0 },
+    { question: 'Решите уравнение: \\( \\frac{dy}{dx} = y \\)', options: ['\\( y = Ce^x \\)', '\\( y = Cx \\)', '\\( y = Ce^{-x} \\)', '\\( y = C \\ln x \\)'], correct: 0 },
+    { question: 'Что такое разделяющиеся переменные?', options: ['Метод решения уравнений вида \\( f(y)dy = g(x)dx \\)', 'Способ понижения порядка', 'Метод вариации постоянных', 'Способ решения линейных уравнений'], correct: 0 },
+    { question: 'Решите уравнение: \\( \\frac{dy}{dx} = \\frac{1}{x} \\)', options: ['\\( y = \\ln |x| + C \\)', '\\( y = \\frac{1}{x^2} + C \\)', '\\( y = x \\ln x + C \\)', '\\( y = e^x + C \\)'], correct: 0 },
+    { question: 'Что такое однородное дифференциальное уравнение?', options: ['Уравнение, правая часть которого равна нулю', 'Уравнение с постоянными коэффициентами', 'Уравнение первой степени', 'Уравнение с разделяющимися переменными'], correct: 0 },
+    {
+      question: 'Решите уравнение: \\( y\' = \\cos x \\) ', options: ['\\(y = \\sin x + C \\) ', '\\(y = \\cos x + C \\) ', '\\(y = -\\sin x + C \\) ', '\\(y = -\\cos x + C \\) '], correct: 0 },
+      ],
+      medium: [
+        { question: 'Решите уравнение: \\( y'' + y = 0 \\)', options: ['\\( y = C_1 \\cos x + C_2 \\sin x \\)', '\\( y = C_1 e^x + C_2 e^{-x} \\)', '\\( y = C_1 + C_2 x \\)', '\\( y = C_1 \\cosh x + C_2 \\sinh x \\)'], correct: 0 },
+        { question: 'Что такое характеристическое уравнение?', options: ['Алгебраическое уравнение для нахождения корней', 'Уравнение для определения порядка', 'Уравнение для вариации постоянных', 'Уравнение в частных производных'], correct: 0 },
+        { question: 'Решите уравнение: \\( y'' - 4y' + 4y = 0 \\) ', options: ['\\(y = (C_1 + C_2 x)e ^ { 2x } \\) ', '\\(y = C_1 e ^ { 2x } + C_2 e ^ {- 2x} \\) ', '\\(y = C_1 \\cos 2x + C_2 \\sin 2x \\) ', '\\(y = C_1 e ^ { 2x } + C_2 x \\) '], correct: 0 },
+    { question: 'Что такое метод вариации постоянных?', options: ['Метод решения неоднородных линейных уравнений', 'Способ разделения переменных', 'Метод понижения порядка', 'Способ решения уравнений в частных производных'], correct: 0 },
+    { question: 'Решите уравнение: \\( y' + y = e ^ x \\) ', options: ['\\(y = \\frac{ 1 } { 2 } e ^ x + Ce ^ {- x } \\) ', '\\(y = e ^ x + C \\) ', '\\(y = xe ^ x + C \\) ', '\\(y = e ^ x + Ce ^ {- x} \\) '], correct: 0 },
+    { question: 'Что такое уравнение Бернулли?', options: ['Уравнение вида \\( y\' + p(x)y = q(x)y^n \\)', 'Уравнение с постоянными коэффициентами', 'Уравнение в частных производных', 'Уравнение с разделяющимися переменными'], correct: 0 },
+    { question: 'Решите уравнение: \\( y'' + 4y = 0 \\)', options: ['\\( y = C_1 \\cos 2x + C_2 \\sin 2x \\)', '\\( y = C_1 e^{2x} + C_2 e^{-2x} \\)', '\\( y = C_1 + C_2 e^{-4x} \\)', '\\( y = C_1 \\cosh 2x + C_2 \\sinh 2x \\)'], correct: 0 },
+    { question: 'Что такое операторный метод решения дифференциальных уравнений?', options: ['Метод с использованием преобразования Лапласа', 'Метод вариации постоянных', 'Метод разделения переменных', 'Метод характеристик'], correct: 0 },
+    { question: 'Решите уравнение: \\( xy\' + y = x^2 \\)', options: ['\\( y = \\frac{x^2}{3} + \\frac{C}{x} \\)', '\\( y = x^2 + Cx \\)', '\\( y = \\frac{x^2}{2} + C \\)', '\\( y = x^2 + \\frac{C}{x} \\)'], correct: 0 },
+    { question: 'Что такое уравнение Эйлера?', options: ['Линейное уравнение вида \\( x^2 y\'\' + a x y\' + b y = 0 \\)', 'Уравнение с разделяющимися переменными', 'Уравнение Бернулли', 'Уравнение в частных производных'], correct: 0 }
+      ],
+    hard: [
+      { question: 'Решите систему: \\( \\begin{cases} x\' = y \\\\ y\' = -x \\end{cases} \\)', options: ['\\( x = C_1 \\cos t + C_2 \\sin t, y = -C_1 \\sin t + C_2 \\cos t \\)', '\\( x = C_1 e^t + C_2 e^{-t}, y = C_1 e^t - C_2 e^{-t} \\)', '\\( x = C_1 + C_2 t, y = C_2 \\)', '\\( x = C_1 \\cosh t + C_2 \\sinh t, y = C_1 \\sinh t + C_2 \\cosh t \\)'], correct: 0 },
+      { question: 'Что такое фазовый портрет системы дифференциальных уравнений?', options: ['Геометрическое представление траекторий системы', 'График решения уравнения', 'Диаграмма зависимости переменных', 'Матрица коэффициентов системы'], correct: 0 },
+      { question: 'Решите уравнение: \\( y\'\' + y = \\sin x \\)', options: ['\\( y = C_1 \\cos x + C_2 \\sin x - \\frac{1}{2} x \\cos x \\)', '\\( y = C_1 \\cos x + C_2 \\sin x + \\frac{1}{2} \\sin x \\)', '\\( y = C_1 \\cos x + C_2 \\sin x + \\frac{1}{2} x \\sin x \\)', '\\( y = C_1 \\cos x + C_2 \\sin x - \\frac{1}{2} \\cos x \\)'], correct: 0 },
+      { question: 'Что такое метод Рунге-Кутты?', options: ['Численный метод решения дифференциальных уравнений', 'Аналитический метод решения линейных уравнений', 'Метод решения уравнений в частных производных', 'Способ определения устойчивости решений'], correct: 0 },
+      { question: 'Решите уравнение: \\( y\'\' - 2y\' + y = e^x \\)', options: ['\\( y = (C_1 + C_2 x + \\frac{1}{2} x^2) e^x \\)', '\\( y = C_1 e^x + C_2 e^{-x} + \\frac{1}{2} e^x \\)', '\\( y = C_1 \\cos x + C_2 \\sin x + e^x \\)', '\\( y = (C_1 + C_2 x) e^x + x e^x \\)'], correct: 0 },
     };
 
-    // Инициализация
-    document.addEventListener('DOMContentLoaded', function () {
-      const nameInput = document.getElementById('userName');
-      const startButton = document.getElementById('startButton');
+      // Инициализация
+      document.addEventListener('DOMContentLoaded', function () {
+        const nameInput = document.getElementById('userName');
+        const startButton = document.getElementById('startButton');
 
-      nameInput.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-          startApp();
-        }
+        nameInput.addEventListener('keypress', function (e) {
+          if (e.key === 'Enter') {
+            startApp();
+          }
+        });
+
+        startButton.addEventListener('click', startApp);
+
+        // Обработчики табов
+        document.getElementById('homeTab').addEventListener('click', showHome);
+        document.getElementById('schoolMathTab').addEventListener('click', showSchoolMath);
+        document.getElementById('statsTab').addEventListener('click', showStats);
+
+        // Загрузка сохраненных данных
+        loadUserData();
       });
 
-      startButton.addEventListener('click', startApp);
+      function startApp() {
+        const name = document.getElementById('userName').value.trim();
+        if (name) {
+          currentUser = name;
+          document.getElementById('userGreeting').textContent = name;
+          document.getElementById('welcomeModal').style.display = 'none';
+          document.getElementById('mainPage').classList.remove('hidden');
+          updateStats();
 
-      // Обработчики табов
-      document.getElementById('homeTab').addEventListener('click', showHome);
-      document.getElementById('schoolMathTab').addEventListener('click', showSchoolMath);
-      document.getElementById('statsTab').addEventListener('click', showStats);
-
-      // Загрузка сохраненных данных
-      loadUserData();
-    });
-
-    function startApp() {
-      const name = document.getElementById('userName').value.trim();
-      if (name) {
-        currentUser = name;
-        document.getElementById('userGreeting').textContent = name;
-        document.getElementById('welcomeModal').style.display = 'none';
-        document.getElementById('mainPage').classList.remove('hidden');
-        updateStats();
-
-        // Сохранение данных пользователя
-        saveUserData();
+          // Сохранение данных пользователя
+          saveUserData();
+        }
       }
-    }
 
     function showHome() {
-      hideAllContent();
-      document.getElementById('homeContent').classList.remove('hidden');
-      updateActiveTab('homeTab');
-    }
-
-    function showSchoolMath() {
-      hideAllContent();
-      document.getElementById('schoolMathContent').classList.remove('hidden');
-      updateActiveTab('schoolMathTab');
-    }
-
-    function showStats() {
-      hideAllContent();
-      document.getElementById('statsContent').classList.remove('hidden');
-      updateActiveTab('statsTab');
-      displayStats();
-    }
-
-    function showLevelSelection() {
-      hideAllContent();
-      document.getElementById('levelSelectionContent').classList.remove('hidden');
-    }
-
-    function showTopic(topicKey) {
-      currentTopic = topicKey;
-      const topic = topicsData[topicKey];
-      if (!topic) return;
-
-      document.getElementById('levelTopicTitle').textContent = topic.title;
-      showLevelSelection();
-    }
-
-    function selectLevel(levelKey) {
-      currentLevel = levelKey;
-      const topic = topicsData[currentTopic];
-      if (!topic) return;
-
-      // Активируем выбранный уровень
-      document.querySelectorAll('.level-selector').forEach(el => {
-        if (el.dataset.level === levelKey) {
-          el.classList.add('active');
-        } else {
-          el.classList.remove('active');
-        }
-      });
-
-      // Показываем контент темы
-      hideAllContent();
-      document.getElementById('topicContent').classList.remove('hidden');
-
-      document.getElementById('topicTitle').textContent = topic.title;
-      document.getElementById('topicDescription').textContent = topic.description;
-
-      // Вставляем теорию
-      document.getElementById('theoryContent').innerHTML = topic.theory[levelKey];
-
-      // Устанавливаем бейдж сложности
-      const difficultyBadge = document.getElementById('difficultyBadge');
-      difficultyBadge.className = 'difficulty-badge';
-
-      if (levelKey === 'easy') {
-        difficultyBadge.classList.add('bg-green-100', 'text-green-800');
-        difficultyBadge.textContent = 'Лёгкий уровень';
-      } else if (levelKey === 'medium') {
-        difficultyBadge.classList.add('bg-yellow-100', 'text-yellow-800');
-        difficultyBadge.textContent = 'Средний уровень';
-      } else {
-        difficultyBadge.classList.add('bg-red-100', 'text-red-800');
-        difficultyBadge.textContent = 'Сложный уровень';
+        hideAllContent();
+        document.getElementById('homeContent').classList.remove('hidden');
+        updateActiveTab('homeTab');
       }
 
-      // Выбираем 10 случайных вопросов
-      const allQuestions = topic.questions[levelKey];
-      const randomQuestions = getRandomQuestions(allQuestions, 10);
-      currentQuiz = randomQuestions;
-      currentQuestionIndex = 0;
-      displayQuestion();
-      updateProgress();
+    function showSchoolMath() {
+        hideAllContent();
+        document.getElementById('schoolMathContent').classList.remove('hidden');
+        updateActiveTab('schoolMathTab');
+      }
 
-      // Перерисовываем MathJax после загрузки контента
-      MathJax.typesetPromise([document.getElementById('theoryContent')]);
-    }
+    function showStats() {
+        hideAllContent();
+        document.getElementById('statsContent').classList.remove('hidden');
+        updateActiveTab('statsTab');
+        displayStats();
+      }
+
+    function showLevelSelection() {
+        hideAllContent();
+        document.getElementById('levelSelectionContent').classList.remove('hidden');
+      }
+
+    function showTopic(topicKey) {
+        currentTopic = topicKey;
+        const topic = topicsData[topicKey];
+        if (!topic) return;
+
+        document.getElementById('levelTopicTitle').textContent = topic.title;
+        showLevelSelection();
+      }
+
+    function selectLevel(levelKey) {
+        currentLevel = levelKey;
+        const topic = topicsData[currentTopic];
+        if (!topic) return;
+
+        // Активируем выбранный уровень
+        document.querySelectorAll('.level-selector').forEach(el => {
+          if (el.dataset.level === levelKey) {
+            el.classList.add('active');
+          } else {
+            el.classList.remove('active');
+          }
+        });
+
+        // Показываем контент темы
+        hideAllContent();
+        document.getElementById('topicContent').classList.remove('hidden');
+
+        document.getElementById('topicTitle').textContent = topic.title;
+        document.getElementById('topicDescription').textContent = topic.description;
+
+        // Вставляем теорию
+        document.getElementById('theoryContent').innerHTML = topic.theory[levelKey];
+
+        // Устанавливаем бейдж сложности
+        const difficultyBadge = document.getElementById('difficultyBadge');
+        difficultyBadge.className = 'difficulty-badge';
+
+        if (levelKey === 'easy') {
+          difficultyBadge.classList.add('bg-green-100', 'text-green-800');
+          difficultyBadge.textContent = 'Лёгкий уровень';
+        } else if (levelKey === 'medium') {
+          difficultyBadge.classList.add('bg-yellow-100', 'text-yellow-800');
+          difficultyBadge.textContent = 'Средний уровень';
+        } else {
+          difficultyBadge.classList.add('bg-red-100', 'text-red-800');
+          difficultyBadge.textContent = 'Сложный уровень';
+        }
+
+        // Выбираем 10 случайных вопросов
+        const allQuestions = topic.questions[levelKey];
+        const randomQuestions = getRandomQuestions(allQuestions, 10);
+        currentQuiz = randomQuestions;
+        currentQuestionIndex = 0;
+        displayQuestion();
+        updateProgress();
+
+        // Перерисовываем MathJax после загрузки контента
+        MathJax.typesetPromise([document.getElementById('theoryContent')]);
+      }
 
     function getRandomQuestions(questions, count) {
-      if (questions.length <= count) return [...questions];
+        if (questions.length <= count) return [...questions];
 
-      const shuffled = [...questions].sort(() => 0.5 - Math.random());
-      return shuffled.slice(0, count);
-    }
+        const shuffled = [...questions].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+      }
 
     function displayQuestion() {
-      if (!currentQuiz || currentQuestionIndex >= currentQuiz.length) {
-        document.getElementById('quizContent').innerHTML = `
+        if (!currentQuiz || currentQuestionIndex >= currentQuiz.length) {
+          document.getElementById('quizContent').innerHTML = `
           <div class="text-center py-8">
             <div class="text-6xl mb-4">🎉</div>
             <h3 class="text-xl font-semibold text-gray-800 mb-2">Тест завершен!</h3>
@@ -1289,11 +1677,11 @@
             </button>
           </div>
         `;
-        return;
-      }
+          return;
+        }
 
-      const question = currentQuiz[currentQuestionIndex];
-      document.getElementById('quizContent').innerHTML = `
+        const question = currentQuiz[currentQuestionIndex];
+        document.getElementById('quizContent').innerHTML = `
         <div class="mb-4">
           <div class="flex justify-between items-center mb-4">
             <span class="text-sm text-gray-500">Вопрос ${currentQuestionIndex + 1} из ${currentQuiz.length}</span>
@@ -1310,134 +1698,134 @@
         </div>
       `;
 
-      // Обновляем счетчик вопросов
-      document.getElementById('questionCounter').textContent = `Вопрос ${currentQuestionIndex + 1}/${currentQuiz.length}`;
+        // Обновляем счетчик вопросов
+        document.getElementById('questionCounter').textContent = `Вопрос ${currentQuestionIndex + 1}/${currentQuiz.length}`;
 
-      // Перерисовываем MathJax после загрузки вопроса
-      MathJax.typesetPromise([document.getElementById('quizContent')]);
-    }
+        // Перерисовываем MathJax после загрузки вопроса
+        MathJax.typesetPromise([document.getElementById('quizContent')]);
+      }
 
     function selectAnswer(selectedIndex) {
-      const question = currentQuiz[currentQuestionIndex];
-      const isCorrect = selectedIndex === question.correct;
+        const question = currentQuiz[currentQuestionIndex];
+        const isCorrect = selectedIndex === question.correct;
 
-      // Обновляем статистику
-      userStats.totalQuestions++;
-      if (isCorrect) {
-        userStats.correctAnswers++;
-        userStats.topicProgress[currentTopic][currentLevel]++;
-      }
-      userStats.topicProgress[currentTopic].total++;
-
-      // Добавляем в историю
-      userStats.history.unshift({
-        topic: currentTopic,
-        level: currentLevel,
-        question: question.question,
-        userAnswer: question.options[selectedIndex],
-        correctAnswer: question.options[question.correct],
-        isCorrect: isCorrect,
-        timestamp: new Date().toLocaleString('ru-RU')
-      });
-
-      // Показываем результат
-      const buttons = document.querySelectorAll('#quizContent button');
-      buttons.forEach((btn, index) => {
-        btn.disabled = true;
-        if (index === question.correct) {
-          btn.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
-        } else if (index === selectedIndex && !isCorrect) {
-          btn.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+        // Обновляем статистику
+        userStats.totalQuestions++;
+        if (isCorrect) {
+          userStats.correctAnswers++;
+          userStats.topicProgress[currentTopic][currentLevel]++;
         }
-      });
+        userStats.topicProgress[currentTopic].total++;
 
-      // Показываем кнопку "Далее"
-      setTimeout(() => {
-        const nextButton = document.createElement('button');
-        nextButton.textContent = currentQuestionIndex < currentQuiz.length - 1 ? 'Следующий вопрос' : 'Завершить тест';
-        nextButton.className = 'mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600';
-        nextButton.onclick = nextQuestion;
-        document.getElementById('quizContent').appendChild(nextButton);
-      }, 1000);
+        // Добавляем в историю
+        userStats.history.unshift({
+          topic: currentTopic,
+          level: currentLevel,
+          question: question.question,
+          userAnswer: question.options[selectedIndex],
+          correctAnswer: question.options[question.correct],
+          isCorrect: isCorrect,
+          timestamp: new Date().toLocaleString('ru-RU')
+        });
 
-      updateProgress();
-      saveUserData();
-    }
+        // Показываем результат
+        const buttons = document.querySelectorAll('#quizContent button');
+        buttons.forEach((btn, index) => {
+          btn.disabled = true;
+          if (index === question.correct) {
+            btn.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+          } else if (index === selectedIndex && !isCorrect) {
+            btn.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+          }
+        });
+
+        // Показываем кнопку "Далее"
+        setTimeout(() => {
+          const nextButton = document.createElement('button');
+          nextButton.textContent = currentQuestionIndex < currentQuiz.length - 1 ? 'Следующий вопрос' : 'Завершить тест';
+          nextButton.className = 'mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600';
+          nextButton.onclick = nextQuestion;
+          document.getElementById('quizContent').appendChild(nextButton);
+        }, 1000);
+
+        updateProgress();
+        saveUserData();
+      }
 
     function nextQuestion() {
-      currentQuestionIndex++;
-      displayQuestion();
-    }
+        currentQuestionIndex++;
+        displayQuestion();
+      }
 
     function restartQuiz() {
-      currentQuestionIndex = 0;
-      displayQuestion();
-    }
+        currentQuestionIndex = 0;
+        displayQuestion();
+      }
 
     function updateProgress() {
-      const correct = userStats.correctAnswers;
-      const total = userStats.totalQuestions;
-      const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+        const correct = userStats.correctAnswers;
+        const total = userStats.totalQuestions;
+        const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
 
-      document.getElementById('correctAnswers').textContent = `${correct}/${total}`;
-      document.getElementById('progressBar').style.width = `${percentage}%`;
+        document.getElementById('correctAnswers').textContent = `${correct}/${total}`;
+        document.getElementById('progressBar').style.width = `${percentage}%`;
 
-      // Обновляем круговой прогресс
-      const progressRing = document.getElementById('progressRing');
-      const circumference = 2 * Math.PI * 15.9155;
-      const offset = circumference - (percentage / 100) * circumference;
-      progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
-      progressRing.style.strokeDashoffset = offset;
-      document.getElementById('progressPercent').textContent = `${percentage}%`;
+        // Обновляем круговой прогресс
+        const progressRing = document.getElementById('progressRing');
+        const circumference = 2 * Math.PI * 15.9155;
+        const offset = circumference - (percentage / 100) * circumference;
+        progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
+        progressRing.style.strokeDashoffset = offset;
+        document.getElementById('progressPercent').textContent = `${percentage}%`;
 
-      // Обновляем прогресс по темам
-      updateTopicProgress();
-    }
+        // Обновляем прогресс по темам
+        updateTopicProgress();
+      }
 
     function updateTopicProgress() {
-      // Арифметика
-      const arithmeticTotal = userStats.topicProgress.arithmetic.total;
-      const arithmeticCorrect = userStats.topicProgress.arithmetic.easy +
-        userStats.topicProgress.arithmetic.medium +
-        userStats.topicProgress.arithmetic.hard;
-      const arithmeticPercentage = arithmeticTotal > 0 ? Math.round((arithmeticCorrect / arithmeticTotal) * 100) : 0;
-      document.getElementById('arithmeticProgress').textContent = `${arithmeticPercentage}%`;
-      document.getElementById('arithmeticBar').style.width = `${arithmeticPercentage}%`;
+        // Арифметика
+        const arithmeticTotal = userStats.topicProgress.arithmetic.total;
+        const arithmeticCorrect = userStats.topicProgress.arithmetic.easy +
+          userStats.topicProgress.arithmetic.medium +
+          userStats.topicProgress.arithmetic.hard;
+        const arithmeticPercentage = arithmeticTotal > 0 ? Math.round((arithmeticCorrect / arithmeticTotal) * 100) : 0;
+        document.getElementById('arithmeticProgress').textContent = `${arithmeticPercentage}%`;
+        document.getElementById('arithmeticBar').style.width = `${arithmeticPercentage}%`;
 
-      // Алгебра
-      const algebraTotal = userStats.topicProgress.algebra.total;
-      const algebraCorrect = userStats.topicProgress.algebra.easy +
-        userStats.topicProgress.algebra.medium +
-        userStats.topicProgress.algebra.hard;
-      const algebraPercentage = algebraTotal > 0 ? Math.round((algebraCorrect / algebraTotal) * 100) : 0;
-      document.getElementById('algebraProgress').textContent = `${algebraPercentage}%`;
-      document.getElementById('algebraBar').style.width = `${algebraPercentage}%`;
+        // Алгебра
+        const algebraTotal = userStats.topicProgress.algebra.total;
+        const algebraCorrect = userStats.topicProgress.algebra.easy +
+          userStats.topicProgress.algebra.medium +
+          userStats.topicProgress.algebra.hard;
+        const algebraPercentage = algebraTotal > 0 ? Math.round((algebraCorrect / algebraTotal) * 100) : 0;
+        document.getElementById('algebraProgress').textContent = `${algebraPercentage}%`;
+        document.getElementById('algebraBar').style.width = `${algebraPercentage}%`;
 
-      // Геометрия
-      const geometryTotal = userStats.topicProgress.geometry.total;
-      const geometryCorrect = userStats.topicProgress.geometry.easy +
-        userStats.topicProgress.geometry.medium +
-        userStats.topicProgress.geometry.hard;
-      const geometryPercentage = geometryTotal > 0 ? Math.round((geometryCorrect / geometryTotal) * 100) : 0;
-      document.getElementById('geometryProgress').textContent = `${geometryPercentage}%`;
-      document.getElementById('geometryBar').style.width = `${geometryPercentage}%`;
-    }
+        // Геометрия
+        const geometryTotal = userStats.topicProgress.geometry.total;
+        const geometryCorrect = userStats.topicProgress.geometry.easy +
+          userStats.topicProgress.geometry.medium +
+          userStats.topicProgress.geometry.hard;
+        const geometryPercentage = geometryTotal > 0 ? Math.round((geometryCorrect / geometryTotal) * 100) : 0;
+        document.getElementById('geometryProgress').textContent = `${geometryPercentage}%`;
+        document.getElementById('geometryBar').style.width = `${geometryPercentage}%`;
+      }
 
     function displayStats() {
-      document.getElementById('totalQuestions').textContent = userStats.totalQuestions;
-      document.getElementById('totalCorrect').textContent = userStats.correctAnswers;
+        document.getElementById('totalQuestions').textContent = userStats.totalQuestions;
+        document.getElementById('totalCorrect').textContent = userStats.correctAnswers;
 
-      const accuracy = userStats.totalQuestions > 0 ?
-        Math.round((userStats.correctAnswers / userStats.totalQuestions) * 100) : 0;
-      document.getElementById('accuracy').textContent = `${accuracy}%`;
+        const accuracy = userStats.totalQuestions > 0 ?
+          Math.round((userStats.correctAnswers / userStats.totalQuestions) * 100) : 0;
+        document.getElementById('accuracy').textContent = `${accuracy}%`;
 
-      updateTopicProgress();
+        updateTopicProgress();
 
-      const historyList = document.getElementById('historyList');
-      if (userStats.history.length === 0) {
-        historyList.innerHTML = '<p class="text-gray-500 text-center py-8">Пока нет данных. Начните решать задачи!</p>';
-      } else {
-        historyList.innerHTML = userStats.history.slice(0, 10).map(item => `
+        const historyList = document.getElementById('historyList');
+        if (userStats.history.length === 0) {
+          historyList.innerHTML = '<p class="text-gray-500 text-center py-8">Пока нет данных. Начните решать задачи!</p>';
+        } else {
+          historyList.innerHTML = userStats.history.slice(0, 10).map(item => `
           <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
             <div class="flex-1">
               <div class="flex items-center mb-1">
@@ -1452,88 +1840,88 @@
             </div>
             <div class="ml-4">
               ${item.isCorrect ?
-            '<span class="text-green-600 text-xl">✅</span>' :
-            '<span class="text-red-600 text-xl">❌</span>'
-          }
+              '<span class="text-green-600 text-xl">✅</span>' :
+              '<span class="text-red-600 text-xl">❌</span>'
+            }
             </div>
           </div>
         `).join('');
 
-        // Перерисовываем MathJax для истории
-        MathJax.typesetPromise([document.getElementById('historyList')]);
+          // Перерисовываем MathJax для истории
+          MathJax.typesetPromise([document.getElementById('historyList')]);
+        }
       }
-    }
 
     function getLevelName(level) {
-      switch (level) {
-        case 'easy': return 'Лёгкий';
-        case 'medium': return 'Средний';
-        case 'hard': return 'Сложный';
-        default: return level;
+        switch (level) {
+          case 'easy': return 'Лёгкий';
+          case 'medium': return 'Средний';
+          case 'hard': return 'Сложный';
+          default: return level;
+        }
       }
-    }
 
     function getLevelBadgeClass(level) {
-      switch (level) {
-        case 'easy': return 'bg-green-100 text-green-800';
-        case 'medium': return 'bg-yellow-100 text-yellow-800';
-        case 'hard': return 'bg-red-100 text-red-800';
-        default: return 'bg-gray-100 text-gray-800';
+        switch (level) {
+          case 'easy': return 'bg-green-100 text-green-800';
+          case 'medium': return 'bg-yellow-100 text-yellow-800';
+          case 'hard': return 'bg-red-100 text-red-800';
+          default: return 'bg-gray-100 text-gray-800';
+        }
       }
-    }
 
     function updateStats() {
-      updateProgress();
-    }
+        updateProgress();
+      }
 
     function hideAllContent() {
-      document.getElementById('homeContent').classList.add('hidden');
-      document.getElementById('schoolMathContent').classList.add('hidden');
-      document.getElementById('levelSelectionContent').classList.add('hidden');
-      document.getElementById('topicContent').classList.add('hidden');
-      document.getElementById('statsContent').classList.add('hidden');
-    }
+        document.getElementById('homeContent').classList.add('hidden');
+        document.getElementById('schoolMathContent').classList.add('hidden');
+        document.getElementById('levelSelectionContent').classList.add('hidden');
+        document.getElementById('topicContent').classList.add('hidden');
+        document.getElementById('statsContent').classList.add('hidden');
+      }
 
     function updateActiveTab(activeTabId) {
-      const tabs = ['homeTab', 'schoolMathTab', 'statsTab'];
-      tabs.forEach(tabId => {
-        const tab = document.getElementById(tabId);
-        if (tabId === activeTabId) {
-          tab.classList.remove('border-transparent', 'text-gray-500');
-          tab.classList.add('border-blue-500', 'text-blue-600');
-        } else {
-          tab.classList.remove('border-blue-500', 'text-blue-600');
-          tab.classList.add('border-transparent', 'text-gray-500');
-        }
-      });
-    }
+        const tabs = ['homeTab', 'schoolMathTab', 'statsTab'];
+        tabs.forEach(tabId => {
+          const tab = document.getElementById(tabId);
+          if (tabId === activeTabId) {
+            tab.classList.remove('border-transparent', 'text-gray-500');
+            tab.classList.add('border-blue-500', 'text-blue-600');
+          } else {
+            tab.classList.remove('border-blue-500', 'text-blue-600');
+            tab.classList.add('border-transparent', 'text-gray-500');
+          }
+        });
+      }
 
     function saveUserData() {
-      const userData = {
-        name: currentUser,
-        stats: userStats
-      };
-      localStorage.setItem('matemateka_user', JSON.stringify(userData));
-    }
+        const userData = {
+          name: currentUser,
+          stats: userStats
+        };
+        localStorage.setItem('matemateka_user', JSON.stringify(userData));
+      }
 
     function loadUserData() {
-      const savedData = localStorage.getItem('matemateka_user');
-      if (savedData) {
-        const userData = JSON.parse(savedData);
-        currentUser = userData.name;
-        userStats = userData.stats || userStats;
+        const savedData = localStorage.getItem('matemateka_user');
+        if (savedData) {
+          const userData = JSON.parse(savedData);
+          currentUser = userData.name;
+          userStats = userData.stats || userStats;
 
-        document.getElementById('userName').value = currentUser;
-        document.getElementById('userGreeting').textContent = currentUser;
+          document.getElementById('userName').value = currentUser;
+          document.getElementById('userGreeting').textContent = currentUser;
 
-        // Если есть сохранённый пользователь — пропустить модальное окно и показать главный экран
-        if (currentUser) {
-          document.getElementById('welcomeModal').style.display = 'none';
-          document.getElementById('mainPage').classList.remove('hidden');
-          updateStats();
+          // Если есть сохранённый пользователь — пропустить модальное окно и показать главный экран
+          if (currentUser) {
+            document.getElementById('welcomeModal').style.display = 'none';
+            document.getElementById('mainPage').classList.remove('hidden');
+            updateStats();
+          }
         }
       }
-    }
   </script>
 </body>
 

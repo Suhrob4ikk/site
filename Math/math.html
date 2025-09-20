@@ -1,703 +1,1184 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Математика с нуля - профессиональная платформа для изучения математики</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Serif+Pro:wght@400;600;700&display=swap');
-
-    :root {
-      --primary: #1a365d;
-      --primary-dark: #153060;
-      --secondary: #2d3748;
-      --accent: #3182ce;
-      --light: #f7fafc;
-      --dark: #2d3748;
-      --text: #4a5568;
-      --success: #38a169;
-      --warning: #ecc94b;
-      --error: #e53e3e;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      color: var(--text);
-      background-color: #f9fafb;
-      line-height: 1.6;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: 'Source Serif Pro', serif;
-      color: var(--dark);
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    /* Header Styles */
-    header {
-      background: white;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 0;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    .logo i {
-      margin-right: 0.5rem;
-      color: var(--accent);
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      margin-right: 2rem;
-    }
-
-    .nav-links li {
-      margin: 0 1rem;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--dark);
-      font-weight: 500;
-      transition: color 0.3s;
-      position: relative;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: var(--accent);
-      transition: width 0.3s;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .auth-buttons {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .btn {
-      padding: 0.5rem 1.5rem;
-      border-radius: 4px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s;
-      display: inline-block;
-    }
-
-    .btn-outline {
-      border: 2px solid var(--primary);
-      color: var(--primary);
-    }
-
-    .btn-outline:hover {
-      background: var(--primary);
-      color: white;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(120deg, var(--primary) 0%, var(--primary-dark) 100%);
-      color: white;
-      padding: 4rem 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image:
-        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 20%);
-    }
-
-    .hero-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-text {
-      flex: 1;
-      padding-right: 2rem;
-    }
-
-    .hero-text h1 {
-      font-size: 2.8rem;
-      margin-bottom: 1.5rem;
-      color: white;
-      line-height: 1.2;
-    }
-
-    .hero-text p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-      max-width: 600px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .hero-btn {
-      padding: 0.8rem 2rem;
-      border-radius: 4px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-
-    .hero-btn-primary {
-      background: white;
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .hero-btn-primary:hover {
-      background: #f0f0f0;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .hero-btn-secondary {
-      border: 2px solid white;
-      color: white;
-    }
-
-    .hero-btn-secondary:hover {
-      background: white;
-      color: var(--primary);
-    }
-
-    .hero-visual {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .math-formulas {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .formula {
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
-      text-align: center;
-      font-family: 'Source Serif Pro', serif;
-      font-size: 1.2rem;
-    }
-
-    /* Features Section */
-    .features {
-      padding: 5rem 0;
-      background: var(--light);
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .section-header h2 {
-      font-size: 2.2rem;
-      color: var(--primary);
-      position: relative;
-      display: inline-block;
-      padding-bottom: 0.5rem;
-    }
-
-    .section-header h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
-
-    .section-header p {
-      font-size: 1.1rem;
-      color: var(--text);
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .feature-card {
-      background: white;
-      border-radius: 10px;
-      padding: 2rem;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-align: center;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .feature-icon {
-      font-size: 2.5rem;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-    }
-
-    .feature-card h3 {
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
-    .feature-card p {
-      color: var(--text);
-    }
-
-    /* Programs Section */
-    .programs {
-      padding: 5rem 0;
-      background: white;
-    }
-
-    .programs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 2rem;
-    }
-
-    .program-card {
-      background: var(--light);
-      border-radius: 10px;
-      padding: 2rem;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .program-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .program-icon {
-      font-size: 2rem;
-      color: var(--accent);
-      margin-right: 1rem;
-    }
-
-    .program-card h3 {
-      font-size: 1.5rem;
-      color: var(--primary);
-    }
-
-    .program-content {
-      margin-bottom: 2rem;
-    }
-
-    .program-levels {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .level {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      background: white;
-      border-radius: 6px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    }
-
-    .level-name {
-      font-weight: 500;
-    }
-
-    .level-classes {
-      font-size: 0.9rem;
-      color: var(--text);
-      opacity: 0.8;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 992px) {
-      .hero-content {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .hero-text {
-        padding-right: 0;
-        margin-bottom: 2rem;
-      }
-
-      .hero-buttons {
-        justify-content: center;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .mobile-menu-btn {
-        display: block;
-      }
-    }
-
-    @media (max-width: 768px) {
-
-      .programs-grid,
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-text h1 {
-        font-size: 2.2rem;
-      }
-
-      .auth-buttons {
-        display: none;
-      }
-
-      .mobile-auth {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-      }
-    }
-
-    /* Mobile Menu */
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--dark);
-      cursor: pointer;
-    }
-
-    @media (max-width: 992px) {
-      .mobile-menu-btn {
-        display: block;
-      }
-
-      .nav-links {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: white;
-        flex-direction: column;
-        padding: 1rem;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s;
-        z-index: 99;
-      }
-
-      .nav-links.active {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .nav-links li {
-        margin: 0.5rem 0;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <!-- Header -->
-  <header>
-    <div class="container">
-      <div class="header-content">
-        <a href="#" class="logo">
-          <i class="fas fa-square-root-alt"></i>
-          <span>Математика с нуля</span>
-        </a>
-
-        <nav>
-          <ul class="nav-links">
-            <li><a href="#">Главная</a></li>
-            <li><a href="#">О проекте</a></li>
-            <li><a href="#">Учебная программа</a></li>
-            <li><a href="#">Уроки</a></li>
-            <li><a href="#">Практика</a></li>
-            <li><a href="#">Инструменты</a></li>
-          </ul>
-
-          <div class="auth-buttons">
-            <a href="#" class="btn btn-outline">Вход</a>
-            <a href="#" class="btn btn-primary">Регистрация</a>
-          </div>
-
-          <button class="mobile-menu-btn">
-            <i class="fas fa-bars"></i>
-          </button>
-        </nav>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1>Системное изучение математики от основ к высшему уровню</h1>
-          <p>Профессиональная платформа для глубокого понимания математических концепций через структурированное
-            обучение и практику.</p>
-          <div class="hero-buttons">
-            <a href="#" class="hero-btn hero-btn-primary">Начать обучение</a>
-            <a href="#" class="hero-btn hero-btn-secondary">Программа обучения</a>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-          <div class="math-formulas">
-            <div class="formula">a² + b² = c²</div>
-            <div class="formula">e<sup>iπ</sup> + 1 = 0</div>
-            <div class="formula">F = ma</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="features">
-    <div class="container">
-      <div class="section-header">
-        <h2>Академический подход к изучению математики</h2>
-        <p>Наша методика основана на системном подходе, используемом в ведущих математических вузах</p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-sitemap"></i>
-          </div>
-          <h3>Структурированная программа</h3>
-          <p>Поэтапное изучение тем от простого к сложному с закреплением материала. Каждый раздел содержит теорию,
-            примеры и практические задания.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-brain"></i>
-          </div>
-          <h3>Глубокое понимание</h3>
-          <p>Акцент на понимании концепций, а не механическом запоминании формул. Объясняем происхождение теорем и их
-            доказательства.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h3>Прикладное применение</h3>
-          <p>Примеры использования математики в науке, технике и анализе данных. Показываем, как абстрактные концепции
-            применяются в реальном мире.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Programs Section -->
-  <section class="programs">
-    <div class="container">
-      <div class="section-header">
-        <h2>Система обучения</h2>
-        <p>Полный путь от основ к продвинутым разделам математики</p>
-      </div>
-
-      <div class="programs-grid">
-        <div class="program-card">
-          <div class="program-header">
-            <div class="program-icon">
-              <i class="fas fa-calculator"></i>
-            </div>
-            <h3>Базовая математика</h3>
-          </div>
-
-          <div class="program-content">
-            <p>Фундаментальные знания, необходимые для дальнейшего изучения. Подробные объяснения с множеством примеров.
-            </p>
-          </div>
-
-          <div class="program-levels">
-            <div class="level">
-              <span class="level-name">Арифметика и основы</span>
-              <span class="level-classes">1-4 классы</span>
-            </div>
-
-            <div class="level">
-              <span class="level-name">Алгебра и геометрия</span>
-              <span class="level-classes">5-9 классы</span>
-            </div>
-
-            <div class="level">
-              <span class="level-name">Математический анализ</span>
-              <span class="level-classes">10-11 классы</span>
-            </div>
-          </div>
-
-          <a href="#" class="btn btn-primary">Изучить основы</a>
-        </div>
-
-        <div class="program-card">
-          <div class="program-header">
-            <div class="program-icon">
-              <i class="fas fa-infinity"></i>
-            </div>
-            <h3>Высшая математика</h3>
-          </div>
-
-          <div class="program-content">
-            <p>Продвинутые разделы для углубленного изучения. Полные курсы университетского уровня.</p>
-          </div>
-
-          <div class="program-levels">
-            <div class="level">
-              <span class="level-name">Математический анализ</span>
-            </div>
-
-            <div class="level">
-              <span class="level-name">Линейная алгебра</span>
-            </div>
-
-            <div class="level">
-              <span class="level-name">Дифференциальные уравнения</span>
-            </div>
-
-            <div class="level">
-              <span class="level-name">Теория вероятностей</span>
-            </div>
-          </div>
-
-          <a href="#" class="btn btn-primary">Изучить высшую математику</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // Mobile menu functionality
-    document.addEventListener('DOMContentLoaded', function () {
-      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-      const navLinks = document.querySelector('.nav-links');
-
-      if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function () {
-          navLinks.classList.toggle('active');
-        });
-      }
-
-      // Close menu when clicking outside
-      document.addEventListener('click', function (event) {
-        if (!event.target.closest('nav') && navLinks.classList.contains('active')) {
-          navLinks.classList.remove('active');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathLearn - Платформа для изучения математики</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .progress-ring {
+            transition: stroke-dashoffset 0.5s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
         }
-      });
-    });
-  </script>
-</body>
+        .lesson-card:hover, .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .tab-active {
+            border-bottom: 3px solid #3b82f6;
+            color: #3b82f6;
+        }
+        .option-selected {
+            background-color: #dbeafe;
+            border-color: #3b82f6;
+        }
+        .correct-answer {
+            background-color: #bbf7d0;
+            border-color: #22c55e;
+        }
+        .wrong-answer {
+            background-color: #fecaca;
+            border-color: #ef4444;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div id="app" class="flex flex-col min-h-screen">
+        <!-- Навигация -->
+        <nav class="bg-blue-600 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-bold cursor-pointer" onclick="showPage('home')">MathLearn</h1>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-user-graduate mr-2"></i>
+                            <span id="user-level">Уровень 1</span>
+                        </div>
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-xs font-bold" id="user-xp">0</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
+        <!-- Контейнер для страниц -->
+        <main class="flex-grow container mx-auto px-4 py-8" id="page-container">
+            <!-- Главная страница будет загружена здесь -->
+        </main>
+
+        <!-- Подвал -->
+        <footer class="bg-gray-800 text-white py-6 mt-8">
+            <div class="container mx-auto px-4 text-center">
+                <p>© 2023 MathLearn - Образовательная платформа для изучения математики</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ========== КОНФИГУРАЦИЯ ДАННЫХ ==========
+        
+        // Данные пользователя
+        let userData = {
+            level: 1,
+            xp: 0,
+            progress: {
+                school: {
+                    algebra: 0,
+                    geometry: 0,
+                    trigonometry: 0
+                },
+                higher: {
+                    calculus: 0,
+                    linear_algebra: 0,
+                    differential_equations: 0
+                }
+            },
+            achievements: ['first_lesson'],
+            completedLessons: 0,
+            completedTests: 0,
+            averageScore: 0
+        };
+
+        // Уроки и тесты
+        const mathContent = {
+            school: {
+                algebra: {
+                    title: "Алгебра",
+                    lessons: [
+                        {
+                            id: "alg-1",
+                            title: "Основы алгебры",
+                            content: "Алгебра — это раздел математики, который можно неформально охарактеризовать как обобщение и расширение арифметики. Основным понятием алгебры является алгебраическое выражение, которое может содержать числа, переменные и операции над ними.",
+                            difficulty: "easy",
+                            duration: "10 мин"
+                        },
+                        {
+                            id: "alg-2",
+                            title: "Линейные уравнения",
+                            content: "Линейное уравнение — это уравнение, которое может быть записано в виде \(ax + b = 0\), где \(a\) и \(b\) — некоторые числа. Решение такого уравнения: \(x = -\\frac{b}{a}\).",
+                            difficulty: "easy",
+                            duration: "15 мин"
+                        },
+                        {
+                            id: "alg-3",
+                            title: "Квадратные уравнения",
+                            content: "Квадратное уравнение — уравнение вида \(ax^2 + bx + c = 0\), где \(a \\neq 0\). Решение находится по формуле: \(x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\). Выражение \(D = b^2 - 4ac\) называется дискриминантом.",
+                            difficulty: "medium",
+                            duration: "20 мин"
+                        },
+                        {
+                            id: "alg-4",
+                            title: "Системы уравнений",
+                            content: "Система уравнений — это набор уравнений, для которых ищутся общие решения. Например, система двух линейных уравнений с двумя переменными: \\begin{cases} a_1x + b_1y = c_1 \\\\ a_2x + b_2y = c_2 \\end{cases}",
+                            difficulty: "medium",
+                            duration: "25 мин"
+                        },
+                        {
+                            id: "alg-5",
+                            title: "Неравенства",
+                            content: "Алгебраическое неравенство — это соотношение вида \(f(x) > 0\) или \(f(x) < 0\), где \(f(x)\) — некоторое алгебраическое выражение. Решение неравенства — множество значений переменной, при которых неравенство выполняется.",
+                            difficulty: "medium",
+                            duration: "20 мин"
+                        },
+                        {
+                            id: "alg-6",
+                            title: "Прогрессии",
+                            content: "Арифметическая прогрессия: \(a_n = a_1 + (n-1)d\), где \(d\) — разность прогрессии. Геометрическая прогрессия: \(b_n = b_1 \\cdot q^{n-1}\), где \(q\) — знаменатель прогрессии.",
+                            difficulty: "hard",
+                            duration: "25 мин"
+                        },
+                        {
+                            id: "alg-7",
+                            title: "Логарифмы",
+                            content: "Логарифм числа \(b\) по основанию \(a\) определяется как показатель степени, в которую надо возвести \(a\), чтобы получить \(b\): \(a^c = b \\Rightarrow \\log_a b = c\). Основное логарифмическое тождество: \(a^{\\log_a b} = b\).",
+                            difficulty: "hard",
+                            duration: "30 мин"
+                        },
+                        {
+                            id: "alg-8",
+                            title: "Комбинаторика",
+                            content: "Комбинаторика изучает комбинации и перестановки объектов. Сочетания: \(C_n^k = \\frac{n!}{k!(n-k)!}\), размещения: \(A_n^k = \\frac{n!}{(n-k)!}\), перестановки: \(P_n = n!\).",
+                            difficulty: "hard",
+                            duration: "30 мин"
+                        },
+                        {
+                            id: "alg-9",
+                            title: "Теория вероятностей",
+                            content: "Вероятность события \(A\): \(P(A) = \\frac{m}{n}\), где \(m\) — число благоприятных исходов, \(n\) — общее число исходов. Условная вероятность: \(P(A|B) = \\frac{P(A \\cap B)}{P(B)}\).",
+                            difficulty: "hard",
+                            duration: "35 мин"
+                        },
+                        {
+                            id: "alg-10",
+                            title: "Комплексные числа",
+                            content: "Комплексное число имеет вид \(z = a + bi\), где \(a\) и \(b\) — действительные числа, \(i\) — мнимая единица (\(i^2 = -1\)). Модуль комплексного числа: \(|z| = \\sqrt{a^2 + b^2}\).",
+                            difficulty: "hard",
+                            duration: "40 мин"
+                        }
+                    ],
+                    tests: [
+                        {
+                            id: "alg-test-1",
+                            title: "Тест по основам алгебры",
+                            questions: [
+                                {
+                                    question: "Чему равно значение выражения \(2x + 3\) при \(x = 4\)?",
+                                    options: ["11", "10", "12", "9"],
+                                    answer: 0
+                                },
+                                {
+                                    question: "Что такое переменная в алгебре?",
+                                    options: ["Число, которое не меняется", "Символ, представляющий неизвестное значение", "Результат уравнения", "Математическая операция"],
+                                    answer: 1
+                                },
+                                {
+                                    question: "Как называется выражение \(3x^2 + 2x - 5\)?",
+                                    options: ["Линейное", "Квадратное", "Кубическое", "Биномиальное"],
+                                    answer: 1
+                                }
+                            ],
+                            difficulty: "easy"
+                        }
+                    ]
+                },
+                geometry: {
+                    title: "Геометрия",
+                    lessons: [
+                        {
+                            id: "geom-1",
+                            title: "Основы геометрии",
+                            content: "Геометрия — раздел математики, изучающий пространственные структуры и отношения. Основные понятия: точка, прямая, плоскость. Основные фигуры: треугольник, круг, квадрат и т.д.",
+                            difficulty: "easy",
+                            duration: "10 мин"
+                        },
+                        {
+                            id: "geom-2",
+                            title: "Треугольники",
+                            content: "Треугольник — фигура с тремя сторонами и тремя углами. Виды треугольников: остроугольные, прямоугольные, тупоугольные. Площадь треугольника: \(S = \\frac{1}{2}ah\), где \(a\) — основание, \(h\) — высота.",
+                            difficulty: "easy",
+                            duration: "15 мин"
+                        },
+                        {
+                            id: "geom-3",
+                            title: "Теорема Пифагора",
+                            content: "В прямоугольном треугольнике квадрат гипотенузы равен сумме квадратов катетов: \(c^2 = a^2 + b^2\).",
+                            difficulty: "medium",
+                            duration: "15 мин"
+                        },
+                        {
+                            id: "geom-4",
+                            title: "Окружность и круг",
+                            content: "Окружность — множество точек, equidistant от центра. Длина окружности: \(C = 2\\pi r\). Площадь круга: \(S = \\pi r^2\).",
+                            difficulty: "medium",
+                            duration: "20 мин"
+                        },
+                        {
+                            id: "geom-5",
+                            title: "Подобные фигуры",
+                            content: "Две фигуры подобны, если их соответствующие углы равны, а стороны пропорциональны. Коэффициент подобия \(k\) показывает отношение сходственных сторон.",
+                            difficulty: "medium",
+                            duration: "20 мин"
+                        },
+                        {
+                            id: "geom-6",
+                            title: "Векторы",
+                            content: "Вектор — направленный отрезок, характеризуемый длиной и направлением. Скалярное произведение: \(\\vec{a} \\cdot \\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta\).",
+                            difficulty: "hard",
+                            duration: "25 мин"
+                        },
+                        {
+                            id: "geom-7",
+                            title: "Координатная геометрия",
+                            content: "Изучение геометрии с использованием координатной системы. Расстояние между точками: \(d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}\). Уравнение прямой: \(y = kx + b\).",
+                            difficulty: "hard",
+                            duration: "30 мин"
+                        },
+                        {
+                            id: "geom-8",
+                            title: "Тригонометрия в геометрии",
+                            content: "Соотношения в прямоугольном треугольнике: синус, косинус, тангенс. Теорема синусов: \(\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C} = 2R\).",
+                            difficulty: "hard",
+                            duration: "30 мин"
+                        },
+                        {
+                            id: "geom-9",
+                            title: "Площади и объемы",
+                            content: "Площадь поверхности призмы: \(S = 2S_{осн} + S_{бок}\). Объем пирамиды: \(V = \\frac{1}{3}S_{осн}h\). Объем шара: \(V = \\frac{4}{3}\\pi r^3\).",
+                            difficulty: "hard",
+                            duration: "35 мин"
+                        },
+                        {
+                            id: "geom-10",
+                            title: "Геометрические преобразования",
+                            content: "Преобразования:平移 (translation), поворот (rotation), отражение (reflection), гомотетия (homothety). Матрицы преобразований координат.",
+                            difficulty: "hard",
+                            duration: "40 мин"
+                        }
+                    ],
+                    tests: [
+                        {
+                            id: "geom-test-1",
+                            title: "Тест по основам геометрии",
+                            questions: [
+                                {
+                                    question: "Сколько градусов в прямом угле?",
+                                    options: ["90°", "180°", "360°", "45°"],
+                                    answer: 0
+                                },
+                                {
+                                    question: "Что такое гипотенуза?",
+                                    options: ["Сторона прямоугольного треугольника, противолежащая прямому углу", "Высота треугольника", "Диагональ квадрата", "Сторона равнобедренного треугольника"],
+                                    answer: 0
+                                },
+                                {
+                                    question: "Чему равна площадь квадрата со стороной 5 см?",
+                                    options: ["25 см²", "20 см²", "10 см²", "15 см²"],
+                                    answer: 0
+                                }
+                            ],
+                            difficulty: "easy"
+                        }
+                    ]
+                },
+                trigonometry: {
+                    title: "Тригонометрия",
+                    lessons: [
+                        {
+                            id: "trig-1",
+                            title: "Введение в тригонометрию",
+                            content: "Тригонометрия изучает соотношения между сторонами и углами треугольников. Основные функции: синус (sin), косинус (cos), тангенс (tg).",
+                            difficulty: "easy",
+                            duration: "10 мин"
+                        },
+                        {
+                            id: "trig-2",
+                            title: "Тригонометрический круг",
+                            content: "Единичная окружность — окружность радиуса 1 с центром в начале координат. Углы отсчитываются от положительного направления оси OX.",
+                            difficulty: "easy",
+                            duration: "15 мин"
+                        },
+                        {
+                            id: "trig-3",
+                            title: "Основные тождества",
+                            content: "Основное тригонометрическое тождество: \(\\sin^2\\alpha + \\cos^2\\alpha = 1\). Тангенс: \(\\tan\\alpha = \\frac{\\sin\\alpha}{\\cos\\alpha}\).",
+                            difficulty: "medium",
+                            duration: "15 мин"
+                        },
+                        {
+                            id: "trig-4",
+                            title: "Формулы приведения",
+                            content: "Формулы приведения позволяют упрощать тригонометрические выражения: \(\\sin(90° - \\alpha) = \\cos\\alpha\), \(\\cos(90° - \\alpha) = \\sin\\alpha\).",
+                            difficulty: "medium",
+                            duration: "20 мин"
+                        },
+                        {
+                            id: "trig-5",
+                            title: "Теорема синусов и косинусов",
+                            content: "Теорема синусов: \(\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}\). Теорема косинусов: \(c^2 = a^2 + b^2 - 2ab\\cos C\).",
+                            difficulty: "medium",
+                            duration: "20 мин"
+                        },
+                        {
+                            id: "trig-6",
+                            title: "Обратные тригонометрические функции",
+                            content: "Арксинус (arcsin), арккосинус (arccos), арктангенс (arctg). Например, если \(\\sin\\alpha = x\), то \(\\alpha = \\arcsin x\).",
+                            difficulty: "hard",
+                            duration: "25 мин"
+                        },
+                        {
+                            id: "trig-7",
+                            title: "Тригонометрические уравнения",
+                            content: "Уравнения вида \(\\sin x = a\), \(\\cos x = a\), \(\\tan x = a\). Решения записываются с учетом периодичности функций.",
+                            difficulty: "hard",
+                            duration: "30 мин"
+                        },
+                        {
+                            id: "trig-8",
+                            title: "Преобразование сумм в произведения",
+                            content: "Формулы: \(\\sin\\alpha + \\sin\\beta = 2\\sin\\frac{\\alpha+\\beta}{2}\\cos\\frac{\\alpha-\\beta}{2}\), \(\\cos\\alpha + \\cos\\beta = 2\\cos\\frac{\\alpha+\\beta}{2}\\cos\\frac{\\alpha-\\beta}{2}\).",
+                            difficulty: "hard",
+                            duration: "30 мин"
+                        },
+                        {
+                            id: "trig-9",
+                            title: "Комплексные числа и тригонометрия",
+                            content: "Формула Эйлера: \(e^{i\\theta} = \\cos\\theta + i\\sin\\theta\). Формула Муавра: \((\\cos\\theta + i\\sin\\theta)^n = \\cos n\\theta + i\\sin n\\theta\).",
+                            difficulty: "hard",
+                            duration: "35 мин"
+                        },
+                        {
+                            id: "trig-10",
+                            title: "Приложения тригонометрии",
+                            content: "Тригонометрия применяется в физике, инженерии, астрономии, компьютерной графике, навигации и многих других областях.",
+                            difficulty: "hard",
+                            duration: "40 мин"
+                        }
+                    ],
+                    tests: [
+                        {
+                            id: "trig-test-1",
+                            title: "Тест по основам тригонометрии",
+                            questions: [
+                                {
+                                    question: "Чему равен синус прямого угла?",
+                                    options: ["1", "0", "0.5", "Не определен"],
+                                    answer: 0
+                                },
+                                {
+                                    question: "Что такое косинус угла в прямоугольном треугольнике?",
+                                    options: ["Отношение прилежащего катета к гипотенузе", "Отношение противолежащего катета к гипотенузе", "Отношение противолежащего катета к прилежащему", "Отношение гипотенузы к прилежащему катету"],
+                                    answer: 0
+                                },
+                                {
+                                    question: "Какое из тождеств является основным тригонометрическим тождеством?",
+                                    options: ["sin²α + cos²α = 1", "tgα = sinα/cosα", "1 + tg²α = 1/cos²α", "sin(90°-α) = cosα"],
+                                    answer: 0
+                                }
+                            ],
+                            difficulty: "easy"
+                        }
+                    ]
+                }
+            },
+            higher: {
+                calculus: {
+                    title: "Математический анализ",
+                    lessons: [
+                        {
+                            id: "calc-1",
+                            title: "Введение в анализ",
+                            content: "Математический анализ изучает функции, пределы, производные, интегралы и бесконечные ряды. Основное понятие — предел.",
+                            difficulty: "easy",
+                            duration: "10 мин"
+                        },
+                        {
+                            id: "calc-2",
+                            title: "Пределы функций",
+                            content: "Предел функции — значение, к которому стремится функция при стремлении аргумента к некоторой точке. Обозначение: \(\\lim_{x \\to a} f(x) = L\).",
+                            difficulty: "easy",
+                            duration: "15 мин"
+                        },
+                        {
+                            id: "calc-3",
+                            title: "Производная",
+                            content: "Производная функции в точке — скорость изменения функции в этой точке. Определение: \(f'(x) = \\lim_{h \\to 0} \\frac{f(x+h)-f(x)}{h}\).",
+                            difficulty: "medium",
+                            duration: "20 мин"
+                        },
+                        {
+                            id: "calc-4",
+                            title: "Правила дифференцирования",
+                            content: "Производная суммы: \((f+g)' = f' + g'\). Производная произведения: \((fg)' = f'g + fg'\). Производная частного: \(\\left(\\frac{f}{g}\\right)' = \\frac{f'g - fg'}{g^2}\).",
+                            difficulty: "medium",
+                            duration: "25 мин"
+                        },
+                        {
+                            id: "calc-5",
+                            title: "Интегралы",
+                            content: "Интеграл — операция, обратная дифференцированию. Неопределенный интеграл: \(\\int f(x) dx = F(x) + C\), где \(F'(x) = f(x)\). Определенный интеграл: \(\\int_a^b f(x) dx = F(b) - F(a)\).",
+                            difficulty: "medium",
+                            duration: "25 мин"
+                        },
+                        {
+                            id: "calc-6",
+                            title: "Теоремы анализа",
+                            content: "Теорема о среднем значении: если функция непрерывна на [a,b], то существует точка c∈(a,b), такая что \(f'(c) = \\frac{f(b)-f(a)}{b-a}\).",
+                            difficulty: "hard",
+                            duration: "30 мин"
+                        },
+                        {
+                            id: "calc-7",
+                            title: "Ряды",
+                            content: "Числовой ряд — бесконечная сумма элементов последовательности: \(\\sum_{n=1}^{\\infty} a_n\). Сходящийся ряд имеет конечную сумму.",
+                            difficulty: "hard",
+                            duration: "35 мин"
+                        },
+                        {
+                            id: "calc-8",
+                            title: "Дифференциальные уравнения",
+                            content: "Уравнение, связывающее функцию с ее производными. Например, \(y' = ky\) — уравнение экспоненциального роста.",
+                            difficulty: "hard",
+                            duration: "40 мин"
+                        },
+                        {
+                            id: "calc-9",
+                            title: "Функции многих переменных",
+                            content: "Частные производные: \(\\frac{\\partial f}{\\partial x}\), \(\\frac{\\partial f}{\\partial y}\). Градиент: \(\\nabla f = \\left(\\frac{\\partial f}{\\partial x}, \\frac{\\partial f}{\\partial y}\\right)\).",
+                            difficulty: "hard",
+                            duration: "45 мин"
+                        },
+                        {
+                            id: "calc-10",
+                            title: "Кратные интегралы",
+                            content: "Двойной интеграл: \(\\iint_D f(x,y) dxdy\). Тройной интеграл: \(\\iiint_V f(x,y,z) dxdydz\).",
+                            difficulty: "hard",
+                            duration: "50 мин"
+                        }
+                    ],
+                    tests: [
+                        {
+                            id: "calc-test-1",
+                            title: "Тест по основам анализа",
+                            questions: [
+                                {
+                                    question: "Что такое производная функции?",
+                                    options: ["Площадь под кривой", "Скорость изменения функции", "Корень функции", "Максимальное значение функции"],
+                                    answer: 1
+                                },
+                                {
+                                    question: "Чему равна производная функции \(f(x) = x^2\)?",
+                                    options: ["x", "2x", "2", "x²"],
+                                    answer: 1
+                                },
+                                {
+                                    question: "Что вычисляет определенный интеграл?",
+                                    options: ["Производную функции", "Площадь под кривой на заданном интервале", "Корни уравнения", "Предел функции"],
+                                    answer: 1
+                                }
+                            ],
+                            difficulty: "easy"
+                        }
+                    ]
+                },
+                linear_algebra: {
+                    title: "Линейная алгебра",
+                    lessons: [
+                        {
+                            id: "linalg-1",
+                            title: "Векторы и матрицы",
+                            content: "Вектор — элемент векторного пространства. Матрица — прямоугольная таблица чисел. Основные операции: сложение, умножение.",
+                            difficulty: "easy",
+                            duration: "10 мин"
+                        },
+                        {
+                            id: "linalg-2",
+                            title: "Операции с матрицами",
+                            content: "Сложение поэлементное. Умножение: \(C = AB\), где \(c_{ij} = \\sum_{k} a_{ik}b_{kj}\). Определитель — число, associated с квадратной матрицей.",
+                            difficulty: "easy",
+                            duration: "15 мин"
+                        },
+                        {
+                            id: "linalg-3",
+                            title: "Системы линейных уравнений",
+                            content: "Система вида: \\begin{cases} a_{11}x_1 + a_{12}x_2 + ... + a_{1n}x_n = b_1 \\\\ ... \\\\ a_{m1}x_1 + a_{m2}x_2 + ... + a_{mn}x_n = b_m \\end{cases}. Решение методом Гаусса.",
+                            difficulty: "medium",
+                            duration: "20 мин"
+                        },
+                        {
+                            id: "linalg-4",
+                            title: "Векторные пространства",
+                            content: "Множество векторов, closed относительно сложения и умножения на скаляр. Базис — linearly independent set, spanning всё пространство.",
+                            difficulty: "medium",
+                            duration: "25 мин"
+                        },
+                        {
+                            id: "linalg-5",
+                            title: "Линейные преобразования",
+                            content: "Отображение между векторными пространствами, сохраняющее операции: \(T(\\vec{u} + \\vec{v}) = T(\\vec{u}) + T(\\vec{v})\), \(T(c\\vec{u}) = cT(\\vec{u})\).",
+                            difficulty: "medium",
+                            duration: "25 мин"
+                        },
+                        {
+                            id: "linalg-6",
+                            title: "Собственные значения и векторы",
+                            content: "Для матрицы A, ненулевой вектор v — собственный, если \(A\\vec{v} = \\lambda\\vec{v}\), где λ — собственное значение.",
+                            difficulty: "hard",
+                            duration: "30 мин"
+                        },
+                        {
+                            id: "linalg-7",
+                            title: "Ортогональность",
+                            content: "Векторы ортогональны, если их скалярное произведение равно нулю. Ортонормированный базис — базис из попарно ортогональных единичных векторов.",
+                            difficulty: "hard",
+                            duration: "35 мин"
+                        },
+                        {
+                            id: "linalg-8",
+                            title: "Квадратичные формы",
+                            content: "Однородный многочлен второй степени: \(Q(\\vec{x}) = \\vec{x}^T A \\vec{x}\). Приведение к каноническому виду.",
+                            difficulty: "hard",
+                            duration: "40 мин"
+                        },
+                        {
+                            id: "linalg-9",
+                            title: "Сингулярное разложение",
+                            content: "Разложение произвольной матрицы: \(A = U\\Sigma V^T\), где U и V — ортогональные матрицы, Σ — диагональная.",
+                            difficulty: "hard",
+                            duration: "45 мин"
+                        },
+                        {
+                            id: "linalg-10",
+                            title: "Приложения линейной алгебры",
+                            content: "Линейная алгебра применяется в компьютерной графике, машинном обучении, квантовой механике, экономике и многих других областях.",
+                            difficulty: "hard",
+                            duration: "50 мин"
+                        }
+                    ],
+                    tests: [
+                        {
+                            id: "linalg-test-1",
+                            title: "Тест по основам линейной алгебры",
+                            questions: [
+                                {
+                                    question: "Что такое матрица?",
+                                    options: ["Вектор в пространстве", "Прямоугольная таблица чисел", "Решение системы уравнений", "Числовая характеристика системы"],
+                                    answer: 1
+                                },
+                                {
+                                    question: "Как определяется умножение матриц?",
+                                    options: ["Поэлементно", "Строка на столбец", "Столбец на строку", "Только для квадратных матриц"],
+                                    answer: 1
+                                },
+                                {
+                                    question: "Что такое определитель матрицы?",
+                                    options: ["Сумма всех элементов", "Произведение диагональных элементов", "Численная характеристика квадратной матрицы", "Решение системы уравнений"],
+                                    answer: 2
+                                }
+                            ],
+                            difficulty: "easy"
+                        }
+                    ]
+                },
+                differential_equations: {
+                    title: "Дифференциальные уравнения",
+                    lessons: [
+                        {
+                            id: "diffeq-1",
+                            title: "Введение в ДУ",
+                            content: "Дифференциальное уравнение — уравнение, связывающее функцию с ее производными. Порядок уравнения определяется порядком старшей производной.",
+                            difficulty: "easy",
+                            duration: "10 мин"
+                        },
+                        {
+                            id: "diffeq-2",
+                            title: "ДУ первого порядка",
+                            content: "Уравнения вида \(y' = f(x,y)\). Методы решения: разделение переменных, замена, линейные уравнения.",
+                            difficulty: "easy",
+                            duration: "15 мин"
+                        },
+                        {
+                            id: "diffeq-3",
+                            title: "Линейные ДУ второго порядка",
+                            content: "Уравнения вида \(y'' + p(x)y' + q(x)y = f(x)\). Однородные и неоднородные уравнения.",
+                            difficulty: "medium",
+                            duration: "20 мин"
+                        },
+                        {
+                            id: "diffeq-4",
+                            title: "Метод вариации постоянных",
+                            content: "Метод решения неоднородных линейных ДУ. Предполагает замену постоянных в общем решении однородного уравнения на функции.",
+                            difficulty: "medium",
+                            duration: "25 мин"
+                        },
+                        {
+                            id: "diffeq-5",
+                            title: "Системы ДУ",
+                            content: "Набор дифференциальных уравнений с несколькими неизвестными функциями. Решение методом исключения или матричным методом.",
+                            difficulty: "medium",
+                            duration: "25 мин"
+                        },
+                        {
+                            id: "diffeq-6",
+                            title: "Численные методы",
+                            content: "Метод Эйлера: \(y_{n+1} = y_n + h f(x_n, y_n)\). Метод Рунге-Кутты — более точный метод.",
+                            difficulty: "hard",
+                            duration: "30 мин"
+                        },
+                        {
+                            id: "diffeq-7",
+                            title: "Уравнения в частных производных",
+                            content: "Уравнения с производными по нескольким переменным. Примеры: уравнение теплопроводности, волновое уравнение.",
+                            difficulty: "hard",
+                            duration: "35 мин"
+                        },
+                        {
+                            id: "diffeq-8",
+                            title: "Преобразование Лапласа",
+                            content: "Интегральное преобразование, преобразующее ДУ в алгебраические уравнения. Определение: \(F(s) = \\int_0^\\infty e^{-st} f(t) dt\).",
+                            difficulty: "hard",
+                            duration: "40 мин"
+                        },
+                        {
+                            id: "diffeq-9",
+                            title: "Фазовые портреты",
+                            content: "Геометрическое представление решений системы ДУ. Особые точки: устойчивый и неустойчивый узлы, центр, седло.",
+                            difficulty: "hard",
+                            duration: "45 мин"
+                        },
+                        {
+                            id: "diffeq-10",
+                            title: "Приложения ДУ",
+                            content: "Дифференциальные уравнения описывают физические процессы: механическое движение, электрические цепи, химические реакции, population dynamics.",
+                            difficulty: "hard",
+                            duration: "50 мин"
+                        }
+                    ],
+                    tests: [
+                        {
+                            id: "diffeq-test-1",
+                            title: "Тест по основам дифференциальных уравнений",
+                            questions: [
+                                {
+                                    question: "Что такое дифференциальное уравнение?",
+                                    options: ["Уравнение с производными", "Уравнение с интегралами", "Уравнение с матрицами", "Уравнение с комплексными числами"],
+                                    answer: 0
+                                },
+                                {
+                                    question: "Какой порядок у уравнения y'' + y = 0?",
+                                    options: ["Первый", "Второй", "Третий", "Четвертый"],
+                                    answer: 1
+                                },
+                                {
+                                    question: "Что такое однородное дифференциальное уравнение?",
+                                    options: ["Уравнение с нулевой правой частью", "Уравнение с постоянными коэффициентами", "Уравнение первой степени", "Уравнение с разделяющимися переменными"],
+                                    answer: 0
+                                }
+                            ],
+                            difficulty: "easy"
+                        }
+                    ]
+                }
+            }
+        };
+
+        // ========== СЛУЖЕБНЫЕ ФУНКЦИИ ==========
+
+        // Инициализация данных пользователя
+        function initUserData() {
+            if (!localStorage.getItem('mathUserData')) {
+                localStorage.setItem('mathUserData', JSON.stringify(userData));
+            } else {
+                userData = JSON.parse(localStorage.getItem('mathUserData'));
+            }
+            updateUI();
+        }
+
+        // Сохранение данных пользователя
+        function saveUserData() {
+            localStorage.setItem('mathUserData', JSON.stringify(userData));
+            updateUI();
+        }
+
+        // Обновление интерфейса на основе данных
+        function updateUI() {
+            document.getElementById('user-level').textContent = `Уровень ${userData.level}`;
+            document.getElementById('user-xp').textContent = userData.xp;
+        }
+
+        // Показать страницу
+        function showPage(page, section = null, subsection = null) {
+            const pageContainer = document.getElementById('page-container');
+            pageContainer.classList.add('fade-in');
+            
+            setTimeout(() => {
+                switch(page) {
+                    case 'home':
+                        pageContainer.innerHTML = getHomePage();
+                        break;
+                    case 'section':
+                        pageContainer.innerHTML = getSectionPage(section);
+                        break;
+                    case 'subsection':
+                        pageContainer.innerHTML = getSubsectionPage(section, subsection);
+                        break;
+                    case 'lesson':
+                        pageContainer.innerHTML = getLessonPage(section, subsection);
+                        break;
+                    case 'test':
+                        pageContainer.innerHTML = getTestPage(section, subsection);
+                        break;
+                    case 'results':
+                        pageContainer.innerHTML = getResultsPage(section, subsection);
+                        break;
+                }
+                
+                // Принудительно обновляем MathJax после загрузки контента
+                if (typeof MathJax !== 'undefined') {
+                    MathJax.typeset();
+                }
+            }, 50);
+        }
+
+        // ========== ГЕНЕРАТОРЫ СТРАНИЦ ==========
+
+        // Главная страница
+        function getHomePage() {
+            const totalLessons = Object.values(mathContent).reduce((total, section) => {
+                return total + Object.values(section).reduce((subTotal, subsection) => {
+                    return subTotal + subsection.lessons.length;
+                }, 0);
+            }, 0);
+            
+            const progressPercent = Math.round((userData.completedLessons / totalLessons) * 100);
+            const progressOffset = 251.2 - (progressPercent / 100 * 251.2);
+            
+            return `
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-center mb-2">Добро пожаловать на MathLearn!</h2>
+                    <p class="text-center text-gray-600">Изучайте математику через интерактивные уроки и тесты</p>
+                </div>
+
+                <!-- Прогресс -->
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-semibold mb-4">Ваш прогресс</h3>
+                    <div class="flex flex-wrap justify-around">
+                        <div class="flex flex-col items-center p-4">
+                            <div class="relative w-24 h-24">
+                                <svg class="w-full h-full" viewBox="0 0 100 100">
+                                    <circle class="text-gray-200 stroke-current" stroke-width="10" cx="50" cy="50" r="40" fill="transparent"></circle>
+                                    <circle class="progress-ring text-blue-600 stroke-current" stroke-width="10" stroke-linecap="round" cx="50" cy="50" r="40" fill="transparent" 
+                                            stroke-dasharray="251.2" stroke-dashoffset="${progressOffset}"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-lg font-bold">${progressPercent}%</span>
+                                </div>
+                            </div>
+                            <p class="mt-2 font-medium">Общий прогресс</p>
+                        </div>
+                        <div class="flex flex-col items-center p-4">
+                            <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-2xl font-bold text-green-700">${userData.completedLessons}</span>
+                            </div>
+                            <p class="mt-2 font-medium">Пройдено уроков</p>
+                        </div>
+                        <div class="flex flex-col items-center p-4">
+                            <div class="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center">
+                                <span class="text-2xl font-bold text-purple-700">${userData.averageScore}%</span>
+                            </div>
+                            <p class="mt-2 font-medium">Средняя оценка</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Разделы -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4">Разделы математики</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Школьная математика -->
+                        <div class="section-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+                            <div class="bg-blue-500 p-4 text-white">
+                                <h4 class="text-xl font-semibold">Школьная математика</h4>
+                                <p class="text-blue-100">Основные темы школьной программы</p>
+                            </div>
+                            <div class="p-4">
+                                <div class="mb-4">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${getSectionProgress('school')}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-sm text-gray-500 mt-1">
+                                        <span>Прогресс</span>
+                                        <span>${getSectionProgress('school')}%</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2 mb-4">
+                                    ${Object.values(mathContent.school).map(subsection => 
+                                        `<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded text-center">${subsection.title}</span>`
+                                    ).join('')}
+                                </div>
+                                <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300" onclick="showPage('section', 'school')">
+                                    Изучать раздел
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Высшая математика -->
+                        <div class="section-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+                            <div class="bg-purple-500 p-4 text-white">
+                                <h4 class="text-xl font-semibold">Высшая математика</h4>
+                                <p class="text-purple-100">Университетские математические дисциплины</p>
+                            </div>
+                            <div class="p-4">
+                                <div class="mb-4">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-purple-600 h-2.5 rounded-full" style="width: ${getSectionProgress('higher')}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-sm text-gray-500 mt-1">
+                                        <span>Прогресс</span>
+                                        <span>${getSectionProgress('higher')}%</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2 mb-4">
+                                    ${Object.values(mathContent.higher).map(subsection => 
+                                        `<span class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded text-center">${subsection.title}</span>`
+                                    ).join('')}
+                                </div>
+                                <button class="w-full bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300" onclick="showPage('section', 'higher')">
+                                    Изучать раздел
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Последние достижения -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4">Последние достижения</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-yellow-100 rounded-lg p-4 text-center">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-bolt text-white"></i>
+                            </div>
+                            <p class="text-sm font-medium">Первый урок</p>
+                        </div>
+                        <div class="${userData.completedTests >= 5 ? 'bg-green-100' : 'bg-gray-100 opacity-50'} rounded-lg p-4 text-center">
+                            <div class="w-12 h-12 ${userData.completedTests >= 5 ? 'bg-green-400' : 'bg-gray-400'} rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <p class="text-sm font-medium">5 тестов на 100%</p>
+                        </div>
+                        <div class="${userData.completedLessons >= 10 ? 'bg-blue-100' : 'bg-gray-100 opacity-50'} rounded-lg p-4 text-center">
+                            <div class="w-12 h-12 ${userData.completedLessons >= 10 ? 'bg-blue-400' : 'bg-gray-400'} rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-users text-white"></i>
+                            </div>
+                            <p class="text-sm font-medium">Сообщество</p>
+                        </div>
+                        <div class="${userData.averageScore >= 90 ? 'bg-red-100' : 'bg-gray-100 opacity-50'} rounded-lg p-4 text-center">
+                            <div class="w-12 h-12 ${userData.averageScore >= 90 ? 'bg-red-400' : 'bg-gray-400'} rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-star text-white"></i>
+                            </div>
+                            <p class="text-sm font-medium">Мастер тем</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Страница раздела
+        function getSectionPage(section) {
+            const sectionData = mathContent[section];
+            const sectionTitle = section === 'school' ? 'Школьная математика' : 'Высшая математика';
+            
+            return `
+                <div class="mb-6 flex items-center">
+                    <button class="flex items-center text-blue-600 font-medium mr-4" onclick="showPage('home')">
+                        <i class="fas fa-arrow-left mr-2"></i> На главную
+                    </button>
+                    <h2 class="text-3xl font-bold">${sectionTitle}</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${Object.entries(sectionData).map(([key, subsection]) => `
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+                            <div class="${section === 'school' ? 'bg-blue-500' : 'bg-purple-500'} p-4 text-white">
+                                <h4 class="text-xl font-semibold">${subsection.title}</h4>
+                                <p class="${section === 'school' ? 'text-blue-100' : 'text-purple-100'}">${subsection.lessons.length} уроков, ${subsection.tests.length} тестов</p>
+                            </div>
+                            <div class="p-4">
+                                <div class="mb-4">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="${section === 'school' ? 'bg-blue-600' : 'bg-purple-600'} h-2.5 rounded-full" style="width: ${userData.progress[section][key] || 0}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-sm text-gray-500 mt-1">
+                                        <span>Прогресс</span>
+                                        <span>${userData.progress[section][key] || 0}%</span>
+                                    </div>
+                                </div>
+                                <button class="w-full ${section === 'school' ? 'bg-blue-500 hover:bg-blue-600' : 'bg-purple-500 hover:bg-purple-600'} text-white font-medium py-2 px-4 rounded-lg transition duration-300" 
+                                    onclick="showPage('subsection', '${section}', '${key}')">
+                                    Изучать подраздел
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Страница подраздела
+        function getSubsectionPage(section, subsection) {
+            const subsectionData = mathContent[section][subsection];
+            const sectionTitle = section === 'school' ? 'Школьная математика' : 'Высшая математика';
+            
+            return `
+                <div class="mb-6 flex items-center">
+                    <button class="flex items-center text-blue-600 font-medium mr-4" onclick="showPage('section', '${section}')">
+                        <i class="fas fa-arrow-left mr-2"></i> ${sectionTitle}
+                    </button>
+                    <h2 class="text-3xl font-bold">${subsectionData.title}</h2>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-semibold mb-4">Уроки</h3>
+                    <div class="grid grid-cols-1 gap-4">
+                        ${subsectionData.lessons.map((lesson, index) => `
+                            <div class="lesson-card bg-gray-50 rounded-lg p-4 border border-gray-200 transition-all duration-300">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="font-semibold">${index + 1}. ${lesson.title}</h4>
+                                    <span class="text-xs font-medium px-2 py-1 rounded-full 
+                                        ${lesson.difficulty === 'easy' ? 'bg-green-100 text-green-800' : 
+                                          lesson.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' : 
+                                          'bg-red-100 text-red-800'}">
+                                        ${lesson.difficulty === 'easy' ? 'Легко' : 
+                                         lesson.difficulty === 'medium' ? 'Средне' : 'Сложно'}
+                                    </span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">${lesson.content.substring(0, 100)}...</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-500"><i class="far fa-clock mr-1"></i> ${lesson.duration}</span>
+                                    <button class="bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium py-1 px-3 rounded transition duration-300"
+                                        onclick="startLesson('${section}', '${subsection}', ${index})">
+                                        Изучать
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4">Тесты</h3>
+                    <div class="grid grid-cols-1 gap-4">
+                        ${subsectionData.tests.map((test, index) => `
+                            <div class="question-card bg-gray-50 rounded-lg p-4 border border-gray-200 transition-all duration-300">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="font-semibold">Тест: ${test.title}</h4>
+                                    <span class="text-xs font-medium px-2 py-1 rounded-full 
+                                        ${test.difficulty === 'easy' ? 'bg-green-100 text-green-800' : 
+                                          test.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' : 
+                                          'bg-red-100 text-red-800'}">
+                                        ${test.difficulty === 'easy' ? 'Легко' : 
+                                         test.difficulty === 'medium' ? 'Средне' : 'Сложно'}
+                                    </span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">${test.questions.length} вопросов</p>
+                                <button class="bg-purple-500 hover:bg-purple-600 text-white text-sm font-medium py-1 px-3 rounded transition duration-300"
+                                    onclick="startTest('${section}', '${subsection}', ${index})">
+                                    Начать тест
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Страница урока
+        function getLessonPage(section, subsection) {
+            // Для простоты показываем первый урок
+            const lesson = mathContent[section][subsection].lessons[0];
+            
+            return `
+                <div class="mb-6 flex items-center">
+                    <button class="flex items-center text-blue-600 font-medium mr-4" onclick="showPage('subsection', '${section}', '${subsection}')">
+                        <i class="fas fa-arrow-left mr-2"></i> Назад
+                    </button>
+                    <h2 class="text-3xl font-bold">${lesson.title}</h2>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <div class="prose max-w-none">
+                        <p class="text-lg">${lesson.content}</p>
+                    </div>
+                    
+                    <div class="mt-8 flex justify-between">
+                        <button class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded transition duration-300">
+                            <i class="fas fa-arrow-left mr-2"></i> Предыдущий урок
+                        </button>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-300"
+                            onclick="completeLesson('${section}', '${subsection}', '${lesson.id}')">
+                            Завершить урок <i class="fas fa-check ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Страница теста
+        function getTestPage(section, subsection) {
+            // Для простоты показываем первый тест
+            const test = mathContent[section][subsection].tests[0];
+            let currentQuestion = 0;
+            
+            return `
+                <div class="mb-6 flex items-center">
+                    <button class="flex items-center text-blue-600 font-medium mr-4" onclick="showPage('subsection', '${section}', '${subsection}')">
+                        <i class="fas fa-arrow-left mr-2"></i> Назад
+                    </button>
+                    <h2 class="text-3xl font-bold">${test.title}</h2>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <div class="mb-6">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${(currentQuestion / test.questions.length) * 100}%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500 mt-1">
+                            <span>Вопрос ${currentQuestion + 1} из ${test.questions.length}</span>
+                            <span>${Math.round((currentQuestion / test.questions.length) * 100)}%</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mb-4">${test.questions[currentQuestion].question}</h3>
+                    
+                    <div class="grid grid-cols-1 gap-3 mb-6">
+                        ${test.questions[currentQuestion].options.map((option, i) => `
+                            <div class="p-3 border border-gray-300 rounded-lg cursor-pointer transition duration-300 hover:bg-blue-50 option"
+                                onclick="selectOption(this, ${i})">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-300 w-full"
+                        onclick="nextQuestion()">
+                        Следующий вопрос <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            `;
+        }
+
+        // Страница результатов
+        function getResultsPage(section, subsection) {
+            return `
+                <div class="mb-6 flex items-center">
+                    <button class="flex items-center text-blue-600 font-medium mr-4" onclick="showPage('subsection', '${section}', '${subsection}')">
+                        <i class="fas fa-arrow-left mr-2"></i> Назад
+                    </button>
+                    <h2 class="text-3xl font-bold">Результаты теста</h2>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8 text-center">
+                    <div class="w-32 h-32 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl font-bold text-green-700">85%</span>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2">Поздравляем!</h3>
+                    <p class="text-gray-600 mb-6">Вы успешно прошли тест и заработали 25 очков опыта!</p>
+                    
+                    <div class="flex justify-center space-x-4">
+                        <button class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded transition duration-300"
+                            onclick="showPage('subsection', '${section}', '${subsection}')">
+                            Вернуться к урокам
+                        </button>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-300"
+                            onclick="showPage('home')">
+                            На главную
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+
+        // Получить прогресс по разделу
+        function getSectionProgress(section) {
+            const progresses = Object.values(userData.progress[section]);
+            if (progresses.length === 0) return 0;
+            return Math.round(progresses.reduce((a, b) => a + b, 0) / progresses.length);
+        }
+
+        // Начать урок
+        function startLesson(section, subsection, lessonIndex) {
+            showPage('lesson', section, subsection);
+        }
+
+        // Завершить урок
+        function completeLesson(section, subsection, lessonId) {
+            userData.completedLessons++;
+            userData.xp += 10;
+            
+            // Обновляем прогресс подраздела
+            const totalLessons = mathContent[section][subsection].lessons.length;
+            const completedLessons = mathContent[section][subsection].lessons.filter(lesson => 
+                userData.achievements.includes(`lesson_${lesson.id}`)
+            ).length + 1;
+            
+            userData.progress[section][subsection] = Math.round((completedLessons / totalLessons) * 100);
+            
+            // Добавляем достижение
+            if (!userData.achievements.includes(`lesson_${lessonId}`)) {
+                userData.achievements.push(`lesson_${lessonId}`);
+            }
+            
+            saveUserData();
+            alert('Урок завершен! Вы получили 10 очков опыта.');
+            showPage('subsection', section, subsection);
+        }
+
+        // Начать тест
+        function startTest(section, subsection, testIndex) {
+            showPage('test', section, subsection);
+        }
+
+        // Выбор варианта ответа
+        function selectOption(element, index) {
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('option-selected');
+            });
+            element.classList.add('option-selected');
+        }
+
+        // Следующий вопрос
+        function nextQuestion() {
+            // Логика перехода к следующему вопросу
+            alert('Переход к следующему вопросу!');
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            initUserData();
+            showPage('home');
+        });
+    </script>
+</body>
 </html>
