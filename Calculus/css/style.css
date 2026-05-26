@@ -1,16 +1,180 @@
+/* ── CSS переменные ──────────────────────────────────────── */
+:root {
+  /* Светлая тема */
+  --bg-main: #f0f9ff;
+  --bg-card: #ffffff;
+  --bg-section: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --text-sub: #4b5563;
+  --border: #e5e7eb;
+  --input-bg: #ffffff;
+  --result-green: #ecfdf5;
+  --result-red: #fef2f2;
+  --result-green-border: #10b981;
+  --result-red-border: #ef4444;
+  --result-green-text: #064e3b;
+  --result-red-text: #7f1d1d;
+  --history-bg: #f9fafb;
+
+  /* Glass-переменные */
+  --glass-bg-dark: rgba(30, 41, 59, 0.7);
+  --glass-bg-light: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(148, 163, 184, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --math-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Тёмная тема — Deep Ocean */
+.dark {
+  color-scheme: dark;
+  --bg-main: #03080f;
+  --bg-card: #071525;
+  --bg-section: #071525;
+  --text-main: #dff0ff;
+  --text-muted: #7eb8d8;
+  --text-sub: #a8cfe0;
+  --border: rgba(56, 189, 248, 0.13);
+  --input-bg: #0e2236;
+  --result-green: #032a1a;
+  --result-red: #2a0a0a;
+  --result-green-border: #34d399;
+  --result-red-border: #f87171;
+  --result-green-text: #6ee7b7;
+  --result-red-text: #fca5a5;
+  --history-bg: #0e2236;
+
+  /* Glass-переменные */
+  --glass-bg-dark: rgba(7, 21, 37, 0.82);
+  --glass-border: rgba(56, 189, 248, 0.13);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.55);
+}
+
+/* ── Базовые стили ───────────────────────────────────────── */
+body {
+  overflow-x: hidden;
+  background: var(--bg-main);
+  color: var(--text-main);
+  transition: background 0.3s, color 0.3s;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Фоновый градиент (только тёмная тема) — Deep Ocean ── */
+.dark body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 0%,  rgba(14, 165, 233, 0.09) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 0%,  rgba(56, 189, 248, 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(56, 189, 248, 0.04) 0%, transparent 45%);
+}
+
+/* ── Математический фон (только в тёмной теме) ──────────── */
+.math-bg {
+  display: none;
+}
+
+.dark .math-bg {
+  display: block;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.dark .math-symbol {
+  position: fixed;
+  font-family: 'Playfair Display', serif;
+  color: rgba(56, 189, 248, 0.06);
+  user-select: none;
+  animation: floatSymbol linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes floatSymbol {
+  0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+/* ── Кнопка темы (стеклянная в тёмной) ──────────────────── */
+#themeToggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.dark #themeToggle {
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: rgba(7, 21, 37, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.dark #themeToggle:hover {
+  background: rgba(14, 34, 54, 0.9);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+/* ── Glass-эффекты (только в тёмной теме) ───────────────── */
+.dark .glass-panel {
+  background: rgba(7, 21, 37, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(56, 189, 248, 0.13);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+}
+
+.dark .glass-card {
+  background: rgba(7, 21, 37, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.dark .glass-btn {
+  background: rgba(7, 21, 37, 0.6);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.dark .glass-strong {
+  background: rgba(7, 21, 37, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+}
+
+/* ── Анимации ────────────────────────────────────────────── */
 .fade-in {
   animation: fadeIn 0.5s ease-in;
 }
 
 @keyframes fadeIn {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px); 
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .card-hover {
@@ -19,80 +183,67 @@
 
 .card-hover:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
 }
 
-/* Мобильная адаптация */
-@media (max-width: 640px) {
-  .flex.justify-between {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .flex.justify-between > button {
-    width: 100%;
-    margin: 0.25rem 0;
-  }
-  
-  .flex.gap-4.justify-center {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .flex.gap-4.justify-center > button {
-    width: 100%;
-    max-width: 250px;
-    margin: 0.25rem 0;
-  }
+/* ── Тёмные оверрайды для Tailwind-классов ───────────────── */
+.dark .bg-white { background-color: var(--bg-card) !important; }
+.dark .text-gray-800 { color: #f1f5f9 !important; }
+.dark .text-gray-700 { color: #cbd5e1 !important; }
+.dark .text-gray-600 { color: #94a3b8 !important; }
+.dark .text-gray-500 { color: #64748b !important; }
+.dark .bg-blue-50 { background-color: #071d38 !important; }
+.dark .bg-yellow-50 { background-color: #1f1600 !important; }
+.dark .bg-red-50 { background-color: #200a0a !important; }
+.dark .bg-indigo-50 { background-color: #0d1033 !important; }
+.dark .bg-purple-50 { background-color: #160d2a !important; }
+.dark .bg-orange-50 { background-color: #1e0e00 !important; }
+.dark .bg-gray-50 { background-color: var(--history-bg) !important; }
+.dark .bg-gray-200 { background-color: rgba(56, 189, 248, 0.12) !important; }
+.dark body { background-color: var(--bg-main) !important; }
+
+/* ── Инпуты и селекты ────────────────────────────────────── */
+input, input[type="text"], input[type="email"],
+input[type="password"], select {
+  color: #1f2937;
+  background-color: #ffffff;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  .text-4xl {
-    font-size: 1.875rem !important;
-  }
-  
-  .text-6xl {
-    font-size: 2.25rem !important;
-  }
+.dark input, .dark input[type="text"], .dark input[type="email"],
+.dark input[type="password"], .dark select {
+  background-color: var(--input-bg) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border) !important;
 }
 
-/* Стили для математических формул */
-.math-container {
-  overflow-x: auto;
-  max-width: 100%;
-}
-
-.math-content {
-  display: inline-block;
-  min-width: min-content;
-}
-
-/* Стили для вариантов ответов */
+/* ── Варианты ответов ────────────────────────────────────── */
 .option-label {
   display: flex;
   align-items: flex-start;
   width: 100%;
   min-width: 0;
   padding: 1rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border);
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  break-inside: avoid;
+  background: var(--bg-card);
+  color: var(--text-main);
 }
 
 .option-label:hover {
-  background-color: #f9fafb;
+  background-color: var(--history-bg);
 }
 
 .option-label.selected {
   border-color: #10b981;
   background-color: #ecfdf5;
+}
+
+.dark .option-label.selected {
+  background-color: rgba(52, 211, 153, 0.12) !important;
+  border-color: #34d399 !important;
+  color: #6ee7b7 !important;
 }
 
 .option-text {
@@ -101,48 +252,1326 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   font-size: 0.875rem;
+  color: var(--text-main);
 }
 
 @media (min-width: 640px) {
-  .option-text {
-    font-size: 1rem;
-  }
+  .option-text { font-size: 1rem; }
 }
 
-/* Предотвращаем горизонтальный скролл */
-body {
-  overflow-x: hidden;
+/* ── Карточки результатов ───────────────────────────────── */
+.result-card-correct {
+  background-color: var(--result-green) !important;
+  border-left: 4px solid var(--result-green-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  color: var(--result-green-text) !important;
+}
+.result-card-correct * { color: var(--result-green-text) !important; }
+
+.result-card-wrong {
+  background-color: var(--result-red) !important;
+  border-left: 4px solid var(--result-red-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  color: var(--result-red-text) !important;
+}
+.result-card-wrong * { color: var(--result-red-text) !important; }
+
+.dark .bg-gray-50.rounded-lg {
+  background-color: var(--history-bg) !important;
 }
 
-/* Стили для статистики */
+/* ── Математические формулы ──────────────────────────────── */
+.math-container { overflow-x: auto; max-width: 100%; }
+.math-content { display: inline-block; min-width: min-content; }
+
+/* ── Статистика ──────────────────────────────────────────── */
 .stat-card {
   background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
-
-.stat-value {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #1e40af;
+.dark .stat-card {
+  background: linear-gradient(135deg, #071525 0%, #03080f 100%);
+  border: 1px solid rgba(56, 189, 248, 0.12);
 }
-
-.stat-label {
-  font-size: 1rem;
-  color: #64748b;
-}
-
-.progress-bar {
-  height: 8px;
-  border-radius: 4px;
-  background-color: #e5e7eb;
-  overflow: hidden;
-}
-
+.stat-value { font-size: 2.5rem; font-weight: bold; color: #1e40af; }
+.dark .stat-value { color: #38bdf8; }
+.stat-label { font-size: 1rem; color: var(--text-muted); }
+.progress-bar { height: 8px; border-radius: 4px; background-color: #e5e7eb; overflow: hidden; }
+.dark .progress-bar { background-color: rgba(56, 189, 248, 0.1); }
 .progress-fill {
   height: 100%;
   border-radius: 4px;
-  background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
   transition: width 0.5s ease;
+}
+
+/* ── Мобильная адаптация ─────────────────────────────────── */
+@media (max-width: 640px) {
+  .flex.justify-between { flex-direction: column; gap: 1rem; }
+  .flex.justify-between>button { width: 100%; margin: 0.25rem 0; }
+  .flex.gap-4.justify-center { flex-direction: column; align-items: center; }
+  .flex.gap-4.justify-center>button { width: 100%; max-width: 250px; margin: 0.25rem 0; }
+}
+@media (max-width: 768px) {
+  .container { padding-left: 1rem; padding-right: 1rem; }
+  .text-4xl { font-size: 1.875rem !important; }
+  .text-6xl { font-size: 2.25rem !important; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   НИЖНЯЯ НАВИГАЦИЯ (мобильная)
+   ══════════════════════════════════════════════════════════ */
+#bottomNav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 1002;
+  display: none;
+  align-items: stretch;
+  height: 60px;
+  background: rgba(3, 8, 15, 0.97);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid rgba(56, 189, 248, 0.1);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.55);
+}
+#bottomNav button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #3a6480;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: color 0.2s, background 0.2s;
+  padding: 6px 4px;
+  border-radius: 0;
+}
+#bottomNav button svg.lucide { width: 22px; height: 22px; display: block; }
+#bottomNav button:hover,
+#bottomNav button.bn-active { color: #38bdf8; background: rgba(56, 189, 248, 0.08); }
+
+html:not(.dark) #bottomNav {
+  background: rgba(255, 255, 255, 0.96);
+  border-top-color: rgba(165, 180, 252, 0.4);
+}
+html:not(.dark) #bottomNav button { color: #94a3b8; }
+html:not(.dark) #bottomNav button:hover,
+html:not(.dark) #bottomNav button.bn-active { color: #4f46e5; background: rgba(99, 102, 241, 0.08); }
+
+/* На мобильных — убираем левый отступ под боковую панель, добавляем низ под нижнюю навигацию */
+@media (max-width: 640px) {
+  .page-content { padding-bottom: 68px !important; margin-left: 0 !important; }
+  /* Боковая панель скрыта на мобильных (её заменяет нижняя навигация) */
+  #sideNav { display: none !important; }
+}
+/* На десктопе нижняя навигация скрыта */
+@media (min-width: 641px) {
+  #bottomNav { display: none !important; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   СВЕТЛАЯ ТЕМА — исправление glass-панелей и slate-текста
+   Карточки используют text-slate-100/400 (для тёмного фона),
+   в светлой теме без фона — текст невидим. Фиксируем здесь.
+   ══════════════════════════════════════════════════════════ */
+html:not(.dark) .glass-panel {
+  background: #ffffff !important;
+  border: 1px solid rgba(99, 102, 241, 0.12) !important;
+  box-shadow: 0 4px 24px rgba(99,102,241,0.06), 0 1px 4px rgba(0,0,0,0.04) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html:not(.dark) .glass-card,
+html:not(.dark) .glass-btn,
+html:not(.dark) .glass-strong {
+  background: #f8fafc !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+/* Slate — цвета текста в светлой теме */
+html:not(.dark) .text-slate-100 { color: #1e293b !important; }
+html:not(.dark) .text-slate-200 { color: #334155 !important; }
+html:not(.dark) .text-slate-300 { color: #475569 !important; }
+html:not(.dark) .text-slate-400 { color: #64748b !important; }
+html:not(.dark) .text-slate-500 { color: #64748b !important; }
+/* Кнопки с прозрачным фоном */
+html:not(.dark) .bg-blue-600    { background: #2563eb !important; }
+html:not(.dark) .bg-emerald-600 { background: #059669 !important; }
+html:not(.dark) .bg-rose-600    { background: #e11d48 !important; }
+html:not(.dark) .bg-purple-600  { background: #9333ea !important; }
+html:not(.dark) .border-slate-700 { border-color: #e2e8f0 !important; }
+/* Цвета акцентов — достаточный контраст на белом фоне */
+html:not(.dark) .text-green-400  { color: #16a34a !important; }
+html:not(.dark) .text-red-400    { color: #dc2626 !important; }
+html:not(.dark) .text-blue-400   { color: #1d4ed8 !important; }
+html:not(.dark) .text-yellow-400 { color: #b45309 !important; }
+/* Боковая панель в светлой теме */
+html:not(.dark) #sideNav {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-right: 1px solid rgba(99,102,241,0.15) !important;
+}
+html:not(.dark) #sideNav button { color: #64748b !important; }
+html:not(.dark) #sideNav button:hover { color: #4f46e5 !important; }
+
+/* ══════════════════════════════════════════════════════════
+   СТРАНИЦА ТЕОРИИ (Степик-стиль)
+   ══════════════════════════════════════════════════════════ */
+
+/* Карточка-вход в раздел теории */
+.theory-entry-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.1rem;
+  border-radius: 0.75rem;
+  background: var(--bg-card, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.theory-entry-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+.theory-entry-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.theory-entry-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-main, #1e293b);
+}
+.theory-entry-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted, #64748b);
+  margin-top: 0.15rem;
+}
+.theory-entry-arrow {
+  color: var(--text-muted, #94a3b8);
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+/* Заголовок страницы теории */
+.theory-header {
+  text-align: center;
+  padding-bottom: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+.theory-header-icon {
+  font-size: 2.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+.theory-header-title {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+  margin-bottom: 0.35rem;
+}
+.theory-header-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted, #64748b);
+}
+
+/* Одна step-карточка */
+.theory-step {
+  display: flex;
+  gap: 1rem;
+  padding: 1.2rem 1.1rem;
+  border-radius: 0.75rem;
+  background: var(--bg-card, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  margin-bottom: 0.875rem;
+}
+.theory-step-num {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.theory-step-body {
+  flex: 1;
+  min-width: 0;
+}
+.theory-step-title {
+  font-weight: 600;
+  font-size: 0.97rem;
+  color: var(--text-main, #1e293b);
+  margin-bottom: 0.55rem;
+}
+.theory-step-formula {
+  background: rgba(0,0,0,0.045);
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.9rem;
+  margin-bottom: 0.55rem;
+  overflow-x: auto;
+  font-size: 0.95rem;
+  color: var(--text-main, #1e293b);
+  line-height: 1.6;
+}
+.dark .theory-step-formula {
+  background: rgba(255,255,255,0.07);
+}
+.theory-step-note {
+  font-size: 0.83rem;
+  color: var(--text-muted, #64748b);
+  line-height: 1.55;
+}
+.theory-step-detail {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 0.8rem;
+  padding: 0.75rem 1rem;
+  background: rgba(0,0,0,0.03);
+  border-left: 3px solid rgba(0,0,0,0.09);
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-size: 0.83rem;
+  color: var(--text-muted, #64748b);
+  line-height: 1.7;
+}
+.dark .theory-step-detail {
+  background: rgba(255,255,255,0.04);
+  border-left-color: rgba(255,255,255,0.12);
+}
+.theory-step-detail p {
+  margin: 0 0 0.45rem;
+}
+.theory-step-detail p:last-child {
+  margin-bottom: 0;
+}
+.theory-step-detail strong {
+  color: var(--text-main, #1e293b);
+  font-weight: 600;
+}
+.dark .theory-step-detail strong {
+  color: var(--text-main, #f1f5f9);
+}
+mjx-container[display="true"] {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Кнопка «Перейти к тесту» */
+.theory-start-btn {
+  display: block;
+  width: 100%;
+  padding: 0.875rem;
+  border: none;
+  border-radius: 0.75rem;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  letter-spacing: 0.01em;
+}
+.theory-start-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+/* ══════════════════════════════════════════════════════════
+   ОВЕРЛЕЙ ПРИВАТНОСТИ (показывается при скрытии вкладки)
+   ══════════════════════════════════════════════════════════ */
+#privacyOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  backdrop-filter: blur(24px) brightness(0.4);
+  -webkit-backdrop-filter: blur(24px) brightness(0.4);
+  background: rgba(10, 15, 30, 0.85);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+#privacyOverlay .po-inner {
+  text-align: center;
+  color: #f1f5f9;
+  padding: 2rem;
+}
+#privacyOverlay .po-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  animation: poPulse 2s ease-in-out infinite;
+}
+#privacyOverlay .po-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+#privacyOverlay .po-hint {
+  font-size: 0.95rem;
+  opacity: 0.6;
+}
+@keyframes poPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* push-кнопка активное состояние */
+.active-push {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  color: #f87171 !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   ДЕСКТОП БОКОВАЯ ПАНЕЛЬ (≥1024px)
+   ══════════════════════════════════════════════════════════ */
+#desktopSidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 240px;
+  z-index: 1001;
+  flex-direction: column;
+  background: rgba(3, 8, 15, 0.98);
+  border-right: 1px solid rgba(56, 189, 248, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+html:not(.dark) #desktopSidebar {
+  background: rgba(255, 255, 255, 0.98);
+  border-right: 1px solid rgba(165, 180, 252, 0.3);
+  box-shadow: 2px 0 24px rgba(99, 102, 241, 0.07);
+}
+
+.sb-logo {
+  padding: 1.5rem 1.25rem 1.1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #38bdf8, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+  margin-bottom: 0.5rem;
+}
+
+.sb-nav {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sb-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.65rem 0.875rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: #3a6480;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+  text-align: left;
+}
+.sb-item svg.lucide { width: 18px; height: 18px; flex-shrink: 0; }
+.sb-item:hover { background: rgba(56, 189, 248, 0.10); color: #7eb8d8; }
+.sb-item.sb-active { background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-weight: 600; }
+html:not(.dark) .sb-item { color: #64748b; }
+html:not(.dark) .sb-item:hover { background: rgba(99, 102, 241, 0.1); color: #4f46e5; }
+html:not(.dark) .sb-item.sb-active { background: rgba(99, 102, 241, 0.15); color: #4338ca; }
+
+.sb-bottom {
+  padding: 0.75rem;
+  border-top: 1px solid rgba(56, 189, 248, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.sb-user {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex: 1;
+  padding: 0.5rem 0.6rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.18s;
+  min-width: 0;
+}
+.sb-user:hover { background: rgba(56, 189, 248, 0.1); }
+html:not(.dark) .sb-user:hover { background: rgba(99, 102, 241, 0.08); }
+
+.sb-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sb-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.sb-username {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #dff0ff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+html:not(.dark) .sb-username { color: #1e293b; }
+.sb-profile-hint {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.sb-logout-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s;
+  flex-shrink: 0;
+}
+.sb-logout-btn:hover { background: rgba(239, 68, 68, 0.22); }
+.sb-logout-btn svg.lucide { width: 15px; height: 15px; }
+html:not(.dark) .sb-logout-btn {
+  border-color: rgba(220, 38, 38, 0.35);
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+}
+
+/* ══════════════════════════════════════════════════════════
+   ДЕСКТОП-ЛЭЙАУТ (≥900px)
+   ══════════════════════════════════════════════════════════ */
+@media (min-width: 900px) {
+  /* Sidebar — display управляется JS; CSS только скрывает верхнюю шапку */
+  #desktopNav { display: none !important; }
+
+  /* Кнопка темы — сдвигаем чуть выше, чтобы не перекрывалась */
+  #themeToggle { top: 0.65rem; right: 1rem; }
+
+  /* Весь контент сдвигаем вправо под боковую панель */
+  .page-content {
+    padding-left: 240px !important;
+    padding-top: 2rem !important;
+  }
+
+  /* Разделы: расширяем max-w-2xl */
+  #integralsSection   .max-w-2xl,
+  #derivativesSection .max-w-2xl,
+  #seriesSection         .max-w-2xl,
+  #limitsSection         .max-w-2xl,
+  #odeSection            .max-w-2xl,
+  #probabilitySection    .max-w-2xl { max-width: 780px; }
+
+  /* Теория: расширяем */
+  #theoryPage .max-w-3xl { max-width: 860px; }
+
+  /* Карточки уровней сложности — 3 колонки */
+  #integralsSection   .grid.gap-6,
+  #derivativesSection .grid.gap-6,
+  #seriesSection      .grid.gap-6,
+  #limitsSection      .grid.gap-6,
+  #odeSection         .grid.gap-6 { grid-template-columns: repeat(3, 1fr); }
+
+  /* Главная: сетка разделов — 3 колонки на десктопе */
+  #homePage .grid.max-w-6xl { grid-template-columns: repeat(3, 1fr); }
+
+  /* Тест и результаты */
+  #testPage    .max-w-4xl { max-width: 900px; }
+  #resultsPage .max-w-2xl { max-width: 860px; }
+
+  /* Главная: сетка разделов — убираем 3-колонку для старых grid.gap-6 (заменены на diff-grid) */
+  #integralsSection   .grid.gap-6,
+  #derivativesSection .grid.gap-6,
+  #seriesSection      .grid.gap-6,
+  #limitsSection      .grid.gap-6,
+  #odeSection         .grid.gap-6,
+  #probabilitySection .grid.gap-6 { grid-template-columns: unset; }
+
+  /* Статистика, рейтинг, профиль, поиск */
+  #statisticsPage .max-w-4xl,
+  #statisticsPage .max-w-3xl,
+  #statisticsPage .max-w-2xl { max-width: 980px; }
+  #leaderboardPage .max-w-4xl,
+  #leaderboardPage .max-w-3xl,
+  #leaderboardPage .max-w-2xl { max-width: 840px; }
+  #profilePage       .max-w-2xl { max-width: 840px; }
+  #searchProfilesPage .max-w-2xl { max-width: 840px; }
+  #viewProfilePage   .max-w-2xl { max-width: 840px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   БЕЗ БОКОВОЙ ПАНЕЛИ — разделы / тест / теория
+   Контент занимает полную ширину, увеличенный масштаб
+   ══════════════════════════════════════════════════════════ */
+@media (min-width: 900px) {
+  /* Убираем отступ под боковую панель */
+  body.no-sidebar .page-content {
+    padding-left: 0 !important;
+  }
+
+  /* Разделы: убрать ограничения ширины — заполнять всё пространство */
+  body.no-sidebar #integralsSection   .container,
+  body.no-sidebar #derivativesSection .container,
+  body.no-sidebar #seriesSection      .container,
+  body.no-sidebar #limitsSection      .container,
+  body.no-sidebar #odeSection         .container,
+  body.no-sidebar #probabilitySection .container { max-width: none !important; }
+
+  body.no-sidebar #integralsSection   .max-w-2xl,
+  body.no-sidebar #derivativesSection .max-w-2xl,
+  body.no-sidebar #seriesSection      .max-w-2xl,
+  body.no-sidebar #limitsSection      .max-w-2xl,
+  body.no-sidebar #odeSection         .max-w-2xl,
+  body.no-sidebar #probabilitySection .max-w-2xl { max-width: none !important; }
+
+  /* Теория (старая страница) */
+  body.no-sidebar #theoryPage .container { max-width: none !important; }
+  body.no-sidebar #theoryPage .max-w-3xl { max-width: none !important; }
+
+  /* Тест и результаты */
+  body.no-sidebar #testPage    .container { max-width: none !important; }
+  body.no-sidebar #testPage    .max-w-4xl { max-width: none !important; }
+  body.no-sidebar #resultsPage .container { max-width: none !important; }
+  body.no-sidebar #resultsPage .max-w-2xl { max-width: none !important; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   СЕКЦИЯ-ПАНЕЛЬ (замена bg-white rounded-2xl shadow-lg p-8)
+   ══════════════════════════════════════════════════════════ */
+.section-panel {
+  background: var(--bg-card);
+  border-radius: 1.25rem;
+  border: 1px solid var(--border);
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+.dark .section-panel {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.28);
+  border-color: rgba(148, 163, 184, 0.1);
+}
+.section-heading {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.015em;
+}
+.section-count-label {
+  font-weight: 600;
+  color: var(--text-sub);
+  font-size: 0.9rem;
+}
+
+/* Кнопка «Назад к разделам» */
+.page-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  padding: 0.3rem 0;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s;
+  text-decoration: none;
+}
+.page-back-btn:hover { color: var(--text-main); }
+
+/* ══════════════════════════════════════════════════════════
+   КАРТОЧКИ УРОВНЕЙ СЛОЖНОСТИ (новый tier-дизайн)
+   ══════════════════════════════════════════════════════════ */
+.diff-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 0.5rem;
+}
+
+.diff-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.15rem 1rem 1.35rem;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.diff-card:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+
+/* Левая акцент-полоса */
+.diff-tier-bar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+}
+.diff-easy   .diff-tier-bar { background: linear-gradient(180deg, #10b981, #059669); }
+.diff-medium .diff-tier-bar { background: linear-gradient(180deg, #f59e0b, #d97706); }
+.diff-hard   .diff-tier-bar { background: linear-gradient(180deg, #ef4444, #dc2626); }
+
+/* Hover-фон */
+.diff-easy:hover   { border-color: rgba(16,185,129,0.4);  background: rgba(16,185,129,0.04); }
+.diff-medium:hover { border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.04); }
+.diff-hard:hover   { border-color: rgba(239,68,68,0.4);   background: rgba(239,68,68,0.04); }
+.dark .diff-easy:hover   { background: rgba(16,185,129,0.07); }
+.dark .diff-medium:hover { background: rgba(245,158,11,0.07); }
+.dark .diff-hard:hover   { background: rgba(239,68,68,0.07); }
+
+/* Контент */
+.diff-content { flex: 1; min-width: 0; }
+.diff-header  { display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.2rem; }
+
+.diff-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.diff-label::before {
+  content: '';
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.diff-label-easy   { color: #059669; }
+.diff-label-easy::before   { background: #10b981; }
+.diff-label-medium { color: #b45309; }
+.diff-label-medium::before { background: #f59e0b; }
+.diff-label-hard   { color: #dc2626; }
+.diff-label-hard::before   { background: #ef4444; }
+.dark .diff-label-easy   { color: #34d399; }
+.dark .diff-label-medium { color: #fbbf24; }
+.dark .diff-label-hard   { color: #f87171; }
+
+.diff-pts {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 20px;
+  background: rgba(100, 116, 139, 0.1);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.diff-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.diff-btn {
+  padding: 0.45rem 1.05rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+.diff-btn-easy   { background: rgba(16,185,129,0.12);  color: #059669; }
+.diff-btn-easy:hover   { background: rgba(16,185,129,0.22); }
+.diff-btn-medium { background: rgba(245,158,11,0.12); color: #b45309; }
+.diff-btn-medium:hover { background: rgba(245,158,11,0.22); }
+.diff-btn-hard   { background: rgba(239,68,68,0.12);   color: #dc2626; }
+.diff-btn-hard:hover   { background: rgba(239,68,68,0.22); }
+.dark .diff-btn-easy   { color: #34d399; }
+.dark .diff-btn-medium { color: #fbbf24; }
+.dark .diff-btn-hard   { color: #f87171; }
+
+/* ── Режим изучения ── */
+.study-mode-wrap {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+}
+.study-mode-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 0.6rem;
+}
+.study-mode-btns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+.study-btn {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.study-btn:hover { background: rgba(100,116,139,0.1); color: var(--text-main); border-color: var(--text-muted); }
+.study-btn-easy:hover   { border-color: #10b981; color: #10b981; }
+.study-btn-medium:hover { border-color: #f59e0b; color: #f59e0b; }
+.study-btn-hard:hover   { border-color: #ef4444; color: #ef4444; }
+
+/* ══════════════════════════════════════════════════════════
+   ТЕОРИЯ ВЕРОЯТНОСТЕЙ — БРАУЗЕР ГЛАВ
+   ══════════════════════════════════════════════════════════ */
+
+/* Общий layout */
+#probabilityTheoryPage { position: relative; }
+
+.prob-theory-layout {
+  display: flex;
+  flex-direction: column;   /* мобильный: чипсы сверху, контент снизу */
+  min-height: 100vh;
+}
+@media (min-width: 760px) {
+  .prob-theory-layout {
+    flex-direction: row;    /* десктоп: sidebar слева, контент справа */
+  }
+}
+
+/* ── Боковая панель (глав) — десктоп ── */
+.prob-sidebar {
+  display: none;
+  width: 230px;
+  flex-shrink: 0;
+  padding: 1rem 0.6rem 3rem;
+  border-right: 1px solid rgba(56,189,248,0.1);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: rgba(3,8,15,0.6);
+}
+.prob-sidebar-group {
+  font-size: 0.67rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: #3a6480;
+  padding: 8px 8px 4px; margin-top: 6px;
+}
+.prob-ch-btn {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 7px 9px;
+  border-radius: 9px; border: none; background: none;
+  color: #3a6480; font-size: 0.82rem; font-weight: 500;
+  cursor: pointer; text-align: left; transition: all 0.16s;
+  font-family: 'Inter', sans-serif; line-height: 1.35;
+}
+.prob-ch-btn:hover { background: rgba(56,189,248,0.09); color: #7eb8d8; }
+.prob-ch-btn.active { background: rgba(56,189,248,0.15); color: #38bdf8; }
+.prob-ch-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 21px; height: 21px; border-radius: 6px;
+  background: #0e2236; color: #3a6480;
+  font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
+}
+.prob-ch-btn.active .prob-ch-num { background: #38bdf8; color: #03080f; }
+
+/* ── Мобильная горизонтальная навигация ── */
+.prob-mob-nav {
+  display: flex; overflow-x: auto; gap: 6px;
+  padding: 0.6rem 0.75rem;
+  background: #071525;
+  border-bottom: 1px solid rgba(56,189,248,0.1);
+  position: sticky; top: 0; z-index: 50;
+  -webkit-overflow-scrolling: touch;
+}
+body.has-back-bar .prob-mob-nav { top: 40px; }
+.prob-mob-nav::-webkit-scrollbar { height: 0; }
+.prob-mob-chip {
+  flex-shrink: 0; padding: 5px 12px; border-radius: 20px;
+  border: 1px solid rgba(56,189,248,0.15); background: none;
+  color: #3a6480; font-size: 0.77rem; cursor: pointer;
+  white-space: nowrap; font-family: 'Inter', sans-serif;
+  transition: all 0.18s;
+}
+.prob-mob-chip.active {
+  background: rgba(56,189,248,0.15);
+  border-color: rgba(56,189,248,0.4);
+  color: #38bdf8;
+}
+
+/* ── Область контента ── */
+.prob-ch-content {
+  flex: 1; min-width: 0;
+  padding: 2rem 1.25rem 5rem;
+}
+
+/* Заголовок главы */
+.prob-ch-header { margin-bottom: 2rem; }
+.prob-ch-tag {
+  display: inline-block; padding: 3px 11px; border-radius: 20px;
+  font-size: 0.72rem; font-weight: 700; margin-bottom: 0.5rem;
+}
+.prob-tag-blue   { background: rgba(59,130,246,.14); color: #93c5fd; }
+.prob-tag-green  { background: rgba(52,211,153,.14); color: #6ee7b7; }
+.prob-tag-violet { background: rgba(167,139,250,.14); color: #c4b5fd; }
+.prob-tag-amber  { background: rgba(251,191,36,.14);  color: #fcd34d; }
+.prob-tag-red    { background: rgba(248,113,113,.14); color: #fca5a5; }
+.prob-tag-cyan   { background: rgba(34,211,238,.14);  color: #67e8f9; }
+.prob-tag-rose   { background: rgba(244,63,94,.14);   color: #fda4af; }
+h1.prob-ch-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.85rem, 3.2vw, 2.6rem);
+  font-weight: 700; color: #dff0ff; line-height: 1.2; margin-bottom: 0.4rem;
+}
+.prob-ch-intro { color: #3a6480; font-size: 1.07rem; }
+
+/* ── Блоки теории (внутри prob-ch-content) ── */
+.ch-content-area .tb {
+  background: #071525; border: 1px solid rgba(56,189,248,0.11);
+  border-radius: 13px; padding: 1.7rem 2.1rem; margin-bottom: 1.7rem;
+}
+.ch-content-area .tb h2 {
+  font-size: 1.2rem; font-weight: 700; color: #dff0ff;
+  margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;
+}
+.ch-content-area .tb h3 {
+  font-size: 1.07rem; font-weight: 600; color: #a8cfe0;
+  margin: 1.1rem 0 0.5rem;
+}
+.ch-content-area .tb p {
+  color: #a8cfe0; margin-bottom: 0.75rem;
+  font-size: 1.04rem; line-height: 1.8;
+}
+.ch-content-area .tb ul,
+.ch-content-area .tb ol {
+  color: #a8cfe0; padding-left: 1.3rem; margin-bottom: 0.7rem;
+}
+.ch-content-area .tb li { margin-bottom: 0.4rem; font-size: 1.04rem; }
+.ch-content-area .tb strong { color: #dff0ff; font-weight: 600; }
+
+/* Блок определения */
+.ch-content-area .def {
+  background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.2);
+  border-left: 3px solid #34d399; border-radius: 9px;
+  padding: 1rem 1.4rem; margin: 1.1rem 0;
+}
+.ch-content-area .def b {
+  display: block; color: #6ee7b7; font-size: 0.78rem;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 0.35rem; font-weight: 700;
+}
+.ch-content-area .def p { color: #a8cfe0; margin: 0; font-size: 1.03rem; }
+
+/* Блок формулы */
+.ch-content-area .fml {
+  background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.2);
+  border-left: 3px solid #38bdf8; border-radius: 9px;
+  padding: 1.1rem 1.5rem; margin: 1.1rem 0;
+  overflow-x: auto; font-size: 1.08rem; color: #dff0ff;
+}
+
+/* Блок примера */
+.ch-content-area .ex {
+  background: rgba(251,191,36,0.05); border: 1px solid rgba(251,191,36,0.17);
+  border-left: 3px solid #fbbf24; border-radius: 9px;
+  padding: 1rem 1.4rem; margin: 1.1rem 0;
+}
+.ch-content-area .ex b {
+  display: block; color: #fcd34d; font-size: 0.78rem;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 0.45rem; font-weight: 700;
+}
+.ch-content-area .ex p {
+  color: #a8cfe0; margin-bottom: 0.45rem; font-size: 1.03rem;
+}
+.ch-content-area .ex p:last-child { margin-bottom: 0; }
+
+/* Блок заметки */
+.ch-content-area .note {
+  background: rgba(34,211,238,0.05); border: 1px solid rgba(34,211,238,0.17);
+  border-left: 3px solid #22d3ee; border-radius: 9px;
+  padding: 0.85rem 1.4rem; margin: 1.1rem 0;
+}
+.ch-content-area .note p { color: #67e8f9; margin: 0; font-size: 1.0rem; }
+
+/* Таблицы */
+.ch-content-area .ttbl {
+  width: 100%; border-collapse: collapse;
+  margin: 1rem 0; font-size: 1.0rem;
+}
+.ch-content-area .ttbl th {
+  background: #0e2236; color: #dff0ff;
+  padding: 10px 15px; text-align: left; font-weight: 600;
+}
+.ch-content-area .ttbl td {
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(56,189,248,0.1);
+  color: #a8cfe0;
+}
+.ch-content-area .ttbl tr:hover td { background: rgba(56,189,248,0.04); }
+
+/* Диаграммы Венна */
+.ch-content-area .venn-grid {
+  display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 1.2rem 0;
+}
+.ch-content-area .venn-card {
+  background: #0e2236; border: 1px solid rgba(56,189,248,0.11);
+  border-radius: 11px; padding: 1rem; text-align: center;
+  flex: 1; min-width: 150px; max-width: 200px;
+}
+.ch-content-area .venn-card svg {
+  width: 100%; max-width: 180px; height: auto; display: block; margin: 0 auto;
+}
+.ch-content-area .venn-lbl {
+  font-size: 0.83rem; font-weight: 700; color: #a8cfe0; margin-top: 0.5rem;
+}
+.ch-content-area .venn-sub { font-size: 0.72rem; color: #3a6480; margin-top: 3px; }
+
+/* Треугольник Паскаля */
+.ch-content-area .pascal {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 5px; padding: 0.6rem 0;
+}
+.ch-content-area .prow { display: flex; gap: 5px; }
+.ch-content-area .pcell {
+  width: 35px; height: 35px; display: flex;
+  align-items: center; justify-content: center;
+  border-radius: 7px; background: #0e2236; color: #a8cfe0;
+  font-size: 0.82rem; font-weight: 600;
+}
+.ch-content-area .pcell.hi { background: rgba(56,189,248,0.22); color: #38bdf8; }
+
+/* Анимация появления */
+.prob-chapter { display: none; animation: probFadeUp 0.25s ease; }
+.prob-chapter.active { display: block; }
+@keyframes probFadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Кнопка «Назад» в верхней части */
+.prob-back-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.875rem; font-weight: 500; color: #3a6480;
+  background: none; border: none; padding: 0.5rem 0 1rem;
+  cursor: pointer; font-family: inherit; transition: color 0.15s;
+}
+.prob-back-btn:hover { color: #38bdf8; }
+
+/* ── Адаптив ── */
+@media (min-width: 760px) {
+  .prob-mob-nav { display: none; }
+  .prob-sidebar { display: flex; flex-direction: column; }
+  .prob-ch-content { padding: 2rem 2.5rem 5rem; }
+}
+@media (max-width: 759px) {
+  .prob-ch-content { padding: 1rem 1rem 5rem; }
+  /* На мобильных убираем отступ от Calculus sidebar */
+  #probabilityTheoryPage.page-content { padding-left: 0 !important; }
+}
+@media (min-width: 900px) {
+  .prob-ch-content { padding: 2.5rem 3rem 5rem; }
+  #probabilityTheoryPage .prob-theory-layout { padding-top: 0; }
+}
+
+/* Десктоп-расширение для probabilityTheoryPage и sectionTheoryPage */
+@media (min-width: 900px) {
+  #probabilityTheoryPage.page-content,
+  #sectionTheoryPage.page-content {
+    padding-top: 1rem !important;
+  }
+  #probabilityTheoryPage .max-w-2xl,
+  #sectionTheoryPage .max-w-2xl { max-width: none; }
+  #sectionTheoryPage .prob-ch-content { padding: 2.5rem 3rem 5rem; }
+  #sectionTheoryPage .prob-theory-layout { padding-top: 0; }
+}
+@media (max-width: 759px) {
+  #sectionTheoryPage.page-content { padding-left: 0 !important; }
+  #sectionTheoryPage .prob-ch-content { padding: 1rem 1rem 5rem; }
+}
+@media (min-width: 760px) {
+  #sectionTheoryPage .prob-mob-nav { display: none; }
+  #sectionTheoryPage .prob-sidebar  { display: flex; flex-direction: column; }
+  #sectionTheoryPage .prob-ch-content { padding: 2rem 2.5rem 5rem; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   ТИПЫ ТЕСТА (Закрытый / Открытый)
+═══════════════════════════════════════════════════════ */
+.test-type-selector { margin-bottom: 1rem; }
+.test-type-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 0.45rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.test-type-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.test-type-btn {
+  padding: 0.42rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid rgba(56,189,248,0.18);
+  background: transparent;
+  color: var(--text-muted);
+  transition: all 0.18s;
+  font-family: inherit;
+}
+.test-type-btn:hover { border-color: rgba(56,189,248,0.45); color: #7eb8d8; }
+.test-type-btn.active {
+  background: rgba(56,189,248,0.14);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ОТКРЫТЫЙ ОТВЕТ (текстовый ввод)
+═══════════════════════════════════════════════════════ */
+.open-answer-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 520px;
+}
+.open-answer-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--input-bg);
+  color: var(--text-main);
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.open-answer-input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
+}
+.open-answer-input:disabled { opacity: 0.65; cursor: not-allowed; }
+.open-answer-btn {
+  align-self: flex-start;
+  padding: 0.6rem 1.6rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.18s, transform 0.18s;
+  box-shadow: 0 3px 12px rgba(14,165,233,0.28);
+}
+.open-answer-btn:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+.open-answer-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.open-answer-result {
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.open-correct {
+  background: rgba(16,185,129,0.12);
+  color: #34d399;
+  border: 1px solid rgba(16,185,129,0.25);
+}
+.open-wrong {
+  background: rgba(239,68,68,0.10);
+  color: #f87171;
+  border: 1px solid rgba(239,68,68,0.18);
+}
+
+/* ── Подсказка формата открытого ответа ── */
+.open-answer-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding: 0.55rem 0.9rem;
+  border-radius: 8px;
+  background: rgba(56, 189, 248, 0.07);
+  border: 1px solid rgba(56, 189, 248, 0.14);
+  line-height: 1.8;
+  flex-wrap: wrap;
+}
+.open-answer-hint b { color: var(--text-sub); }
+.open-answer-hint code {
+  font-family: 'Courier New', monospace;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 0 4px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  color: #38bdf8;
+}
+html:not(.dark) .open-answer-hint {
+  background: rgba(14, 165, 233, 0.07);
+  border-color: rgba(14, 165, 233, 0.2);
+}
+html:not(.dark) .open-answer-hint code {
+  background: rgba(14, 165, 233, 0.13);
+  color: #0284c7;
+}
+
+/* ══════════════════════════════════════════════════════════
+   ДУЭЛЬ-МОДАЛ — СВЕТЛАЯ ТЕМА
+   ══════════════════════════════════════════════════════════ */
+body.light-theme .duel-panel {
+  background: #ffffff !important;
+  border-color: rgba(139, 92, 246, 0.45) !important;
+  box-shadow: 0 20px 50px rgba(109, 40, 217, 0.14) !important;
+}
+body.light-theme .duel-panel h2 {
+  color: #1e293b !important;
+}
+body.light-theme .duel-panel p,
+body.light-theme .duel-panel [style*="color:#94a3b8"],
+body.light-theme .duel-panel [style*="color:#64748b"] {
+  color: #64748b !important;
+}
+body.light-theme .duel-panel [style*="color:#f1f5f9"],
+body.light-theme .duel-panel [style*="color:#e2e8f0"] {
+  color: #1e293b !important;
+}
+body.light-theme #duelTabsBar {
+  background: #f1f5f9 !important;
+}
+body.light-theme #duelTabJoin[style*="color:#94a3b8"] {
+  color: #64748b !important;
+}
+body.light-theme #duelCodeDisplay {
+  background: #f8fafc !important;
+  border-color: rgba(139, 92, 246, 0.4) !important;
+  color: #6d28d9 !important;
+}
+body.light-theme #inviteUsernameInput,
+body.light-theme #duelJoinInput {
+  background: #f8fafc !important;
+  color: #1e293b !important;
+  border-color: rgba(139, 92, 246, 0.35) !important;
+}
+body.light-theme #inviteUsernameInput::placeholder,
+body.light-theme #duelJoinInput::placeholder {
+  color: #94a3b8 !important;
+}
+body.light-theme .duel-panel #duelCreateStatus,
+body.light-theme .duel-panel #duelJoinStatus {
+  color: #64748b !important;
+}
+body.light-theme .duel-panel #duelLobbyMsg {
+  color: #1e293b !important;
+}
+body.light-theme .duel-panel #duelLobbyPlayers {
+  color: #64748b !important;
+}
+body.light-theme .duel-panel #duelStartCountdown {
+  color: #7c3aed !important;
+}
+body.light-theme #duelResultsTitle {
+  color: #1e293b !important;
+}
+/* duel-pick-btn в светлой теме */
+body.light-theme .duel-pick-btn {
+  color: #4f46e5 !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+body.light-theme .duel-pick-btn:hover {
+  background: rgba(99, 102, 241, 0.1) !important;
+  color: #4338ca !important;
+}
+body.light-theme .duel-pick-btn.active {
+  background: rgba(99, 102, 241, 0.15) !important;
+  border-color: #6366f1 !important;
+  color: #4338ca !important;
+}
+/* Раздел/Уровень лейблы */
+body.light-theme .duel-panel [style*="color:#64748b"] {
+  color: #64748b !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   НО-САЙДБАР: КРУПНЕЕ ШРИФТ И PADDING ДЛЯ БОЛЬШИХ ЭКРАНОВ
+   ══════════════════════════════════════════════════════════ */
+@media (min-width: 900px) {
+  body.no-sidebar .section-panel {
+    padding: 2.5rem 3rem;
+  }
+  body.no-sidebar .section-heading {
+    font-size: 2.05rem;
+  }
+  body.no-sidebar .diff-card {
+    padding: 1.1rem 1.3rem;
+  }
+  body.no-sidebar .diff-label { font-size: 1rem; }
+  body.no-sidebar .diff-sub   { font-size: 0.9rem; }
+  /* Вопрос в тесте */
+  body.no-sidebar #testPage h3.text-xl {
+    font-size: 1.3rem !important;
+  }
+  /* Заголовок теста */
+  body.no-sidebar #testTitle {
+    font-size: 1.3rem !important;
+  }
+  /* Результаты */
+  body.no-sidebar #scoreDisplay {
+    font-size: 5rem !important;
+  }
 }

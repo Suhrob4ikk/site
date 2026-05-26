@@ -125,6 +125,7 @@ function stopTimer() {
       displayQuestion();
     }
 
+<<<<<<< HEAD
    function startIntegralsTest(difficulty) {
   currentSection = 'integrals';
   const timeSelect = document.getElementById('integralsTime');
@@ -173,6 +174,36 @@ function stopTimer() {
   startTimer();
   displayQuestion();
 }
+=======
+    function startIntegralsTest(difficulty) {
+      currentSection = 'integrals';
+      const timeSelect = document.getElementById('integralsTime');
+      const selectedTime = parseInt(timeSelect.value) * 60;
+      timeRemaining = selectedTime;
+      currentDifficulty = difficulty;
+
+      let questionPool;
+      if (difficulty === 'easy') questionPool = easyIntegralsQuestions;
+      else if (difficulty === 'medium') questionPool = mediumIntegralsQuestions;
+      else if (difficulty === 'hard') questionPool = hardIntegralsQuestions;
+
+      currentTest = [...questionPool].sort(() => 0.5 - Math.random()).slice(0, Math.min(20, questionPool.length));
+      currentQuestionIndex = 0;
+      userAnswers = new Array(currentTest.length).fill(null);
+      testStartTime = Date.now();
+
+      document.getElementById('integralsSection').classList.add('hidden');
+      document.getElementById('testPage').classList.remove('hidden');
+      document.getElementById('resultsPage').classList.add('hidden');
+
+      document.getElementById('totalQuestions').textContent = currentTest.length;
+      document.getElementById('difficultyLabel').textContent = `Раздел: Интегралы, уровень: ${difficulty === 'easy' ? 'Легкий' : difficulty === 'medium' ? 'Средний' : 'Сложный'}`;
+      document.getElementById('testTitle').textContent = 'Тест: Интегралы';
+
+      startTimer();
+      displayQuestion();
+    }
+>>>>>>> 1f49e89 (Первый коммит: добавил сайт)
 
     // Функции для нового раздела "Ряды и последовательности"
     function startSeriesTest(difficulty) {
@@ -285,6 +316,7 @@ function stopTimer() {
     }
 
 function finishTest() {
+<<<<<<< HEAD
   console.log("FinishTest called for:", currentSection, currentDifficulty);
   
   // Добавим проверку на очень сложный уровень интегралов
@@ -379,6 +411,8 @@ function finishTest() {
   }
 }function finishTest() {
   console.log('Finish test function called');
+=======
+>>>>>>> 1f49e89 (Первый коммит: добавил сайт)
   stopTimer();
   
   let correctAnswers = 0;
@@ -451,7 +485,11 @@ function finishTest() {
 }
 
     // Функции для работы с статистикой
+<<<<<<< HEAD
   function saveTestResult(score, section, difficulty) {
+=======
+    function saveTestResult(score, section, difficulty) {
+>>>>>>> 1f49e89 (Первый коммит: добавил сайт)
   let statistics = JSON.parse(localStorage.getItem('mathAnalysisStatistics')) || {};
   if (!statistics[userName]) {
     statistics[userName] = {
@@ -459,9 +497,15 @@ function finishTest() {
       bestScore: 0,
       totalScore: 0,
       averageScore: 0,
+<<<<<<< HEAD
       integrals: { easy: 0, medium: 0, hard: 0, veryhard: 0, total: 0 }, // Добавлен veryhard
       derivatives: { easy: 0, medium: 0, hard: 0, total: 0 },
       series: { easy: 0, medium: 0, hard: 0, total: 0 },
+=======
+      integrals: { easy: 0, medium: 0, hard: 0, total: 0 },
+      derivatives: { easy: 0, medium: 0, hard: 0, total: 0 },
+      series: { easy: 0, medium: 0, hard: 0, total: 0 }, // Добавляем раздел series
+>>>>>>> 1f49e89 (Первый коммит: добавил сайт)
       history: []
     };
   }
@@ -476,9 +520,15 @@ function finishTest() {
   userStats[section][difficulty] = Math.max(userStats[section][difficulty], score);
   
   // Пересчитываем общий результат для раздела
+<<<<<<< HEAD
   const difficulties = ['easy', 'medium', 'hard', 'veryhard'];
   const sum = difficulties.reduce((total, diff) => total + userStats[section][diff], 0);
   userStats[section].total = Math.round(sum / difficulties.length);
+=======
+  userStats[section].total = Math.round(
+    (userStats[section].easy + userStats[section].medium + userStats[section].hard) / 3
+  );
+>>>>>>> 1f49e89 (Первый коммит: добавил сайт)
   
   userStats.history.unshift({
     date: new Date().toLocaleString(),
@@ -494,7 +544,11 @@ function finishTest() {
   }
   
   localStorage.setItem('mathAnalysisStatistics', JSON.stringify(statistics));
+<<<<<<< HEAD
 }
+=======
+} 
+>>>>>>> 1f49e89 (Первый коммит: добавил сайт)
     
     function showStatistics() {
   // Показываем страницу статистики
